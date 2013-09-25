@@ -1,0 +1,8 @@
+setup.py
+tax.py
+pytaxize/__init__.py
+pytaxize/tax.py
+pytaxize.egg-info/PKG-INFO
+pytaxize.egg-info/SOURCES.txt
+pytaxize.egg-info/dependency_links.txt
+pytaxize.egg-info/top_level.txt

@@ -1,0 +1,1 @@
+This code is released under the MIT license; please see LICENSE for more details.
