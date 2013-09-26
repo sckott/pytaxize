@@ -1,14 +1,12 @@
 import sys
 import requests
-
-def tacks():
-	print "some shit"
-
-def joke():
-    return (u'Wenn ist das Nunst\u00fcck git und Slotermeyer? Ja! ... '
-            u'Beiherhund das Oder die Flipperwaldt gersput.')
+from BeautifulSoup import BeautifulSoup
+from lxml import etree
 
 def itisPing():
+	'''
+	Ping the ITIS API
+	'''
 	r = requests.get('http://www.itis.gov/ITISWebService/services/ITISService/getDescription')
   	return r.text
 
@@ -51,3 +49,36 @@ def gniDetails(id=17802847, all_records=1):
 	url2 = ''.join(mylist)
 	out = requests.get(url2, params = {'all_records': all_records})
 	return out.json()
+
+def colChildren(name = None, id = None, format = None, start = None,
+	checklist = None, url = 'http://www.catalogueoflife.org/col/webservice'):
+	'''
+	Get downstream children from the Catalogue of Life. E.g.'s: 
+	# Basic e.g.
+	pytaxize.colChildren(name='Apis')
+	
+	# This gives many more child taxa
+	pytaxize.colChildren(name='Helianthus')
+	'''
+	if(checklist.__class__.__name__ == 'NoneType'):
+		pass
+	else:
+		checklist = str(checklist)
+		if(checklist in ['2012','2011','2010']):
+			url = url.replace("col", "".join(['annual-checklist/', checklist]))
+		else:
+			url = "http://webservice.catalogueoflife.org/annual-checklist/year/search.php"
+			url = url.replace("year", checklist)
+	
+	payload = {'name': name, 'id': id, 'format': format, 'response': "full", 'start': start}
+	out = requests.get(url, params = payload)
+	tree = etree.fromstring(out.text.encode())
+	name = tree.xpath('//child_taxa//taxon//name//text()')
+	ids = tree.xpath('//child_taxa//taxon//id//text()')
+	rank = tree.xpath('//child_taxa//taxon//rank//text()')
+	dat = []
+	for i in range(len(name)):
+		tt = {'name': name[i], 'id': ids[i], 'rank': rank[i]}
+		dat.append(tt)
+
+	return dat
