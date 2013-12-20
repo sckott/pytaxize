@@ -1,6 +1,5 @@
 import sys
 import requests
-from BeautifulSoup import BeautifulSoup as Soup
 from lxml import etree
 import pandas as pd
 import re
