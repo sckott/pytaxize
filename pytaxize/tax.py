@@ -6,6 +6,9 @@ import pandas as pd
 import re
 import json
 
+class NoResultException(Exception):
+	pass
+
 def itis_ping():
 	'''
 	Ping the ITIS API
@@ -73,8 +76,12 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
 			   'with_context': with_context, 'best_match_only': best_match_only, 'header_only': header_only, 
 			   'preferred_data_sources': preferred_data_sources}
 	out = requests.get(url, params = payload)
-	data = out.json()['data'][0]['results']
-	return data
+	result_json = out.json()
+	try:
+		data = result_json['data'][0]['results']
+		return data
+	except KeyError, IndexError:
+		raise NoResultException("GNR didn't return a result (names: %s)" % names)
 
 def gni_parse(names):
 	'''

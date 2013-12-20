@@ -7,4 +7,7 @@ setup(name='pytaxize',
     author_email='myrmecocystus@gmail.com',
     url='http://github.com/SChamberlain/pytaxize',
     packages=['pytaxize'],
+    install_requires=['requests>2.0', 
+                      'pandas>0.1', 
+                      'BeautifulSoup>3.0'],
     )
