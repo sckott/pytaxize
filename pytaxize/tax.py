@@ -165,7 +165,6 @@ def names_list(rank = 'genus', size = 10):
 
 def vascan_search(q, format='json', raw=False):
     '''
-    STILL NOT WORKING...
     Search the CANADENSYS Vascan API.
     
     :param q: Taxonomic rank, one of species, genus (default), family, order. 
@@ -188,7 +187,7 @@ def vascan_search(q, format='json', raw=False):
     print(d.prettify())
 
     # lots of names, in this case 50
-    splist = names_list(rank='species', size=50)
+    splist = pytaxize.names_list(rank='species', size=50)
     pytaxize.vascan_search(q = splist)
     '''
     if(format == 'json'):
@@ -197,23 +196,28 @@ def vascan_search(q, format='json', raw=False):
         url = "http://data.canadensys.net/vascan/api/0.1/search.xml"
 
     if(len(q) > 1):
-        pass
-        # args = paste(q, collapse='\n')
-        # tt = POST(url, body=list(q=args), multipart=FALSE)
-        # stop_for_status(tt)
-        # out = content(tt, as="text")
+        query = "\n".join(q)
+        payload = {'q': query}
+        out = requests.post(url, data=payload)
+        out.raise_for_status()
+        if(format == 'json'):
+            if(raw):
+                return out.text
+            else:
+                return out.json()
+        else:
+            return out.text
     else:
         payload = {'q': q}
         out = requests.get(url, params = payload)
         out.raise_for_status()
         if(format == 'json'):
             if(raw):
-                return out
+                return out.text
             else:
                 return out.json()
         else:
-            dat = out.text
-            return BeautifulSoup(dat, 'xml')
+            return out.text
 
 def col_children(name = None, id = None, format = None, start = None, checklist = None):
     '''
