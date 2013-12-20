@@ -5,6 +5,7 @@ from lxml import etree
 import pandas as pd
 import re
 import json
+from simplejson import JSONDecodeError
 
 class NoResultException(Exception):
     pass
@@ -115,6 +116,7 @@ def gni_search(search_term='ani*', per_page=30, page=1):
     '''
     url = 'http://gni.globalnames.org/name_strings.json'
     out = requests.get(url, params = {'search_term': search_term, 'per_page': per_page, 'page': page})
+    out.raise_for_status()
     return out.json()
 
 def gni_details(id=17802847, all_records=1):
@@ -127,7 +129,11 @@ def gni_details(id=17802847, all_records=1):
     url2 = ''.join(mylist)
     out = requests.get(url2, params = {'all_records': all_records})
     out.raise_for_status()
-    return out.json()
+    try:
+        data = out.json()
+        return data
+    except JSONDecodeError:
+        raise NoResultException("GNI didn't return a result (id: %s)" % id)
 
 def names_list(rank = 'genus', size = 10):
     '''
