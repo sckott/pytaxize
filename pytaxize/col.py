@@ -167,10 +167,6 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
             temp.append(ss)
         return temp
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
-
 def col_downstream(name = None, downto = None, format = None, start = None, checklist = None):
     '''
     :param name: The string to search for. Only exact matches found the name given 
@@ -276,3 +272,7 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
         tt = func(name[i])
         temp.append = tt
     return temp
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
