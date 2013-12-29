@@ -6,7 +6,7 @@
 pytaxize library
 ~~~~~~~~~~~~~~~~~~~~~
 
-pytaxize is a taxonomic toolkit for Python. Basic usage:
+pytaxize is a taxonomic toolkit for Python. Example usage:
 
    >>> import pytaxize
    >>> pytaxize.col_children(name=["Apis"])

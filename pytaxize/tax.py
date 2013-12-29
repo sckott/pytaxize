@@ -229,11 +229,11 @@ def gbif_parse(scientificname):
     Usage:
     >>> import pytaxize
     >>> pytaxize.gbif_parse(scientificname=['x Agropogon littoralis'])
-      authorsParsed         canonicalName  canonicalNameComplete  \
-    0          True  Agropogon littoralis  ×Agropogon littoralis
+      authorsParsed         canonicalName  canonicalNameComplete
+    0          True  Agropogon littoralis  Agropogon littoralis
 
-      canonicalNameWithMarker genusOrAbove    notho          scientificName  \
-    0   ×Agropogon littoralis    Agropogon  GENERIC  x Agropogon littoralis
+      canonicalNameWithMarker genusOrAbove    notho          scientificName
+    0   Agropogon littoralis    Agropogon  GENERIC  x Agropogon littoralis
 
       specificEpithet     type
     0      littoralis  SCINAME
@@ -241,19 +241,19 @@ def gbif_parse(scientificname):
     >>> pytaxize.gbif_parse(scientificname=['Arrhenatherum elatius var. elatius', 
                  'Secale cereale subsp. cereale', 'Secale cereale ssp. cereale',
                  'Vanessa atalanta (Linnaeus, 1758)'])
-      authorsParsed bracketAuthorship bracketYear                  canonicalName  \
+      authorsParsed bracketAuthorship bracketYear                  canonicalName
     0          True               NaN         NaN  Arrhenatherum elatius elatius
     1          True               NaN         NaN         Secale cereale cereale
     2          True               NaN         NaN         Secale cereale cereale
     3          True          Linnaeus        1758               Vanessa atalanta
 
-                    canonicalNameComplete             canonicalNameWithMarker  \
+                    canonicalNameComplete             canonicalNameWithMarker
     0  Arrhenatherum elatius var. elatius  Arrhenatherum elatius var. elatius
     1       Secale cereale subsp. cereale       Secale cereale subsp. cereale
     2       Secale cereale subsp. cereale       Secale cereale subsp. cereale
     3   Vanessa atalanta (Linnaeus, 1758)                    Vanessa atalanta
 
-        genusOrAbove infraSpecificEpithet rankMarker  \
+        genusOrAbove infraSpecificEpithet rankMarker
     0  Arrhenatherum              elatius       var.
     1         Secale              cereale     subsp.
     2         Secale              cereale     subsp.
