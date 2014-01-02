@@ -273,6 +273,112 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
         temp.append = tt
     return temp
 
+def col_search(name=None, id=None, start=None, checklist=None):
+    '''
+    Search Catalogue of Life for taxonomic IDs
+
+    :param name: The string to search for. Only exact matches found the name given 
+         will be returned, unless one or wildcards are included in the search 
+         string. An * (asterisk) character denotes a wildcard; a % (percentage) 
+       character may also be used. The name must be at least 3 characters long, 
+       not counting wildcard characters.
+    :param id: The record ID of the specific record to return (only for scientific 
+         names of species or infraspecific taxa)
+    :param start: The first record to return. If omitted, the results are returned 
+         from the first record (start=0). This is useful if the total number of 
+         results is larger than the maximum number of results returned by a single 
+         Web service query (currently the maximum number of results returned by a 
+         single query is 500 for terse queries and 50 for full queries).
+    :param checklist: The year of the checklist to query, if you want a specific 
+         year's checklist instead of the lastest as default (numeric).
+    
+    You must provide one of name or id. The other parameters (format 
+        and start) are optional.
+    
+    Usage:
+
+    # A basic example
+    pytaxize.col_search(name=["Apis"])
+    pytaxize.col_search(id=15669061)
+    
+    # Many names
+    pytaxize.col_search(name=["Apis","Puma concolor"])
+
+    # Many ids
+    pytaxize.col_search(id=[15669061,6862841])
+    
+    # An example where there is no data
+    pytaxize.col_search(id=11935941)
+
+    # Example with more than 1 result
+    pytaxize.col_search(name=['Poa'])
+    '''
+    
+    def func(x, y):
+        url = "http://www.catalogueoflife.org/col/webservice"
+        if(checklist.__class__.__name__ == 'NoneType'):
+            pass
+        else:
+            if(checklist in ['2012','2011','2010']):
+                url = re.sub("col", "annual-checklist/" + checklist, url)
+            else:
+                url = "http://www.catalogueoflife.org/annual-checklist/year/webservice"
+                url = re.sub("year", checklist, url)
+
+        payload = {'name': x, 'id': y, 'start': start}
+        out = requests.get(url, params = payload)
+        out.raise_for_status()
+        xmlparser = etree.XMLParser()
+        tt = etree.fromstring(out.content, xmlparser)
+        stuff = tt.xpath('//result')
+        outlist = []
+        for i in xrange(len(stuff)):
+            tt_ = stuff[i]
+            each = {}
+            for g in xrange(len(tt_)):
+                for e in tt_[g].iter():
+                    each.update({e.tag: e.text})
+            outlist.append(each)
+            # values = [x.text for x in tt_[:4]]
+            # tags = [x.tag for x in tt_[:4]]
+            # mydict = dict(zip(tags, values))
+        df = pd.DataFrame(outlist)
+        # tt_ = stuff[0].getchildren()
+        # res = [x.text for x in tt_[:4]]
+        return df
+
+        # tt = xmlParse(out)
+        # toget = c('id','name','rank','name_status')
+        # nodes = getNodeSet(tt, "//result", fun=xmlToList)
+        # ldply(nodes, parsecoldata)
+
+    if(id.__class__.__name__ == 'NoneType'):
+        temp = []
+        for i in xrange(len(name)):
+            temp.append(func(name[i], y=None))
+        # names(temp) = name
+    else:
+        temp = []
+        for i in xrange(len(id)):
+            temp.append(func(x=None, y=id[i]))
+        # names(temp) = id
+    return temp
+
+    def parsecoldata(x):
+        vals = x[c('id','name','rank','name_status','source_database')]
+        vals[sapply(vals, is.null)] = NA
+        names(vals) = c('id','name','rank','name_status','source_database')
+        bb = data.frame(vals, stringsAsFactors=FALSE)
+        names(bb)[4:5] = c('status','source')
+        acc = x$accepted_name
+        if(is.null(acc)):
+            accdf = data.frame(acc_id=NA, acc_name=NA, acc_rank=NA, acc_status=NA, acc_source=NA)
+        else:
+            accdf = data.frame(acc[c('id','name','rank','name_status','source_database')], stringsAsFactors=FALSE)
+            names(accdf) = c('acc_id','acc_name','acc_rank','acc_status','acc_source')
+
+        return cbind(bb, accdf)
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
