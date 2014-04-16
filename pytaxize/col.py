@@ -364,20 +364,20 @@ def col_search(name=None, id=None, start=None, checklist=None):
         # names(temp) = id
     return temp
 
-    def parsecoldata(x):
-        vals = x[c('id','name','rank','name_status','source_database')]
-        vals[sapply(vals, is.null)] = NA
-        names(vals) = c('id','name','rank','name_status','source_database')
-        bb = data.frame(vals, stringsAsFactors=FALSE)
-        names(bb)[4:5] = c('status','source')
-        acc = x$accepted_name
-        if(is.null(acc)):
-            accdf = data.frame(acc_id=NA, acc_name=NA, acc_rank=NA, acc_status=NA, acc_source=NA)
-        else:
-            accdf = data.frame(acc[c('id','name','rank','name_status','source_database')], stringsAsFactors=FALSE)
-            names(accdf) = c('acc_id','acc_name','acc_rank','acc_status','acc_source')
+    # def parsecoldata(x):
+    #     vals = x[c('id','name','rank','name_status','source_database')]
+    #     vals[sapply(vals, is.null)] = NA
+    #     names(vals) = c('id','name','rank','name_status','source_database')
+    #     bb = data.frame(vals, stringsAsFactors=FALSE)
+    #     names(bb)[4:5] = c('status','source')
+    #     acc = x$accepted_name
+    #     if(is.null(acc)):
+    #         accdf = data.frame(acc_id=NA, acc_name=NA, acc_rank=NA, acc_status=NA, acc_source=NA)
+    #     else:
+    #         accdf = data.frame(acc[c('id','name','rank','name_status','source_database')], stringsAsFactors=FALSE)
+    #         names(accdf) = c('acc_id','acc_name','acc_rank','acc_status','acc_source')
 
-        return cbind(bb, accdf)
+    #     return cbind(bb, accdf)
 
 if __name__ == "__main__":
     import doctest
