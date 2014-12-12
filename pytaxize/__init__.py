@@ -10,7 +10,7 @@ pytaxize is a taxonomic toolkit for Python. Example usage:
 
    >>> import pytaxize
    >>> pytaxize.col_children(name=["Apis"])
-   
+
    [        id                name     rank
     0  6971712  Apis andreniformis  Species
     1  6971713         Apis cerana  Species
@@ -21,7 +21,6 @@ pytaxize is a taxonomic toolkit for Python. Example usage:
     6  6971717    Apis nigrocincta  Species]
 '''
 
-from .itis import itis_ping
 from .gnr import gnr_datasources, gnr_resolve
 from .gni import gni_parse, gni_search, gni_details
 from .col import col_children, col_downstream, col_search

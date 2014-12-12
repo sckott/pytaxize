@@ -438,6 +438,106 @@ def getjurisdictionvalues(**kwargs):
     vals = [ x.text for x in out.getchildren()[0].getchildren() ]
     return pd.DataFrame(vals, columns = ['jurisdictionValues'])
 
+def getkingdomnamefromtsn(tsn, **kwargs):
+    '''
+    Get kingdom names from tsn
+
+    Usage:
+    pytaxize.getkingdomnamefromtsn(202385)
+    '''
+    out = _itisGET("getKingdomNameFromTSN", {'tsn': tsn}, **kwargs)
+    ns = {'ax21':"http://data.itis_service.itis.usgs.gov/xsd"}
+    toget = ["kingdomId","kingdomName","tsn"]
+    return _itis_parse(toget, out, ns)
+
+def getkingdomnames(**kwargs):
+    '''
+    Get all possible kingdom names
+
+    Usage:
+    pytaxize.getkingdomnames()
+    '''
+    out = _itisGET("getKingdomNames", {}, **kwargs)
+    ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
+    matches = ["kingdomId","kingdomName","tsn"]
+    return _itisdf(out, ns, matches, _tolower(matches), "ax23")
+
+def getlastchangedate(**kwargs):
+    '''
+    Provides the date the ITIS database was last updated.
+
+    Usage:
+    pytaxize.getlastchangedate()
+    '''
+    out = _itisGET("getLastChangeDate", {}, **kwargs)
+    ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
+    nodes = out.xpath("//ax23:updateDate", namespaces=ns)
+    bb = nodes[0].text
+    dt = datetime.strptime(bb.split()[0], "%Y-%m-%d")
+    return dt
+
+def getlsidfromtsn(tsn, **kwargs):
+    '''
+    Gets the unique LSID for the TSN, or an empty result if there is no match.
+
+    Usage:
+    # valid TSN
+    pytaxize.getlsidfromtsn(155166)
+    # invalid TSN, returns nothing
+    pytaxize.getlsidfromtsn(0)
+    '''
+    out = _itisGET("getLSIDFromTSN", {'tsn': tsn}, **kwargs)
+    tt = out.getchildren()[0].text
+    return tt
+
+def getothersourcesfromtsn(tsn, **kwargs):
+    '''
+    Returns a list of the other sources used for the TSN.
+
+    Usage:
+    pytaxize.getothersourcesfromtsn(182662)
+    '''
+    out = _itisGET("getOtherSourcesFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["acquisitionDate","name","referredTsn","source",
+        "sourceType","updateDate","version"]
+    return _itis_parse_2dict(toget, out, ns21)
+
+def getparenttsnfromtsn(tsn, **kwargs):
+    '''
+    Returns the parent TSN for the entered TSN.
+
+    Usage:
+    pytaxize.getparenttsnfromtsn(202385)
+    '''
+    out = _itisGET("getParentTSNFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["parentTsn","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def getpublicationsfromtsn(tsn, **kwargs):
+    '''
+    Returns a list of the pulications used for the TSN.
+
+    Usage:
+    pytaxize.getpublicationsfromtsn(70340)
+    '''
+    out = _itisGET("getPublicationsFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["actualPubDate","isbn","issn","listedPubDate","pages",
+                "pubComment","pubName","pubPlace","publisher","referenceAuthor",
+                "name","refLanguage","referredTsn","title","updateDate"]
+    return _itis_parse(toget, out, ns21)
+
+def getranknames(**kwargs):
+    '''
+    Provides a list of all the unique rank names contained in the database and
+    their kingdom and rank ID values.
+
+    Usage:
+    pytaxize.getranknames()
+    '''
+    out = _itisGET("getRankNames", {}, **kwargs)
+    matches = ["kingdomName","rankId","rankName"]
+    return _itisdf(out, ns23, matches, _tolower(matches), "ax23")
+
 ## helper functions and variables
 def convertsingle(x):
     if(x.__class__.__name__ == 'int'):
@@ -511,6 +611,13 @@ def _itis_parse(a, b, d):
     vals = [xpathfunc(x, b, d) for x in a]
     df = pd.DataFrame(dict(zip(_tolower(a), vals)))
     return df
+
+def _itis_parse_2dict(a, b, d):
+    def xpathfunc(x, y, nsp):
+        tmp = y.xpath("//ax21:"+x, namespaces=nsp)
+        return [x.text for x in tmp]
+    vals = [xpathfunc(x, b, d) for x in a]
+    return dict(zip(a, vals))
 
 def _get_text(y):
     vals = [x.text for x in y]
