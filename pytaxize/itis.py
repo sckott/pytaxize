@@ -148,7 +148,7 @@ def getcurrencyfromtsn(tsn, **kwargs):
     '''
     out = _itisGET("getCurrencyFromTSN", {'tsn': tsn}, **kwargs)
     matches = ["rankId","taxonCurrency","tsn"]
-    df = _itisdf(out, ns21, matches, tolower(matches))
+    df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
 
 def getdatedatafromtsn(tsn, **kwargs):
@@ -159,7 +159,7 @@ def getdatedatafromtsn(tsn, **kwargs):
     '''
     out = _itisGET("getDateDataFromTSN", {'tsn': tsn}, **kwargs)
     matches = ["initialTimeStamp","updateDate","tsn"]
-    df = _itisdf(out, ns21, matches, tolower(matches))
+    df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
 
 def getexpertsfromtsn(tsn, **kwargs):
@@ -302,35 +302,35 @@ def gethierarchyupfromtsn(tsn, **kwargs):
     df = _parse2df(tt, ns)
     return df
 
-def _itisterms(endpt, args, **kwargs):
+def _itisterms(endpt, args={}, **kwargs):
+    '''
+    Get itis terms
+    Usage:
+    pytaxize._itisterms(x="buya")
+    '''
     out = _itisGET(endpt, args, **kwargs)
 
     nodes = out.xpath("//ax21:itisTerms", namespaces=ns21)
     nodes2 = [x.getchildren() for x in nodes]
-    allnodes =
-        [[_get_text_single(y) for y in x] for x in nodes2]
+    allnodes = [[_get_text_single(y) for y in x] for x in nodes2]
 
-    for x in nodes2:
-        stuff = []
-        for y in x:
-            stuff.append(_get_text_single(y))
-        kyz = [x.keys()[0] for x in stuff]
-        notuniq = set([x for x in kyz if kyz.count(x) > 1])
+    output = []
+    for x in allnodes:
+        kyz = [y.keys()[0] for y in x]
+        notuniq = set([v for v in kyz if kyz.count(v) > 1])
         if len(notuniq) > 0:
             for z in notuniq:
-                z
-        return tmp
+                tt = ','.join([ m.values()[0] for m in x if m.keys()[0] == z ])
+                toadd = { z: tt }
+                uu = [ v for v in x if v.keys()[0] not in z ]
+                uu.append(toadd)
+            output.append(uu)
+        else:
+            output.append(x)
 
-    gg = getNodeSet(out, "//ax21:itisTerms", namespaces=ns21, xmlToList)
-    tmp = do.call(rbind.fill, lapply(gg, function(x) data.frame(x)))
-    names(tmp) = tolower(names(tmp))
-    row.names(tmp) = NULL
-    if(nrow(tmp)==1 && names(tmp)=="x"):
-      NA
-    else:
-      tmp$commonnames = gsub("true", NA, as.character(tmp$commonnames))
-      tmp$.attrs = as.character(tmp$.attrs)
-    return tmp
+    df = pd.concat([pd.DataFrame([y.values()[0] for y in x]).transpose() for x in output])
+    df.columns = [x.keys()[0] for x in allnodes[0]]
+    return df
 
 def _get_text_single(x):
     val = [x.text]
@@ -345,28 +345,18 @@ def getitistermsfromcommonname(x, **kwargs):
     '''
     Get itis terms from common names
     Usage:
-    pytaxize.getitistermsfromcommonname(x="buya")
+    pytaxize.getitistermsfromcommonname("buya")
     '''
-    return _itisterms(endpt="getITISTermsFromCommonName", args={'srchKey': x}, **kwargs))
+    return _itisterms(endpt="getITISTermsFromCommonName", args={'srchKey': x}, **kwargs)
 
 def getitisterms(x, **kwargs):
     '''
-    Get itis terms from common names
+    Get itis terms
     Usage:
+    # fails
     pytaxize.getitisterms("bear")
     '''
-    out = _itisGET("getITISTerms", {'srchKey': x}, **kwargs)
-    gg = getNodeSet(out, "//ax21:itisTerms", namespaces=ns21, xmlToList)
-    tmp = do.call(rbind.fill, lapply(gg, function(x) data.frame(x)))
-    names(tmp) = tolower(names(tmp))
-    row.names(tmp) = NULL
-    if(nrow(tmp)==1 && names(tmp)=="x"):
-        NA
-    else:
-        tmp$commonnames = gsub("true", NA, as.character(tmp$commonnames))
-        tmp$.attrs = as.character(tmp$.attrs)
-        tmp
-    return df
+    return _itisterms(endpt="getITISTerms", args={'srchKey': x}, **kwargs)
 
 def getitistermsfromscientificname(x, **kwargs):
     '''
@@ -375,18 +365,7 @@ def getitistermsfromscientificname(x, **kwargs):
     pytaxize.getitistermsfromscientificname("ursidae")
     pytaxize.getitistermsfromscientificname("Ursus")
     '''
-    out = _itisGET("getITISTermsFromScientificName", {'srchKey': x}, **kwargs)
-    gg = getNodeSet(out, "//ax21:itisTerms", namespaces = ns21, xmlToList)
-    tmp = do.call(rbind.fill, lapply(gg, function(x) data.frame(x)))
-    names(tmp) = tolower(names(tmp))
-    row.names(tmp) = NULL
-    if (nrow(tmp) == 1 && names(tmp) == "x"):
-        NA
-    else:
-        tmp$commonnames = gsub("true", NA, as.character(tmp$commonnames))
-        tmp$.attrs = as.character(tmp$.attrs)
-        tmp
-    return df
+    return _itisterms(endpt="getITISTermsFromScientificName", args={'srchKey': x}, **kwargs)
 
 def itis_hierarchy(tsn=None, what="full"):
     '''
@@ -426,6 +405,40 @@ def itis_hierarchy(tsn=None, what="full"):
             temp.append(gethierarchydownfromtsn(tsn2[i]))
     return temp
 
+def getjurisdictionaloriginfromtsn(tsn, **kwargs):
+    '''
+    Get jurisdictional origin from tsn
+    Usage:
+    pytaxize.getjurisdictionaloriginfromtsn(180543)
+    '''
+    out = _itisGET("getJurisdictionalOriginFromTSN", {'tsn': tsn}, **kwargs)
+    ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
+    toget = ["jurisdictionValue","origin","updateDate"]
+    return _itis_parse(toget, out, ns)
+
+def getjurisdictionoriginvalues(**kwargs):
+    '''
+    Get jurisdiction origin values
+    Usage:
+    pytaxize.getjurisdictionoriginvalues()
+    '''
+    out = _itisGET("getJurisdictionalOriginValues", {}, **kwargs)
+    ns = {'ax23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
+    matches = ["jurisdiction","origin"]
+    return _itisdf(out, ns, matches, matches, "ax23")
+
+def getjurisdictionvalues(**kwargs):
+    '''
+    Get possible jurisdiction values
+    Usage:
+    pytaxize.getjurisdictionvalues()
+    '''
+    out = _itisGET("getJurisdictionValues", {}, **kwargs)
+    ns = {'x23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
+    vals = [ x.text for x in out.getchildren()[0].getchildren() ]
+    return pd.DataFrame(vals, columns = ['jurisdictionValues'])
+
+## helper functions and variables
 def convertsingle(x):
     if(x.__class__.__name__ == 'int'):
         return [x]
@@ -496,7 +509,7 @@ def _itis_parse(a, b, d):
         tmp = y.xpath("//ax21:"+x, namespaces=nsp)
         return [x.text for x in tmp]
     vals = [xpathfunc(x, b, d) for x in a]
-    df = pd.DataFrame(dict(zip(tolower(a), vals)))
+    df = pd.DataFrame(dict(zip(_tolower(a), vals)))
     return df
 
 def _get_text(y):
