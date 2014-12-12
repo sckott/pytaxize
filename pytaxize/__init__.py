@@ -27,3 +27,4 @@ from .gni import gni_parse, gni_search, gni_details
 from .col import col_children, col_downstream, col_search
 from .tax import names_list, vascan_search, gbif_parse, scrapenames
 from .ids import Ids
+from .ubio import ubio_search
