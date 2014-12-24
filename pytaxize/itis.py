@@ -488,6 +488,10 @@ def getlsidfromtsn(tsn, **kwargs):
     '''
     out = _itisGET("getLSIDFromTSN", {'tsn': tsn}, **kwargs)
     tt = out.getchildren()[0].text
+    if tt is None:
+        tt = "no match"
+    else:
+        pass
     return tt
 
 def getothersourcesfromtsn(tsn, **kwargs):
@@ -537,6 +541,246 @@ def getranknames(**kwargs):
     out = _itisGET("getRankNames", {}, **kwargs)
     matches = ["kingdomName","rankId","rankName"]
     return _itisdf(out, ns23, matches, _tolower(matches), "ax23")
+
+def getrecordfromlsid(lsid, **kwargs):
+    '''
+    Gets the partial ITIS record for the TSN in the LSID, found by comparing the
+    TSN in the search key to the TSN field. Returns an empty result set if
+    there is no match or the TSN is invalid.
+
+    Usage:
+    pytaxize.getrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
+    '''
+    out = _itisGET("getRecordFromLSID", {'lsid': lsid}, **kwargs)
+    toget = ["authorship","genusPart","infragenericEpithet",
+            "infraspecificEpithet","lsid","nameComplete","nomenclaturalCode",
+            "rank","rankString","specificEpithet","uninomial","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def getreviewyearfromtsn(tsn, **kwargs):
+    '''
+    Returns the review year for the TSN.
+
+    Usage:
+    pytaxize.getreviewyearfromtsn(180541)
+    '''
+    out = _itisGET("getReviewYearFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["rankId","reviewYear","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def getscientificnamefromtsn(tsn, **kwargs):
+    '''
+    Returns the scientific name for the TSN. Also returns the component parts
+    (names and indicators) of the scientific name.
+
+    Usage:
+    pytaxize.getscientificnamefromtsn(531894)
+    '''
+    out = _itisGET("getScientificNameFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["combinedName","unitInd1","unitInd3","unitName1","unitName2",
+            "unitName3","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+# def getsynonymnamesfromtsn(tsn, **kwargs):
+#     '''
+#     Returns a list of the synonyms (if any) for the TSN.
+
+#     Usage:
+#     pytaxize.getsynonymnamesfromtsn(183671) # tsn not accepted
+#     pytaxize.getsynonymnamesfromtsn(526852) # tsn accepted
+#     '''
+#     out = _itisGET("getSynonymNamesFromTSN", {'tsn': tsn}, **kwargs)
+#     if len(sapply(nodes, xmlValue)) == 0):
+#         name = list("nomatch")
+#     else:
+#         name = sapply(nodes, xmlValue)
+#     nodes = getNodeSet(out, "//ax21:tsn", namespaces=ns21)
+
+#     if len(sapply(nodes, xmlValue)) == 1):
+#         tsn = sapply(nodes, xmlValue)
+#     else:
+#       tsn = sapply(nodes, xmlValue)
+#       tsn = tsn[-1]
+#     data.frame(name=name, tsn=tsn, stringsAsFactors = FALSE)
+
+def gettaxonauthorshipfromtsn(tsn, **kwargs):
+    '''
+    Returns the author information for the TSN.
+
+    Usage:
+    pytaxize.gettaxonauthorshipfromtsn(183671)
+    '''
+    out = _itisGET("getTaxonAuthorshipFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["authorship","updateDate","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def gettaxonomicranknamefromtsn(tsn, **kwargs):
+    '''
+    Returns the kingdom and rank information for the TSN.
+
+    Usage:
+    pytaxize.gettaxonomicranknamefromtsn(202385)
+    '''
+    out = _itisGET("getTaxonomicRankNameFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["kingdomId","kingdomName","rankId","rankName","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def gettaxonomicusagefromtsn(tsn, **kwargs):
+    '''
+    Returns the usage information for the TSN.
+
+    Usage:
+    pytaxize.gettaxonomicusagefromtsn(526852)
+    '''
+    out = _itisGET("getTaxonomicUsageFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["taxonUsageRating","tsn"]
+    return _itis_parse(toget, out, ns21)
+
+def gettsnbyvernacularlanguage(language, **kwargs):
+    '''
+    Get tsn by vernacular language not the international language code (character)
+
+    Usage:
+    pytaxize.gettsnbyvernacularlanguage("french")
+    '''
+    out = _itisGET("getTsnByVernacularLanguage", {'language': language}, **kwargs)
+    matches = ["commonName","language","tsn"]
+    return _itisdf(out, ns21, matches, _tolower(matches))
+
+def gettsnfromlsid(lsid, **kwargs):
+    '''
+    Gets the TSN corresponding to the LSID, or an empty result if there is no match.
+
+    Usage:
+    pytaxize.gettsnfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:28726")
+    pytaxize.gettsnfromlsid("urn:lsid:itis.gov:itis_tsn:0")
+    '''
+    out = _itisGET("getTSNFromLSID", {'lsid': lsid}, **kwargs)
+    tt = out.getchildren()[0].text
+    if tt is None:
+        tt = "no match"
+    else:
+        pass
+    return tt
+
+def getunacceptabilityreasonfromtsn(tsn, **kwargs):
+    '''
+    Returns the unacceptability reason, if any, for the TSN.
+
+    Usage:
+    pytaxize.getunacceptabilityreasonfromtsn(183671)
+    '''
+    out = _itisGET("getUnacceptabilityReasonFromTSN", {'tsn': tsn}, **kwargs)
+    toget = ["tsn","unacceptReason"]
+    return _itis_parse(toget, out, ns21)
+
+def getvernacularlanguages(**kwargs):
+    '''
+    Provides a list of the unique languages used in the vernacular table.
+
+    Usage:
+    pytaxize.getvernacularlanguages()
+    '''
+    out = _itisGET("getVernacularLanguages", {}, **kwargs)
+    matches = ["languageNames"]
+    return _itisdf(out, ns23, matches, _tolower(matches), "ax23")
+
+def searchbycommonname(x, **kwargs):
+    '''
+    Search for tsn by common name
+    Usage:
+    pytaxize.searchbycommonname(x="american bullfrog")
+    pytaxize.searchbycommonname("ferret-badger")
+    pytaxize.searchbycommonname("polar bear")
+    '''
+    out = _itisGET("searchByCommonName", {'srchKey': x}, **kwargs)
+    matches = ["commonName","language","tsn"]
+    tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
+    return _itisdf(tmp[0], ns21, matches, _tolower(matches))
+
+def searchbycommonnamebeginswith(x, **kwargs):
+    '''
+    Search for tsn by common name beginning with
+
+    Usage:
+    pytaxize.searchbycommonnamebeginswith("inch")
+    '''
+    out = _itisGET("searchByCommonNameBeginsWith", {'srchKey': x}, **kwargs)
+    matches = ["commonName","language","tsn"]
+    tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
+    return _itisdf(tmp[0], ns21, matches, _tolower(matches))
+
+def searchbycommonnameendswith(x, **kwargs):
+    '''
+    Search for tsn by common name ending with
+
+    Usage:
+    pytaxize.searchbycommonnameendswith("snake")
+    '''
+    out = _itisGET("searchByCommonNameEndsWith", {'srchKey': x}, **kwargs)
+    matches = ["commonName","language","tsn"]
+    tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
+    return _itisdf(tmp[0], ns21, matches, _tolower(matches))
+
+def itis_searchcommon(x, which = "begin", **kwargs):
+    '''
+    Searches common name and acts as thin wrapper around
+    `searchbycommonnamebeginswith` and `searchbycommonnameendswith`
+
+    pytaxize.itis_searchcommon("inch")
+    pytaxize.itis_searchcommon("inch", which = "end")
+    '''
+    if which == "begin":
+        return searchbycommonnamebeginswith(x, **kwargs)
+    else:
+        return searchbycommonnameendswith(x, **kwargs)
+
+def searchbyscientificname(x, **kwargs):
+    '''
+    Search by scientific name
+
+    Usage:
+    pytaxize.searchbyscientificname(x="Tardigrada")
+    pytaxize.searchbyscientificname("Quercus douglasii")
+    '''
+    out = _itisGET("searchByScientificName", {'srchKey': x}, **kwargs)
+    matches = ["combinedName","tsn"]
+    return _itisdf(out, ns21, matches, _tolower(matches))
+
+def searchforanymatch(x, **kwargs):
+    '''
+    Search for any match
+
+    pytaxize.searchforanymatch(x=202385)
+    pytaxize.searchforanymatch(x="dolphin")
+    '''
+    out = _itisGET("searchForAnyMatch", {'srchKey': x}, **kwargs)
+    # if isinstance(x, basestring):
+    tmp = out.getchildren()[0].getchildren()
+    output = []
+    for v in tmp:
+        tmp = v.getchildren()
+        for w in tmp:
+            output.append(dict(zip([gettag(e) for e in w.iter()], [e.text for e in w.iter()])))
+    return output
+
+def searchforanymatchpaged(x, pagesize, pagenum, ascend, **kwargs):
+    '''
+    Search for any matched page for descending (logical)
+
+    Usage:
+    pytaxize.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)
+    pytaxize.searchforanymatchpaged("Zy", pagesize=100, pagenum=1, ascend=False)
+    '''
+    args = {'srchKey':x, 'pageSize':pagesize, 'pageNum':pagenum, 'ascend':ascend}
+    out = _itisGET("searchForAnyMatchPaged", args, **kwargs)
+    tmp = out.getchildren()[0].getchildren()
+    output = []
+    for v in tmp:
+        tmp = v.getchildren()
+        for w in tmp:
+            output.append(dict(zip([gettag(e) for e in w.iter()], [e.text for e in w.iter()])))
+    return output
 
 ## helper functions and variables
 def convertsingle(x):
@@ -632,6 +876,8 @@ def _get_text_single(x):
 def _tolower(y):
     return [x.lower() for x in y]
 
+def gettag(y):
+    return y.tag.split('}')[1]
 
 if __name__ == "__main__":
     import doctest
