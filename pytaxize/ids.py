@@ -1,5 +1,5 @@
 import sys
-import col
+import .col
 
 class Ids(object):
     '''
