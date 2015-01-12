@@ -5,6 +5,7 @@ import pandas as pd
 import re
 import json
 from simplejson import JSONDecodeError
+from pkg_resources import resource_filename
 
 class NoResultException(Exception):
     pass
@@ -12,8 +13,8 @@ class NoResultException(Exception):
 def names_list(rank = 'genus', size = 10):
     '''
     Get a random vector of species names.
-    
-    :param rank: Taxonomic rank, one of species, genus (default), family, order. 
+
+    :param rank: Taxonomic rank, one of species, genus (default), family, order.
     :param size: Number of names to get. Maximum depends on the rank.
 
     Usage:
@@ -87,19 +88,20 @@ def names_list(rank = 'genus', size = 10):
      'Ruppiales']
     '''
     if(rank == 'species'):
-        dat = pd.read_csv("plantNames.csv", header=False)
+        pnpath = resource_filename(__name__, 'pytaxize/data/plantNames.csv')
+        dat = pd.read_csv(pnpath, header=False)
         dat2 = dat['names'][:size]
         return [x for x in dat2]
     if(rank == 'genus'):
-        dat = pd.read_csv("plantGenusNames.csv", header=False)
+        dat = pd.read_csv("../data/plantGenusNames.csv", header=False)
         dat2 = dat['names'][:size]
         return [x for x in dat2]
     if(rank == 'family'):
-        dat = pd.read_csv("apg_families.csv", header=False)
+        dat = pd.read_csv("../data/apg_families.csv", header=False)
         dat2 = dat['this'][:size]
         return [x for x in dat2]
     if(rank == 'order'):
-        dat = pd.read_csv("apg_orders.csv", header=False)
+        dat = pd.read_csv("../data/apg_orders.csv", header=False)
         dat2 = dat['this'][:size]
         return [x for x in dat2]
     else:
@@ -108,8 +110,8 @@ def names_list(rank = 'genus', size = 10):
 def vascan_search(q, format='json', raw=False):
     '''
     Search the CANADENSYS Vascan API.
-    
-    :param q: Taxonomic rank, one of species, genus (default), family, order. 
+
+    :param q: Taxonomic rank, one of species, genus (default), family, order.
     :param format: Number of names to get. Maximum depends on the rank.
     :param raw: Raw data or not (default)
     :param callopts: Further args passed to request
@@ -218,14 +220,14 @@ def gbif_parse(scientificname):
     Parse taxon names using the GBIF name parser.
 
     :param scientificname: A character vector of scientific names.
-    Returns a DataFrame containing fields extracted from parsed 
+    Returns a DataFrame containing fields extracted from parsed
     taxon names. Fields returned are the union of fields extracted from
     all species names in scientificname
 
     Author John Baumgartner (johnbb@@student.unimelb.edu.au)
-    References http://dev.gbif.org/wiki/display/POR/Webservice+API, 
+    References http://dev.gbif.org/wiki/display/POR/Webservice+API,
     http://tools.gbif.org/nameparser/api.do
-    
+
     Usage:
     >>> import pytaxize
     >>> pytaxize.gbif_parse(scientificname=['x Agropogon littoralis'])
@@ -238,7 +240,7 @@ def gbif_parse(scientificname):
       specificEpithet     type
     0      littoralis  SCINAME
 
-    >>> pytaxize.gbif_parse(scientificname=['Arrhenatherum elatius var. elatius', 
+    >>> pytaxize.gbif_parse(scientificname=['Arrhenatherum elatius var. elatius',
                  'Secale cereale subsp. cereale', 'Secale cereale ssp. cereale',
                  'Vanessa atalanta (Linnaeus, 1758)'])
       authorsParsed bracketAuthorship bracketYear                  canonicalName
@@ -272,33 +274,33 @@ def gbif_parse(scientificname):
     res = pd.DataFrame(tt.json())
     return res
 
-def scrapenames(url = None, file = None, text = None, engine = None, 
+def scrapenames(url = None, file = None, text = None, engine = None,
   unique = None, verbatim = None, detect_language = None, all_data_sources = None,
   data_source_ids = None):
   '''
   Resolve names using Global Names Recognition and Discovery.
 
-  Uses the Global Names Recognition and Discovery service, see 
+  Uses the Global Names Recognition and Discovery service, see
   http://gnrd.globalnames.org/.
 
-  :param url: An encoded URL for a web page, PDF, Microsoft Office document, or 
+  :param url: An encoded URL for a web page, PDF, Microsoft Office document, or
      image file, see examples
   :param file: When using multipart/form-data as the content-type, a file may be sent.
      This should be a path to your file on your machine.
-  :param text: Type: string. Text content; best used with a POST request, see 
+  :param text: Type: string. Text content; best used with a POST request, see
      examples
-  :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder, 
+  :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
      2 for NetiNeti, or 0 for both. If absent, both engines are used.
-  :param unique: (optional) Type: boolean. If TRUE (default), 
-     response has unique names without offsets.  
-  :param verbatim: (optional) Type: boolean, If TRUE (default to FALSE), 
-     response excludes verbatim strings. 
-  :param detect_language: (optional) Type: boolean, When 
-     TRUE (default), NetiNeti is not used if the language of incoming text is 
-     determined not to be English. When 'false', NetiNeti will be used if requested. 
-  :param all_data_sources: (optional) Type: bolean. Resolve found 
-     names against all available Data Sources. 
-  :param data_source_ids: (optional) Type: string. Pipe separated list of data 
+  :param unique: (optional) Type: boolean. If TRUE (default),
+     response has unique names without offsets.
+  :param verbatim: (optional) Type: boolean, If TRUE (default to FALSE),
+     response excludes verbatim strings.
+  :param detect_language: (optional) Type: boolean, When
+     TRUE (default), NetiNeti is not used if the language of incoming text is
+     determined not to be English. When 'false', NetiNeti will be used if requested.
+  :param all_data_sources: (optional) Type: bolean. Resolve found
+     names against all available Data Sources.
+  :param data_source_ids: (optional) Type: string. Pipe separated list of data
      source ids to resolve found names against. See list of Data Sources.
 
   Usage:
@@ -313,7 +315,7 @@ def scrapenames(url = None, file = None, text = None, engine = None,
   out['meta'] # metadata
 
   # With arguments
-  pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', 
+  pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf',
   unique=TRUE)
   pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=TRUE)
 
@@ -327,9 +329,9 @@ def scrapenames(url = None, file = None, text = None, engine = None,
 
   base = "http://gnrd.globalnames.org/name_finder.json"
   payload = {'url':url, 'text':text, 'engine':engine, 'unique':unique,
-             'verbatim':verbatim, 'detect_language':detect_language, 
+             'verbatim':verbatim, 'detect_language':detect_language,
              'all_data_sources':all_data_sources, 'data_source_ids':data_source_ids}
-  
+
   ss = []
   for i in range(len(method.keys())):
     ss.append(method.keys()[i] in ['url','text'])
