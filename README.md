@@ -25,6 +25,5 @@ This code is released under the MIT license; please see LICENSE for more details
 ### To do
 
 * __Tests:__ Some tests have been written, make sure there are proper tests set up.
-* 
-* asdf
-* asdf
+* Make compatible with Python 2 and 3
+* Most functions in the R library `taxize` are still not here yet...
