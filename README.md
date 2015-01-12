@@ -5,6 +5,10 @@ This is a port of the R package `taxize`, found at [ropensci/taxize](https://git
 
 Why?  A significant advantage of a Python version of `taxize` will be for those that are pythonistas at heart. Also, you could use `pytaxize` in a web app, whereas you could with `taxize` (e.g., in a Shiny app), but it wouldn't scale, be very fast, etc.
 
+### python 2/3
+
+I usually use Python `2.x` locally, but I've just been working on making `pytaxize` compatible with `2.x` and `3.x`. Please let me know if anything is broken on either version. 
+
 ### Installation
 
 ```
@@ -17,6 +21,19 @@ import pytaxize
 ```
 
 ### Usage
+
+### Taxonomic Ids
+
+I've started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What's available right now is just getting COL ids. 
+
+```python
+res = pytaxize.Ids('Poa annua', db='col')
+res.get_colid()
+```
+
+```python
+[19275187]
+```
 
 #### Vascan search
 
