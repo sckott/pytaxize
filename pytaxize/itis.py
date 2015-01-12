@@ -395,13 +395,13 @@ def itis_hierarchy(tsn=None, what="full"):
     tsn2 = convertsingle(tsn)
     temp = []
     if(what == 'full'):
-        for i in xrange(len(tsn2)):
+        for i in range(len(tsn2)):
             temp.append(getfullhierarchyfromtsn(tsn2[i]))
     elif(what == 'up'):
-        for i in xrange(len(tsn2)):
+        for i in range(len(tsn2)):
             temp.append(gethierarchyupfromtsn(tsn2[i]))
     else:
-        for i in xrange(len(tsn2)):
+        for i in range(len(tsn2)):
             temp.append(gethierarchydownfromtsn(tsn2[i]))
     return temp
 
@@ -815,7 +815,7 @@ def _parse_nodes(obj):
 def _parse_hier(obj, ns):
     nodes = obj.xpath('//ax21:hierarchyList', namespaces=ns)
     uu = []
-    for i in xrange(len(nodes)):
+    for i in range(len(nodes)):
         uu.append([x.text for x in nodes[i]])
     df = pd.DataFrame(uu, columns=['tsn','author','parentName','parentTsn','rankName','taxonName'])
     df = df.drop('author', axis=1)

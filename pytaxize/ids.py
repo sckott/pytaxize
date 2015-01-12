@@ -66,7 +66,7 @@ class Ids(object):
 
       sciname = converter(sciname)
       out = []
-      for i in xrange(len(sciname)):
+      for i in range(len(sciname)):
         out.append(fun(sciname[i], ask, verbose))
 
       return out

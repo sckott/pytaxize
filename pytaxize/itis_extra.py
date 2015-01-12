@@ -44,7 +44,7 @@
 #         tt = pytaxize.gethierarchydownfromtsn(temp['tsn'])
 
 #         names = []
-#         for i in xrange(len(tt['tsn'])):
+#         for i in range(len(tt['tsn'])):
 #             d = pytaxize.gettaxonomicranknamefromtsn(tt['tsn'][i])
 #             names.append(d)
 #         names2 = pd.DataFrame(names)
