@@ -1,5 +1,5 @@
 import sys
-import col as col
+from pytaxize import col
 
 class Ids(object):
     '''
