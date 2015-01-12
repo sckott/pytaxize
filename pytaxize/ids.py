@@ -1,5 +1,5 @@
 import sys
-from col import *
+import col as col
 
 class Ids(object):
     '''
@@ -26,7 +26,7 @@ class Ids(object):
       sciname = self.name
       def fun(sciname, ask, verbose):
         sciname = [sciname]
-        df = col_search(name=sciname)
+        df = col.col_search(name=sciname)
 
         if(df[0].shape[0] == 0):
           sys.exit("Retrieving data for taxon '" + sciname + "'")
