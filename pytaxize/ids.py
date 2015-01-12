@@ -46,8 +46,7 @@ class Ids(object):
             if(ask==True):
                 print("\nMore than one eolid found for taxon '" + sciname[0] + "'\n")
                 print(df)
-                take = raw_input("\n Enter rownumber of taxon:\n\n")
-                # take = raw_input("Enter rownumber of taxon: ")
+                take = input("\n Enter rownumber of taxon:\n\n")
 
                 if(len(str(take)) == 0):
                     take = 'notake'
