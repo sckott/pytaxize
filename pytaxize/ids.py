@@ -64,6 +64,7 @@ class Ids(object):
                 id = 'none'
         return id
 
+      sciname = converter(sciname)
       out = []
       for i in xrange(len(sciname)):
         out.append(fun(sciname[i], ask, verbose))
@@ -72,3 +73,9 @@ class Ids(object):
 
     def getcolurl(self):
       return self.name + 'Boo'
+
+def converter(x):
+    if(x.__class__.__name__ == 'str'):
+        return [x]
+    else:
+        return x
