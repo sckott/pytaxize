@@ -44,8 +44,8 @@ class Ids(object):
         # more than one found on col -> user input
         if(len(id) > 1):
             if(ask==True):
-                print "\nMore than one eolid found for taxon '" + sciname[0] + "'\n"
-                print df
+                print("\nMore than one eolid found for taxon '" + sciname[0] + "'\n")
+                print(df)
                 take = raw_input("\n Enter rownumber of taxon:\n\n")
                 # take = raw_input("Enter rownumber of taxon: ")
 
@@ -55,11 +55,11 @@ class Ids(object):
                     pass
                 if(int(take) in range(df.shape[0])):
                     take = int(take)
-                    print "Input accepted, took eolid '" + df['colid'][take] + "'.\n"
+                    print("Input accepted, took eolid '" + df['colid'][take] + "'.\n")
                     id = int(df['colid'][take])
                 else:
                     id = 'none'
-                    print "\nReturned 'none'!\n\n"
+                    print("\nReturned 'none'!\n\n")
             else:
                 id = 'none'
         return id
