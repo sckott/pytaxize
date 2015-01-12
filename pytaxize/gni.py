@@ -9,10 +9,10 @@ class NoResultException(Exception):
 def gni_parse(names):
     '''
     Uses the Global Names Index to parse scientific names
-    
+
     :param names: List of scientific names.
 
-    Usage: 
+    Usage:
     >>> import pytaxize
     >>> pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
     [{u'scientificName': {u'canonical': u'Cyanistes caeruleus',
@@ -50,7 +50,7 @@ def gni_search(search_term='ani*', per_page=30, page=1):
     :param per_page: Items to return per page
     :param page: Page to return
 
-    Usage: 
+    Usage:
     >>> import pytaxize
     >>> pytaxize.gni_search(search_term = 'ani*')
     '''
@@ -61,7 +61,7 @@ def gni_search(search_term='ani*', per_page=30, page=1):
 
 def gni_details(id=17802847, all_records=1):
     '''
-    Usage: 
+    Usage:
     >>> import pytaxize
     >>> pytaxize.gni_details(id = 17802847)
     {u'data': [{u'data_source': {u'created_at': u'2009/08/14 18:56:01 +0000',
@@ -110,7 +110,7 @@ def gni_details(id=17802847, all_records=1):
     try:
         data = out.json()
         return data
-    except JSONDecodeError:
+    except (JSONDecodeError):
         raise NoResultException("GNI didn't return a result (id: %s)" % id)
 
 if __name__ == "__main__":
