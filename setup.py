@@ -8,6 +8,7 @@ setup(name='pytaxize',
   url='http://github.com/sckott/pytaxize',
   packages=['pytaxize'],
   install_requires=['requests>2.0',
-                    'pandas>0.1'],
+                    'pandas>0.1',
+                    'lxml'],
   package_data={'pytaxize': ['data/*.csv']},
 )

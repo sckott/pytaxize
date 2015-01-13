@@ -2,7 +2,7 @@ import sys
 import requests
 import pandas as pd
 import json
-from simplejson import JSONDecodeError
+
 
 class NoResultException(Exception):
     pass
