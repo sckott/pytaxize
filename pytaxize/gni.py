@@ -109,7 +109,7 @@ def gni_details(id=17802847, all_records=1):
     try:
         data = out.json()
         return data
-    except (JSONDecodeError):
+    except (ValueError):
         raise NoResultException("GNI didn't return a result (id: %s)" % id)
 
 if __name__ == "__main__":
