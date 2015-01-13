@@ -4,7 +4,6 @@ from lxml import etree
 import pandas as pd
 import re
 import json
-from simplejson import JSONDecodeError
 from pkg_resources import resource_filename
 
 class NoResultException(Exception):

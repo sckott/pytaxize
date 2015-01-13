@@ -1,7 +1,6 @@
 import sys
 import requests
 import json
-from simplejson import JSONDecodeError
 
 class NoResultException(Exception):
     pass
