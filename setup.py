@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='pytaxize',
-	version='0.1',
+	version='0.1.99',
 	description='Taxonomic toolbelt for Python',
   author='Scott Chamberlain',
   author_email='myrmecocystus@gmail.com',

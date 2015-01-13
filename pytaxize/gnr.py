@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import json
 
-
 class NoResultException(Exception):
     pass
 
