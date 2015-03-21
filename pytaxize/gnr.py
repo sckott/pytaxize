@@ -83,12 +83,12 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     out = requests.get(url, params = payload)
     out.raise_for_status()
     result_json = out.json()
-    try:
-        data = [ each_result['results'] for each_result in result_json['data'] ]
-        return data
-    except (KeyError, IndexError):
-        raise NoResultException("GNR didn't return a result (names: %s)" % names)
-
+    # Return [] for each query with no returned result
+    data = []
+    for each_result in result_json['data']:
+        data.append( each_result['results'] if 'results' in each_result else [])
+    return data
+    
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
