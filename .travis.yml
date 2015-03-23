@@ -6,3 +6,4 @@ install:
   - pip install 'requests>=2.0'
   - pip install 'pandas>=0.1'
   - pip install lxml
+script: nosetests
