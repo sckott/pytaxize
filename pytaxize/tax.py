@@ -350,7 +350,7 @@ def scrapenames(url = None, file = None, text = None, engine = None,
     st = 303
     while(st == 303):
       dat = requests.get(token_url)
-      dat.raise_for_status
+      dat.raise_for_status()
       datout = dat.json()
       st = datout['status']
     dd = pd.DataFrame(datout['names'])
