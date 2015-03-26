@@ -1,3 +1,4 @@
+import sys
 from lxml import etree
 import pandas as pd
 import requests
@@ -38,6 +39,8 @@ def ubio_search(searchName = None, searchAuth = None, searchYear = None,
     tt = etree.fromstring(out.content, xmlparser)
     nodes = tt.xpath('//value')
 
+    if (len(nodes) == 0):
+        sys.exit('Please enter a valid searchName')
     outlist = []
     for i in range(len(nodes)):
         tt_ = nodes[i].getchildren()
