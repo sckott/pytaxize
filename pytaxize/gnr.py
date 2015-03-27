@@ -87,6 +87,8 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     data = []
     for each_result in result_json['data']:
         data.append( each_result['results'] if 'results' in each_result else [])
+    if data == [[]]:
+        sys.exit('No matching results to the query')
     return data
     
 if __name__ == "__main__":
