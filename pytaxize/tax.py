@@ -87,20 +87,23 @@ def names_list(rank = 'genus', size = 10):
      'Ruppiales']
     '''
     if(rank == 'species'):
-        pnpath = resource_filename(__name__, 'pytaxize/data/plantNames.csv')
+        pnpath = resource_filename(__name__, 'data/plantNames.csv')
         dat = pd.read_csv(pnpath, header=False)
         dat2 = dat['names'][:size]
         return [x for x in dat2]
     if(rank == 'genus'):
-        dat = pd.read_csv("../data/plantGenusNames.csv", header=False)
+        pnpath = resource_filename(__name__, 'data/plantGenusNames.csv')
+        dat = pd.read_csv(pnpath, header=False)
         dat2 = dat['names'][:size]
         return [x for x in dat2]
     if(rank == 'family'):
-        dat = pd.read_csv("../data/apg_families.csv", header=False)
+        pnpath = resource_filename(__name__, 'data/apg_families.csv')
+        dat = pd.read_csv(pnpath, header=False)
         dat2 = dat['this'][:size]
         return [x for x in dat2]
     if(rank == 'order'):
-        dat = pd.read_csv("../data/apg_orders.csv", header=False)
+        pnpath = resource_filename(__name__, 'data/apg_orders.csv')
+        dat = pd.read_csv(pnpath, header=False)
         dat2 = dat['this'][:size]
         return [x for x in dat2]
     else:
