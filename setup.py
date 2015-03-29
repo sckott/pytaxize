@@ -10,5 +10,5 @@ setup(name='pytaxize',
   install_requires=['requests>2.0',
                     'pandas>0.1',
                     'lxml'],
-  package_data={'pytaxize': ['data/*.csv']},
+  data_files=[('pytaxize/data', ['data/apg_orders.csv', 'data/apg_families.csv', 'data/plantGenusNames.csv', 'data/plantNames.csv', 'data/rank_ref.csv'] )],
 )
