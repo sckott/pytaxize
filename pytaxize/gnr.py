@@ -52,10 +52,9 @@ def gnr_datasources(todf=True):
     return df
 
 def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
-    with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false'):
+    with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
     '''
     Uses the Global Names Resolver to resolve scientific names
-
     :param names: List of taxonomic names
     :param source: Source to pull from, one of x, y, z
     :param format: One of json or xml
@@ -64,7 +63,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     :param best_match_only: Logical, if true (default) return the best match only
     :param header_only: Return header only, logical
     :param preferred_data_sources: Return only preferred data sources.
-
+    :param http: The HTTP method to use, one of "get" or "post". Default="get"
     Usage:
     >>> import pytaxize
     >>> pytaxize.gnr_resolve('Helianthus annus')
@@ -72,23 +71,46 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     >>> pytaxize.gnr_resolve(['Helianthus annus','Poa annua'])
     '''
     url = 'http://resolver.globalnames.org/name_resolvers'
-    if(names.__class__.__name__ == 'list'):
-        names = "|".join(names)
-    else:
-        pass
-    payload = {'names': names, 'data_source_ids': source, 'format': format,
+    payload = {'data_source_ids': source, 'format': format,
                 'resolve_once': resolve_once, 'with_context': with_context,
                 'best_match_only': best_match_only, 'header_only': header_only,
                 'preferred_data_sources': preferred_data_sources}
-    out = requests.get(url, params = payload)
-    out.raise_for_status()
-    result_json = out.json()
-    # Return [] for each query with no returned result
+    if names.__class__.__name__ == 'list':
+        if len(names) > 300 and http == 'get':
+            http = 'post'
+        else:
+            names = "|".join(names)
+            payload['names'] = names
+    else:
+        payload['names'] = names
+    if http == 'get':
+        out = requests.get(url, params = payload)
+        out.raise_for_status()
+        result_json = out.json()
+    else:
+        if names.__class__.__name__ != 'list':
+            out = requests.post(url, params = payload)
+            out.raise_for_status()
+            result_json = out.json()
+        else:
+            with open('names_list.txt', 'wb') as f:
+                for name in names:
+                    f.write(name+"\n")
+            f.close()
+            out = requests.post(url, params = payload, files = {'file': open('names_list.txt', 'rb')} )
+            out.raise_for_status()
+            result_json = out.json()
+            while result_json['status'] == 'working':
+                result_url = result_json['url']
+                time.sleep(10)
+                out = requests.get(url=result_url)
+                result_json = out.json()
+
     data = []
     for each_result in result_json['data']:
         data.append( each_result['results'] if 'results' in each_result else [])
     return data
-    
+ 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
