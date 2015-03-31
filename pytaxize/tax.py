@@ -269,6 +269,7 @@ def gbif_parse(scientificname):
     2         Secale cereale ssp. cereale         cereale     SCINAME
     3   Vanessa atalanta (Linnaeus, 1758)        atalanta  WELLFORMED
     '''
+    scientificname = list(scientificname)
     url = "http://api.gbif.org/v0.9/parser/name"
     headers = {'content-type': 'application/json'}
     tt = requests.post(url, data=json.dumps(scientificname), headers=headers)
