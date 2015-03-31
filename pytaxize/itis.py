@@ -829,6 +829,8 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
     for m in matches:
         nodes = a.xpath(m, namespaces=b)
         output.append([x.text for x in nodes])
+    if len(nodes) == 0:
+        sys.exit('Please enter a valid search name')
     df = pd.DataFrame(dict(zip(colnames, output)))
     return df
 
