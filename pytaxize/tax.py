@@ -95,7 +95,7 @@ def names_list(rank = 'genus', size = 10):
     if(rank == 'order'):
       return names_list_helper(size, 'data/apg_orders.csv')
     else:
-        return 'rank must be one of species, genus, family, or order'
+      return 'rank must be one of species, genus, family, or order'
 
 def names_list_helper(size, path):
   pnpath = resource_filename(__name__, path)
