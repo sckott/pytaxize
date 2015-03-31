@@ -2,6 +2,7 @@ import sys
 import requests
 import pandas as pd
 import json
+import time
 
 class NoResultException(Exception):
     pass
@@ -52,6 +53,22 @@ def gnr_datasources(todf=True):
     return df
 
 def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
+    with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
+    if names.__class__.__name__ != 'list':
+        return _gnr_resolve(names, source, format, resolve_once,
+    with_context, best_match_only, header_only, preferred_data_sources, http)
+    
+    maxlen = 1000
+    #splitting list to smaller lists of size <= 1000
+    names_sublists = [names[x:x+maxlen] for x in xrange(0, len(names), maxlen)]
+    data = []
+    for sublist in names_sublists:
+        data.extend(_gnr_resolve(sublist, source, format, resolve_once,
+    with_context, best_match_only, header_only, preferred_data_sources, http))
+    
+    return data
+
+def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
     with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
     '''
     Uses the Global Names Resolver to resolve scientific names
