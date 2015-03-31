@@ -1,4 +1,5 @@
 """Tests for UBIO module of pytaxize"""
+
 import os
 import pytaxize
 
@@ -9,4 +10,5 @@ a = {'fullNameString': {0: 'Q2VyeWxvbiBlbGVwaGFudA=='}, 'rankID': {0: '24'},
      'namebankID': {0: '6938660'}}
 
 def test_ubio_search():
+    """Basic test of of ubio_search"""
     assert a == pytaxize.ubio_search(searchName = 'elephant', sci = 1, vern = 0).to_dict()
