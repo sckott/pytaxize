@@ -147,6 +147,8 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         xmlparser = etree.XMLParser()
         tt = etree.fromstring(out.content, xmlparser)
         childtaxa = tt.xpath('//child_taxa//taxon')
+        if len(childtaxa) == 0:
+            sys.exit('Please enter a valid search name')
         outlist = []
         for i in range(len(childtaxa)):
             tt_ = childtaxa[i].getchildren()
