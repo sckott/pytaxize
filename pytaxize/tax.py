@@ -5,6 +5,7 @@ import pandas as pd
 import re
 import json
 from pkg_resources import resource_filename
+from pytaxize.refactor import requests_refactor
 
 class NoResultException(Exception):
     pass
@@ -196,26 +197,11 @@ def vascan_search(q, format='json', raw=False):
     if(len(q) > 1):
         query = "\n".join(q)
         payload = {'q': query}
-        out = requests.post(url, data=payload)
-        out.raise_for_status()
-        if(format == 'json'):
-            if(raw):
-                return out.text
-            else:
-                return out.json()
-        else:
-            return out.text
+        out = requests_refactor(url, payload, 'post',content=True, format = raw)
+        return out
     else:
         payload = {'q': q}
-        out = requests.get(url, params = payload)
-        out.raise_for_status()
-        if(format == 'json'):
-            if(raw):
-                return out.text
-            else:
-                return out.json()
-        else:
-            return out.text
+        out = requests_refactor(url, payload, 'get',content=True, format = raw)
 
 def gbif_parse(scientificname):
     '''
@@ -272,9 +258,8 @@ def gbif_parse(scientificname):
     scientificname = list(scientificname)
     url = "http://api.gbif.org/v0.9/parser/name"
     headers = {'content-type': 'application/json'}
-    tt = requests.post(url, data=json.dumps(scientificname), headers=headers)
-    tt.raise_for_status()
-    res = pd.DataFrame(tt.json())
+    tt = requests_refactor(url, payload={}, request='post', content=True, data=json.dumps(scientificname), headers=headers)
+    res = pd.DataFrame(tt)
     return res
 
 def scrapenames(url = None, file = None, text = None, engine = None,
@@ -338,14 +323,7 @@ def scrapenames(url = None, file = None, text = None, engine = None,
   ss = []
   for i in range(len(method.keys())):
     ss.append(method.keys()[i] in ['url','text'])
-  if(any(ss)):
-    tt = requests.get(base, params=payload)
-  else:
-    pass
-    # tt = requests.post(base, params=payload, multipart=True, body = [file=upload_file(file)])
-
-  tt.raise_for_status()
-  out = tt.json()
+  out = requests_refactor(base, payload, 'get', content=True)
 
   if(out['status'] != 303):
     sys.exit("Woops, something went wrong")
@@ -353,9 +331,7 @@ def scrapenames(url = None, file = None, text = None, engine = None,
     token_url = out['token_url']
     st = 303
     while(st == 303):
-      dat = requests.get(token_url)
-      dat.raise_for_status()
-      datout = dat.json()
+      datout = requests_refactor(token_url, content=True)
       st = datout['status']
     dd = pd.DataFrame(datout['names'])
     datout.pop('names')

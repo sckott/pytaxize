@@ -1,6 +1,7 @@
 import sys
 import requests
 import json
+from pytaxize.refactor import requests_refactor
 
 class NoResultException(Exception):
     pass
@@ -37,9 +38,9 @@ def gni_parse(names):
     '''
     url = 'http://gni.globalnames.org/parsers.json'
     names = '|'.join(names)
-    out = requests.get(url, params = {'names': names})
-    out.raise_for_status()
-    return out.json()
+    params = {'names': names}
+    out = requests_refactor(url, params, 'get', content=True)
+    return out
 
 def gni_search(search_term='ani*', per_page=30, page=1):
     '''
@@ -54,9 +55,9 @@ def gni_search(search_term='ani*', per_page=30, page=1):
     >>> pytaxize.gni_search(search_term = 'ani*')
     '''
     url = 'http://gni.globalnames.org/name_strings.json'
-    out = requests.get(url, params = {'search_term': search_term, 'per_page': per_page, 'page': page})
-    out.raise_for_status()
-    return out.json()
+    params = {'search_term': search_term, 'per_page': per_page, 'page': page}
+    out = requests_refactor(url, params, 'get', content=True)
+    return out
 
 def gni_details(id=17802847, all_records=1):
     '''
@@ -104,11 +105,10 @@ def gni_details(id=17802847, all_records=1):
     url = 'http://gni.globalnames.org/name_strings/'
     mylist = [url, str(id), '.json']
     url2 = ''.join(mylist)
-    out = requests.get(url2, params = {'all_records': all_records})
-    out.raise_for_status()
+    params = {'all_records': all_records}
+    out = requests_refactor(url2, params, 'get', content=True)
     try:
-        data = out.json()
-        return data
+        return out
     except (ValueError):
         raise NoResultException("GNI didn't return a result (id: %s)" % id)
 

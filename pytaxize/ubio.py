@@ -2,6 +2,7 @@ import sys
 from lxml import etree
 import pandas as pd
 import requests
+from pytaxize.refactor import requests_refactor
 
 def ubio_search(searchName = None, searchAuth = None, searchYear = None,
     order = None, sci = None, vern = None, keyCode = None):
@@ -33,10 +34,7 @@ def ubio_search(searchName = None, searchAuth = None, searchYear = None,
     payload = {'function': 'namebank_search', 'searchName': searchName,
                'searchAuth': searchAuth, 'searchYear': searchYear, 'order': order,
                'sci': sci, 'vern': vern, 'keyCode': ubioApiKey}
-    out = requests.get(url, params = payload)
-    out.raise_for_status()
-    xmlparser = etree.XMLParser()
-    tt = etree.fromstring(out.content, xmlparser)
+    tt = requests_refactor(url, payload, 'get', content=False)
     nodes = tt.xpath('//value')
 
     if (len(nodes) == 0):
