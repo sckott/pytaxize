@@ -58,7 +58,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     if names.__class__.__name__ != 'list':
         return _gnr_resolve(names, source, format, resolve_once,
     with_context, best_match_only, header_only, preferred_data_sources, http)
-    
+
     maxlen = 1000
     #splitting list to smaller lists of size <= 1000
     names_sublists = [names[x:x+maxlen] for x in range(0, len(names), maxlen)]
@@ -66,7 +66,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     for sublist in names_sublists:
         data.extend(_gnr_resolve(sublist, source, format, resolve_once,
     with_context, best_match_only, header_only, preferred_data_sources, http))
-    
+
     return data
 
 def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
@@ -115,7 +115,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
                 for name in names:
                     f.write(name+"\n")
             f.close()
-            out = requests.post(url, params = payload, files = {'file': open('names_list.txt', 'rb')} )
+            out = requests.post(url, params = payload, files = {'file': open('__names_list.txt', 'rb')} )
             out.raise_for_status()
             result_json = out.json()
             while result_json['status'] == 'working':
@@ -123,6 +123,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
                 time.sleep(10)
                 out = requests.get(url=result_url)
                 result_json = out.json()
+
             os.remove('names_list.txt')
 
     data = []
@@ -131,7 +132,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
     if data == [[]]:
         sys.exit('No matching results to the query')
     return data
- 
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
