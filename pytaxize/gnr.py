@@ -60,7 +60,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     
     maxlen = 1000
     #splitting list to smaller lists of size <= 1000
-    names_sublists = [names[x:x+maxlen] for x in xrange(0, len(names), maxlen)]
+    names_sublists = [names[x:x+maxlen] for x in range(0, len(names), maxlen)]
     data = []
     for sublist in names_sublists:
         data.extend(_gnr_resolve(sublist, source, format, resolve_once,
