@@ -31,7 +31,7 @@ def test_gnr_resolve_remove_temporary_file():
 	with open('test/data/species_list.txt', 'rb') as f:
 		name_list = f.readlines()
 	pytaxize.gnr_resolve( name_list[0:301] )
-	assert os.path.isfile('__names_list.txt') == False
+	assert os.path.isfile('names_list.txt') == False
 
 def test_gnr_resolve_larger_1000():
 	"""test if work well when queried number larger than 1000"""

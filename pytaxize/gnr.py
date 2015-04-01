@@ -115,7 +115,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
                 for name in names:
                     f.write(name+"\n")
             f.close()
-            out = requests.post(url, params = payload, files = {'file': open('__names_list.txt', 'rb')} )
+            out = requests.post(url, params = payload, files = {'file': open('names_list.txt', 'rb')} )
             out.raise_for_status()
             result_json = out.json()
             while result_json['status'] == 'working':
