@@ -80,7 +80,7 @@ def taxo_resolve(query='Homo sapiens', source=None, code=None, http='get'):
             out = requests.post(url, params = payload)
             token_url = out.url
         else:
-            with open('names_list.txt', 'wb') as f:
+            with open('names_list.txt', 'w') as f:
                 for name in query:
                     f.write(name+'\n')
             f.close()

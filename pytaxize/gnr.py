@@ -110,7 +110,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
             out.raise_for_status()
             result_json = out.json()
         else:
-            with open('names_list.txt', 'wb') as f:
+            with open('names_list.txt', 'w') as f:
                 for name in names:
                     f.write(name+"\n")
             f.close()
