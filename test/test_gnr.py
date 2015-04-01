@@ -25,3 +25,10 @@ exp1 = {
 def test_gnr_resolve():
     """Basic test of of gnr_resolve"""
     assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
+
+def test_gnr_resolve_remove_temporary_file():
+	"""test if delete temporary name list file in gnr_resolve"""
+	with open('test/data/species_list.txt', 'rb') as f:
+		name_list = f.readlines()
+	pytaxize.gnr_resolve( name_list )
+	assert os.path.isfile('__names_list.txt') == False
