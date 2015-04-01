@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import json
 import time
+import os
 
 class NoResultException(Exception):
     pass
@@ -110,7 +111,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
             out.raise_for_status()
             result_json = out.json()
         else:
-            with open('names_list.txt', 'wb') as f:
+            with open('names_list.txt', 'w') as f:
                 for name in names:
                     f.write(name+"\n")
             f.close()
@@ -122,6 +123,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
                 time.sleep(10)
                 out = requests.get(url=result_url)
                 result_json = out.json()
+            os.remove('names_list.txt')
 
     data = []
     for each_result in result_json['data']:
