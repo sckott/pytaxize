@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import json
 import time
+import os
 
 class NoResultException(Exception):
     pass
@@ -86,6 +87,7 @@ def taxo_resolve(query='Homo sapiens', source=None, code=None, http='get'):
             f.close()
             out = requests.post(url, params = payload, files = {'file': open('names_list.txt', 'rb')} )
             token_url = out.url
+            os.remove('names_list.txt')
 
     out = requests.get(token_url)
     out.raise_for_status()
