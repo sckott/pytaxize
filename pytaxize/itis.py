@@ -1,4 +1,5 @@
 import sys
+import time
 import requests
 import pandas as pd
 from lxml import etree
@@ -473,7 +474,7 @@ def getlastchangedate(**kwargs):
     ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
     nodes = out.xpath("//ax23:updateDate", namespaces=ns)
     bb = nodes[0].text
-    dt = datetime.strptime(bb.split()[0], "%Y-%m-%d")
+    dt = time.strptime(bb.split()[0], "%Y-%m-%d")
     return dt
 
 def getlsidfromtsn(tsn, **kwargs):
@@ -612,17 +613,6 @@ def gettaxonauthorshipfromtsn(tsn, **kwargs):
     '''
     out = _itisGET("getTaxonAuthorshipFromTSN", {'tsn': tsn}, **kwargs)
     toget = ["authorship","updateDate","tsn"]
-    return _itis_parse(toget, out, ns21)
-
-def gettaxonomicranknamefromtsn(tsn, **kwargs):
-    '''
-    Returns the kingdom and rank information for the TSN.
-
-    Usage:
-    pytaxize.gettaxonomicranknamefromtsn(202385)
-    '''
-    out = _itisGET("getTaxonomicRankNameFromTSN", {'tsn': tsn}, **kwargs)
-    toget = ["kingdomId","kingdomName","rankId","rankName","tsn"]
     return _itis_parse(toget, out, ns21)
 
 def gettaxonomicusagefromtsn(tsn, **kwargs):
