@@ -5,7 +5,7 @@ import pandas as pd
 import re
 import json
 from pkg_resources import resource_filename
-from pytaxize.refactor import requests_refactor
+from pytaxize.refactor import Refactor
 
 class NoResultException(Exception):
     pass
@@ -197,11 +197,11 @@ def vascan_search(q, format='json', raw=False):
     if(len(q) > 1):
         query = "\n".join(q)
         payload = {'q': query}
-        out = requests_refactor(url, payload, 'post',content=True, format = raw)
+        out = Refactor(url, payload, request='post').raw()
         return out
     else:
         payload = {'q': q}
-        out = requests_refactor(url, payload, 'get',content=True, format = raw)
+        out = Refactor(url, payload, request='get').raw()
 
 def gbif_parse(scientificname):
     '''
@@ -258,7 +258,7 @@ def gbif_parse(scientificname):
     scientificname = list(scientificname)
     url = "http://api.gbif.org/v0.9/parser/name"
     headers = {'content-type': 'application/json'}
-    tt = requests_refactor(url, payload={}, request='post', content=True, data=json.dumps(scientificname), headers=headers)
+    tt = Refactor(url, payload={}, request='post').json(data=json.dumps(scientificname), headers=headers)
     res = pd.DataFrame(tt)
     return res
 

@@ -3,7 +3,7 @@ import requests
 import pandas as pd
 import json
 import time
-from pytaxize.refactor import requests_refactor
+from pytaxize.refactor import Refactor
 
 class NoResultException(Exception):
     pass
@@ -40,13 +40,13 @@ def gnr_datasources(todf=True):
     '''
     url = "http://resolver.globalnames.org/data_sources.json"
     if(todf):
-        out = requests_refactor(url, request='get', content=True)
+        out = Refactor(url, payload={}, request='get').json()
         data = []
         for i in range(len(out)):
             data.append([out[i]['id'],out[i]['title']])
         df = pd.DataFrame(data, columns=['id','title'])
     else:
-        df = requests_refactor(url, request='get', content=True)
+        df = Refactor(url, payload={}, request='get').json()
     return df
 
 def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
@@ -98,20 +98,20 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
     else:
         payload['names'] = names
     if http == 'get':
-        result_json = requests_refactor(url, payload, 'get', content=True)
+        result_json = Refactor(url, payload, request='get').json()
     else:
         if names.__class__.__name__ != 'list':
-           result_json = requests_refactor(url, payload, 'post', content=True)
+           result_json = Refactor(url, payload, request='post').json()
         else:
             with open('names_list.txt', 'wb') as f:
                 for name in names:
                     f.write(name+"\n")
             f.close()
-            result_json = requests_refactor(url, payload, 'post', content=True, files = {'file': open('names_list.txt', 'rb')})
+            result_json = Refactor(url, payload, request='post').json(files = {'file': open('names_list.txt', 'rb')})
             while result_json['status'] == 'working':
                 result_url = result_json['url']
                 time.sleep(10)
-                result_json = requests_refactor(result_url, request='get')
+                result_json = Refactor(result_url, payload={},request='get').json()
 
     data = []
     for each_result in result_json['data']:

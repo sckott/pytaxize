@@ -1,7 +1,7 @@
 import sys
 import requests
 import json
-from pytaxize.refactor import requests_refactor
+from pytaxize.refactor import Refactor
 
 class NoResultException(Exception):
     pass
@@ -39,7 +39,7 @@ def gni_parse(names):
     url = 'http://gni.globalnames.org/parsers.json'
     names = '|'.join(names)
     params = {'names': names}
-    out = requests_refactor(url, params, 'get', content=True)
+    out = Refactor(url, payload=params, request='get').json()
     return out
 
 def gni_search(search_term='ani*', per_page=30, page=1):
@@ -56,7 +56,7 @@ def gni_search(search_term='ani*', per_page=30, page=1):
     '''
     url = 'http://gni.globalnames.org/name_strings.json'
     params = {'search_term': search_term, 'per_page': per_page, 'page': page}
-    out = requests_refactor(url, params, 'get', content=True)
+    out = Refactor(url, payload=params, request='get').json()
     return out
 
 def gni_details(id=17802847, all_records=1):
@@ -106,7 +106,7 @@ def gni_details(id=17802847, all_records=1):
     mylist = [url, str(id), '.json']
     url2 = ''.join(mylist)
     params = {'all_records': all_records}
-    out = requests_refactor(url2, params, 'get', content=True)
+    out = Refactor(url2, payload=params, request='get').json()
     try:
         return out
     except (ValueError):

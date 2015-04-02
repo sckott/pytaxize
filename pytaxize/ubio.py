@@ -2,7 +2,7 @@ import sys
 from lxml import etree
 import pandas as pd
 import requests
-from pytaxize.refactor import requests_refactor
+from pytaxize.refactor import Refactor
 
 def ubio_search(searchName = None, searchAuth = None, searchYear = None,
     order = None, sci = None, vern = None, keyCode = None):
@@ -34,7 +34,7 @@ def ubio_search(searchName = None, searchAuth = None, searchYear = None,
     payload = {'function': 'namebank_search', 'searchName': searchName,
                'searchAuth': searchAuth, 'searchYear': searchYear, 'order': order,
                'sci': sci, 'vern': vern, 'keyCode': ubioApiKey}
-    tt = requests_refactor(url, payload, 'get', content=False)
+    tt = Refactor(url, payload, request='get').xml()
     nodes = tt.xpath('//value')
 
     if (len(nodes) == 0):

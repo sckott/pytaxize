@@ -4,7 +4,7 @@ from lxml import etree
 import pandas as pd
 import re
 import json
-from pytaxize.refactor import requests_refactor
+from pytaxize.refactor import Refactor
 
 def col_children(name = None, id = None, format = None, start = None, checklist = None):
     '''
@@ -143,7 +143,7 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
                 url = re.sub("year", checklist, url)
 
         payload = {'name':x, 'id':y, 'format':format, 'response':"full", 'start':start}
-        tt = requests_refactor(url, payload, 'get', content=False)
+        tt = Refactor(url, payload, request='get').xml()
         childtaxa = tt.xpath('//child_taxa//taxon')
         outlist = []
         for i in range(len(childtaxa)):
@@ -231,7 +231,7 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
 
             def searchcol(x):
                 payload = {'name':x, 'format':format, 'response':"full", 'start':start}
-                tt = requests_refactor(url, payload, 'get', content=False)
+                tt = Refactor(url, payload, request='get').xml()
                 childtaxa = tt.xpath('//child_taxa//taxon')
                 outlist = []
                 for i in range(len(childtaxa)):
@@ -321,7 +321,7 @@ def col_search(name=None, id=None, start=None, checklist=None):
                 url = re.sub("year", checklist, url)
 
         payload = {'name': x, 'id': y, 'start': start}
-        tt = requests_refactor(url, payload, 'get', content=False)
+        tt = Refactor(url, payload, request='get').xml()
         stuff = tt.xpath('//result')
         outlist = []
         for i in range(len(stuff)):
