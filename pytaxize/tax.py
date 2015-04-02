@@ -88,27 +88,21 @@ def names_list(rank = 'genus', size = 10):
      'Ruppiales']
     '''
     if(rank == 'species'):
-        pnpath = resource_filename(__name__, 'data/plantNames.csv')
-        dat = pd.read_csv(pnpath, header=False)
-        dat2 = dat['names'][:size]
-        return [x for x in dat2]
+      return names_list_helper(size, 'data/plantNames.csv')
     if(rank == 'genus'):
-        pnpath = resource_filename(__name__, 'data/plantGenusNames.csv')
-        dat = pd.read_csv(pnpath, header=False)
-        dat2 = dat['names'][:size]
-        return [x for x in dat2]
+      return names_list_helper(size, 'data/plantGenusNames.csv')
     if(rank == 'family'):
-        pnpath = resource_filename(__name__, 'data/apg_families.csv')
-        dat = pd.read_csv(pnpath, header=False)
-        dat2 = dat['this'][:size]
-        return [x for x in dat2]
+      return names_list_helper(size, 'data/apg_families.csv')
     if(rank == 'order'):
-        pnpath = resource_filename(__name__, 'data/apg_orders.csv')
-        dat = pd.read_csv(pnpath, header=False)
-        dat2 = dat['this'][:size]
-        return [x for x in dat2]
+      return names_list_helper(size, 'data/apg_orders.csv')
     else:
-        return 'Pass in to rank one of species, genus, family, or order'
+      return 'rank must be one of species, genus, family, or order'
+
+def names_list_helper(size, path):
+  pnpath = resource_filename(__name__, path)
+  dat = pd.read_csv(pnpath, header=False)
+  dat2 = dat['names'][:size]
+  return [x for x in dat2]
 
 def vascan_search(q, format='json', raw=False):
     '''

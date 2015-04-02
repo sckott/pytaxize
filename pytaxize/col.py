@@ -145,6 +145,8 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         payload = {'name':x, 'id':y, 'format':format, 'response':"full", 'start':start}
         tt = Refactor(url, payload, request='get').xml()
         childtaxa = tt.xpath('//child_taxa//taxon')
+        if len(childtaxa) == 0:
+            sys.exit('Please enter a valid search name')
         outlist = []
         for i in range(len(childtaxa)):
             tt_ = childtaxa[i].getchildren()

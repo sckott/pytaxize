@@ -4,6 +4,7 @@ import pandas as pd
 import json
 import time
 from pytaxize.refactor import Refactor
+import os
 
 class NoResultException(Exception):
     pass
@@ -54,15 +55,15 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     if names.__class__.__name__ != 'list':
         return _gnr_resolve(names, source, format, resolve_once,
     with_context, best_match_only, header_only, preferred_data_sources, http)
-    
+
     maxlen = 1000
     #splitting list to smaller lists of size <= 1000
-    names_sublists = [names[x:x+maxlen] for x in xrange(0, len(names), maxlen)]
+    names_sublists = [names[x:x+maxlen] for x in range(0, len(names), maxlen)]
     data = []
     for sublist in names_sublists:
         data.extend(_gnr_resolve(sublist, source, format, resolve_once,
     with_context, best_match_only, header_only, preferred_data_sources, http))
-    
+
     return data
 
 def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
@@ -103,7 +104,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
         if names.__class__.__name__ != 'list':
            result_json = Refactor(url, payload, request='post').json()
         else:
-            with open('names_list.txt', 'wb') as f:
+            with open('names_list.txt', 'w') as f:
                 for name in names:
                     f.write(name+"\n")
             f.close()
@@ -113,11 +114,15 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
                 time.sleep(10)
                 result_json = Refactor(result_url, payload={},request='get').json()
 
+            os.remove('names_list.txt')
+
     data = []
     for each_result in result_json['data']:
-        data.append( each_result['results'] if 'results' in each_result else [])
+        data.append(each_result['results'] if 'results' in each_result else [])
+    if data == [[]]:
+        sys.exit('No matching results to the query')
     return data
- 
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
