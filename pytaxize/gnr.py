@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import json
 import time
+from pytaxize.refactor import Refactor
 import os
 
 class NoResultException(Exception):
@@ -40,17 +41,13 @@ def gnr_datasources(todf=True):
     '''
     url = "http://resolver.globalnames.org/data_sources.json"
     if(todf):
-        out = requests.get(url)
-        out.raise_for_status()
-        out = out.json()
+        out = Refactor(url, payload={}, request='get').json()
         data = []
         for i in range(len(out)):
             data.append([out[i]['id'],out[i]['title']])
         df = pd.DataFrame(data, columns=['id','title'])
     else:
-        df = requests.get(url)
-        df.raise_for_status()
-        df = df.json()
+        df = Refactor(url, payload={}, request='get').json()
     return df
 
 def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
@@ -102,33 +99,26 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
     else:
         payload['names'] = names
     if http == 'get':
-        out = requests.get(url, params = payload)
-        out.raise_for_status()
-        result_json = out.json()
+        result_json = Refactor(url, payload, request='get').json()
     else:
         if names.__class__.__name__ != 'list':
-            out = requests.post(url, params = payload)
-            out.raise_for_status()
-            result_json = out.json()
+           result_json = Refactor(url, payload, request='post').json()
         else:
             with open('names_list.txt', 'w') as f:
                 for name in names:
                     f.write(name+"\n")
             f.close()
-            out = requests.post(url, params = payload, files = {'file': open('names_list.txt', 'rb')} )
-            out.raise_for_status()
-            result_json = out.json()
+            result_json = Refactor(url, payload, request='post').json(files = {'file': open('names_list.txt', 'rb')})
             while result_json['status'] == 'working':
                 result_url = result_json['url']
                 time.sleep(10)
-                out = requests.get(url=result_url)
-                result_json = out.json()
+                result_json = Refactor(result_url, payload={},request='get').json()
 
             os.remove('names_list.txt')
 
     data = []
     for each_result in result_json['data']:
-        data.append( each_result['results'] if 'results' in each_result else [])
+        data.append(each_result['results'] if 'results' in each_result else [])
     if data == [[]]:
         sys.exit('No matching results to the query')
     return data

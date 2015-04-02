@@ -1,6 +1,7 @@
 import sys
 import requests
 import json
+from pytaxize.refactor import Refactor
 
 class NoResultException(Exception):
     pass
@@ -22,9 +23,7 @@ def tnrs_resolve(names='Homo sapiens', retrieve='all'):
     else:
         pass
     payload = {'retrieve': retrieve, 'names': names }
-    out = requests.get(url, params = payload)
-    out.raise_for_status()
-    result_json = out.json()
+    result_json = Refactor(url, payload, request='get').json()
 
     data = []
     #List to accumulate results for each queried name

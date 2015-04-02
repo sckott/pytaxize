@@ -21,6 +21,7 @@ pytaxize is a taxonomic toolkit for Python. Example usage:
     6  6971717    Apis nigrocincta  Species]
 '''
 
+from .refactor import *
 from .tnrs import tnrs_resolve
 from .gnr import gnr_datasources, gnr_resolve
 from .gni import gni_parse, gni_search, gni_details

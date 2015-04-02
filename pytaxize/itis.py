@@ -2,6 +2,9 @@ import sys
 import requests
 import pandas as pd
 from lxml import etree
+from pytaxize.refactor import Refactor
+
+itis_base = 'http://www.itis.gov/ITISWebService/services/ITISService/'
 
 def itis_ping(**kwargs):
     '''
@@ -12,7 +15,7 @@ def itis_ping(**kwargs):
     >>> pytaxize.itis_ping()
     u'<ns:getDescriptionResponse xmlns:ns="http://itis_service.itis.usgs.gov"><ns:return xmlns:ax21="http://data.itis_service.itis.usgs.gov/xsd" xmlns:ax26="http://itis_service.itis.usgs.gov/xsd" xmlns:ax23="http://metadata.itis_service.itis.usgs.gov/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ax26:SvcDescription"><ax26:description>This is the ITIS Web Service, providing access to the data behind www.itis.gov. The database contains 641,468 scientific names (486,232 of them valid/accepted) and 118,145 common names.</ax26:description></ns:return></ns:getDescriptionResponse>'
     '''
-    tt = _itisGET('getDescription', {}, **kwargs)
+    tt = Refactor(itis_base + 'getDescription', payload={}, request='get').xml(**kwargs)
     ns = {'ax26':'http://itis_service.itis.usgs.gov/xsd'}
     nodes = tt.xpath('//ax26:description', namespaces=ns)
     text = [x.text for x in nodes][0]
@@ -28,7 +31,7 @@ def getacceptednamesfromtsn(tsn, **kwargs):
     # TSN not accepted - input TSN is old name
     pytaxize.getacceptednamesfromtsn('504239')
     '''
-    out = _itisGET("getAcceptedNamesFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getAcceptedNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     temp = out.getchildren()
     if(temp[0].getchildren()[1].values()[0] == 'true'):
         dat = temp[0].getchildren()[0].text
@@ -48,7 +51,7 @@ def getanymatchcount(x, **kwargs):
     pytaxize.getanymatchcount(x=202385)
     pytaxize.getanymatchcount(x="dolphin")
     '''
-    out = _itisGET("getAnyMatchCount", {'srchKey': x}, **kwargs)
+    out = Refactor(itis_base + 'getAnyMatchCount', payload={'srchKey': x}, request='get').xml(**kwargs)
     return int(out.getchildren()[0].text)
 
 def getcommentdetailfromtsn(tsn, **kwargs):
@@ -59,7 +62,7 @@ def getcommentdetailfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getcommentdetailfromtsn(tsn=180543)
     '''
-    out = _itisGET("getCommentDetailFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator","updateDate"]
     colnames = ['comment','commid','commtime','commentator','updatedate']
@@ -74,6 +77,7 @@ def getcommonnamesfromtsn(tsn, **kwargs):
     pytaxize.getcommonnamesfromtsn(tsn=183833)
     '''
     out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commonName", "language", "tsn"]
     colnames = ['comname','lang','tsn']
@@ -90,7 +94,7 @@ def getcoremetadatafromtsn(tsn, **kwargs):
     # no coverage or currrency data
     pytaxize.getcoremetadatafromtsn(tsn=183671)
     '''
-    out = _itisGET("getCoreMetadataFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCoreMetadataFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     toget = ["credRating","rankId","taxonCoverage","taxonCurrency","taxonUsageRating","tsn"]
     return _itis_parse(toget, out, ns)
@@ -107,7 +111,7 @@ def getcoveragefromtsn(tsn, **kwargs):
     import pandas as pd
     pd.concat([ getcoveragefromtsn(x) for x in [28727,526852] ])
     '''
-    out = _itisGET("getCoverageFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCoverageFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId", "taxonCoverage", "tsn"]
     df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
@@ -119,7 +123,7 @@ def getcredibilityratingfromtsn(tsn, **kwargs):
     pytaxize.getcredibilityratingfromtsn(526852)
     pytaxize.getcredibilityratingfromtsn(28727)
     '''
-    out = _itisGET("getCredibilityRatingFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCredibilityRatingFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["credRating", "tsn"]
     df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
@@ -131,7 +135,7 @@ def getcredibilityratings(**kwargs):
     Usage:
     pytaxize.getcredibilityratings()
     '''
-    out = _itisGET("getCredibilityRatings", {}, **kwargs)
+    out = Refactor(itis_base + 'getCredibilityRatings', payload={}, request='get').xml(**kwargs)
     nodes = out.xpath("//ax23:credibilityValues", namespaces=ns23)
     credibilityValues = [x.text for x in nodes]
     df = pd.DataFrame(credibilityValues, columns=['credibilityValues'])
@@ -146,7 +150,7 @@ def getcurrencyfromtsn(tsn, **kwargs):
     # no currency dat
     pytaxize.getcurrencyfromtsn(526852)
     '''
-    out = _itisGET("getCurrencyFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCurrencyFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId","taxonCurrency","tsn"]
     df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
@@ -157,7 +161,7 @@ def getdatedatafromtsn(tsn, **kwargs):
     Usage
     pytaxize.getdatedatafromtsn(180543)
     '''
-    out = _itisGET("getDateDataFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getDateDataFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["initialTimeStamp","updateDate","tsn"]
     df = _itisdf(out, ns21, matches, _tolower(matches))
     return df
@@ -168,7 +172,7 @@ def getexpertsfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getexpertsfromtsn(180544)
     '''
-    out = _itisGET("getExpertsFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getExpertsFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["comment","expert","name","referredTsn","referenceFor","updateDate"]
     return _itis_parse(toget, out, ns21)
 
@@ -181,7 +185,7 @@ def gettaxonomicranknamefromtsn(tsn, **kwargs):
     Usage:
     pytaxize.gettaxonomicranknamefromtsn(tsn = 202385)
     '''
-    tt = _itisGET('getTaxonomicRankNameFromTSN', {'tsn': tsn}, **kwargs)
+    tt = Refactor(itis_base + 'getTaxonomicRankNameFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     df = _parse2df(tt, ns)
     return df
@@ -196,12 +200,12 @@ def getfullhierarchyfromtsn(tsn, **kwargs):
     pytaxize.getfullhierarchyfromtsn(tsn = 37906)
     pytaxize.getfullhierarchyfromtsn(tsn = 100800)
     '''
-    tt = _itisGET('getFullHierarchyFromTSN', {'tsn': tsn}, **kwargs)
+    tt = Refactor(itis_base + 'getFullHierarchyFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     df = _parse_hier(tt, ns21)
     return df
 
 def _fullrecord(verb, args, **kwargs):
-    out = _itisGET(verb, args, **kwargs)
+    out = Refactor(itis_base + verb, payload=args, request='get').xml(**kwargs)
     toget = ["acceptedNameList","commentList","commonNameList","completenessRating",
                "coreMetadata","credibilityRating","currencyRating","dateData","expertList",
                "geographicDivisionList","hierarchyUp","jurisdictionalOriginList",
@@ -245,7 +249,7 @@ def getgeographicdivisionsfromtsn(tsn, **kwargs):
     Usage
     pytaxize.getgeographicdivisionsfromtsn(180543)
     '''
-    out = _itisGET("getGeographicDivisionsFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getGeographicDivisionsFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["geographicValue","updateDate"]
     return _itis_parse(toget, out, ns21)
 
@@ -256,7 +260,7 @@ def getgeographicvalues(**kwargs):
     Usage
     pytaxize.getgeographicvalues()
     '''
-    out = _itisGET("getGeographicValues", {}, **kwargs)
+    out = Refactor(itis_base + 'getGeographicValues', payload={}, request='get').xml(**kwargs)
     ns = {'ax21':'http://metadata.itis_service.itis.usgs.gov/xsd'}
     nodes = out.xpath("//ax21:geographicValues", namespaces=ns)
     gv = [x.text for x in nodes]
@@ -268,7 +272,7 @@ def getglobalspeciescompletenessfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getglobalspeciescompletenessfromtsn(180541)
     '''
-    out = _itisGET("getGlobalSpeciesCompletenessFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getGlobalSpeciesCompletenessFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["completeness","rankId","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -282,7 +286,7 @@ def gethierarchydownfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.gethierarchydownfromtsn(tsn = 161030)
     '''
-    tt = _itisGET('getHierarchyDownFromTSN', {'tsn': tsn}, **kwargs)
+    tt = Refactor(itis_base + 'getHierarchyDownFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     df = _parse_hier(tt, ns)
     return df
@@ -297,7 +301,7 @@ def gethierarchyupfromtsn(tsn, **kwargs):
     pytaxize.gethierarchyupfromtsn(tsn = 36485)
     pytaxize.gethierarchyupfromtsn(tsn = 37906)
     '''
-    tt = _itisGET('getHierarchyUpFromTSN', {'tsn': tsn}, **kwargs)
+    tt = Refactor(itis_base + 'getHierarchyUpFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     df = _parse2df(tt, ns)
     return df
@@ -308,7 +312,7 @@ def _itisterms(endpt, args={}, **kwargs):
     Usage:
     pytaxize._itisterms(x="buya")
     '''
-    out = _itisGET(endpt, args, **kwargs)
+    out = Refactor(itis_base + endpt, payload=args, request='get').xml(**kwargs)
 
     nodes = out.xpath("//ax21:itisTerms", namespaces=ns21)
     nodes2 = [x.getchildren() for x in nodes]
@@ -411,7 +415,7 @@ def getjurisdictionaloriginfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getjurisdictionaloriginfromtsn(180543)
     '''
-    out = _itisGET("getJurisdictionalOriginFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getJurisdictionalOriginFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     toget = ["jurisdictionValue","origin","updateDate"]
     return _itis_parse(toget, out, ns)
@@ -422,7 +426,7 @@ def getjurisdictionoriginvalues(**kwargs):
     Usage:
     pytaxize.getjurisdictionoriginvalues()
     '''
-    out = _itisGET("getJurisdictionalOriginValues", {}, **kwargs)
+    out= Refactor(itis_base + 'getJurisdictionalOriginValues', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
     matches = ["jurisdiction","origin"]
     return _itisdf(out, ns, matches, matches, "ax23")
@@ -433,8 +437,7 @@ def getjurisdictionvalues(**kwargs):
     Usage:
     pytaxize.getjurisdictionvalues()
     '''
-    out = _itisGET("getJurisdictionValues", {}, **kwargs)
-    ns = {'x23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
+    out= Refactor(itis_base + 'getJurisdictionValues', payload={}, request='get').xml(**kwargs)
     vals = [ x.text for x in out.getchildren()[0].getchildren() ]
     return pd.DataFrame(vals, columns = ['jurisdictionValues'])
 
@@ -446,6 +449,7 @@ def getkingdomnamefromtsn(tsn, **kwargs):
     pytaxize.getkingdomnamefromtsn(202385)
     '''
     out = _itisGET("getKingdomNameFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getKingdomNameFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     ns = {'ax21':"http://data.itis_service.itis.usgs.gov/xsd"}
     toget = ["kingdomId","kingdomName","tsn"]
     return _itis_parse(toget, out, ns)
@@ -457,7 +461,7 @@ def getkingdomnames(**kwargs):
     Usage:
     pytaxize.getkingdomnames()
     '''
-    out = _itisGET("getKingdomNames", {}, **kwargs)
+    out= Refactor(itis_base + 'getKingdomNames', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
     matches = ["kingdomId","kingdomName","tsn"]
     return _itisdf(out, ns, matches, _tolower(matches), "ax23")
@@ -469,7 +473,7 @@ def getlastchangedate(**kwargs):
     Usage:
     pytaxize.getlastchangedate()
     '''
-    out = _itisGET("getLastChangeDate", {}, **kwargs)
+    out= Refactor(itis_base + 'getLastChangeDate', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
     nodes = out.xpath("//ax23:updateDate", namespaces=ns)
     bb = nodes[0].text
@@ -487,6 +491,7 @@ def getlsidfromtsn(tsn, **kwargs):
     pytaxize.getlsidfromtsn(0)
     '''
     out = _itisGET("getLSIDFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getLSIDFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     tt = out.getchildren()[0].text
     if tt is None:
         tt = "no match"
@@ -501,7 +506,7 @@ def getothersourcesfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getothersourcesfromtsn(182662)
     '''
-    out = _itisGET("getOtherSourcesFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getOtherSourcesFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["acquisitionDate","name","referredTsn","source",
         "sourceType","updateDate","version"]
     return _itis_parse_2dict(toget, out, ns21)
@@ -513,7 +518,7 @@ def getparenttsnfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getparenttsnfromtsn(202385)
     '''
-    out = _itisGET("getParentTSNFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getParentTSNFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["parentTsn","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -524,7 +529,7 @@ def getpublicationsfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getpublicationsfromtsn(70340)
     '''
-    out = _itisGET("getPublicationsFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getPublicationsFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["actualPubDate","isbn","issn","listedPubDate","pages",
                 "pubComment","pubName","pubPlace","publisher","referenceAuthor",
                 "name","refLanguage","referredTsn","title","updateDate"]
@@ -538,7 +543,7 @@ def getranknames(**kwargs):
     Usage:
     pytaxize.getranknames()
     '''
-    out = _itisGET("getRankNames", {}, **kwargs)
+    out= Refactor(itis_base + 'getRankNames', payload={}, request='get').xml(**kwargs)
     matches = ["kingdomName","rankId","rankName"]
     return _itisdf(out, ns23, matches, _tolower(matches), "ax23")
 
@@ -551,7 +556,7 @@ def getrecordfromlsid(lsid, **kwargs):
     Usage:
     pytaxize.getrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
     '''
-    out = _itisGET("getRecordFromLSID", {'lsid': lsid}, **kwargs)
+    out= Refactor(itis_base + 'getRecordFromLSID', payload={'lsid': lsid}, request='get').xml(**kwargs)
     toget = ["authorship","genusPart","infragenericEpithet",
             "infraspecificEpithet","lsid","nameComplete","nomenclaturalCode",
             "rank","rankString","specificEpithet","uninomial","tsn"]
@@ -564,7 +569,7 @@ def getreviewyearfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getreviewyearfromtsn(180541)
     '''
-    out = _itisGET("getReviewYearFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getReviewYearFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["rankId","reviewYear","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -576,7 +581,7 @@ def getscientificnamefromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getscientificnamefromtsn(531894)
     '''
-    out = _itisGET("getScientificNameFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getScientificNameFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["combinedName","unitInd1","unitInd3","unitName1","unitName2",
             "unitName3","tsn"]
     return _itis_parse(toget, out, ns21)
@@ -610,7 +615,7 @@ def gettaxonauthorshipfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.gettaxonauthorshipfromtsn(183671)
     '''
-    out = _itisGET("getTaxonAuthorshipFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getTaxonAuthorshipFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["authorship","updateDate","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -621,7 +626,7 @@ def gettaxonomicranknamefromtsn(tsn, **kwargs):
     Usage:
     pytaxize.gettaxonomicranknamefromtsn(202385)
     '''
-    out = _itisGET("getTaxonomicRankNameFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getTaxonomicRankNameFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["kingdomId","kingdomName","rankId","rankName","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -632,7 +637,7 @@ def gettaxonomicusagefromtsn(tsn, **kwargs):
     Usage:
     pytaxize.gettaxonomicusagefromtsn(526852)
     '''
-    out = _itisGET("getTaxonomicUsageFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getTaxonomicUsageFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["taxonUsageRating","tsn"]
     return _itis_parse(toget, out, ns21)
 
@@ -643,7 +648,7 @@ def gettsnbyvernacularlanguage(language, **kwargs):
     Usage:
     pytaxize.gettsnbyvernacularlanguage("french")
     '''
-    out = _itisGET("getTsnByVernacularLanguage", {'language': language}, **kwargs)
+    out= Refactor(itis_base + 'getTsnByVernacularLanguage', payload={'language': language}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
     return _itisdf(out, ns21, matches, _tolower(matches))
 
@@ -655,7 +660,7 @@ def gettsnfromlsid(lsid, **kwargs):
     pytaxize.gettsnfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:28726")
     pytaxize.gettsnfromlsid("urn:lsid:itis.gov:itis_tsn:0")
     '''
-    out = _itisGET("getTSNFromLSID", {'lsid': lsid}, **kwargs)
+    out= Refactor(itis_base + 'getTSNFromLSID', payload={'lsid': lsid}, request='get').xml(**kwargs)
     tt = out.getchildren()[0].text
     if tt is None:
         tt = "no match"
@@ -670,7 +675,7 @@ def getunacceptabilityreasonfromtsn(tsn, **kwargs):
     Usage:
     pytaxize.getunacceptabilityreasonfromtsn(183671)
     '''
-    out = _itisGET("getUnacceptabilityReasonFromTSN", {'tsn': tsn}, **kwargs)
+    out= Refactor(itis_base + 'getUnacceptabilityReasonFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["tsn","unacceptReason"]
     return _itis_parse(toget, out, ns21)
 
@@ -681,7 +686,7 @@ def getvernacularlanguages(**kwargs):
     Usage:
     pytaxize.getvernacularlanguages()
     '''
-    out = _itisGET("getVernacularLanguages", {}, **kwargs)
+    out= Refactor(itis_base + 'getVernacularLanguages', payload={}, request='get').xml(**kwargs)
     matches = ["languageNames"]
     return _itisdf(out, ns23, matches, _tolower(matches), "ax23")
 
@@ -693,7 +698,7 @@ def searchbycommonname(x, **kwargs):
     pytaxize.searchbycommonname("ferret-badger")
     pytaxize.searchbycommonname("polar bear")
     '''
-    out = _itisGET("searchByCommonName", {'srchKey': x}, **kwargs)
+    out= Refactor(itis_base + 'searchByCommonName', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
     tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
     return _itisdf(tmp[0], ns21, matches, _tolower(matches))
@@ -705,7 +710,7 @@ def searchbycommonnamebeginswith(x, **kwargs):
     Usage:
     pytaxize.searchbycommonnamebeginswith("inch")
     '''
-    out = _itisGET("searchByCommonNameBeginsWith", {'srchKey': x}, **kwargs)
+    out= Refactor(itis_base + 'searchByCommonNameBeginsWith', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
     tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
     return _itisdf(tmp[0], ns21, matches, _tolower(matches))
@@ -717,7 +722,7 @@ def searchbycommonnameendswith(x, **kwargs):
     Usage:
     pytaxize.searchbycommonnameendswith("snake")
     '''
-    out = _itisGET("searchByCommonNameEndsWith", {'srchKey': x}, **kwargs)
+    out= Refactor(itis_base + 'searchByCommonNameEndsWith', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
     tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
     return _itisdf(tmp[0], ns21, matches, _tolower(matches))
@@ -743,7 +748,7 @@ def searchbyscientificname(x, **kwargs):
     pytaxize.searchbyscientificname(x="Tardigrada")
     pytaxize.searchbyscientificname("Quercus douglasii")
     '''
-    out = _itisGET("searchByScientificName", {'srchKey': x}, **kwargs)
+    out= Refactor(itis_base + 'searchByScientificName', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["combinedName","tsn"]
     return _itisdf(out, ns21, matches, _tolower(matches))
 
@@ -754,7 +759,7 @@ def searchforanymatch(x, **kwargs):
     pytaxize.searchforanymatch(x=202385)
     pytaxize.searchforanymatch(x="dolphin")
     '''
-    out = _itisGET("searchForAnyMatch", {'srchKey': x}, **kwargs)
+    out= Refactor(itis_base + 'searchForAnyMatch', payload={'srchKey':x}, request='get').xml(**kwargs)
     # if isinstance(x, basestring):
     tmp = out.getchildren()[0].getchildren()
     output = []
@@ -773,7 +778,7 @@ def searchforanymatchpaged(x, pagesize, pagenum, ascend, **kwargs):
     pytaxize.searchforanymatchpaged("Zy", pagesize=100, pagenum=1, ascend=False)
     '''
     args = {'srchKey':x, 'pageSize':pagesize, 'pageNum':pagenum, 'ascend':ascend}
-    out = _itisGET("searchForAnyMatchPaged", args, **kwargs)
+    out= Refactor(itis_base + 'searchForAnyMatchPaged', payload=args, request='get').xml(**kwargs)
     tmp = out.getchildren()[0].getchildren()
     output = []
     for v in tmp:
@@ -789,16 +794,9 @@ def convertsingle(x):
     else:
         return x
 
-itis_base = 'http://www.itis.gov/ITISWebService/services/ITISService/'
 ns21 = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
 ns23 = {'ax23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
 
-def _itisGET(endpt, payload, **kwargs):
-    out = requests.get(itis_base+endpt, params = payload, **kwargs)
-    out.raise_for_status()
-    xmlparser = etree.XMLParser()
-    tt = etree.fromstring(out.content, xmlparser)
-    return tt
 
 def _parse2df(obj, ns):
     nodes = obj.xpath('//ax21:*', namespaces=ns)
