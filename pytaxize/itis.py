@@ -334,13 +334,9 @@ def _itisterms(endpt, args={}, **kwargs):
     return df
 
 def _get_text_single(x):
-    val = [x.text]
-    if len(val) > 1:
-        aafdsf
-    else:
-        afadf
-    key = [x.tag.split('}')[1]]
-    return dict(zip(key, val))
+    vals = [x.text]
+    keys = [x.tag.split('}')[1]]
+    return dict(zip(keys, vals))
 
 def getitistermsfromcommonname(x, **kwargs):
     '''
@@ -858,11 +854,6 @@ def _itis_parse_2dict(a, b, d):
 def _get_text(y):
     vals = [x.text for x in y]
     keys = [x.tag.split('}')[1] for x in y]
-    return dict(zip(keys, vals))
-
-def _get_text_single(x):
-    vals = [x.text]
-    keys = [x.tag.split('}')[1]]
     return dict(zip(keys, vals))
 
 def _tolower(y):
