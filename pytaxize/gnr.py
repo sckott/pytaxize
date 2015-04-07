@@ -63,6 +63,8 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
     for sublist in names_sublists:
         data.extend(_gnr_resolve(sublist, source, format, resolve_once,
     with_context, best_match_only, header_only, preferred_data_sources, http))
+    if data == [[]]:
+        sys.exit('No matching results to the query')
 
     return data
 
@@ -119,8 +121,7 @@ def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once=
     data = []
     for each_result in result_json['data']:
         data.append(each_result['results'] if 'results' in each_result else [])
-    if data == [[]]:
-        sys.exit('No matching results to the query')
+   
     return data
 
 if __name__ == "__main__":
