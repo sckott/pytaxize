@@ -123,20 +123,6 @@ pytaxize.col_children(name=["Apis"])
  6  6971717    Apis nigrocincta  Species]
 ```
 
-#### uBio
-
-```python
-pytaxize.ubio_search(searchName = 'elephant', sci = 1, vern = 0)
-```
-
-```python
- namebankID                nameString            fullNameString packageID  \
-0    6938660  Q2VyeWxvbiBlbGVwaGFudA==  Q2VyeWxvbiBlbGVwaGFudA==        80
-
-   packageName basionymunit rankID rankName
-0  Cerylonidae      6938660     24  species
-```
-
 #### Parse names
 
 Parse names using GBIF's parser API
