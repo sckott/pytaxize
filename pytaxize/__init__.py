@@ -8,17 +8,10 @@ pytaxize library
 
 pytaxize is a taxonomic toolkit for Python. Example usage:
 
-   >>> import pytaxize
-   >>> pytaxize.col_children(name=["Apis"])
+Usage::
 
-   [        id                name     rank
-    0  6971712  Apis andreniformis  Species
-    1  6971713         Apis cerana  Species
-    2  6971714        Apis dorsata  Species
-    3  6971715         Apis florea  Species
-    4  6971716  Apis koschevnikovi  Species
-    5  6845885      Apis mellifera  Species
-    6  6971717    Apis nigrocincta  Species]
+   import pytaxize
+   pytaxize.col_children(name=["Apis"])
 '''
 
 from .refactor import *
