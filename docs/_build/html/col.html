@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Catalogue of Life &mdash; pytaxize 0.4.9900 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pytaxize 0.4.9900 documentation" href="index.html"/>
+        <link rel="next" title="Changelog" href="changelog_link.html"/>
+        <link rel="prev" title="pytaxize" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.9900
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pytaxize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Catalogue of Life</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/col.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pytaxize">
+<span id="catalogue-of-life"></span><span id="col"></span><h1>Catalogue of Life<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="pytaxize.col.col_children">
+<code class="descclassname">col.</code><code class="descname">col_children</code><span class="sig-paren">(</span><em>name=None</em>, <em>id=None</em>, <em>format=None</em>, <em>start=None</em>, <em>checklist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.col.col_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search Catalogue of Life for for direct children of a particular taxon.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; The string to search for. Only exact matches found the name given
+will be returned, unless one or wildcards are included in the search
+string. An * (asterisk) character denotes a wildcard; a % (percentage)
+character may also be used. The name must be at least 3 characters long,
+not counting wildcard characters.</li>
+<li><strong>id</strong> &#8211; The record ID of the specific record to return (only for scientific
+names of species or infraspecific taxa)</li>
+<li><strong>format</strong> &#8211; format of the results returned. Valid values are format=xml and
+format=php; if the format parameter is omitted, the results are returned
+in the default XML format. If format=php then results are returned as a
+PHP array in serialized string format, which can be converted back to an
+array in PHP using the unserialize command</li>
+<li><strong>start</strong> &#8211; The first record to return. If omitted, the results are returned
+from the first record (start=0). This is useful if the total number of
+results is larger than the maximum number of results returned by a single
+Web service query (currently the maximum number of results returned by a
+single query is 500 for terse queries and 50 for full queries).</li>
+<li><strong>checklist</strong> &#8211; The year of the checklist to query, if you want a specific
+year&#8217;s checklist instead of the lastest as default (numeric).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Details
+You must provide one of name or id. The other parameters (format and start) are
+optional. Returns A list of data.frame&#8217;s.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># A basic example</span>
+<span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+
+<span class="c1"># An example where there is no classification, results in data.frame with no rows</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">])</span>
+
+<span class="c1"># Use a specific year&#39;s checklist</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2012&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2009&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pass in many names or many id&#39;s</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Buteo&quot;</span><span class="p">,</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Accipiter&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2012&quot;</span><span class="p">)</span>
+<span class="c1"># get just one element in list of output</span>
+<span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># or combine to one DataFrame</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+
+<span class="c1"># or pass many id&#39;s</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">,</span><span class="mi">15700333</span><span class="p">,</span><span class="mi">15638488</span><span class="p">])</span>
+<span class="c1"># combine to one DataFrame</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.col.col_downstream">
+<code class="descclassname">col.</code><code class="descname">col_downstream</code><span class="sig-paren">(</span><em>name=None</em>, <em>downto=None</em>, <em>format=None</em>, <em>start=None</em>, <em>checklist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.col.col_downstream" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; The string to search for. Only exact matches found the name given
+will be returned, unless one or wildcards are included in the search
+string. An * (asterisk) character denotes a wildcard; a % (percentage)
+character may also be used. The name must be at least 3 characters long,
+not counting wildcard characters.</li>
+<li><strong>downto</strong> &#8211; The taxonomic level you want to go down to. See examples below.
+The taxonomic level IS case sensitive, and you do have to spell it
+correctly. See code{data(rank_ref)} for spelling.</li>
+<li><strong>checklist</strong> &#8211; The year of the checklist to query, if you want a specific
+year&#8217;s checklist instead of the lastest as default (numeric).</li>
+<li><strong>format</strong> &#8211; The returned format (default = None). If NULL xml is used.
+Currently only xml is supported.</li>
+<li><strong>start</strong> &#8211; The first record to return (default = None). If NULL, the
+results are returned from the first record (start=0). This is useful if
+the total number of results is larger than the maximum number of results
+returned by a single Web service query (currently the maximum number of
+results returned by a single query is 500 for terse queries and 50 for
+full queries).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns a list of DataFrame&#8217;s.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Some basic examples</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Bryophyta&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="s2">&quot;Family&quot;</span><span class="p">)</span>
+
+<span class="c1"># An example that takes a bit longer</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Plantae&quot;</span><span class="p">,</span><span class="s2">&quot;Animalia&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="s2">&quot;Class&quot;</span><span class="p">)</span>
+
+<span class="c1"># Using a checklist from a specific year</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Bryophyta&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Family&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2009&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.col.col_search">
+<code class="descclassname">col.</code><code class="descname">col_search</code><span class="sig-paren">(</span><em>name=None</em>, <em>id=None</em>, <em>start=None</em>, <em>checklist=None</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.col.col_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search Catalogue of Life for taxonomic IDs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>name</strong> &#8211; The string to search for. Only exact matches found the name given
+will be returned, unless one or wildcards are included in the search
+string. An * (asterisk) character denotes a wildcard; a % (percentage)
+character may also be used. The name must be at least 3 characters long,
+not counting wildcard characters.</li>
+<li><strong>id</strong> &#8211; The record ID of the specific record to return (only for scientific
+names of species or infraspecific taxa)</li>
+<li><strong>start</strong> &#8211; The first record to return. If omitted, the results are returned
+from the first record (start=0). This is useful if the total number of
+results is larger than the maximum number of results returned by a single
+Web service query (currently the maximum number of results returned by a
+single query is 500 for terse queries and 50 for full queries).</li>
+<li><strong>checklist</strong> &#8211; The year of the checklist to query, if you want a specific
+year&#8217;s checklist instead of the lastest as default (numeric).</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>You must provide one of name or id. The other parameters (format and start) are optional.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># A basic example</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15669061</span><span class="p">)</span>
+
+<span class="c1"># Many names</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Puma concolor&quot;</span><span class="p">])</span>
+
+<span class="c1"># Many ids</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">,</span><span class="mi">6862841</span><span class="p">])</span>
+
+<span class="c1"># An example where there is no data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">11935941</span><span class="p">)</span>
+
+<span class="c1"># Example with more than 1 result</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Poa&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="changelog_link.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="pytaxize" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.9900',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
