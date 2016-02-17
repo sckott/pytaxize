@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Python Module Index &mdash; pytaxize 0.4.9900 documentation</title>
+  <title>Taxonomic Identifiers Class &mdash; pytaxize 0.4.9900 documentation</title>
   
 
   
@@ -31,13 +31,8 @@
 
   
     <link rel="top" title="pytaxize 0.4.9900 documentation" href="index.html"/>
- 
-
-    <script type="text/javascript">
-      DOCUMENTATION_OPTIONS.COLLAPSE_INDEX = true;
-    </script>
-
-
+        <link rel="next" title="ITIS" href="itis.html"/>
+        <link rel="prev" title="iPlant Plant Names Resolver" href="tnrs.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -86,13 +81,13 @@
           
             
             
-                <ul>
+                <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Taxonomic Identifiers Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
 </ul>
@@ -125,9 +120,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Taxonomic Identifiers Class</li>
       <li class="wy-breadcrumbs-aside">
         
+          
+            <a href="_sources/ids.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -137,28 +134,41 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
+  <div class="section" id="module-pytaxize">
+<span id="taxonomic-identifiers-class"></span><span id="ids"></span><h1>Taxonomic Identifiers Class<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytaxize.Ids">
+<em class="property">class </em><code class="descclassname">pytaxize.</code><code class="descname">Ids</code><span class="sig-paren">(</span><em>name</em>, <em>db</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids.html#Ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>ids: A class for taxonomic identifiers</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytaxize</span>
 
-   <h1>Python Module Index</h1>
+<span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">get_colid</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pytaxize.Ids.get_colid">
+<code class="descname">get_colid</code><span class="sig-paren">(</span><em>sciname=['Poa annua']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids.html#Ids.get_colid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids.get_colid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-p"><strong>p</strong></a>
-   </div>
+</dd></dl>
 
-   <table class="indextable modindextable" cellspacing="0" cellpadding="2">
-     <tr class="pcap"><td></td><td>&nbsp;</td><td></td></tr>
-     <tr class="cap" id="cap-p"><td></td><td>
-       <strong>p</strong></td><td></td></tr>
-     <tr>
-       <td></td>
-       <td>
-       <a href="ids.html#module-pytaxize"><code class="xref">pytaxize</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+</div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="itis.html" class="btn btn-neutral float-right" title="ITIS" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tnrs.html" class="btn btn-neutral" title="iPlant Plant Names Resolver" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>

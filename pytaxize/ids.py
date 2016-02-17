@@ -5,10 +5,12 @@ class Ids(object):
     '''
     ids: A class for taxonomic identifiers
 
-    >>> import pytaxize
-    >>>
-    >>> res = pytaxize.Ids('Poa annua', db='col')
-    >>> res.get_colid()
+    Usage::
+
+      import pytaxize
+
+      res = pytaxize.Ids('Poa annua', db='col')
+      res.get_colid()
     '''
     def __init__(self, name, db):
         # super(ids, self).__init__()

@@ -1,0 +1,939 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ITIS &mdash; pytaxize 0.4.9900 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pytaxize 0.4.9900 documentation" href="index.html"/>
+        <link rel="next" title="Changelog" href="changelog_link.html"/>
+        <link rel="prev" title="Variety of functions" href="tax.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.9900
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">pytaxize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>ITIS</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/itis.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="itis">
+<span id="id1"></span><h1>ITIS<a class="headerlink" href="#itis" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pytaxize"></span><dl class="method">
+<dt id="pytaxize.itis.itis_ping">
+<code class="descclassname">itis.</code><code class="descname">itis_ping</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.itis_ping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Ping the ITIS API</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_ping</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getacceptednamesfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getacceptednamesfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getacceptednamesfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get accepted names from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; taxonomic serial number (TSN) (character or numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># TSN accepted - good name</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
+<span class="c1"># TSN not accepted - input TSN is old name</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;504239&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getanymatchcount">
+<code class="descclassname">itis.</code><code class="descname">getanymatchcount</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getanymatchcount" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get any match count.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> &#8211; text or taxonomic serial number (TSN) (character or numeric)</li>
+<li><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcommentdetailfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcommentdetailfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcommentdetailfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get comment detail from TSN</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</li>
+<li><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcommonnamesfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcommonnamesfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcommonnamesfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get common names from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</li>
+<li><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183833</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcoremetadatafromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcoremetadatafromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoremetadatafromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get core metadata from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># coverage and currrency data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
+<span class="c1"># no coverage or currrency data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183671</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcoveragefromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcoveragefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoveragefromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get coverge from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># coverage data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
+<span class="c1"># no coverage data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<span class="c1"># combine many results</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span> <span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">28727</span><span class="p">,</span><span class="mi">526852</span><span class="p">]</span> <span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcredibilityratingfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcredibilityratingfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcredibilityratingfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get credibility rating from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcredibilityratings">
+<code class="descclassname">itis.</code><code class="descname">getcredibilityratings</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcredibilityratings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get possible credibility ratings</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratings</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getcurrencyfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getcurrencyfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcurrencyfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get currency from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># currency data</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
+<span class="c1"># no currency dat</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getdatedatafromtsn">
+<code class="descclassname">itis.</code><code class="descname">getdatedatafromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getdatedatafromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get date data from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getdatedatafromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getexpertsfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getexpertsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getexpertsfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get expert information for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getexpertsfromtsn</span><span class="p">(</span><span class="mi">180544</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gettaxonomicranknamefromtsn">
+<code class="descclassname">itis.</code><code class="descname">gettaxonomicranknamefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonomicranknamefromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the kingdom and rank information for the TSN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getfullhierarchyfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getfullhierarchyfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullhierarchyfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full hierarchy from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getfullrecordfromlsid">
+<code class="descclassname">itis.</code><code class="descname">getfullrecordfromlsid</code><span class="sig-paren">(</span><em>lsid</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullrecordfromlsid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full ITIS record for the TSN in the LSID, found by comparing the
+TSN in the search key to the TSN field. Returns an empty result set if
+there is no match or the TSN is invalid.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>lsid</strong> &#8211; lsid for a taxonomic group (character)</li>
+<li><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getfullrecordfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getfullrecordfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullrecordfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full ITIS record for a TSN</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> &#8211; tsn for a taxonomic group (character)</li>
+<li><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;504239&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;202385&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;183833&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getgeographicdivisionsfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getgeographicdivisionsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getgeographicdivisionsfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get geographic divisions from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicdivisionsfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getgeographicvalues">
+<code class="descclassname">itis.</code><code class="descname">getgeographicvalues</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getgeographicvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all possible geographic values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>**kwargs</strong> &#8211; <p>Curl options passed on to <cite>requests.get</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicvalues</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getglobalspeciescompletenessfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getglobalspeciescompletenessfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getglobalspeciescompletenessfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get global species completeness from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getglobalspeciescompletenessfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gethierarchydownfromtsn">
+<code class="descclassname">itis.</code><code class="descname">gethierarchydownfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gethierarchydownfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hierarchy down from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchydownfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">161030</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gethierarchyupfromtsn">
+<code class="descclassname">itis.</code><code class="descname">gethierarchyupfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gethierarchyupfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hierarchy up from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getitistermsfromcommonname">
+<code class="descclassname">itis.</code><code class="descname">getitistermsfromcommonname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitistermsfromcommonname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get itis terms from common names</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromcommonname</span><span class="p">(</span><span class="s2">&quot;buya&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getitisterms">
+<code class="descclassname">itis.</code><code class="descname">getitisterms</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitisterms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get itis terms</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># fails</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getitisterms</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getitistermsfromscientificname">
+<code class="descclassname">itis.</code><code class="descname">getitistermsfromscientificname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitistermsfromscientificname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get itis terms from scientific names</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromscientificname</span><span class="p">(</span><span class="s2">&quot;ursidae&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromscientificname</span><span class="p">(</span><span class="s2">&quot;Ursus&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.itis_hierarchy">
+<code class="descclassname">itis.</code><code class="descname">itis_hierarchy</code><span class="sig-paren">(</span><em>tsn=None</em>, <em>what='full'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.itis_hierarchy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hierarchies from TSN values, full, upstream only, or immediate downstream
+only. Uses the ITIS database.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> &#8211; One or more TSN&#8217;s (taxonomic serial number)</li>
+<li><strong>what</strong> &#8211; One of full (full hierarchy), up (immediate upstream), or down
+(immediate downstream)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Details Note that <cite>pytaxize.itis_downstream</cite> gets taxa downstream to a particular</dt>
+<dd>rank, whilc this function only gets immediate names downstream.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Get full hierarchy</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+
+<span class="c1"># Get hierarchy upstream</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">,</span> <span class="s2">&quot;up&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get hierarchy downstream</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">,</span> <span class="s2">&quot;down&quot;</span><span class="p">)</span>
+
+<span class="c1"># Many tsn&#39;s</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="p">[</span><span class="mi">180543</span><span class="p">,</span><span class="mi">41074</span><span class="p">,</span><span class="mi">36616</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getjurisdictionaloriginfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getjurisdictionaloriginfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionaloriginfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get jurisdictional origin from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionaloriginfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getjurisdictionoriginvalues">
+<code class="descclassname">itis.</code><code class="descname">getjurisdictionoriginvalues</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionoriginvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get jurisdiction origin values</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionoriginvalues</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getjurisdictionvalues">
+<code class="descclassname">itis.</code><code class="descname">getjurisdictionvalues</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionvalues" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get possible jurisdiction values</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionvalues</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getkingdomnamefromtsn">
+<code class="descclassname">itis.</code><code class="descname">getkingdomnamefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getkingdomnamefromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get kingdom names from tsn</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnamefromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getkingdomnames">
+<code class="descclassname">itis.</code><code class="descname">getkingdomnames</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getkingdomnames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all possible kingdom names</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnames</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getlastchangedate">
+<code class="descclassname">itis.</code><code class="descname">getlastchangedate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getlastchangedate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides the date the ITIS database was last updated.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getlastchangedate</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getlsidfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getlsidfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getlsidfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the unique LSID for the TSN, or an empty result if there is no match.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c1"># valid TSN</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getlsidfromtsn</span><span class="p">(</span><span class="mi">155166</span><span class="p">)</span>
+<span class="c1"># invalid TSN, returns nothing</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">getlsidfromtsn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getothersourcesfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getothersourcesfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getothersourcesfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the other sources used for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getothersourcesfromtsn</span><span class="p">(</span><span class="mi">182662</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getparenttsnfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getparenttsnfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getparenttsnfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the parent TSN for the entered TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getparenttsnfromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getpublicationsfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getpublicationsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getpublicationsfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of the pulications used for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getpublicationsfromtsn</span><span class="p">(</span><span class="mi">70340</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getranknames">
+<code class="descclassname">itis.</code><code class="descname">getranknames</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getranknames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of all the unique rank names contained in the database and
+their kingdom and rank ID values.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getranknames</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getrecordfromlsid">
+<code class="descclassname">itis.</code><code class="descname">getrecordfromlsid</code><span class="sig-paren">(</span><em>lsid</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getrecordfromlsid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the partial ITIS record for the TSN in the LSID, found by comparing the
+TSN in the search key to the TSN field. Returns an empty result set if
+there is no match or the TSN is invalid.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getreviewyearfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getreviewyearfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getreviewyearfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the review year for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getreviewyearfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getscientificnamefromtsn">
+<code class="descclassname">itis.</code><code class="descname">getscientificnamefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getscientificnamefromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the scientific name for the TSN. Also returns the component parts
+(names and indicators) of the scientific name.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getscientificnamefromtsn</span><span class="p">(</span><span class="mi">531894</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gettaxonauthorshipfromtsn">
+<code class="descclassname">itis.</code><code class="descname">gettaxonauthorshipfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonauthorshipfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the author information for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonauthorshipfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="descclassname">itis.</code><code class="descname">gettaxonomicranknamefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Returns the kingdom and rank information for the TSN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> &#8211; TSN for a taxonomic group (numeric)</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gettaxonomicusagefromtsn">
+<code class="descclassname">itis.</code><code class="descname">gettaxonomicusagefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonomicusagefromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the usage information for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicusagefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gettsnbyvernacularlanguage">
+<code class="descclassname">itis.</code><code class="descname">gettsnbyvernacularlanguage</code><span class="sig-paren">(</span><em>language</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettsnbyvernacularlanguage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get tsn by vernacular language not the international language code (character)</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnbyvernacularlanguage</span><span class="p">(</span><span class="s2">&quot;french&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.gettsnfromlsid">
+<code class="descclassname">itis.</code><code class="descname">gettsnfromlsid</code><span class="sig-paren">(</span><em>lsid</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettsnfromlsid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the TSN corresponding to the LSID, or an empty result if there is no match.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:0&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getunacceptabilityreasonfromtsn">
+<code class="descclassname">itis.</code><code class="descname">getunacceptabilityreasonfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getunacceptabilityreasonfromtsn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the unacceptability reason, if any, for the TSN.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getunacceptabilityreasonfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.getvernacularlanguages">
+<code class="descclassname">itis.</code><code class="descname">getvernacularlanguages</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getvernacularlanguages" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides a list of the unique languages used in the vernacular table.</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getvernacularlanguages</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchbycommonname">
+<code class="descclassname">itis.</code><code class="descname">searchbycommonname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for tsn by common name</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;american bullfrog&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="s2">&quot;ferret-badger&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="s2">&quot;polar bear&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchbycommonnamebeginswith">
+<code class="descclassname">itis.</code><code class="descname">searchbycommonnamebeginswith</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonnamebeginswith" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for tsn by common name beginning with</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnamebeginswith</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchbycommonnameendswith">
+<code class="descclassname">itis.</code><code class="descname">searchbycommonnameendswith</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonnameendswith" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for tsn by common name ending with</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnameendswith</span><span class="p">(</span><span class="s2">&quot;snake&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.itis_searchcommon">
+<code class="descclassname">itis.</code><code class="descname">itis_searchcommon</code><span class="sig-paren">(</span><em>x</em>, <em>which='begin'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.itis_searchcommon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches common name and acts as thin wrapper around
+<cite>pytaxize.searchbycommonnamebeginswith</cite> and <cite>pytaxize.searchbycommonnameendswith</cite></p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_searchcommon</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_searchcommon</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">,</span> <span class="n">which</span> <span class="o">=</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchbyscientificname">
+<code class="descclassname">itis.</code><code class="descname">searchbyscientificname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbyscientificname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search by scientific name</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbyscientificname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Tardigrada&quot;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbyscientificname</span><span class="p">(</span><span class="s2">&quot;Quercus douglasii&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchforanymatch">
+<code class="descclassname">itis.</code><code class="descname">searchforanymatch</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchforanymatch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for any match</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.searchforanymatchpaged">
+<code class="descclassname">itis.</code><code class="descname">searchforanymatchpaged</code><span class="sig-paren">(</span><em>x</em>, <em>pagesize</em>, <em>pagenum</em>, <em>ascend</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchforanymatchpaged" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for any matched page for descending (logical)</p>
+<p>Usage:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="s2">&quot;Zy&quot;</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="changelog_link.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tax.html" class="btn btn-neutral" title="Variety of functions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.4.9900',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

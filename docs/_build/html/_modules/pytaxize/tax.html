@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pytaxize.tax &mdash; pytaxize 0.4.9900 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pytaxize 0.4.9900 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.9900
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gnr.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gni.html">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tax.html">Variety of functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tnrs.html">iPlant Plant Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog_link.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">pytaxize</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>pytaxize.tax</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pytaxize.tax</h1><div class="highlight"><pre>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">pkg_resources</span> <span class="kn">import</span> <span class="n">resource_filename</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
+
+<span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">names_list</span><span class="p">(</span><span class="n">rank</span> <span class="o">=</span> <span class="s1">&#39;genus&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get a random vector of species names.</span>
+
+<span class="sd">    :param rank: Taxonomic rank, one of species, genus (default), family, order.</span>
+<span class="sd">    :param size: Number of names to get. Maximum depends on the rank.</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        import pytaxize</span>
+<span class="sd">        pytaxize.names_list()</span>
+<span class="sd">        pytaxize.names_list(&#39;species&#39;)</span>
+<span class="sd">        pytaxize.names_list(&#39;family&#39;)</span>
+<span class="sd">        pytaxize.names_list(&#39;order&#39;)</span>
+<span class="sd">        pytaxize.names_list(&#39;order&#39;, 2)</span>
+<span class="sd">        pytaxize.names_list(&#39;order&#39;, 15)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;species&#39;</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;data/plantNames.csv&#39;</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;genus&#39;</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;data/plantGenusNames.csv&#39;</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;family&#39;</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;data/apg_families.csv&#39;</span><span class="p">)</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">rank</span> <span class="o">==</span> <span class="s1">&#39;order&#39;</span><span class="p">):</span>
+      <span class="k">return</span> <span class="n">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="s1">&#39;data/apg_orders.csv&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">return</span> <span class="s1">&#39;rank must be one of species, genus, family, or order&#39;</span>
+
+<span class="k">def</span> <span class="nf">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+  <span class="n">pnpath</span> <span class="o">=</span> <span class="n">resource_filename</span><span class="p">(</span><span class="n">__name__</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+  <span class="n">dat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pnpath</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+  <span class="n">dat2</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span>
+  <span class="k">return</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dat2</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">vascan_search</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search the CANADENSYS Vascan API.</span>
+
+<span class="sd">    :param q: Taxonomic rank, one of species, genus (default), family, order.</span>
+<span class="sd">    :param format: Number of names to get. Maximum depends on the rank.</span>
+<span class="sd">    :param raw: Raw data or not (default)</span>
+<span class="sd">    :param callopts: Further args passed to request</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        import pytaxize</span>
+<span class="sd">        pytaxize.vascan_search(q = [&quot;Helianthus annuus&quot;])</span>
+<span class="sd">        pytaxize.vascan_search(q = [&quot;Helianthus annuus&quot;], raw=True)</span>
+<span class="sd">        pytaxize.vascan_search(q = [&quot;Helianthus annuus&quot;, &quot;Crataegus dodgei&quot;], raw=True)</span>
+
+<span class="sd">        # format type</span>
+<span class="sd">        ## json</span>
+<span class="sd">        pytaxize.vascan_search(q = [&quot;Helianthus annuus&quot;], format=&quot;json&quot;, raw=True)</span>
+
+<span class="sd">        ## xml</span>
+<span class="sd">        pytaxize.vascan_search(q = [&quot;Helianthus annuus&quot;], format=&quot;xml&quot;, raw=True)</span>
+
+<span class="sd">        # lots of names, in this case 50</span>
+<span class="sd">        splist = pytaxize.names_list(rank=&#39;species&#39;, size=50)</span>
+<span class="sd">        pytaxize.vascan_search(q = splist)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">format</span> <span class="o">==</span> <span class="s1">&#39;json&#39;</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://data.canadensys.net/vascan/api/0.1/search.json&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://data.canadensys.net/vascan/api/0.1/search.xml&quot;</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="n">query</span><span class="p">}</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;post&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">raw</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">out</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">raw</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">gbif_parse</span><span class="p">(</span><span class="n">scientificname</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Parse taxon names using the GBIF name parser.</span>
+
+<span class="sd">    :param scientificname: A character vector of scientific names.</span>
+<span class="sd">      Returns a DataFrame containing fields extracted from parsed</span>
+<span class="sd">      taxon names. Fields returned are the union of fields extracted from</span>
+<span class="sd">      all species names in scientificname</span>
+
+<span class="sd">    Author John Baumgartner (johnbb@student.unimelb.edu.au)</span>
+
+<span class="sd">    References http://dev.gbif.org/wiki/display/POR/Webservice+API,</span>
+<span class="sd">    http://tools.gbif.org/nameparser/api.do</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        import pytaxize</span>
+<span class="sd">        pytaxize.gbif_parse(scientificname=[&#39;x Agropogon littoralis&#39;])</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">scientificname</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">scientificname</span><span class="p">)</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://api.gbif.org/v0.9/parser/name&quot;</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">}</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;post&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">scientificname</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span>
+
+<span class="k">def</span> <span class="nf">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="nb">file</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">engine</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+  <span class="n">unique</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">verbatim</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">detect_language</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">all_data_sources</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span>
+  <span class="n">data_source_ids</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">  Resolve names using Global Names Recognition and Discovery.</span>
+
+<span class="sd">  Uses the Global Names Recognition and Discovery service, see</span>
+<span class="sd">  http://gnrd.globalnames.org/.</span>
+
+<span class="sd">  :param url: An encoded URL for a web page, PDF, Microsoft Office document, or</span>
+<span class="sd">     image file, see examples</span>
+<span class="sd">  :param file: When using multipart/form-data as the content-type, a file may be sent.</span>
+<span class="sd">     This should be a path to your file on your machine.</span>
+<span class="sd">  :param text: Type: string. Text content; best used with a POST request, see</span>
+<span class="sd">     examples</span>
+<span class="sd">  :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,</span>
+<span class="sd">     2 for NetiNeti, or 0 for both. If absent, both engines are used.</span>
+<span class="sd">  :param unique: (optional) Type: boolean. If TRUE (default),</span>
+<span class="sd">     response has unique names without offsets.</span>
+<span class="sd">  :param verbatim: (optional) Type: boolean, If TRUE (default to FALSE),</span>
+<span class="sd">     response excludes verbatim strings.</span>
+<span class="sd">  :param detect_language: (optional) Type: boolean, When</span>
+<span class="sd">     TRUE (default), NetiNeti is not used if the language of incoming text is</span>
+<span class="sd">     determined not to be English. When &#39;false&#39;, NetiNeti will be used if requested.</span>
+<span class="sd">  :param all_data_sources: (optional) Type: bolean. Resolve found</span>
+<span class="sd">     names against all available Data Sources.</span>
+<span class="sd">  :param data_source_ids: (optional) Type: string. Pipe separated list of data</span>
+<span class="sd">     source ids to resolve found names against. See list of Data Sources.</span>
+
+<span class="sd">  Usage::</span>
+
+<span class="sd">      # Get data from a website using its URL</span>
+<span class="sd">      out = pytaxize.scrapenames(url = &#39;http://en.wikipedia.org/wiki/Araneae&#39;)</span>
+<span class="sd">      out[&#39;data&#39;].head() # data</span>
+<span class="sd">      out[&#39;meta&#39;] # metadata</span>
+
+<span class="sd">      # Scrape names from a pdf at a URL</span>
+<span class="sd">      out = pytaxize.scrapenames(url = &#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;)</span>
+<span class="sd">      out[&#39;data&#39;].head() # data</span>
+<span class="sd">      out[&#39;meta&#39;] # metadata</span>
+
+<span class="sd">      # With arguments</span>
+<span class="sd">      pytaxize.scrapenames(url = &#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;,</span>
+<span class="sd">      unique=TRUE)</span>
+<span class="sd">      pytaxize.scrapenames(url = &#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;, all_data_sources=TRUE)</span>
+
+<span class="sd">      # Get data from text string as an R object</span>
+<span class="sd">      pytaxize.scrapenames(text=&#39;A spider named Pardosa moesta Banks, 1892&#39;)</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="n">method</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span> <span class="n">url</span><span class="p">,</span> <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="nb">file</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">}</span>
+  <span class="n">method</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">method</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">value</span> <span class="o">!=</span> <span class="bp">None</span><span class="p">}</span>
+  <span class="k">if</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">method</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Only one of url, file, or text can be used&quot;</span><span class="p">)</span>
+
+  <span class="n">base</span> <span class="o">=</span> <span class="s2">&quot;http://gnrd.globalnames.org/name_finder.json&quot;</span>
+  <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;url&#39;</span><span class="p">:</span><span class="n">url</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">:</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;engine&#39;</span><span class="p">:</span><span class="n">engine</span><span class="p">,</span> <span class="s1">&#39;unique&#39;</span><span class="p">:</span><span class="n">unique</span><span class="p">,</span>
+             <span class="s1">&#39;verbatim&#39;</span><span class="p">:</span><span class="n">verbatim</span><span class="p">,</span> <span class="s1">&#39;detect_language&#39;</span><span class="p">:</span><span class="n">detect_language</span><span class="p">,</span>
+             <span class="s1">&#39;all_data_sources&#39;</span><span class="p">:</span><span class="n">all_data_sources</span><span class="p">,</span> <span class="s1">&#39;data_source_ids&#39;</span><span class="p">:</span><span class="n">data_source_ids</span><span class="p">}</span>
+
+  <span class="n">ss</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+    <span class="n">ss</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">method</span><span class="o">.</span><span class="n">keys</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;url&#39;</span><span class="p">,</span><span class="s1">&#39;text&#39;</span><span class="p">])</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="n">requests_refactor</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">303</span><span class="p">):</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Woops, something went wrong&quot;</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">token_url</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="s1">&#39;token_url&#39;</span><span class="p">]</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="mi">303</span>
+    <span class="k">while</span><span class="p">(</span><span class="n">st</span> <span class="o">==</span> <span class="mi">303</span><span class="p">):</span>
+      <span class="n">datout</span> <span class="o">=</span> <span class="n">requests_refactor</span><span class="p">(</span><span class="n">token_url</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+      <span class="n">st</span> <span class="o">=</span> <span class="n">datout</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span>
+    <span class="n">dd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datout</span><span class="p">[</span><span class="s1">&#39;names&#39;</span><span class="p">])</span>
+    <span class="n">datout</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;names&#39;</span><span class="p">)</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">datout</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;meta&#39;</span><span class="p">:</span> <span class="n">meta</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="n">dd</span><span class="p">}</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.4.9900',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

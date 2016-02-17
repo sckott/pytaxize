@@ -196,6 +196,12 @@ Contents
    :maxdepth: 2
 
    col
+   gnr
+   gni
+   tax
+   tnrs
+   ids
+   itis
    changelog_link
 
 License
