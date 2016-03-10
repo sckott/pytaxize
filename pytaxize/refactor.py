@@ -41,8 +41,8 @@ class Refactor:
         if self.request == 'get':
             out = requests.get(self.url, params = self.payload, **kwargs)
             out.raise_for_status()
-            return out.raw()
+            return out.text
         else:
             out = requests.post(self.url, params = self.payload, **kwargs)
             out.raise_for_status()
-            return out.raw()
+            return out.text
