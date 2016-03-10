@@ -79,11 +79,18 @@ def vascan_search(q, format='json', raw=False):
     if(len(q) > 1):
         query = "\n".join(q)
         payload = {'q': query}
-        out = Refactor(url, payload, request='post').raw()
+        if(format == 'json'):
+          out = Refactor(url, payload, request='post').json()
+        else:
+          out = Refactor(url, payload, request='post').raw()
         return out
     else:
         payload = {'q': q}
-        out = Refactor(url, payload, request='get').raw()
+        if(format == 'json'):
+          out = Refactor(url, payload, request='get').json()
+        else:
+          out = Refactor(url, payload, request='get').raw()
+        return out
 
 def gbif_parse(scientificname):
     '''
