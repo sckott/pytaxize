@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Global Names Resolver &mdash; pytaxize 0.4.9900 documentation</title>
+  <title>Global Names Resolver &mdash; pytaxize 0.5.9200 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pytaxize 0.4.9900 documentation" href="index.html"/>
+    <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
         <link rel="next" title="Global Names Index" href="gni.html"/>
         <link rel="prev" title="Catalogue of Life" href="col.html"/> 
 
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.9900
+                0.5.9200
               </div>
             
           
@@ -86,6 +86,9 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
 </ul>
 
@@ -135,32 +138,20 @@
 <span id="global-names-resolver"></span><span id="gnr"></span><h1>Global Names Resolver<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
 <dt id="pytaxize.gnr.gnr_datasources">
-<code class="descclassname">gnr.</code><code class="descname">gnr_datasources</code><span class="sig-paren">(</span><em>todf=True</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gnr.gnr_datasources" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">gnr.</code><code class="descname">gnr_datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gnr.gnr_datasources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data sources for the Global Names Resolver.</p>
 <dl class="docutils">
 <dt>Retrieve data sources used in Global Names Index, see</dt>
 <dd><a class="reference external" href="http://gni.globalnames.org/">http://gni.globalnames.org/</a> for information.</dd>
 </dl>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>todf</strong> &#8211; logical; Should a DataFrame be returned?</td>
-</tr>
-</tbody>
-</table>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c1"># all data sources</span>
 <span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-<span class="n">out</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
 
 <span class="c1"># give me the id for EOL</span>
 <span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-<span class="n">out</span><span class="o">.</span><span class="n">ix</span><span class="p">[</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;EOL&#39;</span><span class="p">]</span>
-
-<span class="c1"># Output json</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">out</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;EOL&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -239,7 +230,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.9900',
+            VERSION:'0.5.9200',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

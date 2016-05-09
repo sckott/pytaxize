@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.gnr &mdash; pytaxize 0.4.9900 documentation</title>
+  <title>pytaxize.gnr &mdash; pytaxize 0.5.9200 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="pytaxize 0.4.9900 documentation" href="../../index.html"/>
+    <link rel="top" title="pytaxize 0.5.9200 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
   
@@ -59,7 +59,7 @@
             
             
               <div class="version">
-                0.4.9900
+                0.5.9200
               </div>
             
           
@@ -85,7 +85,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../tax.html">Variety of functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tnrs.html">iPlant Plant Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../ids.html">Taxonomic Identifiers Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../changelog_link.html">Changelog</a></li>
@@ -145,39 +144,26 @@
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
 
-<span class="k">def</span> <span class="nf">gnr_datasources</span><span class="p">(</span><span class="n">todf</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">gnr_datasources</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Get data sources for the Global Names Resolver.</span>
 
 <span class="sd">    Retrieve data sources used in Global Names Index, see</span>
 <span class="sd">       http://gni.globalnames.org/ for information.</span>
 
-<span class="sd">    :param todf: logical; Should a DataFrame be returned?</span>
-
 <span class="sd">    Usage::</span>
 
 <span class="sd">        # all data sources</span>
 <span class="sd">        import pytaxize</span>
-<span class="sd">        out = pytaxize.gnr_datasources()</span>
-<span class="sd">        out.head()</span>
+<span class="sd">        pytaxize.gnr_datasources()</span>
 
 <span class="sd">        # give me the id for EOL</span>
 <span class="sd">        out = pytaxize.gnr_datasources()</span>
-<span class="sd">        out.ix[out[&#39;title&#39;] == &#39;EOL&#39;]</span>
-
-<span class="sd">        # Output json</span>
-<span class="sd">        pytaxize.gnr_datasources(False)</span>
+<span class="sd">        [d for d in out if d[&#39;title&#39;] in &#39;EOL&#39;][0][&#39;id&#39;]</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://resolver.globalnames.org/data_sources.json&quot;</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">todf</span><span class="p">):</span>
-        <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)):</span>
-            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">],</span><span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;title&#39;</span><span class="p">]])</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">df</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">data</span>
 
 <span class="k">def</span> <span class="nf">gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
     <span class="n">with_context</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">best_match_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">header_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">preferred_data_sources</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">):</span>
@@ -219,6 +205,7 @@
 
 <span class="k">def</span> <span class="nf">_gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
     <span class="n">with_context</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">best_match_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">header_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">preferred_data_sources</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">):</span>
+
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://resolver.globalnames.org/name_resolvers&#39;</span>
     <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_source_ids&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="n">format</span><span class="p">,</span>
                 <span class="s1">&#39;resolve_once&#39;</span><span class="p">:</span> <span class="n">resolve_once</span><span class="p">,</span> <span class="s1">&#39;with_context&#39;</span><span class="p">:</span> <span class="n">with_context</span><span class="p">,</span>
@@ -292,7 +279,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.4.9900',
+            VERSION:'0.5.9200',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

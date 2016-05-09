@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Catalogue of Life &mdash; pytaxize 0.4.9900 documentation</title>
+  <title>Catalogue of Life &mdash; pytaxize 0.5.9200 documentation</title>
   
 
   
@@ -30,8 +30,8 @@
   
 
   
-    <link rel="top" title="pytaxize 0.4.9900 documentation" href="index.html"/>
-        <link rel="next" title="Changelog" href="changelog_link.html"/>
+    <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
+        <link rel="next" title="Global Names Resolver" href="gnr.html"/>
         <link rel="prev" title="pytaxize" href="index.html"/> 
 
   
@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                0.4.9900
+                0.5.9200
               </div>
             
           
@@ -83,6 +83,12 @@
             
                 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
 </ul>
 
@@ -182,16 +188,6 @@ optional. Returns A list of data.frame&#8217;s.</p>
 <span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Buteo&quot;</span><span class="p">,</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Accipiter&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2012&quot;</span><span class="p">)</span>
 <span class="c1"># get just one element in list of output</span>
 <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># or combine to one DataFrame</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-
-<span class="c1"># or pass many id&#39;s</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">,</span><span class="mi">15700333</span><span class="p">,</span><span class="mi">15638488</span><span class="p">])</span>
-<span class="c1"># combine to one DataFrame</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -274,12 +270,12 @@ year&#8217;s checklist instead of the lastest as default (numeric).</li>
 <p>Usage:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c1"># A basic example</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15669061</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15669061</span><span class="p">)</span> <span class="c1"># - DOESNT WORK</span>
 
 <span class="c1"># Many names</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Puma concolor&quot;</span><span class="p">])</span>
 
-<span class="c1"># Many ids</span>
+<span class="c1"># Many ids - DOESNT WORK</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">,</span><span class="mi">6862841</span><span class="p">])</span>
 
 <span class="c1"># An example where there is no data</span>
@@ -300,7 +296,7 @@ year&#8217;s checklist instead of the lastest as default (numeric).</li>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="changelog_link.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gnr.html" class="btn btn-neutral float-right" title="Global Names Resolver" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="pytaxize" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -334,7 +330,7 @@ year&#8217;s checklist instead of the lastest as default (numeric).</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.9900',
+            VERSION:'0.5.9200',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

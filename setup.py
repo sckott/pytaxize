@@ -12,7 +12,7 @@ long_description = '\n\n' + readme + '\n\n' + changes
 
 setup(
   name='pytaxize',
-	version='0.5.9000',
+	version='0.5.9200',
 	description='Taxonomic toolbelt for Python',
   long_description = long_description,
   author='Scott Chamberlain',

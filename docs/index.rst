@@ -199,7 +199,6 @@ Contents
    gnr
    gni
    tax
-   tnrs
    ids
    itis
    changelog_link
