@@ -15,7 +15,6 @@ Usage::
 '''
 
 from .refactor import *
-from .tnrs import tnrs_resolve
 from .gnr import gnr_datasources, gnr_resolve
 from .gni import gni_parse, gni_search, gni_details
 from .col import col_children, col_downstream, col_search

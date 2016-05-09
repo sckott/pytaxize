@@ -76,7 +76,7 @@ def getcommentdetailfromtsn(tsn, **kwargs):
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator","updateDate"]
     colnames = ['comment','commid','commtime','commentator','updatedate']
-    return _itisdf(out, ns, matches, colnames)
+    return _itisdict(out, ns, matches, colnames)
 
 def getcommonnamesfromtsn(tsn, **kwargs):
     '''
@@ -89,14 +89,15 @@ def getcommonnamesfromtsn(tsn, **kwargs):
 
         pytaxize.getcommonnamesfromtsn(tsn=183833)
     '''
-    out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
+    #out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
     out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commonName", "language", "tsn"]
     colnames = ['comname','lang','tsn']
     res = _itisextract(out, ns, matches, colnames)
     del res[2][-1]
-    return _array2df(res, colnames)
+    return [ dict(zip(colnames, z)) for z in x ]
+    #return _array2df(res, colnames)
 
 def getcoremetadatafromtsn(tsn, **kwargs):
     '''
@@ -124,13 +125,10 @@ def getcoveragefromtsn(tsn, **kwargs):
         pytaxize.getcoveragefromtsn(tsn=28727)
         # no coverage data
         pytaxize.getcoveragefromtsn(526852)
-        # combine many results
-        import pandas as pd
-        pd.concat([ getcoveragefromtsn(x) for x in [28727,526852] ])
     '''
     out = Refactor(itis_base + 'getCoverageFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId", "taxonCoverage", "tsn"]
-    df = _itisdf(out, ns21, matches, _tolower(matches))
+    df = _itisdict(out, ns21, matches, _tolower(matches))
     return df
 
 def getcredibilityratingfromtsn(tsn, **kwargs):
@@ -144,7 +142,7 @@ def getcredibilityratingfromtsn(tsn, **kwargs):
     '''
     out = Refactor(itis_base + 'getCredibilityRatingFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["credRating", "tsn"]
-    df = _itisdf(out, ns21, matches, _tolower(matches))
+    df = _itisdict(out, ns21, matches, _tolower(matches))
     return df
 
 def getcredibilityratings(**kwargs):
@@ -159,9 +157,9 @@ def getcredibilityratings(**kwargs):
     '''
     out = Refactor(itis_base + 'getCredibilityRatings', payload={}, request='get').xml(**kwargs)
     nodes = out.xpath("//ax23:credibilityValues", namespaces=ns23)
-    credibilityValues = [x.text for x in nodes]
-    df = pd.DataFrame(credibilityValues, columns=['credibilityValues'])
-    return df
+    return [x.text for x in nodes]
+    # df = pd.DataFrame(credibilityValues, columns=['credibilityValues'])
+    # return df
 
 def getcurrencyfromtsn(tsn, **kwargs):
     '''
@@ -176,7 +174,7 @@ def getcurrencyfromtsn(tsn, **kwargs):
     '''
     out = Refactor(itis_base + 'getCurrencyFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId","taxonCurrency","tsn"]
-    df = _itisdf(out, ns21, matches, _tolower(matches))
+    df = _itisdict(out, ns21, matches, _tolower(matches))
     return df
 
 def getdatedatafromtsn(tsn, **kwargs):
@@ -189,7 +187,7 @@ def getdatedatafromtsn(tsn, **kwargs):
     '''
     out = Refactor(itis_base + 'getDateDataFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["initialTimeStamp","updateDate","tsn"]
-    df = _itisdf(out, ns21, matches, _tolower(matches))
+    df = _itisdict(out, ns21, matches, _tolower(matches))
     return df
 
 def getexpertsfromtsn(tsn, **kwargs):
@@ -221,7 +219,7 @@ def gettaxonomicranknamefromtsn(tsn, **kwargs):
 
 def getfullhierarchyfromtsn(tsn, **kwargs):
     '''
-    Get full hierarchy from tsn
+    Get full hierarchy from ts
 
     :param tsn: TSN for a taxonomic group (numeric)
 
@@ -303,8 +301,7 @@ def getgeographicvalues(**kwargs):
     out = Refactor(itis_base + 'getGeographicValues', payload={}, request='get').xml(**kwargs)
     ns = {'ax21':'http://metadata.itis_service.itis.usgs.gov/xsd'}
     nodes = out.xpath("//ax21:geographicValues", namespaces=ns)
-    gv = [x.text for x in nodes]
-    return pd.DataFrame(gv, columns=['geographicvalues'])
+    return [x.text for x in nodes]
 
 def getglobalspeciescompletenessfromtsn(tsn, **kwargs):
     '''
@@ -352,11 +349,11 @@ def gethierarchyupfromtsn(tsn, **kwargs):
 
 def _itisterms(endpt, args={}, **kwargs):
     '''
-    Get itis terms
+    Get itis term
 
     Usage::
 
-        pytaxize._itisterms(x="buya")
+        pytaxize._itisterms("buya")
     '''
     out = Refactor(itis_base + endpt, payload=args, request='get').xml(**kwargs)
 
@@ -874,7 +871,7 @@ def _parse2df(obj, ns):
     nodes = obj.xpath('//ax21:*', namespaces=ns)
     vals = [x.text for x in nodes]
     keys = [x.tag.split('}')[1] for x in nodes]
-    df = pd.DataFrame([dict(zip(keys, vals))])
+    df = [dict(zip(keys, vals))]
     return df
 
 def _parse_nodes(obj):
@@ -886,11 +883,8 @@ def _parse_hier(obj, ns):
     nodes = obj.xpath('//ax21:hierarchyList', namespaces=ns)
     uu = []
     for i in range(len(nodes)):
-        uu.append([x.text for x in nodes[i]])
-    df = pd.DataFrame(uu, columns=['tsn','author','parentName','parentTsn','rankName','taxonName'])
-    df = df.drop('author', axis=1)
-    df = df.reindex_axis(['tsn','rankName','taxonName','parentName','parentTsn'], axis=1)
-    return df
+        uu.append(dict(zip(['tsn','author','parentName','parentTsn','rankName','taxonName'], [x.text for x in nodes[i]])))
+    return uu
 
 def _itisdf(a, b, matches, colnames, pastens="ax21"):
     prefix = '//%s:' % pastens
@@ -903,6 +897,17 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
         sys.exit('Please enter a valid search name')
     df = pd.DataFrame(dict(zip(colnames, output)))
     return df
+
+def _itisdict(a, b, matches, colnames, pastens="ax21"):
+    prefix = '//%s:' % pastens
+    matches = [prefix+x for x in matches]
+    output = []
+    for m in matches:
+        nodes = a.xpath(m, namespaces=b)
+        output.append([x.text for x in nodes])
+    if len(nodes) == 0:
+        sys.exit('Please enter a valid search name')
+    return dict(zip(colnames, output))
 
 def _itisextract(a, b, matches, colnames, pastens="ax21"):
     prefix = '//%s:' % pastens
@@ -925,8 +930,9 @@ def _itis_parse(a, b, d):
         tmp = y.xpath("//ax21:"+x, namespaces=nsp)
         return [x.text for x in tmp]
     vals = [xpathfunc(x, b, d) for x in a]
-    df = pd.DataFrame(dict(zip(_tolower(a), vals)))
-    return df
+    return dict(zip(_tolower(a), vals))
+    # df = pd.DataFrame(dict(zip(_tolower(a), vals)))
+    # return df
 
 def _itis_parse_2dict(a, b, d):
     def xpathfunc(x, y, nsp):

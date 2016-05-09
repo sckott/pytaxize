@@ -50,16 +50,6 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         out = pytaxize.col_children(name=["Buteo","Apis","Accipiter"], checklist="2012")
         # get just one element in list of output
         out[0]
-
-        # or combine to one DataFrame
-        import pandas as pd
-        pd.concat(out).head()
-
-        # or pass many id's
-        out = pytaxize.col_children(id=[15669061,15700333,15638488])
-        # combine to one DataFrame
-        import pandas as pd
-        pd.concat(out).head()
     '''
 
     def func(x, y):
@@ -82,9 +72,10 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         outlist = []
         for i in range(len(childtaxa)):
             tt_ = childtaxa[i].getchildren()
-            outlist.append([x.text for x in tt_[:3]])
-        df = pd.DataFrame(outlist, columns=['id','name','rank'])
-        return df
+            outlist.append(
+                dict(zip(['id','name','rank'], [x.text for x in tt_[:3]]))
+            )
+        return outlist
 
     if(id.__class__.__name__ == 'NoneType'):
         temp = []
@@ -228,12 +219,12 @@ def col_search(name=None, id=None, start=None, checklist=None):
 
         # A basic example
         pytaxize.col_search(name=["Apis"])
-        pytaxize.col_search(id=15669061)
+        pytaxize.col_search(id=15669061) # - DOESNT WORK
 
         # Many names
         pytaxize.col_search(name=["Apis","Puma concolor"])
 
-        # Many ids
+        # Many ids - DOESNT WORK
         pytaxize.col_search(id=[15669061,6862841])
 
         # An example where there is no data
@@ -265,29 +256,16 @@ def col_search(name=None, id=None, start=None, checklist=None):
                 for e in tt_[g].iter():
                     each.update({e.tag: e.text})
             outlist.append(each)
-            # values = [x.text for x in tt_[:4]]
-            # tags = [x.tag for x in tt_[:4]]
-            # mydict = dict(zip(tags, values))
-        df = pd.DataFrame(outlist)
-        # tt_ = stuff[0].getchildren()
-        # res = [x.text for x in tt_[:4]]
-        return df
-
-        # tt = xmlParse(out)
-        # toget = c('id','name','rank','name_status')
-        # nodes = getNodeSet(tt, "//result", fun=xmlToList)
-        # ldply(nodes, parsecoldata)
+        return outlist
 
     if(id.__class__.__name__ == 'NoneType'):
         temp = []
         for i in range(len(name)):
             temp.append(func(name[i], y=None))
-        # names(temp) = name
     else:
         temp = []
         for i in range(len(id)):
             temp.append(func(x=None, y=id[i]))
-        # names(temp) = id
     return temp
 
     # def parsecoldata(x):

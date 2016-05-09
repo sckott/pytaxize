@@ -9,39 +9,26 @@ import os
 class NoResultException(Exception):
     pass
 
-def gnr_datasources(todf=True):
+def gnr_datasources():
     '''
     Get data sources for the Global Names Resolver.
 
     Retrieve data sources used in Global Names Index, see
        http://gni.globalnames.org/ for information.
 
-    :param todf: logical; Should a DataFrame be returned?
-
     Usage::
 
         # all data sources
         import pytaxize
-        out = pytaxize.gnr_datasources()
-        out.head()
+        pytaxize.gnr_datasources()
 
         # give me the id for EOL
         out = pytaxize.gnr_datasources()
-        out.ix[out['title'] == 'EOL']
-
-        # Output json
-        pytaxize.gnr_datasources(False)
+        [d for d in out if d['title'] in 'EOL'][0]['id']
     '''
     url = "http://resolver.globalnames.org/data_sources.json"
-    if(todf):
-        out = Refactor(url, payload={}, request='get').json()
-        data = []
-        for i in range(len(out)):
-            data.append([out[i]['id'],out[i]['title']])
-        df = pd.DataFrame(data, columns=['id','title'])
-    else:
-        df = Refactor(url, payload={}, request='get').json()
-    return df
+    data = Refactor(url, payload={}, request='get').json()
+    return data
 
 def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
     with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
@@ -83,6 +70,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
 
 def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
     with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
+
     url = 'http://resolver.globalnames.org/name_resolvers'
     payload = {'data_source_ids': source, 'format': format,
                 'resolve_once': resolve_once, 'with_context': with_context,
