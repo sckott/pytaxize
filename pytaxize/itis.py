@@ -896,7 +896,7 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
         sys.exit('Please enter a valid search name')
     if not len( output[0] ) == len( output[-1] ) :
         # for some reason, the list of tsn's sometimes begins with a
-        # spurrious None
+        # spurious None
         output[-1] = output[-1][1:]
     df = pd.DataFrame( zip(*output), columns=colnames )[ colnames[::-1] ] 
     return df
