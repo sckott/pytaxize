@@ -374,10 +374,9 @@ def _itisterms(endpt, args={}, **kwargs):
             output.append(uu)
         else:
             output.append(x)
-
-    df = pd.concat([pd.DataFrame([y.values()[0] for y in x]).transpose() for x in output])
-    df.columns = [x.keys()[0] for x in allnodes[0]]
-    return df
+    
+    df = pd.DataFrame( [ { k: v for d in R for k, v in d.items() } for R in output ] )
+    return df[ [ x.keys()[0] for x in allnodes[0] ] ]
 
 def _get_text_single(x):
     vals = [x.text]
