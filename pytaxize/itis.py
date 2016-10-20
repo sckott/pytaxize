@@ -894,7 +894,11 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
         output.append([x.text for x in nodes])
     if len(nodes) == 0:
         sys.exit('Please enter a valid search name')
-    df = pd.DataFrame(dict(zip(colnames, output)))
+    if not len( output[0] ) == len( output[-1] ) :
+        # for some reason, the list of tsn's sometimes begins with a
+        # spurrious None
+        output[-1] = output[-1][1:]
+    df = pd.DataFrame( zip(*output), columns=colnames )[ colnames[::-1] ] 
     return df
 
 def _itisdict(a, b, matches, colnames, pastens="ax21"):
