@@ -898,7 +898,7 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
         # for some reason, the list of tsn's sometimes begins with a
         # spurious None
         output[-1] = output[-1][1:]
-    df = pd.DataFrame( zip(*output), columns=colnames )[ colnames[::-1] ] 
+    df = pd.DataFrame(list(zip(*output)), columns=colnames )[ colnames[::-1] ]
     return df
 
 def _itisdict(a, b, matches, colnames, pastens="ax21"):
