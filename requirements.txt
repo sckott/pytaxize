@@ -1,0 +1,4 @@
+pandas
+lxml>=0.1
+requests>=2.0
+
