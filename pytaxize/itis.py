@@ -67,7 +67,8 @@ def getanymatchcount(x, **kwargs):
     out = Refactor(itis_base + 'getAnyMatchCount', payload={'srchKey': x}, request='get').xml(**kwargs)
     return int(out.getchildren()[0].text)
 
-def getcommentdetailfromtsn(tsn, **kwargs):
+
+def getcommentdetailfromtsn(tsn, as_dataframe=True, **kwargs):
     '''
     Get comment detail from TSN
 
@@ -78,13 +79,23 @@ def getcommentdetailfromtsn(tsn, **kwargs):
 
         pytaxize.getcommentdetailfromtsn(tsn=180543)
     '''
-    out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
-    ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
-    matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator","updateDate"]
-    colnames = ['comment','commid','commtime','commentator','updatedate']
-    return _itisdict(out, ns, matches, colnames)
+    out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn},
+                   request='get').xml(**kwargs)
+    ns = {'ax21': 'http://data.itis_service.itis.usgs.gov/xsd'}
+    matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator",
+               "updateDate"]
+    colnames = ['comment', 'commid', 'commtime', 'commentator', 'updatedate']
+    data = _itisdict(out, ns, matches, colnames)
 
-def getcommonnamesfromtsn(tsn, **kwargs):
+    if as_dataframe and pd:
+        # Need to transpose data to get a clean dataframe
+        res = [list(i) for i in zip(*res)]
+        return _array2df(res, colnames)
+    else:
+        data
+
+
+def getcommonnamesfromtsn(tsn, as_dataframe=True, **kwargs):
     '''
     Get common names from tsn
 
@@ -95,15 +106,21 @@ def getcommonnamesfromtsn(tsn, **kwargs):
 
         pytaxize.getcommonnamesfromtsn(tsn=183833)
     '''
-    #out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
-    out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
-    ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
+    # out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn},
+                   request='get').xml(**kwargs)
+    ns = {'ax21': 'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commonName", "language", "tsn"]
-    colnames = ['comname','lang','tsn']
+    colnames = ['comname', 'lang', 'tsn']
     res = _itisextract(out, ns, matches, colnames)
     del res[2][-1]
-    return [ dict(zip(colnames, z)) for z in x ]
-    #return _array2df(res, colnames)
+    if as_dataframe and pd:
+        df = pd.DataFrame.from_records(res).T
+        df.columns = colnames
+        return df
+    else:
+        return res, colnames
+
 
 def getcoremetadatafromtsn(tsn, **kwargs):
     '''
