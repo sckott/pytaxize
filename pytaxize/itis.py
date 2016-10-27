@@ -88,9 +88,9 @@ def getcommentdetailfromtsn(tsn, as_dataframe=True, **kwargs):
     data = _itisdict(out, ns, matches, colnames)
 
     if as_dataframe and pd:
-        # Need to transpose data to get a clean dataframe
-        res = [list(i) for i in zip(*res)]
-        return _array2df(res, colnames)
+        df = pd.DataFrame.from_records(data[0]).T
+        df.columns = colnames
+        return df
     else:
         data
 
