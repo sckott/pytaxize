@@ -1,10 +1,16 @@
 import sys
 import time
 import requests
-import pandas as pd
+import warnings
+
 from lxml import etree
 from pytaxize.refactor import Refactor
 
+try:
+    import pandas as pd
+except ImportError:
+    warnings.warn('Pandas library not installed, dataframes disabled')
+    pd = None
 itis_base = 'http://www.itis.gov/ITISWebService/services/ITISService/'
 
 def itis_ping(**kwargs):
