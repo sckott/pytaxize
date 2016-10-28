@@ -73,6 +73,7 @@ def getcommentdetailfromtsn(tsn, as_dataframe=True, **kwargs):
     Get comment detail from TSN
 
     :param tsn: TSN for a taxonomic group (numeric)
+    :param as_dataframe: specify return type, if pandas is available (boolean)
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
