@@ -100,6 +100,7 @@ def getcommonnamesfromtsn(tsn, as_dataframe=True, **kwargs):
     Get common names from tsn
 
     :param tsn: TSN for a taxonomic group (numeric)
+    :param as_dataframe: specify return type, if pandas is available (boolean)
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::

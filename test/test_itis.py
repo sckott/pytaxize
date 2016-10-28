@@ -24,3 +24,15 @@ class ITIS(VCRTestCase):
         "Basic test of its gethierarchyupfromtsn"
         hierarchy = pytaxize.gethierarchyupfromtsn(tsn = 36485)
         assert hierarchy[0]['rankName'] == 'Genus'
+
+    def test_itis_getcommonnamesfromtsn():
+        """
+        Basic test of its getcommonnamesfromtsn
+        """
+        common_names = pytaxize.itis.getcommonnamesfromtsn(tsn=180543,
+                                                       as_dataframe=False)
+        assert set(common_names[1]) == set(['comname', 'lang', 'tsn'])
+
+        common_names_df = pytaxize.itis.getcommonnamesfromtsn(tsn=180543,
+                                                            as_dataframe=True)
+        assert set(common_names_df.columns) == set(['comname', 'lang', 'tsn'])
