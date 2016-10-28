@@ -89,11 +89,10 @@ def getcommentdetailfromtsn(tsn, as_dataframe=True, **kwargs):
     data = _itisdict(out, ns, matches, colnames)
 
     if as_dataframe and pd:
-        df = pd.DataFrame.from_records(data[0]).T
-        df.columns = colnames
+        df = pd.DataFrame.from_records(data)
         return df
     else:
-        data
+        return data
 
 
 def getcommonnamesfromtsn(tsn, as_dataframe=True, **kwargs):
