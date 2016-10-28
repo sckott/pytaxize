@@ -12,7 +12,7 @@ long_description = '\n\n' + readme + '\n\n' + changes
 
 setup(
   name='pytaxize',
-	version='0.5.9200',
+	version='0.5.9250',
 	description='Taxonomic toolbelt for Python',
   long_description = long_description,
   author='Scott Chamberlain',
@@ -20,8 +20,7 @@ setup(
   url='https://github.com/sckott/pytaxize',
   license          = 'MIT',
   packages         = find_packages(exclude=['test-*']),
-  install_requires=['requests>=2.7.0',
-                    'lxml'],
+  install_requires=['pandas','requests>=2.7.0','lxml'],
   data_files=[('pytaxize/data', ['data/apg_orders.csv', 'data/apg_families.csv',
     'data/plantGenusNames.csv', 'data/plantNames.csv', 'data/rank_ref.csv'] )],
   classifiers      = (
