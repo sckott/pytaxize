@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
@@ -133,12 +136,12 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pytaxize.gnr</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="k">import</span> <span class="n">Refactor</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
@@ -165,7 +168,7 @@
     <span class="n">data</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">data</span>
 
-<span class="k">def</span> <span class="nf">gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
     <span class="n">with_context</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">best_match_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">header_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">preferred_data_sources</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Uses the Global Names Resolver to resolve scientific names</span>
@@ -187,7 +190,7 @@
 <span class="sd">        pytaxize.gnr_resolve([&#39;Helianthus annus&#39;,&#39;Poa annua&#39;])</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">if</span> <span class="n">names</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">!=</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">_gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">resolve_once</span><span class="p">,</span>
+        <span class="k">return</span> <span class="n">_gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">resolve_once</span><span class="p">,</span>
             <span class="n">with_context</span><span class="p">,</span> <span class="n">best_match_only</span><span class="p">,</span> <span class="n">header_only</span><span class="p">,</span>
             <span class="n">preferred_data_sources</span><span class="p">,</span> <span class="n">http</span><span class="p">)</span>
 
@@ -196,18 +199,18 @@
     <span class="n">names_sublists</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">+</span><span class="n">maxlen</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span> <span class="n">maxlen</span><span class="p">)]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">names_sublists</span><span class="p">:</span>
-        <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_gnr_resolve</span><span class="p">(</span><span class="n">sublist</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="n">format</span><span class="p">,</span> <span class="n">resolve_once</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">_gnr_resolve</span><span class="p">(</span><span class="n">sublist</span><span class="p">,</span> <span class="n">source</span><span class="p">,</span> <span class="nb">format</span><span class="p">,</span> <span class="n">resolve_once</span><span class="p">,</span>
     <span class="n">with_context</span><span class="p">,</span> <span class="n">best_match_only</span><span class="p">,</span> <span class="n">header_only</span><span class="p">,</span> <span class="n">preferred_data_sources</span><span class="p">,</span> <span class="n">http</span><span class="p">))</span>
     <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="p">[[]]:</span>
         <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;No matching results to the query&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">data</span>
 
-<span class="k">def</span> <span class="nf">_gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">_gnr_resolve</span><span class="p">(</span><span class="n">names</span><span class="o">=</span><span class="s1">&#39;Homo sapiens&#39;</span><span class="p">,</span> <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;json&#39;</span><span class="p">,</span> <span class="n">resolve_once</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span>
     <span class="n">with_context</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">best_match_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">header_only</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">preferred_data_sources</span><span class="o">=</span><span class="s1">&#39;false&#39;</span><span class="p">,</span> <span class="n">http</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">):</span>
 
     <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://resolver.globalnames.org/name_resolvers&#39;</span>
-    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_source_ids&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="n">format</span><span class="p">,</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;data_source_ids&#39;</span><span class="p">:</span> <span class="n">source</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="nb">format</span><span class="p">,</span>
                 <span class="s1">&#39;resolve_once&#39;</span><span class="p">:</span> <span class="n">resolve_once</span><span class="p">,</span> <span class="s1">&#39;with_context&#39;</span><span class="p">:</span> <span class="n">with_context</span><span class="p">,</span>
                 <span class="s1">&#39;best_match_only&#39;</span><span class="p">:</span> <span class="n">best_match_only</span><span class="p">,</span> <span class="s1">&#39;header_only&#39;</span><span class="p">:</span> <span class="n">header_only</span><span class="p">,</span>
                 <span class="s1">&#39;preferred_data_sources&#39;</span><span class="p">:</span> <span class="n">preferred_data_sources</span><span class="p">}</span>

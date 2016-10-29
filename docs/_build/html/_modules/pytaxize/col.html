@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="../../genindex.html"/>
+        <link rel="search" title="Search" href="../../search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="../../index.html"/>
         <link rel="up" title="Module code" href="../index.html"/> 
 
@@ -133,15 +136,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for pytaxize.col</h1><div class="highlight"><pre>
-<span class="kn">import</span> <span class="nn">sys</span>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="k">import</span> <span class="n">Refactor</span>
 
-<span class="k">def</span> <span class="nf">col_children</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">format</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">checklist</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">col_children</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">id</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">checklist</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Search Catalogue of Life for for direct children of a particular taxon.</span>
 
@@ -199,7 +202,7 @@
                 <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.catalogueoflife.org/annual-checklist/year/webservice&quot;</span>
                 <span class="n">url</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">checklist</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
 
-        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span><span class="n">format</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span><span class="n">start</span><span class="p">}</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">y</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span><span class="nb">format</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span><span class="n">start</span><span class="p">}</span>
         <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">()</span>
         <span class="n">childtaxa</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//child_taxa//taxon&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">childtaxa</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -215,17 +218,17 @@
     <span class="k">if</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;NoneType&#39;</span><span class="p">):</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)):</span>
-            <span class="n">ss</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="bp">None</span><span class="p">)</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="kc">None</span><span class="p">)</span>
             <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">temp</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">id</span><span class="p">)):</span>
-            <span class="n">ss</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+            <span class="n">ss</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
             <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">temp</span>
 
-<span class="k">def</span> <span class="nf">col_downstream</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">downto</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">format</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">checklist</span> <span class="o">=</span> <span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">col_downstream</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">downto</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">checklist</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    :param name: The string to search for. Only exact matches found the name given</span>
 <span class="sd">        will be returned, unless one or wildcards are included in the search</span>
@@ -271,7 +274,7 @@
                 <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;http://www.catalogueoflife.org/annual-checklist/year/webservice&quot;</span>
                 <span class="n">url</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot;year&quot;</span><span class="p">,</span> <span class="n">checklist</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span>
 
-        <span class="n">dat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;rank_ref.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;rank_ref.csv&quot;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
         <span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">dat</span><span class="o">.</span><span class="n">ranks</span><span class="p">]</span>
         <span class="n">things</span> <span class="o">=</span> <span class="p">[]</span>
@@ -279,7 +282,7 @@
             <span class="n">ss</span> <span class="o">=</span> <span class="n">downto</span> <span class="ow">in</span> <span class="n">stuff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
             <span class="n">things</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ss</span><span class="p">)</span>
         <span class="n">dat2</span> <span class="o">=</span> <span class="n">dat</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">things</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;match&#39;</span><span class="p">]))</span>
-        <span class="n">subset</span> <span class="o">=</span> <span class="n">dat2</span><span class="p">[</span><span class="n">dat2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dat2</span><span class="o">.</span><span class="n">match</span> <span class="o">==</span> <span class="bp">True</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">dat2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="n">dat2</span><span class="p">[</span><span class="n">dat2</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">dat2</span><span class="o">.</span><span class="n">match</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">dat2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
         <span class="n">torank</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">subset</span><span class="o">.</span><span class="n">ranks</span><span class="p">]</span>
 
         <span class="n">toget</span> <span class="o">=</span> <span class="n">name</span>
@@ -291,7 +294,7 @@
             <span class="nb">iter</span> <span class="o">=</span> <span class="nb">iter</span> <span class="o">+</span> <span class="mi">1</span>
 
             <span class="k">def</span> <span class="nf">searchcol</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-                <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span><span class="n">format</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span><span class="n">start</span><span class="p">}</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">:</span><span class="nb">format</span><span class="p">,</span> <span class="s1">&#39;response&#39;</span><span class="p">:</span><span class="s2">&quot;full&quot;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">:</span><span class="n">start</span><span class="p">}</span>
                 <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">()</span>
                 <span class="n">childtaxa</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//child_taxa//taxon&#39;</span><span class="p">)</span>
                 <span class="n">outlist</span> <span class="o">=</span> <span class="p">[]</span>
@@ -329,7 +332,7 @@
         <span class="n">temp</span><span class="o">.</span><span class="n">append</span> <span class="o">=</span> <span class="n">tt</span>
     <span class="k">return</span> <span class="n">temp</span>
 
-<span class="k">def</span> <span class="nf">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">checklist</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">checklist</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    Search Catalogue of Life for taxonomic IDs</span>
 
@@ -396,11 +399,11 @@
     <span class="k">if</span><span class="p">(</span><span class="nb">id</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;NoneType&#39;</span><span class="p">):</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">name</span><span class="p">)):</span>
-            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="bp">None</span><span class="p">))</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">name</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nb">id</span><span class="p">)):</span>
-            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="nb">id</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
     <span class="k">return</span> <span class="n">temp</span>
 
     <span class="c1"># def parsecoldata(x):</span>

@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
         <link rel="next" title="Changelog" href="changelog_link.html"/>
         <link rel="prev" title="Taxonomic Identifiers Class" href="ids.html"/> 
@@ -86,9 +89,8 @@
 <li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">ITIS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
 </ul>
 
@@ -112,7 +114,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -141,7 +143,7 @@
 <code class="descclassname">itis.</code><code class="descname">itis_ping</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.itis_ping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Ping the ITIS API</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytaxize</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_ping</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -160,7 +162,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># TSN accepted - good name</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># TSN accepted - good name</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
 <span class="c1"># TSN not accepted - input TSN is old name</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;504239&#39;</span><span class="p">)</span>
@@ -186,7 +188,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -210,7 +212,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -233,7 +235,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183833</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183833</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -243,7 +245,7 @@
 <code class="descclassname">itis.</code><code class="descname">getcoremetadatafromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoremetadatafromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get core metadata from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># coverage and currrency data</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># coverage and currrency data</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
 <span class="c1"># no coverage or currrency data</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183671</span><span class="p">)</span>
@@ -256,7 +258,7 @@
 <code class="descclassname">itis.</code><code class="descname">getcoveragefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoveragefromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get coverge from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># coverage data</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># coverage data</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
 <span class="c1"># no coverage data</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
@@ -269,7 +271,7 @@
 <code class="descclassname">itis.</code><code class="descname">getcredibilityratingfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcredibilityratingfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get credibility rating from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -289,7 +291,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratings</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcredibilityratings</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -299,7 +301,7 @@
 <code class="descclassname">itis.</code><code class="descname">getcurrencyfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcurrencyfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get currency from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># currency data</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># currency data</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
 <span class="c1"># no currency dat</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
@@ -312,7 +314,7 @@
 <code class="descclassname">itis.</code><code class="descname">getdatedatafromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getdatedatafromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get date data from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getdatedatafromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getdatedatafromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -322,7 +324,7 @@
 <code class="descclassname">itis.</code><code class="descname">getexpertsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getexpertsfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get expert information for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getexpertsfromtsn</span><span class="p">(</span><span class="mi">180544</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getexpertsfromtsn</span><span class="p">(</span><span class="mi">180544</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -340,7 +342,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -358,7 +360,7 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -384,7 +386,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;</span><span class="p">)</span>
 </pre></div>
@@ -409,7 +411,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;504239&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;504239&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;202385&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;183833&quot;</span><span class="p">)</span>
 </pre></div>
@@ -421,7 +423,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getgeographicdivisionsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getgeographicdivisionsfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get geographic divisions from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicdivisionsfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicdivisionsfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -440,7 +442,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicvalues</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getgeographicvalues</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -450,7 +452,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getglobalspeciescompletenessfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getglobalspeciescompletenessfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get global species completeness from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getglobalspeciescompletenessfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getglobalspeciescompletenessfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -468,7 +470,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchydownfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">161030</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchydownfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">161030</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -486,7 +488,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -497,7 +499,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getitistermsfromcommonname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitistermsfromcommonname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get itis terms from common names</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromcommonname</span><span class="p">(</span><span class="s2">&quot;buya&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromcommonname</span><span class="p">(</span><span class="s2">&quot;buya&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -507,7 +509,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getitisterms</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitisterms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get itis terms</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># fails</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># fails</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getitisterms</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -518,7 +520,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getitistermsfromscientificname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getitistermsfromscientificname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get itis terms from scientific names</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromscientificname</span><span class="p">(</span><span class="s2">&quot;ursidae&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromscientificname</span><span class="p">(</span><span class="s2">&quot;ursidae&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getitistermsfromscientificname</span><span class="p">(</span><span class="s2">&quot;Ursus&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -547,7 +549,7 @@ only. Uses the ITIS database.</p>
 <dd>rank, whilc this function only gets immediate names downstream.</dd>
 </dl>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Get full hierarchy</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Get full hierarchy</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 
 <span class="c1"># Get hierarchy upstream</span>
@@ -567,7 +569,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getjurisdictionaloriginfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionaloriginfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get jurisdictional origin from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionaloriginfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionaloriginfromtsn</span><span class="p">(</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -577,7 +579,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getjurisdictionoriginvalues</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionoriginvalues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get jurisdiction origin values</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionoriginvalues</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionoriginvalues</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -587,7 +589,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getjurisdictionvalues</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getjurisdictionvalues" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get possible jurisdiction values</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionvalues</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getjurisdictionvalues</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -597,7 +599,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getkingdomnamefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getkingdomnamefromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get kingdom names from tsn</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnamefromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnamefromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -607,7 +609,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getkingdomnames</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getkingdomnames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get all possible kingdom names</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnames</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getkingdomnames</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -617,7 +619,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getlastchangedate</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getlastchangedate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides the date the ITIS database was last updated.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getlastchangedate</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getlastchangedate</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -627,7 +629,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getlsidfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getlsidfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the unique LSID for the TSN, or an empty result if there is no match.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># valid TSN</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># valid TSN</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getlsidfromtsn</span><span class="p">(</span><span class="mi">155166</span><span class="p">)</span>
 <span class="c1"># invalid TSN, returns nothing</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">getlsidfromtsn</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -640,7 +642,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getothersourcesfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getothersourcesfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of the other sources used for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getothersourcesfromtsn</span><span class="p">(</span><span class="mi">182662</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getothersourcesfromtsn</span><span class="p">(</span><span class="mi">182662</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -650,7 +652,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getparenttsnfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getparenttsnfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the parent TSN for the entered TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getparenttsnfromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getparenttsnfromtsn</span><span class="p">(</span><span class="mi">202385</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -660,7 +662,7 @@ only. Uses the ITIS database.</p>
 <code class="descclassname">itis.</code><code class="descname">getpublicationsfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getpublicationsfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a list of the pulications used for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getpublicationsfromtsn</span><span class="p">(</span><span class="mi">70340</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getpublicationsfromtsn</span><span class="p">(</span><span class="mi">70340</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -671,7 +673,7 @@ only. Uses the ITIS database.</p>
 <dd><p>Provides a list of all the unique rank names contained in the database and
 their kingdom and rank ID values.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getranknames</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getranknames</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -683,7 +685,7 @@ their kingdom and rank ID values.</p>
 TSN in the search key to the TSN field. Returns an empty result set if
 there is no match or the TSN is invalid.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -693,7 +695,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getreviewyearfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getreviewyearfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the review year for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getreviewyearfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getreviewyearfromtsn</span><span class="p">(</span><span class="mi">180541</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -704,7 +706,7 @@ there is no match or the TSN is invalid.</p>
 <dd><p>Returns the scientific name for the TSN. Also returns the component parts
 (names and indicators) of the scientific name.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getscientificnamefromtsn</span><span class="p">(</span><span class="mi">531894</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getscientificnamefromtsn</span><span class="p">(</span><span class="mi">531894</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -714,7 +716,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">gettaxonauthorshipfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonauthorshipfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the author information for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonauthorshipfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonauthorshipfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -732,7 +734,7 @@ there is no match or the TSN is invalid.</p>
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -742,7 +744,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">gettaxonomicusagefromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonomicusagefromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the usage information for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicusagefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettaxonomicusagefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -752,7 +754,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">gettsnbyvernacularlanguage</code><span class="sig-paren">(</span><em>language</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettsnbyvernacularlanguage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get tsn by vernacular language not the international language code (character)</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnbyvernacularlanguage</span><span class="p">(</span><span class="s2">&quot;french&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnbyvernacularlanguage</span><span class="p">(</span><span class="s2">&quot;french&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -762,7 +764,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">gettsnfromlsid</code><span class="sig-paren">(</span><em>lsid</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettsnfromlsid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the TSN corresponding to the LSID, or an empty result if there is no match.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">gettsnfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:0&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -773,7 +775,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getunacceptabilityreasonfromtsn</code><span class="sig-paren">(</span><em>tsn</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getunacceptabilityreasonfromtsn" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the unacceptability reason, if any, for the TSN.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getunacceptabilityreasonfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getunacceptabilityreasonfromtsn</span><span class="p">(</span><span class="mi">183671</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -783,7 +785,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">getvernacularlanguages</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getvernacularlanguages" title="Permalink to this definition">¶</a></dt>
 <dd><p>Provides a list of the unique languages used in the vernacular table.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getvernacularlanguages</span><span class="p">()</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getvernacularlanguages</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -793,7 +795,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchbycommonname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for tsn by common name</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;american bullfrog&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;american bullfrog&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="s2">&quot;ferret-badger&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonname</span><span class="p">(</span><span class="s2">&quot;polar bear&quot;</span><span class="p">)</span>
 </pre></div>
@@ -805,7 +807,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchbycommonnamebeginswith</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonnamebeginswith" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for tsn by common name beginning with</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnamebeginswith</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnamebeginswith</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -815,7 +817,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchbycommonnameendswith</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbycommonnameendswith" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for tsn by common name ending with</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnameendswith</span><span class="p">(</span><span class="s2">&quot;snake&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbycommonnameendswith</span><span class="p">(</span><span class="s2">&quot;snake&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -826,7 +828,7 @@ there is no match or the TSN is invalid.</p>
 <dd><p>Searches common name and acts as thin wrapper around
 <cite>pytaxize.searchbycommonnamebeginswith</cite> and <cite>pytaxize.searchbycommonnameendswith</cite></p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_searchcommon</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_searchcommon</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">itis_searchcommon</span><span class="p">(</span><span class="s2">&quot;inch&quot;</span><span class="p">,</span> <span class="n">which</span> <span class="o">=</span> <span class="s2">&quot;end&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -837,7 +839,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchbyscientificname</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchbyscientificname" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search by scientific name</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbyscientificname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Tardigrada&quot;</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbyscientificname</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Tardigrada&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">searchbyscientificname</span><span class="p">(</span><span class="s2">&quot;Quercus douglasii&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -848,7 +850,7 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchforanymatch</code><span class="sig-paren">(</span><em>x</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchforanymatch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for any match</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -859,8 +861,8 @@ there is no match or the TSN is invalid.</p>
 <code class="descclassname">itis.</code><code class="descname">searchforanymatchpaged</code><span class="sig-paren">(</span><em>x</em>, <em>pagesize</em>, <em>pagenum</em>, <em>ascend</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.searchforanymatchpaged" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for any matched page for descending (logical)</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="s2">&quot;Zy&quot;</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">searchforanymatchpaged</span><span class="p">(</span><span class="s2">&quot;Zy&quot;</span><span class="p">,</span> <span class="n">pagesize</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">pagenum</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ascend</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

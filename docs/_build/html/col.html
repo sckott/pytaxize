@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
         <link rel="next" title="Global Names Resolver" href="gnr.html"/>
         <link rel="prev" title="pytaxize" href="index.html"/> 
@@ -82,11 +85,10 @@
             
             
                 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="">Catalogue of Life</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Catalogue of Life</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
@@ -112,7 +114,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -173,7 +175,7 @@ year&#8217;s checklist instead of the lastest as default (numeric).</li>
 You must provide one of name or id. The other parameters (format and start) are
 optional. Returns A list of data.frame&#8217;s.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># A basic example</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># A basic example</span>
 <span class="kn">import</span> <span class="nn">pytaxize</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
 
@@ -225,7 +227,7 @@ full queries).</li>
 </table>
 <p>Returns a list of DataFrame&#8217;s.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># Some basic examples</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Some basic examples</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="s2">&quot;Species&quot;</span><span class="p">)</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_downstream</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Bryophyta&quot;</span><span class="p">],</span> <span class="n">downto</span><span class="o">=</span><span class="s2">&quot;Family&quot;</span><span class="p">)</span>
 
@@ -268,7 +270,7 @@ year&#8217;s checklist instead of the lastest as default (numeric).</li>
 </table>
 <p>You must provide one of name or id. The other parameters (format and start) are optional.</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c1"># A basic example</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># A basic example</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
 <span class="n">pytaxize</span><span class="o">.</span><span class="n">col_search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15669061</span><span class="p">)</span> <span class="c1"># - DOESNT WORK</span>
 

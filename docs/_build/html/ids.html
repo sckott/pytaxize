@@ -30,9 +30,12 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
         <link rel="next" title="ITIS" href="itis.html"/>
-        <link rel="prev" title="iPlant Plant Names Resolver" href="tnrs.html"/> 
+        <link rel="prev" title="Variety of functions" href="tax.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -86,8 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tax.html">Variety of functions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tnrs.html">iPlant Plant Names Resolver</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Taxonomic Identifiers Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
 </ul>
@@ -112,7 +114,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -138,19 +140,24 @@
 <span id="taxonomic-identifiers-class"></span><span id="ids"></span><h1>Taxonomic Identifiers Class<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="pytaxize.Ids">
-<em class="property">class </em><code class="descclassname">pytaxize.</code><code class="descname">Ids</code><span class="sig-paren">(</span><em>name</em>, <em>db</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids.html#Ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pytaxize.</code><code class="descname">Ids</code><span class="sig-paren">(</span><em>name</em>, <em>db</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids/ids.html#Ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>ids: A class for taxonomic identifiers</p>
 <p>Usage:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytaxize</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="k">import</span> <span class="n">Ids</span>
 
-<span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
 <span class="n">res</span><span class="o">.</span><span class="n">get_colid</span><span class="p">()</span>
 </pre></div>
 </div>
 <dl class="method">
 <dt id="pytaxize.Ids.get_colid">
-<code class="descname">get_colid</code><span class="sig-paren">(</span><em>sciname=['Poa annua']</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids.html#Ids.get_colid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids.get_colid" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descname">get_colid</code><span class="sig-paren">(</span><em>ask=True</em>, <em>verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pytaxize/ids/ids.html#Ids.get_colid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids.get_colid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get Catalogue of Life taxonomic identifiers</p>
+<p>Usage:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">get_colid</span><span class="p">(</span><span class="n">sciname</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </dd></dl>
 
@@ -166,7 +173,7 @@
         <a href="itis.html" class="btn btn-neutral float-right" title="ITIS" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="tnrs.html" class="btn btn-neutral" title="iPlant Plant Names Resolver" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="tax.html" class="btn btn-neutral" title="Variety of functions" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

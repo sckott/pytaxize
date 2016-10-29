@@ -30,6 +30,9 @@
   
 
   
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="pytaxize 0.5.9200 documentation" href="#"/>
         <link rel="next" title="Catalogue of Life" href="col.html"/> 
 
@@ -110,7 +113,7 @@
         <div class="rst-content">
           
 
-
+ 
 
 
 
@@ -144,31 +147,31 @@
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-console"><div class="highlight"><pre><span class="go">sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize</span>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize</span>
 </pre></div>
 </div>
 <p>python or ipython, etc.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pytaxize</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="taxonomic-ids">
 <h1>Taxonomic Ids<a class="headerlink" href="#taxonomic-ids" title="Permalink to this headline">¶</a></h1>
 <p>I&#8217;ve started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What&#8217;s available right now is just getting COL ids.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
 <span class="n">res</span><span class="o">.</span><span class="n">get_colid</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span><span class="mi">19275187</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">19275187</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="vascan-search">
 <h1>Vascan search<a class="headerlink" href="#vascan-search" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span><span class="s1">u&#39;apiVersion&#39;</span><span class="p">:</span> <span class="s1">u&#39;0.1&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">u&#39;apiVersion&#39;</span><span class="p">:</span> <span class="s1">u&#39;0.1&#39;</span><span class="p">,</span>
  <span class="s1">u&#39;results&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;matches&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;canonicalName&#39;</span><span class="p">:</span> <span class="s1">u&#39;Helianthus annuus&#39;</span><span class="p">,</span>
      <span class="s1">u&#39;distribution&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="s1">u&#39;introduced&#39;</span><span class="p">,</span>
        <span class="s1">u&#39;locality&#39;</span><span class="p">:</span> <span class="s1">u&#39;NS&#39;</span><span class="p">,</span>
@@ -188,11 +191,11 @@
 </div>
 <div class="section" id="scrape-taxonomic-names">
 <h1>Scrape taxonomic names<a class="headerlink" href="#scrape-taxonomic-names" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">)</span>
 <span class="n">out</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre> <span class="n">identifiedName</span>  <span class="n">offsetEnd</span>  <span class="n">offsetStart</span>       <span class="n">scientificName</span>       <span class="n">verbatim</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span> <span class="n">identifiedName</span>  <span class="n">offsetEnd</span>  <span class="n">offsetStart</span>       <span class="n">scientificName</span>       <span class="n">verbatim</span>
 <span class="mi">0</span>       <span class="n">Waxiella</span>         <span class="mi">14</span>            <span class="mi">7</span>             <span class="n">Waxiella</span>       <span class="n">Waxiella</span>
 <span class="mi">1</span>    <span class="n">W</span><span class="o">.</span> <span class="n">africana</span>        <span class="mi">395</span>          <span class="mi">385</span>    <span class="n">Waxiella</span> <span class="n">africana</span>    <span class="n">W</span><span class="o">.</span> <span class="n">africana</span>
 <span class="mi">2</span>      <span class="n">W</span><span class="o">.</span> <span class="n">egbara</span>        <span class="mi">581</span>          <span class="mi">573</span>      <span class="n">Waxiella</span> <span class="n">egbara</span>      <span class="n">W</span><span class="o">.</span> <span class="n">egbara</span>
@@ -203,12 +206,12 @@
 </div>
 <div class="section" id="itis-low-level-functions">
 <h1>ITIS low level functions<a class="headerlink" href="#itis-low-level-functions" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
 
 <span class="s1">&#39;208527&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 
                                              <span class="n">comment</span>  \
 <span class="mi">0</span>  <span class="n">Status</span><span class="p">:</span> <span class="n">CITES</span> <span class="o">-</span> <span class="n">Appendix</span> <span class="n">I</span> <span class="k">as</span> <span class="n">U</span><span class="o">.</span> <span class="n">arctos</span> <span class="p">(</span><span class="n">Mexic</span><span class="o">...</span>
@@ -219,7 +222,7 @@
 <span class="mi">1</span>  <span class="n">Wilson</span> <span class="o">&amp;</span> <span class="n">Reeder</span><span class="p">,</span> <span class="n">eds</span><span class="o">.</span> <span class="p">(</span><span class="mi">2005</span><span class="p">)</span>  <span class="mi">18557</span>  <span class="mi">2007</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">20</span> <span class="mi">15</span><span class="p">:</span><span class="mo">06</span><span class="p">:</span><span class="mf">38.0</span>  <span class="mi">2014</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">03</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
 
   <span class="n">author</span>  <span class="n">parentName</span> <span class="n">parentTsn</span> <span class="n">rankName</span> <span class="n">taxonName</span>    <span class="n">tsn</span>
 <span class="mi">0</span>   <span class="n">Raf</span><span class="o">.</span>  <span class="n">Asteraceae</span>     <span class="mi">35420</span>    <span class="n">Genus</span>  <span class="n">Agoseris</span>  <span class="mi">36485</span>
@@ -228,10 +231,10 @@
 </div>
 <div class="section" id="catalogue-of-life">
 <h1>Catalogue of Life<a class="headerlink" href="#catalogue-of-life" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="p">[</span>        <span class="nb">id</span>                <span class="n">name</span>     <span class="n">rank</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span>        <span class="nb">id</span>                <span class="n">name</span>     <span class="n">rank</span>
  <span class="mi">0</span>  <span class="mi">6971712</span>  <span class="n">Apis</span> <span class="n">andreniformis</span>  <span class="n">Species</span>
  <span class="mi">1</span>  <span class="mi">6971713</span>         <span class="n">Apis</span> <span class="n">cerana</span>  <span class="n">Species</span>
  <span class="mi">2</span>  <span class="mi">6971714</span>        <span class="n">Apis</span> <span class="n">dorsata</span>  <span class="n">Species</span>
@@ -245,11 +248,11 @@
 <div class="section" id="parse-names">
 <h1>Parse names<a class="headerlink" href="#parse-names" title="Permalink to this headline">¶</a></h1>
 <p>Parse names using GBIF&#8217;s parser API</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">pytaxize</span><span class="o">.</span><span class="n">gbif_parse</span><span class="p">(</span><span class="n">scientificname</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Arrhenatherum elatius var. elatius&#39;</span><span class="p">,</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gbif_parse</span><span class="p">(</span><span class="n">scientificname</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Arrhenatherum elatius var. elatius&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;Secale cereale subsp. cereale&#39;</span><span class="p">,</span> <span class="s1">&#39;Secale cereale ssp. cereale&#39;</span><span class="p">,</span><span class="s1">&#39;Vanessa atalanta (Linnaeus, 1758)&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>  <span class="n">authorsParsed</span> <span class="n">bracketAuthorship</span> <span class="n">bracketYear</span>                  <span class="n">canonicalName</span>  \
+<div class="highlight-python"><div class="highlight"><pre><span></span>  <span class="n">authorsParsed</span> <span class="n">bracketAuthorship</span> <span class="n">bracketYear</span>                  <span class="n">canonicalName</span>  \
 <span class="mi">0</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>  <span class="n">Arrhenatherum</span> <span class="n">elatius</span> <span class="n">elatius</span>
 <span class="mi">1</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>         <span class="n">Secale</span> <span class="n">cereale</span> <span class="n">cereale</span>
 <span class="mi">2</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>         <span class="n">Secale</span> <span class="n">cereale</span> <span class="n">cereale</span>
@@ -309,9 +312,9 @@
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span>Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span>Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span>Search Page</span></a></li>
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
 </ul>
 </div>
 </div>

@@ -26,7 +26,11 @@ class Ids(object):
 
     def get_colid(self, ask = True, verbose = True):
       '''
-      pytaxize.get_colid(sciname=['Poa annua'])
+      Get Catalogue of Life taxonomic identifiers
+
+      Usage::
+
+        pytaxize.get_colid(sciname=['Poa annua'])
       '''
       def fun(sciname, ask, verbose):
         id = rank_taken = None
