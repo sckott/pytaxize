@@ -1,6 +1,6 @@
 import sys
 from ..col import col_search
-from ..utils import gbif_utils
+from ..gbif_utils import *
 
 class NoResultException(Exception):
     pass
@@ -11,10 +11,9 @@ class Ids(object):
 
     Usage::
 
-      import pytaxize
-      # from pytaxize import Ids
+      from pytaxize import Ids
 
-      res = pytaxize.Ids('Poa annua', db='col')
+      res = Ids('Poa annua', db='col')
       res.get_colid()
     '''
     def __init__(self, name, db):
@@ -49,7 +48,7 @@ class Ids(object):
         if(len(id) > 1):
             if(ask):
                 print("\nMore than one eolid found for taxon '" + sciname + "'\n")
-                print(df)
+                print(res)
                 take = input("\n Enter rownumber of taxon:\n\n")
 
                 if(len(str(take)) == 0):
