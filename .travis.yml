@@ -10,7 +10,6 @@ install:
   - pip install 'pandas>=0.19.2'
   - pip install 'lxml>=3.7.3'
   - pip install coveralls
-  - pip install pytest
 
 script:
-    - pytest --verbose --ignore setup.py
+  - nosetests -v --with-coverage --cover-package=pytaxize
