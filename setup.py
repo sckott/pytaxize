@@ -22,7 +22,7 @@ setup(
   packages         = find_packages(exclude=['test-*']),
   install_requires=['pandas','requests>=2.7.0','lxml'],
   extras_require={
-       'test': ['vcr_unittest'],
+       'test': ['vcrpy-unittest'],
   },
   data_files=[('pytaxize/data', ['data/apg_orders.csv', 'data/apg_families.csv',
     'data/plantGenusNames.csv', 'data/plantNames.csv', 'data/rank_ref.csv'] )],
