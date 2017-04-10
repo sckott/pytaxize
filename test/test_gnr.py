@@ -3,6 +3,8 @@
 import os
 import pytaxize
 
+from vcr_unittest import VCRTestCase
+
 # expected results
 exp1 = {u'canonical_form': u'Helianthus annus',
  u'classification_path': u'',
@@ -22,9 +24,10 @@ exp1 = {u'canonical_form': u'Helianthus annus',
  u'taxon_id': u's_5106367',
  u'url': u'http://eol.org/pages/468106/names/synonyms'}
 
-def test_gnr_resolve():
-    """Basic test of of gnr_resolve"""
-    assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
+class Gnr(VCRTestCase):
+		def test_gnr_resolve(self):
+			"Basic test of of gnr_resolve"
+			assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
 
 # def test_gnr_resolve_remove_temporary_file():
 # 	"""test if delete temporary name list file in gnr_resolve"""

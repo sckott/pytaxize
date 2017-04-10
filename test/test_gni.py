@@ -2,6 +2,8 @@
 import os
 import pytaxize
 
+from vcr_unittest import VCRTestCase
+
 a = {u'data': [{u'data_source': {u'created_at': u'2009/08/14 18:56:01 +0000',
         u'data_hash': u'da39a3ee5e6b4b0d3255bfef95601890afd80709',
         u'data_url': u'http://gnapartnership.org/gna_test/ion/data.xml',
@@ -68,14 +70,15 @@ c = {u'per_page': 1,
     u'resource_uri': u'http://gni.globalnames.org/name_strings/22067449.xml'}],
     u'page_number': u'1', u'name_strings_total': 27059}
 
-def test_gni_parse():
-    "Basic test of gni_parse"
-    assert b == pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
+class Gni(VCRTestCase):
+    def test_gni_parse(self):
+      "Basic test of gni_parse"
+      assert b == pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
 
-def test_gni_search():
-    "Basic test of gni_search"
-    assert c == pytaxize.gni_search('ani*', per_page=1)
+    def test_gni_search(self):
+      "Basic test of gni_search"
+      assert c == pytaxize.gni_search('ani*', per_page=1)
 
-def test_gni_details():
-    "Basic test of gni_details"
-    assert a == pytaxize.gni_details(id = 17802847)
+    def test_gni_details(self):
+      "Basic test of gni_details"
+      assert a == pytaxize.gni_details(id = 17802847)

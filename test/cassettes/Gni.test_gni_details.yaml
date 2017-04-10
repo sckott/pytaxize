@@ -1,0 +1,38 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://gni.globalnames.org/name_strings/17802847.json?all_records=1
+  response:
+    body: {string: !!python/unicode '{"data":[{"data_source":{"id":30,"data_hash":"da39a3ee5e6b4b0d3255bfef95601890afd80709","web_site_url":"http://www.organismnames.com/","name_strings_count":4104326,"created_at":"2009/08/14
+        18:56:01 +0000","description":"ION will ultimately contain all the organism
+        names related data found within the Thomson Reuters life science literature
+        databases.","updated_at":"2010/05/14 22:47:59 +0000","data_zip_compressed":null,"unique_names_count":2511782,"title":"Index
+        to Organism Names","refresh_period_days":14,"data_url":"http://gnapartnership.org/gna_test/ion/data.xml"},"name_index_id":98448788,"records":[{"id":127858346,"url":"http://www.organismnames.com/details.htm?lsid=2521957","local_id":"2521957","global_id":null,"record_hash":null,"name_rank_id":2,"name_index_id":98448788,"created_at":"2009/09/27
+        10:27:31 +0000","nomenclatural_code_id":null,"updated_at":"2009/09/27 10:27:31
+        +0000","kingdom_id":null,"original_name_string":null}],"records_number":1}],"name_string":{"id":17802847,"canonical_form_id":5703176,"resource_uri":null,"normalized":"ACALLEPITRIX
+        ANILA","uuid_hex":"35fa270e-1a07-5e5d-914c-90230dc8680a","created_at":"2009/08/14
+        15:14:10 +0000","lsid":"urn:lsid:globalnames.org:index:35fa270e-1a07-5e5d-914c-90230dc8680a","updated_at":"2009/08/14
+        15:14:10 +0000","name":"Acallepitrix anila","is_canonical_form":1,"has_words":true}}'}
+    headers:
+      accept-ranges: [bytes]
+      age: ['0']
+      cache-control: ['private, max-age=0, must-revalidate']
+      connection: [keep-alive]
+      content-length: ['1352']
+      content-type: [application/json; charset=utf-8]
+      date: ['Mon, 10 Apr 2017 00:25:38 GMT']
+      etag: ['"2fdfa02f8209373fdb12b8770f21d6a0"']
+      server: [nginx/1.8.1]
+      set-cookie: ['']
+      status: [200 OK]
+      via: [1.1 varnish]
+      x-runtime: ['85']
+      x-varnish: ['993750552']
+    status: {code: 200, message: OK}
+version: 1

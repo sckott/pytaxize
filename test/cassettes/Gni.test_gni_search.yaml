@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://gni.globalnames.org/name_strings.json?per_page=1&search_term=ani%2A&page=1
+  response:
+    body: {string: !!python/unicode '{"name_strings":[{"id":22067449,"resource_uri":"http://gni.globalnames.org/name_strings/22067449.xml","uuid_hex":"efef32c0-8314-5c6e-b427-7d5b121898e8","lsid":"urn:lsid:globalnames.org:index:efef32c0-8314-5c6e-b427-7d5b121898e8","name":"?
+        Anisolabidinae"}],"name_strings_total":27059,"page_number":"1","per_page":1}'}
+    headers:
+      accept-ranges: [bytes]
+      age: ['0']
+      cache-control: ['private, max-age=0, must-revalidate']
+      connection: [keep-alive]
+      content-length: ['315']
+      content-type: [application/json; charset=utf-8]
+      date: ['Mon, 10 Apr 2017 00:25:39 GMT']
+      etag: ['"d15eee260007d6437f01b8f6502f1ba0"']
+      server: [nginx/1.8.1]
+      set-cookie: ['']
+      status: [200 OK]
+      via: [1.1 varnish]
+      x-runtime: ['427']
+      x-varnish: ['993750556']
+    status: {code: 200, message: OK}
+version: 1

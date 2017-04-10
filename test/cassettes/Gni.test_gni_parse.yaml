@@ -1,0 +1,37 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://gni.globalnames.org/parsers.json?names=Cyanistes+caeruleus%7CHelianthus+annuus
+  response:
+    body: {string: !!python/unicode '[{"scientificName":{"parsed":true,"parser_version":"3.1.4","verbatim":"Cyanistes
+        caeruleus","normalized":"Cyanistes caeruleus","canonical":"Cyanistes caeruleus","hybrid":false,"details":[{"genus":{"string":"Cyanistes"},"species":{"string":"caeruleus"}}],"parser_run":1,"positions":{"0":["genus",9],"10":["species",19]}}}
+
+        ,
+
+        {"scientificName":{"parsed":true,"parser_version":"3.1.4","verbatim":"Helianthus
+        annuus","normalized":"Helianthus annuus","canonical":"Helianthus annuus","hybrid":false,"details":[{"genus":{"string":"Helianthus"},"species":{"string":"annuus"}}],"parser_run":1,"positions":{"0":["genus",10],"11":["species",17]}}}
+
+        ]'}
+    headers:
+      accept-ranges: [bytes]
+      age: ['0']
+      cache-control: ['private, max-age=0, must-revalidate']
+      connection: [keep-alive]
+      content-length: ['637']
+      content-type: [application/json; charset=utf-8]
+      date: ['Mon, 10 Apr 2017 00:25:38 GMT']
+      etag: ['"660854147d0d7dce3663b32552e896f0"']
+      server: [nginx/1.8.1]
+      set-cookie: ['']
+      status: [200 OK]
+      via: [1.1 varnish]
+      x-runtime: ['41']
+      x-varnish: ['993750554']
+    status: {code: 200, message: OK}
+version: 1

@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://resolver.globalnames.org/name_resolvers?best_match_only=false&format=json&with_context=false&header_only=false&names=Helianthus+annus&resolve_once=false&preferred_data_sources=false
+  response:
+    body: {string: !!python/unicode '{"id":"nwz86bygc86d","url":"http://resolver.globalnames.org/name_resolvers/nwz86bygc86d.json","data_sources":[],"data":[{"supplied_name_string":"Helianthus
+        annus","is_known_name":true,"results":[{"data_source_id":12,"data_source_title":"EOL","gni_uuid":"f5674e32-00cc-57e3-b632-6a0b89fa4df4","name_string":"Helianthus
+        annus","canonical_form":"Helianthus annus","classification_path":"","classification_path_ranks":"","classification_path_ids":"","taxon_id":"s_5106367","local_id":"468106","edit_distance":0,"url":"http://eol.org/pages/468106/names/synonyms","imported_at":"2012-05-08T02:42:50Z","match_type":1,"match_value":"Exact
+        string match","prescore":"3|0|0","score":0.988},{"data_source_id":169,"data_source_title":"uBio
+        NameBank","gni_uuid":"f5674e32-00cc-57e3-b632-6a0b89fa4df4","name_string":"Helianthus
+        annus","canonical_form":"Helianthus annus","classification_path":"|Helianthus
+        annus","classification_path_ranks":"kingdom|","classification_path_ids":"","taxon_id":"102910884","local_id":"urn:lsid:ubio.org:namebank:10130157","global_id":"urn:lsid:ubio.org:namebank:10130157","edit_distance":0,"url":"http://www.ubio.org/browser/details.php?namebankID=10130157","imported_at":"2013-05-31T20:12:19Z","match_type":1,"match_value":"Exact
+        string match","prescore":"3|0|0","score":0.988},{"data_source_id":179,"data_source_title":"Open
+        Tree of Life Reference Taxonomy","gni_uuid":"f5674e32-00cc-57e3-b632-6a0b89fa4df4","name_string":"Helianthus
+        annus","canonical_form":"Helianthus annus","classification_path":"||Eukaryota|Archaeplastida|Chloroplastida|Streptophyta|Embryophyta|Tracheophyta|Euphyllophyta|Spermatophyta|Magnoliophyta|Mesangiospermae||Gunneridae|Pentapetalae|||Asterales|Asteraceae|Asteroideae|Heliantheae
+        alliance|Heliantheae|Helianthus|Helianthus annuus","classification_path_ranks":"no
+        rank|no rank|domain|kingdom|kingdom|phylum|no rank|phylum|no rank|no rank|phylum|no
+        rank|no rank|no rank|no rank|subclass|no rank|order|family|subfamily|no rank|tribe|genus|species","classification_path_ids":"805080|93302|304358|5268475|361838|916750|5342313|10210|1007992|10218|99252|5298374|431495|853757|5316182|1008294|596121|1042120|46248|1084160|757761|557772|515718|515712","taxon_id":"''515712''","local_id":"515712","edit_distance":0,"imported_at":"2016-11-07T13:09:12Z","current_taxon_id":"515712","current_name_string":"Helianthus
+        annuus","match_type":1,"match_value":"Exact string match","prescore":"3|0|0","score":0.988},{"data_source_id":12,"data_source_title":"EOL","gni_uuid":"e757b3c1-421f-5bb9-a27f-d56259baaf3d","name_string":"Helianthus
+        annus L.","canonical_form":"Helianthus annus","classification_path":"","classification_path_ranks":"","classification_path_ids":"","taxon_id":"20584982","local_id":"468106","edit_distance":0,"url":"http://eol.org/pages/468106","imported_at":"2012-05-08T02:42:50Z","match_type":2,"match_value":"Exact
+        match by canonical form","prescore":"3|0|0","score":0.988}],"preferred_results":[]}],"status":"success","message":"Success","parameters":{"with_context":false,"header_only":false,"with_canonical_ranks":false,"with_vernaculars":false,"best_match_only":false,"data_sources":[],"preferred_data_sources":[0],"resolve_once":false}}'}
+    headers:
+      accept-ranges: [bytes]
+      access-control-allow-origin: ['*']
+      age: ['0']
+      cache-control: ['max-age=0, private, must-revalidate']
+      connection: [keep-alive]
+      content-length: ['3192']
+      content-type: [application/json; charset=utf-8]
+      date: ['Mon, 10 Apr 2017 00:28:02 GMT']
+      etag: ['"f8a56fb91216179a901d8fc7e8678f88"']
+      server: [nginx/1.10.1]
+      status: [200 OK]
+      via: [1.1 varnish]
+      x-rack-cache: [miss]
+      x-request-id: [cfeee2d78ed6809e918ca6b5a264fbeb]
+      x-runtime: ['0.078263']
+      x-ua-compatible: ['IE=Edge,chrome=1']
+      x-varnish: ['993750824']
+    status: {code: 200, message: OK}
+version: 1
