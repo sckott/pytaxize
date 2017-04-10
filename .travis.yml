@@ -1,11 +1,6 @@
 language: python
 sudo: false
 
-env:
-    - CONDA="python=2.7"
-    - CONDA="python=3.4"
-    - CONDA="python=3.5"
-
 before_install:
     - wget http://bit.ly/miniconda -O miniconda.sh
     - bash miniconda.sh -b -p $HOME/miniconda
@@ -16,4 +11,4 @@ before_install:
     - travis_retry conda install --yes pytest
 
 script:
-    - py.test --verbose --ignore setup.py
+    - pytest --verbose --ignore setup.py
