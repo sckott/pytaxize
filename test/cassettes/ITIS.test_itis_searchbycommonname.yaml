@@ -1,0 +1,50 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/services/ITISService/searchByCommonName?srchKey=grizzly
+  response:
+    body: {string: !!python/unicode ''}
+    headers:
+      connection: [Close]
+      location: ['https://www.itis.gov/ITISWebService/services/ITISService/searchByCommonName?srchKey=grizzly']
+    status: {code: 302, message: Redirect}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/services/ITISService/searchByCommonName?srchKey=grizzly
+  response:
+    body: {string: !!python/unicode '<ns:searchByCommonNameResponse xmlns:ns="http://itis_service.itis.usgs.gov"><ns:return
+        xmlns:ax21="http://data.itis_service.itis.usgs.gov/xsd" xmlns:ax26="http://itis_service.itis.usgs.gov/xsd"
+        xmlns:ax23="http://metadata.itis_service.itis.usgs.gov/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:type="ax21:SvcCommonNameList"><ax21:tsn xsi:nil="true" /><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>Mexican grizzly bear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>202384</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzlybear pricklypear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>195275</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzlybear pricklypear</ax21:commonName><ax21:language>unspecified</ax21:language><ax21:tsn>195272</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzlybear pricklypear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>19705</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>Utah grizzlybear pricklypear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>195276</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzlybear pricklypear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>195274</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>Grizzly Bear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>180543</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzly bear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>202385</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzlybear pricklypear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>195273</ax21:tsn></ax21:commonNames><ax21:commonNames
+        xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzly lancetooth</ax21:commonName><ax21:language>unspecified</ax21:language><ax21:tsn>76998</ax21:tsn></ax21:commonNames></ns:return></ns:searchByCommonNameResponse>'}
+    headers:
+      connection: [Keep-Alive]
+      content-type: [application/xml;charset=UTF-8]
+      date: ['Mon, 10 Apr 2017 17:31:56 GMT']
+      keep-alive: ['timeout=15, max=100']
+      strict-transport-security: [max-age=63072000; includeSubdomains; preload, max-age=63072000;
+          includeSubdomains; preload]
+      x-application: [itis_webservices]
+    status: {code: 200, message: OK}
+version: 1

@@ -1,0 +1,57 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543
+  response:
+    body: {string: !!python/unicode ''}
+    headers:
+      connection: [Close]
+      location: ['https://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543']
+    status: {code: 302, message: Redirect}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543
+  response:
+    body: {string: "<ns:getCommentDetailFromTSNResponse xmlns:ns=\"http://itis_service.itis.usgs.gov\"><ns:return
+        xmlns:ax21=\"http://data.itis_service.itis.usgs.gov/xsd\" xmlns:ax26=\"http://itis_service.itis.usgs.gov/xsd\"
+        xmlns:ax23=\"http://metadata.itis_service.itis.usgs.gov/xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
+        xsi:type=\"ax21:SvcTaxonCommentList\"><ax21:tsn>180543</ax21:tsn><ax21:comments
+        xsi:type=\"ax21:SvcTaxonComment\"><ax21:commentDetail>Status: CITES - Appendix
+        I as U. arctos (Mexico, Bhutan, China, and Mongolia populations) and U. a.
+        isabellinus; otherwise Appendix II. U. S. ESA - Endangered as U. arctos pruinosus,
+        as U. arctos in Mexico, and as U. a. arctos in Italy. Threatened as U. a.
+        ho...</ax21:commentDetail><ax21:commentId>18556</ax21:commentId><ax21:commentTimeStamp>2007-08-20
+        15:06:38.0</ax21:commentTimeStamp><ax21:commentator>Wilson &amp; Reeder, eds.
+        (2005)</ax21:commentator><ax21:updateDate>2014-02-03</ax21:updateDate></ax21:comments><ax21:comments
+        xsi:type=\"ax21:SvcTaxonComment\"><ax21:commentDetail>Comments: Reviewed by
+        Erdbrink (1953), Couturier (1954), Rausch (1963a), Kurt\xE9n (1973), Hall
+        (1984) and Pasitschniak-Arts (1993). Ognev (1931) and Allen (1938) recognized
+        U. pruinosus as distinct; not followed by Ellerman and Morrison-Scott (1951),
+        Gao (1987), and Stroganov (1962). L\xF6nnberg (1923b) believed that differences
+        between pruinosus and arctos warranted subgeneric distinction as (Mylarctos)
+        pruinosus; however, this was not supported by Pocock's (1932b) thorough revision.
+        Synonyms allocated a...</ax21:commentDetail><ax21:commentId>18557</ax21:commentId><ax21:commentTimeStamp>2007-08-20
+        15:06:38.0</ax21:commentTimeStamp><ax21:commentator>Wilson &amp; Reeder, eds.
+        (2005)</ax21:commentator><ax21:updateDate>2014-02-03</ax21:updateDate></ax21:comments></ns:return></ns:getCommentDetailFromTSNResponse>"}
+    headers:
+      connection: [Keep-Alive]
+      content-type: [application/xml;charset=UTF-8]
+      date: ['Mon, 10 Apr 2017 17:31:55 GMT']
+      keep-alive: ['timeout=15, max=100']
+      strict-transport-security: [max-age=63072000; includeSubdomains; preload, max-age=63072000;
+          includeSubdomains; preload]
+      x-application: [itis_webservices]
+    status: {code: 200, message: OK}
+version: 1

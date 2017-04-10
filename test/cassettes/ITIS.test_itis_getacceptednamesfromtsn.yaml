@@ -1,0 +1,41 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/services/ITISService/getAcceptedNamesFromTSN?tsn=208527
+  response:
+    body: {string: !!python/unicode ''}
+    headers:
+      connection: [Close]
+      location: ['https://www.itis.gov/ITISWebService/services/ITISService/getAcceptedNamesFromTSN?tsn=208527']
+    status: {code: 302, message: Redirect}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.13.0]
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/services/ITISService/getAcceptedNamesFromTSN?tsn=208527
+  response:
+    body: {string: !!python/unicode '<ns:getAcceptedNamesFromTSNResponse xmlns:ns="http://itis_service.itis.usgs.gov"><ns:return
+        xmlns:ax21="http://data.itis_service.itis.usgs.gov/xsd" xmlns:ax26="http://itis_service.itis.usgs.gov/xsd"
+        xmlns:ax23="http://metadata.itis_service.itis.usgs.gov/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:type="ax21:SvcAcceptedNameList"><ax21:tsn>208527</ax21:tsn><ax21:acceptedNames
+        xsi:nil="true" /></ns:return></ns:getAcceptedNamesFromTSNResponse>'}
+    headers:
+      connection: [Keep-Alive]
+      content-type: [application/xml;charset=UTF-8]
+      date: ['Mon, 10 Apr 2017 17:31:55 GMT']
+      keep-alive: ['timeout=15, max=100']
+      strict-transport-security: [max-age=63072000; includeSubdomains; preload, max-age=63072000;
+          includeSubdomains; preload]
+      x-application: [itis_webservices]
+    status: {code: 200, message: OK}
+version: 1

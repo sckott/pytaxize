@@ -1,5 +1,4 @@
 """Tests for GNR module of pytaxize"""
-
 import os
 import pytaxize
 
