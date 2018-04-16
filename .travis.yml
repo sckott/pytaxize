@@ -15,5 +15,7 @@ install:
   - pip install vcrpy-unittest
 
 script:
-  - nosetests -v --with-coverage --cover-package=pytaxize
   - pytest --verbose --ignore setup.py
+
+after_success:
+  - coveralls
