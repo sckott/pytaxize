@@ -1,14 +1,15 @@
 language: python
 sudo: false
+cache: pip
 
 python:
   - "2.7"
-  - "3.4"
+  - "3.6"
 
 install:
-  - pip install 'requests>=2.7'
-  - pip install 'pandas>=0.19.2'
-  - pip install 'lxml>=3.7.3'
+  - pip install 'requests>=2.8.14'
+  - pip install 'pandas>=0.22'
+  - pip install 'lxml>=4.2.1'
   - pip install coveralls
   - pip install vcrpy
   - pip install vcrpy-unittest
