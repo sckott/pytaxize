@@ -16,3 +16,4 @@ install:
 
 script:
   - nosetests -v --with-coverage --cover-package=pytaxize
+  - pytest --verbose --ignore setup.py
