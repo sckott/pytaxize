@@ -25,7 +25,7 @@ class ITIS(VCRTestCase):
         hierarchy = pytaxize.gethierarchyupfromtsn(tsn = 36485)
         assert hierarchy[0]['rankName'] == 'Genus'
 
-    def test_itis_getcommonnamesfromtsn():
+    def test_itis_getcommonnamesfromtsn(self):
         """
         Basic test of its getcommonnamesfromtsn
         """
