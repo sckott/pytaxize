@@ -2,6 +2,25 @@
 build
 dist
 *.egg-info
-.coverage
 
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
 .pytest_cache
+
+Ipython Notebook
+.ipynb_checkpoints
+
+#pycharm
+# User-specific stuff:
+.idea/*
+*.iml
+
+Thumbs.db
