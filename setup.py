@@ -20,9 +20,10 @@ setup(
   url='https://github.com/sckott/pytaxize',
   license          = 'MIT',
   packages         = find_packages(exclude=['test-*']),
-  install_requires=['pandas','requests>=2.7.0','lxml'],
+  install_requires=['requests>=2.7.0','lxml'],
   extras_require={
     'test': ['vcrpy', 'vcrpy-unittest'],
+    'dataframe': ['pandas']
   },
   data_files=[('pytaxize/data', ['data/apg_orders.csv', 'data/apg_families.csv',
     'data/plantGenusNames.csv', 'data/plantNames.csv', 'data/rank_ref.csv'] )],
