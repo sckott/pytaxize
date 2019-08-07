@@ -363,20 +363,20 @@ def _itisterms(endpt, args={}, **kwargs):
 
     output = []
     for x in allnodes:
-        kyz = [y.keys()[0] for y in x]
+        kyz = [list(y.keys())[0] for y in x]
         notuniq = set([v for v in kyz if kyz.count(v) > 1])
         if len(notuniq) > 0:
             for z in notuniq:
-                tt = ','.join([ m.values()[0] for m in x if m.keys()[0] == z ])
+                tt = ','.join([ list(m.values())[0] for m in x if list(m.keys())[0] == z ])
                 toadd = { z: tt }
-                uu = [ v for v in x if v.keys()[0] not in z ]
+                uu = [ v for v in x if list(v.keys())[0] not in z ]
                 uu.append(toadd)
             output.append(uu)
         else:
             output.append(x)
     
     df = pd.DataFrame( [ { k: v for d in R for k, v in d.items() } for R in output ] )
-    return df[ [ x.keys()[0] for x in allnodes[0] ] ]
+    return df[ [ list(x.keys())[0] for x in allnodes[0] ] ]
 
 def _get_text_single(x):
     vals = [x.text]
