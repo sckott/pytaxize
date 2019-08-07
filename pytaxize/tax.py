@@ -179,7 +179,7 @@ def scrapenames(url = None, file = None, text = None, engine = None,
 
   ss = []
   for i in range(len(method.keys())):
-    ss.append(method.keys()[i] in ['url','text'])
+    ss.append(list(method.keys())[i] in ['url','text'])
   out = requests_refactor(base, payload, 'get', content=True)
 
   if(out['status'] != 303):
