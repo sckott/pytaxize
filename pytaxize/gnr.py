@@ -26,7 +26,7 @@ def gnr_datasources():
         out = pytaxize.gnr_datasources()
         [d for d in out if d['title'] in 'EOL'][0]['id']
     '''
-    url = "http://resolver.globalnames.org/data_sources.json"
+    url = "https://resolver.globalnames.org/data_sources.json"
     data = Refactor(url, payload={}, request='get').json()
     return data
 
@@ -71,7 +71,7 @@ def gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='
 def _gnr_resolve(names='Homo sapiens', source=None, format='json', resolve_once='false',
     with_context='false', best_match_only='false', header_only='false', preferred_data_sources='false', http='get'):
 
-    url = 'http://resolver.globalnames.org/name_resolvers'
+    url = 'https://resolver.globalnames.org/name_resolvers'
     payload = {'data_source_ids': source, 'format': format,
                 'resolve_once': resolve_once, 'with_context': with_context,
                 'best_match_only': best_match_only, 'header_only': header_only,
