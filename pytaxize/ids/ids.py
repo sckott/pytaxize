@@ -1,6 +1,6 @@
 import sys
-from ..col import col_search
-from ..gbif_utils import *
+from ..col import search
+from ..gbif.gbif_utils import *
 
 class NoResultException(Exception):
     pass

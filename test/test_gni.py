@@ -3,7 +3,7 @@ import os
 from nose.tools import *
 import unittest
 import vcr
-import pytaxize
+from pytaxize import gn
 
 a = {u'data': [{u'data_source': {u'created_at': u'2009/08/14 18:56:01 +0000',
         u'data_hash': u'da39a3ee5e6b4b0d3255bfef95601890afd80709',
@@ -76,14 +76,14 @@ class Gni(unittest.TestCase):
     @vcr.use_cassette('test/vcr_cassettes/gni_parse.yml')
     def test_gni_parse(self):
       "gni_parse"
-      assert b == pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
+      assert b == gn.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
 
     @vcr.use_cassette('test/vcr_cassettes/gni_search.yml')
     def test_gni_search(self):
       "gni_search"
-      assert c == pytaxize.gni_search('ani*', per_page=1)
+      assert c == gn.gni_search('ani*', per_page=1)
 
     @vcr.use_cassette('test/vcr_cassettes/gni_details.yml')
     def test_gni_details(self):
       "gni_details"
-      assert a == pytaxize.gni_details(id = 17802847)
+      assert a == gn.gni_details(id = 17802847)

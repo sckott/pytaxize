@@ -1,4 +1,4 @@
-gbif_base_url = 'http://api.gbif.org/v1/species'
+gbif_base_url = 'https://api.gbif.org/v1/species'
 
 def gbif_name_backbone(name, rank = None, kingdom = None, phylum = None,
   clazz = None, order = None, family = None, genus = None, strict = False,

@@ -9,7 +9,7 @@ import pkg_resources
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
-def col_children(name = None, id = None, format = None, start = None, checklist = None):
+def children(name = None, id = None, format = None, start = None, checklist = None):
     '''
     Search Catalogue of Life for for direct children of a particular taxon.
 
@@ -40,18 +40,18 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
 
     Usage::
 
-        import pytaxize
-        pytaxize.col_children(name=["Apis"])
+        from pytaxize import col
+        col.children(name=["Apis"])
 
         # An example where there is no classification, results in data.frame with no rows
-        pytaxize.col_children(id=["4fdb38d6220462049eab9e3f285144e0"])
+        col.children(id=["4fdb38d6220462049eab9e3f285144e0"])
 
         # Use a specific year's checklist
-        pytaxize.col_children(name=["Apis"], checklist="2012")
-        pytaxize.col_children(name=["Apis"], checklist="2009")
+        col.children(name=["Apis"], checklist="2012")
+        col.children(name=["Apis"], checklist="2009")
 
         # Pass in many names or many id's
-        out = pytaxize.col_children(name=["Buteo","Apis","Accipiter"], checklist="2012")
+        out = col.children(name=["Buteo","Apis","Accipiter"], checklist="2012")
         # get just one element in list of output
         out[0]
     '''
@@ -98,7 +98,7 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
             temp.append(ss)
         return temp
 
-def col_downstream(name = None, downto = None, format = None, start = None, checklist = None):
+def downstream(name = None, downto = None, format = None, start = None, checklist = None):
     '''
     :param name: The string to search for. Only exact matches found the name given
         will be returned, unless one or wildcards are included in the search
@@ -123,16 +123,16 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
 
     Usage::
         
-        import pytaxize
+        from pytaxize import col
 
-        pytaxize.col_downstream(name="Apis", downto="Species")
-        pytaxize.col_downstream(name="Insecta", downto="Order")
+        col.downstream(name="Apis", downto="Species")
+        col.downstream(name="Insecta", downto="Order")
 
         # Multiple names at once
-        pytaxize.col_downstream(name=["Insecta","Diplopoda"], downto="Order")
+        col.downstream(name=["Insecta","Diplopoda"], downto="Order")
 
         # Using a checklist from a specific year
-        pytaxize.col_downstream(name="Apis", downto="Species", checklist=2011)
+        col.downstream(name="Apis", downto="Species", checklist=2011)
     '''
     col_url = "https://www.catalogueoflife.org/col/webservice"
     year_url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
@@ -213,7 +213,7 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
         temp.append(tt)
     return temp
 
-def col_search(name=None, id=None, start=None, checklist=None):
+def search(name=None, id=None, start=None, checklist=None):
     '''
     Search Catalogue of Life for taxonomic IDs
 
@@ -237,22 +237,22 @@ def col_search(name=None, id=None, start=None, checklist=None):
 
     Usage::
 
-        import pytaxize
+        from pytaxize import col
 
-        pytaxize.col_search(name=["Apis"])
-        pytaxize.col_search(id=15669061)
+        col.search(name=["Apis"])
+        col.search(id=15669061)
 
         # Many names
-        pytaxize.col_search(name=["Apis","Puma concolor"])
+        col.search(name=["Apis","Puma concolor"])
 
         # Many ids - DOESNT WORK
-        pytaxize.col_search(id=[15669061,6862841])
+        col.search(id=[15669061,6862841])
 
         # An example where there is no data
-        pytaxize.col_search(id=11935941)
+        col.search(id=11935941)
 
         # Example with more than 1 result
-        pytaxize.col_search(name=['Poa'])
+        col.search(name=['Poa'])
     '''
 
     def func(x, y):

@@ -85,14 +85,15 @@ ITIS low level functions
 ========================
 
 .. code-block:: python
-
-    pytaxize.getacceptednamesfromtsn('208527')
+    
+    from pytaxize import itis
+    itis.getacceptednamesfromtsn('208527')
 
     '208527'
 
 .. code-block:: python
 
-    pytaxize.getcommentdetailfromtsn(tsn=180543)
+    itis.getcommentdetailfromtsn(tsn=180543)
 
                                                  comment  \
     0  Status: CITES - Appendix I as U. arctos (Mexic...
@@ -104,7 +105,7 @@ ITIS low level functions
 
 .. code-block:: python
 
-    pytaxize.gethierarchyupfromtsn(tsn = 36485)
+    itis.gethierarchyupfromtsn(tsn = 36485)
 
       author  parentName parentTsn rankName taxonName    tsn
     0   Raf.  Asteraceae     35420    Genus  Agoseris  36485
@@ -113,8 +114,9 @@ Catalogue of Life
 =================
 
 .. code-block:: python
-
-    pytaxize.col_children(name=["Apis"])
+  
+    from pytaxize import col
+    col.col_children(name=["Apis"])
 
 
 .. code-block:: python
@@ -134,40 +136,19 @@ Parse names
 Parse names using GBIF's parser API
 
 .. code-block:: python
-
-    pytaxize.gbif_parse(scientificname=['Arrhenatherum elatius var. elatius',
-    	             'Secale cereale subsp. cereale', 'Secale cereale ssp. cereale','Vanessa atalanta (Linnaeus, 1758)'])
+    
+    from pytaxize import gbif
+    gbif.parse(name=['Arrhenatherum elatius var. elatius',
+    	 'Secale cereale subsp. cereale', 'Secale cereale ssp. cereale',
+       'Vanessa atalanta (Linnaeus, 1758)'])
 
 .. code-block:: python
 
-      authorsParsed bracketAuthorship bracketYear                  canonicalName  \
-    0          True               NaN         NaN  Arrhenatherum elatius elatius
-    1          True               NaN         NaN         Secale cereale cereale
-    2          True               NaN         NaN         Secale cereale cereale
-    3          True          Linnaeus        1758               Vanessa atalanta
-
-                    canonicalNameComplete             canonicalNameWithMarker  \
-    0  Arrhenatherum elatius var. elatius  Arrhenatherum elatius var. elatius
-    1       Secale cereale subsp. cereale       Secale cereale subsp. cereale
-    2       Secale cereale subsp. cereale       Secale cereale subsp. cereale
-    3   Vanessa atalanta (Linnaeus, 1758)                    Vanessa atalanta
-
-        genusOrAbove infraSpecificEpithet rankMarker  \
-    0  Arrhenatherum              elatius       var.
-    1         Secale              cereale     subsp.
-    2         Secale              cereale     subsp.
-    3        Vanessa                  NaN        NaN
-
-                           scientificName specificEpithet        type
-    0  Arrhenatherum elatius var. elatius         elatius  WELLFORMED
-    1       Secale cereale subsp. cereale         cereale  WELLFORMED
-    2         Secale cereale ssp. cereale         cereale     SCINAME
-    3   Vanessa atalanta (Linnaeus, 1758)        atalanta  WELLFORMED
-
-Get random vector of taxon names
-================================
-
-_not working yet..._
+                      scientificName        type   genusOrAbove  ... rankMarker
+  Arrhenatherum elatius var. elatius  SCIENTIFIC  Arrhenatherum  ...       var.
+       Secale cereale subsp. cereale  SCIENTIFIC         Secale  ...     subsp.
+         Secale cereale ssp. cereale  SCIENTIFIC         Secale  ...     subsp.
+   Vanessa atalanta (Linnaeus, 1758)  SCIENTIFIC        Vanessa  ...        sp.
 
 Contributors
 ============

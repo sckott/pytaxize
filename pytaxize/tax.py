@@ -92,32 +92,6 @@ def vascan_search(q, format='json', raw=False):
           out = Refactor(url, payload, request='get').raw()
         return out
 
-def gbif_parse(scientificname):
-    '''
-    Parse taxon names using the GBIF name parser.
-
-    :param scientificname: A character vector of scientific names.
-      Returns a DataFrame containing fields extracted from parsed
-      taxon names. Fields returned are the union of fields extracted from
-      all species names in scientificname
-
-    Author John Baumgartner (johnbb@student.unimelb.edu.au)
-
-    References http://dev.gbif.org/wiki/display/POR/Webservice+API,
-    http://tools.gbif.org/nameparser/api.do
-
-    Usage::
-
-        import pytaxize
-        pytaxize.gbif_parse(scientificname=['x Agropogon littoralis'])
-    '''
-    scientificname = list(scientificname)
-    url = "http://api.gbif.org/v0.9/parser/name"
-    headers = {'content-type': 'application/json'}
-    tt = Refactor(url, payload={}, request='post').json(data=json.dumps(scientificname), headers=headers)
-    res = pd.DataFrame(tt)
-    return res
-
 def scrapenames(url = None, file = None, text = None, engine = None,
   unique = None, verbatim = None, detect_language = None, all_data_sources = None,
   data_source_ids = None):

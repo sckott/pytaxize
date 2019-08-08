@@ -5,19 +5,19 @@ import pandas as pd
 from lxml import etree
 from pytaxize.refactor import Refactor
 
-itis_base = 'http://www.itis.gov/ITISWebService/services/ITISService/'
+itis_base = 'https://www.itis.gov/ITISWebService/services/ITISService/'
 
-def itis_ping(**kwargs):
+def ping(**kwargs):
     '''
     Ping the ITIS API
 
     Usage::
 
-        import pytaxize
-        pytaxize.itis_ping()
+        from pytaxize import itis
+        itis.ping()
     '''
     tt = Refactor(itis_base + 'getDescription', payload={}, request='get').xml(**kwargs)
-    ns = {'ax26':'http://itis_service.itis.usgs.gov/xsd'}
+    ns = {'ax26':'https://itis_service.itis.usgs.gov/xsd'}
     nodes = tt.xpath('//ax26:description', namespaces=ns)
     text = [x.text for x in nodes][0]
     return text
@@ -29,11 +29,12 @@ def getacceptednamesfromtsn(tsn, **kwargs):
     :param tsn: taxonomic serial number (TSN) (character or numeric)
 
     Usage::
-
+        
+        from pytaxize import itis
         # TSN accepted - good name
-        pytaxize.getacceptednamesfromtsn('208527')
+        itis.getacceptednamesfromtsn('208527')
         # TSN not accepted - input TSN is old name
-        pytaxize.getacceptednamesfromtsn('504239')
+        itis.getacceptednamesfromtsn('504239')
     '''
     out = Refactor(itis_base + 'getAcceptedNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     temp = out.getchildren()
@@ -54,9 +55,10 @@ def getanymatchcount(x, **kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getanymatchcount(x=202385)
-        pytaxize.getanymatchcount(x="dolphin")
+    
+        from pytaxize import itis
+        itis.getanymatchcount(x=202385)
+        itis.getanymatchcount(x="dolphin")
     '''
     out = Refactor(itis_base + 'getAnyMatchCount', payload={'srchKey': x}, request='get').xml(**kwargs)
     return int(out.getchildren()[0].text)
@@ -69,8 +71,9 @@ def getcommentdetailfromtsn(tsn, **kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getcommentdetailfromtsn(tsn=180543)
+                
+        from pytaxize import itis
+        itis.getcommentdetailfromtsn(tsn=180543)
     '''
     out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -86,8 +89,9 @@ def getcommonnamesfromtsn(tsn, **kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getcommonnamesfromtsn(tsn=183833)
+        
+        from pytaxize import itis
+        itis.getcommonnamesfromtsn(tsn=183833)
     '''
     #out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
     out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
@@ -104,11 +108,12 @@ def getcoremetadatafromtsn(tsn, **kwargs):
     Get core metadata from tsn
 
     Usage::
-
+        
+        from pytaxize import itis
         # coverage and currrency data
-        pytaxize.getcoremetadatafromtsn(tsn=28727)
+        itis.getcoremetadatafromtsn(tsn=28727)
         # no coverage or currrency data
-        pytaxize.getcoremetadatafromtsn(tsn=183671)
+        itis.getcoremetadatafromtsn(tsn=183671)
     '''
     out = Refactor(itis_base + 'getCoreMetadataFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -120,11 +125,12 @@ def getcoveragefromtsn(tsn, **kwargs):
     Get coverge from tsn
 
     Usage::
-
+        
+        from pytaxize import itis
         # coverage data
-        pytaxize.getcoveragefromtsn(tsn=28727)
+        itis.getcoveragefromtsn(tsn=28727)
         # no coverage data
-        pytaxize.getcoveragefromtsn(526852)
+        itis.getcoveragefromtsn(526852)
     '''
     out = Refactor(itis_base + 'getCoverageFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId", "taxonCoverage", "tsn"]
@@ -136,9 +142,10 @@ def getcredibilityratingfromtsn(tsn, **kwargs):
     Get credibility rating from tsn
 
     Usage::
-
-        pytaxize.getcredibilityratingfromtsn(526852)
-        pytaxize.getcredibilityratingfromtsn(28727)
+        
+        from pytaxize import itis
+        itis.getcredibilityratingfromtsn(526852)
+        itis.getcredibilityratingfromtsn(28727)
     '''
     out = Refactor(itis_base + 'getCredibilityRatingFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["credRating", "tsn"]
@@ -152,8 +159,9 @@ def getcredibilityratings(**kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getcredibilityratings()
+        
+        from pytaxize import itis
+        itis.getcredibilityratings()
     '''
     out = Refactor(itis_base + 'getCredibilityRatings', payload={}, request='get').xml(**kwargs)
     nodes = out.xpath("//ax23:credibilityValues", namespaces=ns23)
@@ -166,11 +174,12 @@ def getcurrencyfromtsn(tsn, **kwargs):
     Get currency from tsn
 
     Usage::
-
+        
+        from pytaxize import itis
         # currency data
-        pytaxize.getcurrencyfromtsn(28727)
+        itis.getcurrencyfromtsn(28727)
         # no currency dat
-        pytaxize.getcurrencyfromtsn(526852)
+        itis.getcurrencyfromtsn(526852)
     '''
     out = Refactor(itis_base + 'getCurrencyFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["rankId","taxonCurrency","tsn"]
@@ -182,8 +191,9 @@ def getdatedatafromtsn(tsn, **kwargs):
     Get date data from tsn
 
     Usage::
-
-        pytaxize.getdatedatafromtsn(180543)
+        
+        from pytaxize import itis
+        itis.getdatedatafromtsn(180543)
     '''
     out = Refactor(itis_base + 'getDateDataFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     matches = ["initialTimeStamp","updateDate","tsn"]
@@ -195,8 +205,9 @@ def getexpertsfromtsn(tsn, **kwargs):
     Get expert information for the TSN.
 
     Usage::
-
-        pytaxize.getexpertsfromtsn(180544)
+        
+        from pytaxize import itis
+        itis.getexpertsfromtsn(180544)
     '''
     out = Refactor(itis_base + 'getExpertsFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["comment","expert","name","referredTsn","referenceFor","updateDate"]
@@ -209,8 +220,9 @@ def gettaxonomicranknamefromtsn(tsn, **kwargs):
     :param tsn: TSN for a taxonomic group (numeric)
 
     Usage::
-
-        pytaxize.gettaxonomicranknamefromtsn(tsn = 202385)
+        
+        from pytaxize import itis
+        itis.gettaxonomicranknamefromtsn(tsn = 202385)
     '''
     tt = Refactor(itis_base + 'getTaxonomicRankNameFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -224,9 +236,10 @@ def getfullhierarchyfromtsn(tsn, **kwargs):
     :param tsn: TSN for a taxonomic group (numeric)
 
     Usage::
-
-        pytaxize.getfullhierarchyfromtsn(tsn = 37906)
-        pytaxize.getfullhierarchyfromtsn(tsn = 100800)
+        
+        from pytaxize import itis
+        itis.getfullhierarchyfromtsn(tsn = 37906)
+        itis.getfullhierarchyfromtsn(tsn = 100800)
     '''
     tt = Refactor(itis_base + 'getFullHierarchyFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     df = _parse_hier(tt, ns21)
@@ -254,10 +267,11 @@ def getfullrecordfromlsid(lsid, **kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
-        pytaxize.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:37906")
-        pytaxize.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:100800")
+        
+        from pytaxize import itis
+        itis.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
+        itis.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:37906")
+        itis.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:100800")
     '''
     return _fullrecord("getFullRecordFromLSID", {'lsid': lsid}, **kwargs)
 
@@ -269,10 +283,11 @@ def getfullrecordfromtsn(tsn, **kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getfullrecordfromtsn("504239")
-        pytaxize.getfullrecordfromtsn("202385")
-        pytaxize.getfullrecordfromtsn("183833")
+        
+        from pytaxize import itis
+        itis.getfullrecordfromtsn("504239")
+        itis.getfullrecordfromtsn("202385")
+        itis.getfullrecordfromtsn("183833")
     '''
     return _fullrecord("getFullRecordFromTSN", {'tsn': tsn}, **kwargs)
 
@@ -281,8 +296,9 @@ def getgeographicdivisionsfromtsn(tsn, **kwargs):
     Get geographic divisions from tsn
 
     Usage::
-
-        pytaxize.getgeographicdivisionsfromtsn(180543)
+        
+        from pytaxize import itis
+        itis.getgeographicdivisionsfromtsn(180543)
     '''
     out = Refactor(itis_base + 'getGeographicDivisionsFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["geographicValue","updateDate"]
@@ -295,8 +311,9 @@ def getgeographicvalues(**kwargs):
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
-
-        pytaxize.getgeographicvalues()
+        
+        from pytaxize import itis
+        itis.getgeographicvalues()
     '''
     out = Refactor(itis_base + 'getGeographicValues', payload={}, request='get').xml(**kwargs)
     ns = {'ax21':'http://metadata.itis_service.itis.usgs.gov/xsd'}
@@ -308,8 +325,9 @@ def getglobalspeciescompletenessfromtsn(tsn, **kwargs):
     Get global species completeness from tsn
 
     Usage::
-
-        pytaxize.getglobalspeciescompletenessfromtsn(180541)
+        
+        from pytaxize import itis
+        itis.getglobalspeciescompletenessfromtsn(180541)
     '''
     out = Refactor(itis_base + 'getGlobalSpeciesCompletenessFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["completeness","rankId","tsn"]
@@ -323,8 +341,9 @@ def gethierarchydownfromtsn(tsn, **kwargs):
     :param tsn: TSN for a taxonomic group (numeric)
 
     Usage::
-
-        pytaxize.gethierarchydownfromtsn(tsn = 161030)
+        
+        from pytaxize import itis
+        itis.gethierarchydownfromtsn(tsn = 161030)
     '''
     tt = Refactor(itis_base + 'getHierarchyDownFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -338,9 +357,10 @@ def gethierarchyupfromtsn(tsn, **kwargs):
     :param tsn: TSN for a taxonomic group (numeric)
 
     Usage::
-
-        pytaxize.gethierarchyupfromtsn(tsn = 36485)
-        pytaxize.gethierarchyupfromtsn(tsn = 37906)
+        
+        from pytaxize import itis
+        itis.gethierarchyupfromtsn(tsn = 36485)
+        itis.gethierarchyupfromtsn(tsn = 37906)
     '''
     tt = Refactor(itis_base + 'getHierarchyUpFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -352,8 +372,9 @@ def _itisterms(endpt, args={}, **kwargs):
     Get itis term
 
     Usage::
-
-        pytaxize._itisterms("buya")
+        
+        from pytaxize import itis
+        itis._itisterms("buya")
     '''
     out = Refactor(itis_base + endpt, payload=args, request='get').xml(**kwargs)
 
@@ -388,8 +409,9 @@ def getitistermsfromcommonname(x, **kwargs):
     Get itis terms from common names
 
     Usage::
-
-        pytaxize.getitistermsfromcommonname("buya")
+        
+        from pytaxize import itis
+        itis.getitistermsfromcommonname("buya")
     '''
     return _itisterms(endpt="getITISTermsFromCommonName", args={'srchKey': x}, **kwargs)
 
@@ -398,9 +420,10 @@ def getitisterms(x, **kwargs):
     Get itis terms
 
     Usage::
-
+        
+        from pytaxize import itis
         # fails
-        pytaxize.getitisterms("bear")
+        itis.getitisterms("bear")
     '''
     return _itisterms(endpt="getITISTerms", args={'srchKey': x}, **kwargs)
 
@@ -409,13 +432,14 @@ def getitistermsfromscientificname(x, **kwargs):
     Get itis terms from scientific names
 
     Usage::
-
-        pytaxize.getitistermsfromscientificname("ursidae")
-        pytaxize.getitistermsfromscientificname("Ursus")
+        
+        from pytaxize import itis
+        itis.getitistermsfromscientificname("ursidae")
+        itis.getitistermsfromscientificname("Ursus")
     '''
     return _itisterms(endpt="getITISTermsFromScientificName", args={'srchKey': x}, **kwargs)
 
-def itis_hierarchy(tsn=None, what="full"):
+def hierarchy(tsn=None, what="full"):
     '''
     Get hierarchies from TSN values, full, upstream only, or immediate downstream
     only. Uses the ITIS database.
@@ -424,22 +448,23 @@ def itis_hierarchy(tsn=None, what="full"):
     :param what: One of full (full hierarchy), up (immediate upstream), or down
        (immediate downstream)
 
-    Details Note that `pytaxize.itis_downstream` gets taxa downstream to a particular
+    Details Note that `itis.itis_downstream` gets taxa downstream to a particular
        rank, whilc this function only gets immediate names downstream.
 
     Usage::
-
+        
+        from pytaxize import itis
         # Get full hierarchy
-        pytaxize.itis_hierarchy(tsn=180543)
+        itis.hierarchy(tsn=180543)
 
         # Get hierarchy upstream
-        pytaxize.itis_hierarchy(tsn=180543, "up")
+        itis.hierarchy(tsn=180543, "up")
 
         # Get hierarchy downstream
-        pytaxize.itis_hierarchy(tsn=180543, "down")
+        itis.hierarchy(tsn=180543, "down")
 
         # Many tsn's
-        pytaxize.itis_hierarchy(tsn=[180543,41074,36616])
+        itis.hierarchy(tsn=[180543,41074,36616])
     '''
     tsn2 = convertsingle(tsn)
     temp = []
@@ -459,8 +484,9 @@ def getjurisdictionaloriginfromtsn(tsn, **kwargs):
     Get jurisdictional origin from tsn
 
     Usage::
-
-        pytaxize.getjurisdictionaloriginfromtsn(180543)
+        
+        from pytaxize import itis
+        itis.getjurisdictionaloriginfromtsn(180543)
     '''
     out= Refactor(itis_base + 'getJurisdictionalOriginFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
@@ -472,8 +498,9 @@ def getjurisdictionoriginvalues(**kwargs):
     Get jurisdiction origin values
 
     Usage::
-
-        pytaxize.getjurisdictionoriginvalues()
+        
+        from pytaxize import itis
+        itis.getjurisdictionoriginvalues()
     '''
     out= Refactor(itis_base + 'getJurisdictionalOriginValues', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':'http://metadata.itis_service.itis.usgs.gov/xsd'}
@@ -485,8 +512,9 @@ def getjurisdictionvalues(**kwargs):
     Get possible jurisdiction values
 
     Usage::
-
-        pytaxize.getjurisdictionvalues()
+        
+        from pytaxize import itis
+        itis.getjurisdictionvalues()
     '''
     out= Refactor(itis_base + 'getJurisdictionValues', payload={}, request='get').xml(**kwargs)
     vals = [ x.text for x in out.getchildren()[0].getchildren() ]
@@ -497,8 +525,9 @@ def getkingdomnamefromtsn(tsn, **kwargs):
     Get kingdom names from tsn
 
     Usage::
-
-        pytaxize.getkingdomnamefromtsn(202385)
+        
+        from pytaxize import itis
+        itis.getkingdomnamefromtsn(202385)
     '''
     out = _itisGET("getKingdomNameFromTSN", {'tsn': tsn}, **kwargs)
     out= Refactor(itis_base + 'getKingdomNameFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
@@ -511,8 +540,9 @@ def getkingdomnames(**kwargs):
     Get all possible kingdom names
 
     Usage::
-
-        pytaxize.getkingdomnames()
+        
+        from pytaxize import itis
+        itis.getkingdomnames()
     '''
     out= Refactor(itis_base + 'getKingdomNames', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
@@ -524,8 +554,9 @@ def getlastchangedate(**kwargs):
     Provides the date the ITIS database was last updated.
 
     Usage::
-
-        pytaxize.getlastchangedate()
+        
+        from pytaxize import itis
+        itis.getlastchangedate()
     '''
     out= Refactor(itis_base + 'getLastChangeDate', payload={}, request='get').xml(**kwargs)
     ns = {'ax23':"http://metadata.itis_service.itis.usgs.gov/xsd"}
@@ -539,11 +570,12 @@ def getlsidfromtsn(tsn, **kwargs):
     Gets the unique LSID for the TSN, or an empty result if there is no match.
 
     Usage::
-
+        
+        from pytaxize import itis
         # valid TSN
-        pytaxize.getlsidfromtsn(155166)
+        itis.getlsidfromtsn(155166)
         # invalid TSN, returns nothing
-        pytaxize.getlsidfromtsn(0)
+        itis.getlsidfromtsn(0)
     '''
     out = _itisGET("getLSIDFromTSN", {'tsn': tsn}, **kwargs)
     out= Refactor(itis_base + 'getLSIDFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
@@ -559,8 +591,9 @@ def getothersourcesfromtsn(tsn, **kwargs):
     Returns a list of the other sources used for the TSN.
 
     Usage::
-
-        pytaxize.getothersourcesfromtsn(182662)
+        
+        from pytaxize import itis
+        itis.getothersourcesfromtsn(182662)
     '''
     out= Refactor(itis_base + 'getOtherSourcesFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["acquisitionDate","name","referredTsn","source",
@@ -572,8 +605,9 @@ def getparenttsnfromtsn(tsn, **kwargs):
     Returns the parent TSN for the entered TSN.
 
     Usage::
-
-        pytaxize.getparenttsnfromtsn(202385)
+        
+        from pytaxize import itis
+        itis.getparenttsnfromtsn(202385)
     '''
     out= Refactor(itis_base + 'getParentTSNFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["parentTsn","tsn"]
@@ -584,8 +618,9 @@ def getpublicationsfromtsn(tsn, **kwargs):
     Returns a list of the pulications used for the TSN.
 
     Usage::
-
-        pytaxize.getpublicationsfromtsn(70340)
+        
+        from pytaxize import itis
+        itis.getpublicationsfromtsn(70340)
     '''
     out= Refactor(itis_base + 'getPublicationsFromTSN', payload={'tsn':tsn}, request='get').xml(**kwargs)
     toget = ["actualPubDate","isbn","issn","listedPubDate","pages",
@@ -599,8 +634,9 @@ def getranknames(**kwargs):
     their kingdom and rank ID values.
 
     Usage::
-
-        pytaxize.getranknames()
+        
+        from pytaxize import itis
+        itis.getranknames()
     '''
     out= Refactor(itis_base + 'getRankNames', payload={}, request='get').xml(**kwargs)
     matches = ["kingdomName","rankId","rankName"]
@@ -613,8 +649,9 @@ def getrecordfromlsid(lsid, **kwargs):
     there is no match or the TSN is invalid.
 
     Usage::
-
-        pytaxize.getrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
+        
+        from pytaxize import itis
+        itis.getrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
     '''
     out= Refactor(itis_base + 'getRecordFromLSID', payload={'lsid': lsid}, request='get').xml(**kwargs)
     toget = ["authorship","genusPart","infragenericEpithet",
@@ -627,8 +664,9 @@ def getreviewyearfromtsn(tsn, **kwargs):
     Returns the review year for the TSN.
 
     Usage::
-
-        pytaxize.getreviewyearfromtsn(180541)
+        
+        from pytaxize import itis
+        itis.getreviewyearfromtsn(180541)
     '''
     out= Refactor(itis_base + 'getReviewYearFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["rankId","reviewYear","tsn"]
@@ -640,8 +678,9 @@ def getscientificnamefromtsn(tsn, **kwargs):
     (names and indicators) of the scientific name.
 
     Usage::
-
-        pytaxize.getscientificnamefromtsn(531894)
+        
+        from pytaxize import itis
+        itis.getscientificnamefromtsn(531894)
     '''
     out= Refactor(itis_base + 'getScientificNameFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["combinedName","unitInd1","unitInd3","unitName1","unitName2",
@@ -653,9 +692,9 @@ def getscientificnamefromtsn(tsn, **kwargs):
 #     Returns a list of the synonyms (if any) for the TSN.
 
 #     Usage::
-
-#     pytaxize.getsynonymnamesfromtsn(183671) # tsn not accepted
-#     pytaxize.getsynonymnamesfromtsn(526852) # tsn accepted
+        
+#     itis.getsynonymnamesfromtsn(183671) # tsn not accepted
+#     itis.getsynonymnamesfromtsn(526852) # tsn accepted
 #     '''
 #     out = _itisGET("getSynonymNamesFromTSN", {'tsn': tsn}, **kwargs)
 #     if len(sapply(nodes, xmlValue)) == 0):
@@ -676,8 +715,9 @@ def gettaxonauthorshipfromtsn(tsn, **kwargs):
     Returns the author information for the TSN.
 
     Usage::
-
-        pytaxize.gettaxonauthorshipfromtsn(183671)
+        
+        from pytaxize import itis
+        itis.gettaxonauthorshipfromtsn(183671)
     '''
     out= Refactor(itis_base + 'getTaxonAuthorshipFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["authorship","updateDate","tsn"]
@@ -688,8 +728,9 @@ def gettaxonomicusagefromtsn(tsn, **kwargs):
     Returns the usage information for the TSN.
 
     Usage::
-
-        pytaxize.gettaxonomicusagefromtsn(526852)
+        
+        from pytaxize import itis
+        itis.gettaxonomicusagefromtsn(526852)
     '''
     out= Refactor(itis_base + 'getTaxonomicUsageFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["taxonUsageRating","tsn"]
@@ -700,8 +741,9 @@ def gettsnbyvernacularlanguage(language, **kwargs):
     Get tsn by vernacular language not the international language code (character)
 
     Usage::
-
-        pytaxize.gettsnbyvernacularlanguage("french")
+        
+        from pytaxize import itis
+        itis.gettsnbyvernacularlanguage("french")
     '''
     out= Refactor(itis_base + 'getTsnByVernacularLanguage', payload={'language': language}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
@@ -712,9 +754,10 @@ def gettsnfromlsid(lsid, **kwargs):
     Gets the TSN corresponding to the LSID, or an empty result if there is no match.
 
     Usage::
-
-        pytaxize.gettsnfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:28726")
-        pytaxize.gettsnfromlsid("urn:lsid:itis.gov:itis_tsn:0")
+        
+        from pytaxize import itis
+        itis.gettsnfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:28726")
+        itis.gettsnfromlsid("urn:lsid:itis.gov:itis_tsn:0")
     '''
     out= Refactor(itis_base + 'getTSNFromLSID', payload={'lsid': lsid}, request='get').xml(**kwargs)
     tt = out.getchildren()[0].text
@@ -729,8 +772,9 @@ def getunacceptabilityreasonfromtsn(tsn, **kwargs):
     Returns the unacceptability reason, if any, for the TSN.
 
     Usage::
-
-        pytaxize.getunacceptabilityreasonfromtsn(183671)
+        
+        from pytaxize import itis
+        itis.getunacceptabilityreasonfromtsn(183671)
     '''
     out= Refactor(itis_base + 'getUnacceptabilityReasonFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
     toget = ["tsn","unacceptReason"]
@@ -741,8 +785,9 @@ def getvernacularlanguages(**kwargs):
     Provides a list of the unique languages used in the vernacular table.
 
     Usage::
-
-        pytaxize.getvernacularlanguages()
+        
+        from pytaxize import itis
+        itis.getvernacularlanguages()
     '''
     out= Refactor(itis_base + 'getVernacularLanguages', payload={}, request='get').xml(**kwargs)
     matches = ["languageNames"]
@@ -753,10 +798,11 @@ def searchbycommonname(x, **kwargs):
     Search for tsn by common name
 
     Usage::
-
-        pytaxize.searchbycommonname(x="american bullfrog")
-        pytaxize.searchbycommonname("ferret-badger")
-        pytaxize.searchbycommonname("polar bear")
+        
+        from pytaxize import itis
+        itis.searchbycommonname(x="american bullfrog")
+        itis.searchbycommonname("ferret-badger")
+        itis.searchbycommonname("polar bear")
     '''
     out= Refactor(itis_base + 'searchByCommonName', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
@@ -768,8 +814,9 @@ def searchbycommonnamebeginswith(x, **kwargs):
     Search for tsn by common name beginning with
 
     Usage::
-
-        pytaxize.searchbycommonnamebeginswith("inch")
+        
+        from pytaxize import itis
+        itis.searchbycommonnamebeginswith("inch")
     '''
     out= Refactor(itis_base + 'searchByCommonNameBeginsWith', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
@@ -781,23 +828,25 @@ def searchbycommonnameendswith(x, **kwargs):
     Search for tsn by common name ending with
 
     Usage::
-
-        pytaxize.searchbycommonnameendswith("snake")
+        
+        from pytaxize import itis
+        itis.searchbycommonnameendswith("snake")
     '''
     out= Refactor(itis_base + 'searchByCommonNameEndsWith', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["commonName","language","tsn"]
     tmp = out.xpath('//ax21:commonNames', namespaces=ns21)
     return _itisdf(tmp[0], ns21, matches, _tolower(matches))
 
-def itis_searchcommon(x, which = "begin", **kwargs):
+def searchcommon(x, which = "begin", **kwargs):
     '''
     Searches common name and acts as thin wrapper around
-    `pytaxize.searchbycommonnamebeginswith` and `pytaxize.searchbycommonnameendswith`
+    `itis.searchbycommonnamebeginswith` and `itis.searchbycommonnameendswith`
 
     Usage::
-
-        pytaxize.itis_searchcommon("inch")
-        pytaxize.itis_searchcommon("inch", which = "end")
+        
+        from pytaxize import itis
+        itis.searchcommon("inch")
+        itis.searchcommon("inch", which = "end")
     '''
     if which == "begin":
         return searchbycommonnamebeginswith(x, **kwargs)
@@ -809,9 +858,10 @@ def searchbyscientificname(x, **kwargs):
     Search by scientific name
 
     Usage::
-
-        pytaxize.searchbyscientificname(x="Tardigrada")
-        pytaxize.searchbyscientificname("Quercus douglasii")
+        
+        from pytaxize import itis
+        itis.searchbyscientificname(x="Tardigrada")
+        itis.searchbyscientificname("Quercus douglasii")
     '''
     out= Refactor(itis_base + 'searchByScientificName', payload={'srchKey':x}, request='get').xml(**kwargs)
     matches = ["combinedName","tsn"]
@@ -822,9 +872,10 @@ def searchforanymatch(x, **kwargs):
     Search for any match
 
     Usage::
-
-        pytaxize.searchforanymatch(x=202385)
-        pytaxize.searchforanymatch(x="dolphin")
+        
+        from pytaxize import itis
+        itis.searchforanymatch(x=202385)
+        itis.searchforanymatch(x="dolphin")
     '''
     out= Refactor(itis_base + 'searchForAnyMatch', payload={'srchKey':x}, request='get').xml(**kwargs)
     # if isinstance(x, basestring):
@@ -841,9 +892,10 @@ def searchforanymatchpaged(x, pagesize, pagenum, ascend, **kwargs):
     Search for any matched page for descending (logical)
 
     Usage::
-
-        pytaxize.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)
-        pytaxize.searchforanymatchpaged("Zy", pagesize=100, pagenum=1, ascend=False)
+        
+        from pytaxize import itis
+        itis.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)
+        itis.searchforanymatchpaged("Zy", pagesize=100, pagenum=1, ascend=False)
     '''
     args = {'srchKey':x, 'pageSize':pagesize, 'pageNum':pagenum, 'ascend':ascend}
     out= Refactor(itis_base + 'searchForAnyMatchPaged', payload=args, request='get').xml(**kwargs)

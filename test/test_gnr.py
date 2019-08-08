@@ -3,7 +3,7 @@ import os
 from nose.tools import *
 import unittest
 import vcr
-import pytaxize
+from pytaxize import gn
 
 # expected results
 exp1 = {u'canonical_form': u'Helianthus annus',
@@ -29,7 +29,7 @@ class Gnr(unittest.TestCase):
     @vcr.use_cassette('test/vcr_cassettes/gnr_resolve.yml')
     def test_gnr_resolve(self):
       "gnr_resolve"
-      assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
+      assert exp1 == gn.gnr_resolve('Helianthus annus')[0][0]
 
 # def test_gnr_resolve_remove_temporary_file():
 #   """test if delete temporary name list file in gnr_resolve"""
