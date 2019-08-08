@@ -1,8 +1,9 @@
 """Tests for GNR module of pytaxize"""
 import os
+from nose.tools import *
+import unittest
+import vcr
 import pytaxize
-
-from vcr_unittest import VCRTestCase
 
 # expected results
 exp1 = {u'canonical_form': u'Helianthus annus',
@@ -23,20 +24,22 @@ exp1 = {u'canonical_form': u'Helianthus annus',
  u'taxon_id': u's_5106367',
  u'url': u'http://eol.org/pages/468106/names/synonyms'}
 
-class Gnr(VCRTestCase):
-		def test_gnr_resolve(self):
-			"Basic test of of gnr_resolve"
-			assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
+class Gnr(unittest.TestCase):
+
+    @vcr.use_cassette('test/vcr_cassettes/gnr_resolve.yml')
+    def test_gnr_resolve(self):
+      "Basic test of of gnr_resolve"
+      assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
 
 # def test_gnr_resolve_remove_temporary_file():
-# 	"""test if delete temporary name list file in gnr_resolve"""
-# 	with open('test/data/species_list.txt', 'rb') as f:
-# 		name_list = f.readlines()
-# 	pytaxize.gnr_resolve( name_list[0:301] )
-# 	assert os.path.isfile('names_list.txt') == False
+#   """test if delete temporary name list file in gnr_resolve"""
+#   with open('test/data/species_list.txt', 'rb') as f:
+#     name_list = f.readlines()
+#   pytaxize.gnr_resolve( name_list[0:301] )
+#   assert os.path.isfile('names_list.txt') == False
 
 # def test_gnr_resolve_larger_1000():
-# 	"""test if work well when queried number larger than 1000"""
-# 	with open('test/data/species_list.txt', 'rb') as f:
-# 		name_list = f.readlines()
-# 	assert len(pytaxize.gnr_resolve( name_list )) == len(name_list)
+#   """test if work well when queried number larger than 1000"""
+#   with open('test/data/species_list.txt', 'rb') as f:
+#     name_list = f.readlines()
+#   assert len(pytaxize.gnr_resolve( name_list )) == len(name_list)
