@@ -5,7 +5,7 @@ interactions:
       Accept: ['*/*']
       Accept-Encoding: ['gzip, deflate']
       Connection: [keep-alive]
-      User-Agent: [python-requests/2.18.4]
+      User-Agent: [python-requests/2.22.0]
     method: GET
     uri: http://gni.globalnames.org/parsers.json?names=Cyanistes+caeruleus%7CHelianthus+annuus
   response:
@@ -25,13 +25,13 @@ interactions:
       Connection: [keep-alive]
       Content-Length: ['637']
       Content-Type: [application/json; charset=utf-8]
-      Date: ['Mon, 16 Apr 2018 16:32:14 GMT']
+      Date: ['Thu, 08 Aug 2019 00:32:53 GMT']
       ETag: ['"660854147d0d7dce3663b32552e896f0"']
       Server: [nginx/1.8.1]
       Set-Cookie: ['']
       Status: [200 OK]
       Via: [1.1 varnish]
       X-Runtime: ['42']
-      X-Varnish: ['2005514965']
+      X-Varnish: ['166299379']
     status: {code: 200, message: OK}
 version: 1

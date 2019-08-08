@@ -5,7 +5,7 @@ interactions:
       Accept: ['*/*']
       Accept-Encoding: ['gzip, deflate']
       Connection: [keep-alive]
-      User-Agent: [python-requests/2.18.4]
+      User-Agent: [python-requests/2.22.0]
     method: GET
     uri: http://www.itis.gov/ITISWebService/services/ITISService/searchByCommonName?srchKey=grizzly
   response:
@@ -20,13 +20,13 @@ interactions:
       Accept: ['*/*']
       Accept-Encoding: ['gzip, deflate']
       Connection: [keep-alive]
-      User-Agent: [python-requests/2.18.4]
+      User-Agent: [python-requests/2.22.0]
     method: GET
     uri: https://www.itis.gov/ITISWebService/services/ITISService/searchByCommonName?srchKey=grizzly
   response:
     body: {string: '<ns:searchByCommonNameResponse xmlns:ns="http://itis_service.itis.usgs.gov"><ns:return
-        xmlns:ax21="http://data.itis_service.itis.usgs.gov/xsd" xmlns:ax26="http://itis_service.itis.usgs.gov/xsd"
-        xmlns:ax23="http://metadata.itis_service.itis.usgs.gov/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ax21="http://data.itis_service.itis.usgs.gov/xsd" xmlns:ax23="http://metadata.itis_service.itis.usgs.gov/xsd"
+        xmlns:ax26="http://itis_service.itis.usgs.gov/xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:type="ax21:SvcCommonNameList"><ax21:tsn xsi:nil="true" /><ax21:commonNames
         xsi:type="ax21:SvcCommonName"><ax21:commonName>grizzly lancetooth</ax21:commonName><ax21:language>unspecified</ax21:language><ax21:tsn>76998</ax21:tsn></ax21:commonNames><ax21:commonNames
         xsi:type="ax21:SvcCommonName"><ax21:commonName>Grizzly Bear</ax21:commonName><ax21:language>English</ax21:language><ax21:tsn>180543</ax21:tsn></ax21:commonNames><ax21:commonNames
@@ -41,11 +41,12 @@ interactions:
     headers:
       Connection: [keep-alive]
       Content-Type: [application/xml;charset=UTF-8]
-      Date: ['Mon, 16 Apr 2018 16:32:30 GMT']
+      Date: ['Thu, 08 Aug 2019 00:34:34 GMT']
       Strict-Transport-Security: [max-age=63072000; includeSubdomains; preload, max-age=63072000;
           includeSubdomains; preload]
+      Transfer-Encoding: [chunked]
       X-Application: [itis_webservices]
       X-Node-Name: [not shown]
       X-Upstream-Member: [not shown]
-    status: {code: 200, message: OK}
+    status: {code: 200, message: ''}
 version: 1
