@@ -1,10 +1,13 @@
 import sys
 import requests
+import datetime
 from lxml import etree
 import pandas as pd
 import re
 import json
+import pkg_resources
 from pytaxize.refactor import Refactor
+from pytaxize.utils import *
 
 def col_children(name = None, id = None, format = None, start = None, checklist = None):
     '''
@@ -28,19 +31,20 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         Web service query (currently the maximum number of results returned by a
         single query is 500 for terse queries and 50 for full queries).
     :param checklist: The year of the checklist to query, if you want a specific
-        year's checklist instead of the lastest as default (numeric).
-    Details
+        year's checklist instead of the lastest as default (numeric). Valid years
+        are 2010 through the previous year from the current date. If none given,
+        the "lastest" checklist is used
+    
     You must provide one of name or id. The other parameters (format and start) are
     optional. Returns A list of data.frame's.
 
     Usage::
 
-        # A basic example
         import pytaxize
         pytaxize.col_children(name=["Apis"])
 
         # An example where there is no classification, results in data.frame with no rows
-        pytaxize.col_children(id=[15669061])
+        pytaxize.col_children(id=["4fdb38d6220462049eab9e3f285144e0"])
 
         # Use a specific year's checklist
         pytaxize.col_children(name=["Apis"], checklist="2012")
@@ -51,20 +55,24 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
         # get just one element in list of output
         out[0]
     '''
+    
+    assert_range_numeric(checklist, 2010, datetime.datetime.now().year)
 
-    def func(x, y):
-        url = "http://www.catalogueoflife.org/col/webservice"
+    def func(x, y, checklist):
+        url = "https://www.catalogueoflife.org/col/webservice"
 
-        if(checklist.__class__.__name__ == 'NoneType'):
+        if checklist is None:
             pass
         else:
-            if(checklist in ['2012','2011','2010']):
+            checklist = str(checklist)
+            if checklist in ['2012','2011','2010']:
                 url = re.sub("col", "annual-checklist/" + checklist, url)
             else:
-                url = "http://www.catalogueoflife.org/annual-checklist/year/webservice"
+                url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
                 url = re.sub("year", checklist, url)
 
         payload = {'name':x, 'id':y, 'format':format, 'response':"full", 'start':start}
+        payload = {k: v for k, v in payload.items() if v is not None}
         tt = Refactor(url, payload, request='get').xml()
         childtaxa = tt.xpath('//child_taxa//taxon')
         if len(childtaxa) == 0:
@@ -77,16 +85,16 @@ def col_children(name = None, id = None, format = None, start = None, checklist 
             )
         return outlist
 
-    if(id.__class__.__name__ == 'NoneType'):
+    if id is None:
         temp = []
         for i in range(len(name)):
-            ss = func(name[i], None)
+            ss = func(name[i], None, checklist)
             temp.append(ss)
         return temp
     else:
         temp = []
         for i in range(len(id)):
-            ss = func(None, id[i])
+            ss = func(None, id[i], checklist)
             temp.append(ss)
         return temp
 
@@ -99,7 +107,7 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
         not counting wildcard characters.
     :param downto: The taxonomic level you want to go down to. See examples below.
         The taxonomic level IS case sensitive, and you do have to spell it
-        correctly. See \code{data(rank_ref)} for spelling.
+        correctly. See rank_ref for spelling.
     :param checklist: The year of the checklist to query, if you want a specific
         year's checklist instead of the lastest as default (numeric).
     :param format: The returned format (default = None). If NULL xml is used.
@@ -111,32 +119,35 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
        results returned by a single query is 500 for terse queries and 50 for
        full queries).
 
-    Returns a list of DataFrame's.
+    Returns a list of Pandas DataFrame's.
 
     Usage::
+        
+        import pytaxize
 
-        # Some basic examples
-        pytaxize.col_downstream(name=["Apis"], downto="Species")
-        pytaxize.col_downstream(name=["Bryophyta"], downto="Family")
+        pytaxize.col_downstream(name="Apis", downto="Species")
+        pytaxize.col_downstream(name="Insecta", downto="Order")
 
-        # An example that takes a bit longer
-        pytaxize.col_downstream(name=["Plantae","Animalia"], downto="Class")
+        # Multiple names at once
+        pytaxize.col_downstream(name=["Insecta","Diplopoda"], downto="Order")
 
         # Using a checklist from a specific year
-        pytaxize.col_downstream(name=["Bryophyta"], downto=["Family"], checklist="2009")
+        pytaxize.col_downstream(name="Apis", downto="Species", checklist=2011)
     '''
-    url = "http://www.catalogueoflife.org/col/webservice"
-    def func(name):
-        if(checklist.__class__.__name__ == 'NoneType'):
-            pass
+    col_url = "https://www.catalogueoflife.org/col/webservice"
+    year_url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
+    def func(name, downto, format, start, checklist):
+        if checklist is None:
+            url = col_url
         else:
-            if(checklist in ['2012','2011','2010']):
-                url = re.sub("col", "annual-checklist/" + checklist, url)
+            checklist = str(checklist)
+            if checklist in ['2012','2011','2010']:
+                url = re.sub("col", "annual-checklist/" + checklist, col_url)
             else:
-                url = "http://www.catalogueoflife.org/annual-checklist/year/webservice"
-                url = re.sub("year", checklist, url)
+                url = re.sub("year", checklist, year_url)
 
-        dat = pd.read_csv("rank_ref.csv", header=False)
+        rank_ref_path = pkg_resources.resource_filename('pytaxize', 'data/rank_ref.csv')
+        dat = pd.read_csv(rank_ref_path)
 
         stuff = [x for x in dat.ranks]
         things = []
@@ -152,11 +163,13 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
         notout = pd.DataFrame(columns=['rankName'])
         out = []
         iter = 0
-        while(stop_ == "not"):
-            iter = iter + 1
+        while stop_ == "not":
+            iter += 1
 
-            def searchcol(x):
-                payload = {'name':x, 'format':format, 'response':"full", 'start':start}
+            def searchcol(x, url):
+                payload = {'name': x, 'format': format,
+                    'response': "full", 'start': start}
+                payload = {k: v for k, v in payload.items() if v is not None}
                 tt = Refactor(url, payload, request='get').xml()
                 childtaxa = tt.xpath('//child_taxa//taxon')
                 outlist = []
@@ -166,21 +179,23 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
                 df = pd.DataFrame(outlist, columns=['id','name','rank'])
                 return df
 
-            tt = searchcol(toget)
+            tt = searchcol(toget, url)
 
-            if(downto in [x for x in tt['rank']]):
+            if downto in [x for x in tt['rank']]:
                 out.append(tt.loc[tt['rank'] == downto])
 
-            if(tt.loc[tt['rank'] != downto].index[-1] > 0):
+            if tt.loc[tt['rank'] != downto].shape[0] > 0:
                 sh = [x for x in tt['rank']]
                 bb = []
                 for i in range(len(sh)):
                   bb.append(sh[i] in torank)
                 notout = tt[bb]
             else:
-                notout = pd.DataFrame(downto, columns=['rankName'])
+                vals = list()
+                vals.append(downto)
+                notout = pd.DataFrame(vals, columns=['rank'])
 
-            if(all(notout['rank'] == downto)):
+            if all(notout['rank'] == downto):
                 stop_ = "fam"
             else:
                 toget = notout['name']
@@ -188,10 +203,14 @@ def col_downstream(name = None, downto = None, format = None, start = None, chec
 
         return out
 
+    if isinstance(name, str):
+        nametmp = list()
+        nametmp.append(name)
+        name = nametmp
     temp = []
     for i in range(len(name)):
-        tt = func(name[i])
-        temp.append = tt
+        tt = func(name[i], downto, format, start, checklist)
+        temp.append(tt)
     return temp
 
 def col_search(name=None, id=None, start=None, checklist=None):
@@ -213,13 +232,15 @@ def col_search(name=None, id=None, start=None, checklist=None):
     :param checklist: The year of the checklist to query, if you want a specific
          year's checklist instead of the lastest as default (numeric).
 
-    You must provide one of name or id. The other parameters (format and start) are optional.
+    You must provide one of name or id. The other parameters (format and start)
+    are optional.
 
     Usage::
 
-        # A basic example
+        import pytaxize
+
         pytaxize.col_search(name=["Apis"])
-        pytaxize.col_search(id=15669061) # - DOESNT WORK
+        pytaxize.col_search(id=15669061)
 
         # Many names
         pytaxize.col_search(name=["Apis","Puma concolor"])
@@ -235,14 +256,14 @@ def col_search(name=None, id=None, start=None, checklist=None):
     '''
 
     def func(x, y):
-        url = "http://www.catalogueoflife.org/col/webservice"
-        if(checklist.__class__.__name__ == 'NoneType'):
+        url = "https://www.catalogueoflife.org/col/webservice"
+        if checklist is None:
             pass
         else:
-            if(checklist in ['2012','2011','2010']):
+            if checklist in ['2012','2011','2010']:
                 url = re.sub("col", "annual-checklist/" + checklist, url)
             else:
-                url = "http://www.catalogueoflife.org/annual-checklist/year/webservice"
+                url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
                 url = re.sub("year", checklist, url)
 
         payload = {'name': x, 'id': y, 'start': start}
@@ -258,11 +279,12 @@ def col_search(name=None, id=None, start=None, checklist=None):
             outlist.append(each)
         return outlist
 
-    if(id.__class__.__name__ == 'NoneType'):
+    if id is None:
         temp = []
         for i in range(len(name)):
             temp.append(func(name[i], y=None))
     else:
+        id = str(id)
         temp = []
         for i in range(len(id)):
             temp.append(func(x=None, y=id[i]))

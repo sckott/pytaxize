@@ -75,15 +75,15 @@ class Gni(unittest.TestCase):
 
     @vcr.use_cassette('test/vcr_cassettes/gni_parse.yml')
     def test_gni_parse(self):
-      "Basic test of gni_parse"
+      "gni_parse"
       assert b == pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
 
     @vcr.use_cassette('test/vcr_cassettes/gni_search.yml')
     def test_gni_search(self):
-      "Basic test of gni_search"
+      "gni_search"
       assert c == pytaxize.gni_search('ani*', per_page=1)
 
     @vcr.use_cassette('test/vcr_cassettes/gni_details.yml')
     def test_gni_details(self):
-      "Basic test of gni_details"
+      "gni_details"
       assert a == pytaxize.gni_details(id = 17802847)

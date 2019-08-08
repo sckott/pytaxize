@@ -28,7 +28,7 @@ class Gnr(unittest.TestCase):
 
     @vcr.use_cassette('test/vcr_cassettes/gnr_resolve.yml')
     def test_gnr_resolve(self):
-      "Basic test of of gnr_resolve"
+      "gnr_resolve"
       assert exp1 == pytaxize.gnr_resolve('Helianthus annus')[0][0]
 
 # def test_gnr_resolve_remove_temporary_file():

@@ -4994,12 +4994,12 @@ interactions:
       Cache-Control: ['no-store, no-cache, must-revalidate']
       Connection: [keep-alive]
       Content-Type: [application/xml]
-      Date: ['Thu, 08 Aug 2019 16:15:50 GMT']
+      Date: ['Thu, 08 Aug 2019 16:14:40 GMT']
       Expires: ['Thu, 19 Nov 1981 08:52:00 GMT']
       Pragma: [no-cache]
       Server: [nginx/1.14.0]
-      Set-Cookie: ['aci_language=en; expires=Thu, 22-Aug-2019 16:15:49 GMT; Max-Age=1209600;
-          path=/', PHPSESSID=v9p1e4ohat6l1753qk4rr0uiq3; path=/]
+      Set-Cookie: ['aci_language=en; expires=Thu, 22-Aug-2019 16:14:38 GMT; Max-Age=1209600;
+          path=/', PHPSESSID=oeuj6r8jcd590rd1entf76d289; path=/]
       Transfer-Encoding: [chunked]
     status: {code: 200, message: OK}
 version: 1
