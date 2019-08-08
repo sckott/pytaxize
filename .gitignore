@@ -1,7 +1,33 @@
+# Compiled python modules.
 *.pyc
-build
-dist
-*.egg-info
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+/*.egg
+
+# Dexy processing files
+.dexy
+
+# Build output
+/build/
+
+.tox
 .coverage
+
+# test DwcA
+*.zip
+
+# pycharm project info
+.idea/
+
+# ipython notebook files
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# scratch files
+scratch.py
 
 .pytest_cache
