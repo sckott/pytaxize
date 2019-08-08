@@ -24,9 +24,9 @@ setup(
   extras_require={
     'test': ['vcrpy', 'vcrpy-unittest'],
   },
-  data_files=[('pytaxize/data', ['data/apg_orders.csv', 'data/apg_families.csv',
-    'data/plantGenusNames.csv', 'data/plantNames.csv', 'data/rank_ref.csv'] )],
-  classifiers      = (
+  package_data = {'pytaxize': ['data/*.csv']},
+  include_package_data = True,
+  classifiers = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Science/Research',
     'Intended Audience :: Developers',
@@ -37,5 +37,5 @@ setup(
     'Programming Language :: Python :: 2.6',
     'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3'
-  )
+  ]
 )
