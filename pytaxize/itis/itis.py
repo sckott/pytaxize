@@ -7,21 +7,6 @@ from pytaxize.refactor import Refactor
 
 itis_base = 'https://www.itis.gov/ITISWebService/services/ITISService/'
 
-def ping(**kwargs):
-    '''
-    Ping the ITIS API
-
-    Usage::
-
-        from pytaxize import itis
-        itis.ping()
-    '''
-    tt = Refactor(itis_base + 'getDescription', payload={}, request='get').xml(**kwargs)
-    ns = {'ax26':'https://itis_service.itis.usgs.gov/xsd'}
-    nodes = tt.xpath('//ax26:description', namespaces=ns)
-    text = [x.text for x in nodes][0]
-    return text
-
 def getacceptednamesfromtsn(tsn, **kwargs):
     '''
     Get accepted names from tsn

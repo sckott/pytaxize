@@ -1,6 +1,14 @@
 import codecs
+import re
 from setuptools import setup
 from setuptools import find_packages
+
+version = ''
+with open('pytaxize/__init__.py', 'r') as fd:
+    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
+                        fd.read(), re.MULTILINE).group(1)
+if not version:
+    raise RuntimeError('Cannot find version information')
 
 with codecs.open('README.rst', 'r', 'utf-8') as f:
     readme = f.read()
@@ -12,7 +20,7 @@ long_description = '\n\n' + readme + '\n\n' + changes
 
 setup(
   name='pytaxize',
-	version='0.5.9991',
+	version=version,
 	description='Taxonomic toolbelt for Python',
   long_description = long_description,
   author='Scott Chamberlain',

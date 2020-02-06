@@ -4,7 +4,7 @@
 
 '''
 pytaxize library
-~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 pytaxize is a taxonomic toolkit for Python. Example usage:
 
@@ -13,3 +13,17 @@ Usage::
    from pytaxize import col
    col.col_children(name=["Apis"])
 '''
+
+__version__ = '0.6.91'
+__title__ = 'pytaxize'
+__author__ = 'Scott Chamberlain'
+__license__ = 'MIT'
+
+from .gbif import parse
+from .col import children, downstream, search
+from .gn import gni_parse, gni_search, gni_details
+from .gn import gnr_datasources, gnr_resolve
+from .ncbi import search
+from .itis import getacceptednamesfromtsn, getanymatchcount, getcommentdetailfromtsn, getcommonnamesfromtsn, getcoremetadatafromtsn, getcoveragefromtsn, getcredibilityratingfromtsn, getcredibilityratings, getcurrencyfromtsn, getdatedatafromtsn, getexpertsfromtsn, gettaxonomicranknamefromtsn, getfullhierarchyfromtsn, getfullrecordfromlsid, getfullrecordfromtsn, getgeographicdivisionsfromtsn, getgeographicvalues, getglobalspeciescompletenessfromtsn, gethierarchydownfromtsn, gethierarchyupfromtsn, getitistermsfromcommonname, getitisterms, getitistermsfromscientificname, hierarchy, getjurisdictionaloriginfromtsn, getjurisdictionoriginvalues, getjurisdictionvalues, getkingdomnamefromtsn, getkingdomnames, getlastchangedate, getlsidfromtsn, getothersourcesfromtsn, getparenttsnfromtsn, getpublicationsfromtsn, getranknames, getrecordfromlsid, getreviewyearfromtsn, getscientificnamefromtsn, gettaxonauthorshipfromtsn, gettaxonomicusagefromtsn, gettsnbyvernacularlanguage, gettsnfromlsid, getunacceptabilityreasonfromtsn, getvernacularlanguages, searchbycommonname, searchbycommonnamebeginswith, searchbycommonnameendswith, searchcommon, searchbyscientificname, searchforanymatch, searchforanymatchpaged
+from .tax import names_list, vascan_search
+from .taxo import taxo_datasources, taxo_resolve

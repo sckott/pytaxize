@@ -16,6 +16,9 @@ docs:
 	make html
 	# open _build/html/index.html
 
+check:
+	python3 -m twine check dist/*
+
 distclean:
 	rm dist/*
 
@@ -25,5 +28,8 @@ dist:
 register:
 	python3 setup.py register
 
-upload:
-	twine upload dist/*
+up:
+	python3 -m twine upload dist/*
+
+uptest:
+	python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
