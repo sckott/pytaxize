@@ -30,6 +30,8 @@ Taxonomic Ids
 
 I've started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What's available right now is just getting COL ids.
 
+NOT WORKING YET! 
+
 .. code-block:: python
 
     res = pytaxize.Ids('Poa annua', db='col')
@@ -66,6 +68,8 @@ Vascan search
 
 Scrape taxonomic names
 ======================
+
+NOT WORKING YET! 
 
 .. code-block:: python
 
@@ -153,14 +157,14 @@ Parse names using GBIF's parser API
 Contributors
 ============
 
-* [Scott Chamberlain](https://github.com/sckott)
-* [Colin Talbert](https://github.com/ColinTalbert)
-* [akshayah3](https://github.com/akshayah3)
-* [panks](https://github.com/panks)
-* [Yanghao Li](https://github.com/lyttonhao)
-* [Ben Morris](https://github.com/bendmorris)
-* [Bishakh Ghosh](https://github.com/ghoshbishakh)
-* [Yoav Ram](https://github.com/yoavram)
+* `Scott Chamberlain <https://github.com/sckott>`__
+* `Colin Talbert <https://github.com/ColinTalbert>`__
+* `akshayah3 <https://github.com/akshayah3>`__
+* `panks <https://github.com/panks>`__
+* `Yanghao Li <https://github.com/lyttonhao>`__
+* `Ben Morris <https://github.com/bendmorris>`__
+* `Bishakh Ghosh <https://github.com/ghoshbishakh>`__
+* `Yoav Ram <https://github.com/yoavram>`__
 
 Meta
 ====
