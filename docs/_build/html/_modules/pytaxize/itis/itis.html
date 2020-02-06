@@ -1,0 +1,1208 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pytaxize.itis.itis &mdash; pytaxize 0.6.91 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.91
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gnr.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gni.html">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tax.html">Variety of functions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog_link.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pytaxize.itis.itis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pytaxize.itis.itis</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="k">import</span> <span class="n">etree</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="k">import</span> <span class="n">Refactor</span>
+
+<span class="n">itis_base</span> <span class="o">=</span> <span class="s1">&#39;https://www.itis.gov/ITISWebService/services/ITISService/&#39;</span>
+
+<span class="k">def</span> <span class="nf">getacceptednamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get accepted names from tsn</span>
+
+<span class="sd">    :param tsn: taxonomic serial number (TSN) (character or numeric)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # TSN accepted - good name</span>
+<span class="sd">        itis.getacceptednamesfromtsn(&#39;208527&#39;)</span>
+<span class="sd">        # TSN not accepted - input TSN is old name</span>
+<span class="sd">        itis.getacceptednamesfromtsn(&#39;504239&#39;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getAcceptedNamesFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;true&#39;</span><span class="p">):</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">_parse_nodes</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span>
+        <span class="n">dat</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;author&#39;</span><span class="p">)</span>
+        <span class="n">dat</span><span class="p">[</span><span class="s1">&#39;submittedTsn&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">return</span> <span class="n">dat</span>
+
+<span class="k">def</span> <span class="nf">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get any match count.</span>
+
+<span class="sd">    :param x: text or taxonomic serial number (TSN) (character or numeric)</span>
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">    </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getanymatchcount(x=202385)</span>
+<span class="sd">        itis.getanymatchcount(x=&quot;dolphin&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getAnyMatchCount&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get comment detail from TSN</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">                </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getcommentdetailfromtsn(tsn=180543)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCommentDetailFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commentDetail&quot;</span><span class="p">,</span> <span class="s2">&quot;commentId&quot;</span><span class="p">,</span> <span class="s2">&quot;commentTimeStamp&quot;</span><span class="p">,</span> <span class="s2">&quot;commentator&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">]</span>
+    <span class="n">colnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;comment&#39;</span><span class="p">,</span><span class="s1">&#39;commid&#39;</span><span class="p">,</span><span class="s1">&#39;commtime&#39;</span><span class="p">,</span><span class="s1">&#39;commentator&#39;</span><span class="p">,</span><span class="s1">&#39;updatedate&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdict</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get common names from tsn</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getcommonnamesfromtsn(tsn=183833)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1">#out = _itisGET(&quot;getCommonNamesFromTSN&quot;, {&#39;tsn&#39;: tsn}, **kwargs)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCommonNamesFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commonName&quot;</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">,</span> <span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">colnames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;comname&#39;</span><span class="p">,</span><span class="s1">&#39;lang&#39;</span><span class="p">,</span><span class="s1">&#39;tsn&#39;</span><span class="p">]</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">_itisextract</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">)</span>
+    <span class="k">del</span> <span class="n">res</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">z</span><span class="p">))</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">x</span> <span class="p">]</span>
+    <span class="c1">#return _array2df(res, colnames)</span>
+
+<span class="k">def</span> <span class="nf">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get core metadata from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # coverage and currrency data</span>
+<span class="sd">        itis.getcoremetadatafromtsn(tsn=28727)</span>
+<span class="sd">        # no coverage or currrency data</span>
+<span class="sd">        itis.getcoremetadatafromtsn(tsn=183671)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCoreMetadataFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;credRating&quot;</span><span class="p">,</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span><span class="s2">&quot;taxonCoverage&quot;</span><span class="p">,</span><span class="s2">&quot;taxonCurrency&quot;</span><span class="p">,</span><span class="s2">&quot;taxonUsageRating&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getcoveragefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get coverge from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # coverage data</span>
+<span class="sd">        itis.getcoveragefromtsn(tsn=28727)</span>
+<span class="sd">        # no coverage data</span>
+<span class="sd">        itis.getcoveragefromtsn(526852)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCoverageFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span> <span class="s2">&quot;taxonCoverage&quot;</span><span class="p">,</span> <span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_itisdict</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">getcredibilityratingfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get credibility rating from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getcredibilityratingfromtsn(526852)</span>
+<span class="sd">        itis.getcredibilityratingfromtsn(28727)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCredibilityRatingFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;credRating&quot;</span><span class="p">,</span> <span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_itisdict</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">getcredibilityratings</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get possible credibility ratings</span>
+
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getcredibilityratings()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCredibilityRatings&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax23:credibilityValues&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns23</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="c1"># df = pd.DataFrame(credibilityValues, columns=[&#39;credibilityValues&#39;])</span>
+    <span class="c1"># return df</span>
+
+<span class="k">def</span> <span class="nf">getcurrencyfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get currency from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # currency data</span>
+<span class="sd">        itis.getcurrencyfromtsn(28727)</span>
+<span class="sd">        # no currency dat</span>
+<span class="sd">        itis.getcurrencyfromtsn(526852)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getCurrencyFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span><span class="s2">&quot;taxonCurrency&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_itisdict</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">getdatedatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get date data from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getdatedatafromtsn(180543)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getDateDataFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;initialTimeStamp&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_itisdict</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">getexpertsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get expert information for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getexpertsfromtsn(180544)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getExpertsFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;comment&quot;</span><span class="p">,</span><span class="s2">&quot;expert&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s2">&quot;referredTsn&quot;</span><span class="p">,</span><span class="s2">&quot;referenceFor&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the kingdom and rank information for the TSN.</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gettaxonomicranknamefromtsn(tsn = 202385)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getTaxonomicRankNameFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse2df</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get full hierarchy from ts</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getfullhierarchyfromtsn(tsn = 37906)</span>
+<span class="sd">        itis.getfullhierarchyfromtsn(tsn = 100800)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getFullHierarchyFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse_hier</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">_fullrecord</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="n">verb</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;acceptedNameList&quot;</span><span class="p">,</span><span class="s2">&quot;commentList&quot;</span><span class="p">,</span><span class="s2">&quot;commonNameList&quot;</span><span class="p">,</span><span class="s2">&quot;completenessRating&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;coreMetadata&quot;</span><span class="p">,</span><span class="s2">&quot;credibilityRating&quot;</span><span class="p">,</span><span class="s2">&quot;currencyRating&quot;</span><span class="p">,</span><span class="s2">&quot;dateData&quot;</span><span class="p">,</span><span class="s2">&quot;expertList&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;geographicDivisionList&quot;</span><span class="p">,</span><span class="s2">&quot;hierarchyUp&quot;</span><span class="p">,</span><span class="s2">&quot;jurisdictionalOriginList&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;kingdom&quot;</span><span class="p">,</span><span class="s2">&quot;otherSourceList&quot;</span><span class="p">,</span><span class="s2">&quot;parentTSN&quot;</span><span class="p">,</span><span class="s2">&quot;publicationList&quot;</span><span class="p">,</span><span class="s2">&quot;scientificName&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;synonymList&quot;</span><span class="p">,</span><span class="s2">&quot;taxRank&quot;</span><span class="p">,</span><span class="s2">&quot;taxonAuthor&quot;</span><span class="p">,</span><span class="s2">&quot;unacceptReason&quot;</span><span class="p">,</span><span class="s2">&quot;usage&quot;</span><span class="p">]</span>
+    <span class="k">def</span> <span class="nf">parsedat</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="n">ch</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:&#39;</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns21</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">_get_text</span><span class="p">(</span><span class="n">ch</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">parsedat</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">toget</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">getfullrecordfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the full ITIS record for the TSN in the LSID, found by comparing the</span>
+<span class="sd">    TSN in the search key to the TSN field. Returns an empty result set if</span>
+<span class="sd">    there is no match or the TSN is invalid.</span>
+
+<span class="sd">    :param lsid: lsid for a taxonomic group (character)</span>
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getfullrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;)</span>
+<span class="sd">        itis.getfullrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;)</span>
+<span class="sd">        itis.getfullrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_fullrecord</span><span class="p">(</span><span class="s2">&quot;getFullRecordFromLSID&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;lsid&#39;</span><span class="p">:</span> <span class="n">lsid</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getfullrecordfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the full ITIS record for a TSN</span>
+
+<span class="sd">    :param tsn: tsn for a taxonomic group (character)</span>
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getfullrecordfromtsn(&quot;504239&quot;)</span>
+<span class="sd">        itis.getfullrecordfromtsn(&quot;202385&quot;)</span>
+<span class="sd">        itis.getfullrecordfromtsn(&quot;183833&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_fullrecord</span><span class="p">(</span><span class="s2">&quot;getFullRecordFromTSN&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getgeographicdivisionsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get geographic divisions from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getgeographicdivisionsfromtsn(180543)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getGeographicDivisionsFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;geographicValue&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getgeographicvalues</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get all possible geographic values</span>
+
+<span class="sd">    :param **kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getgeographicvalues()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getGeographicValues&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://metadata.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:geographicValues&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">getglobalspeciescompletenessfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get global species completeness from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getglobalspeciescompletenessfromtsn(180541)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getGlobalSpeciesCompletenessFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;completeness&quot;</span><span class="p">,</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">gethierarchydownfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get hierarchy down from tsn</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gethierarchydownfromtsn(tsn = 161030)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getHierarchyDownFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse_hier</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get hierarchy up from tsn</span>
+
+<span class="sd">    :param tsn: TSN for a taxonomic group (numeric)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gethierarchyupfromtsn(tsn = 36485)</span>
+<span class="sd">        itis.gethierarchyupfromtsn(tsn = 37906)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getHierarchyUpFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">_parse2df</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get itis term</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis._itisterms(&quot;buya&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="n">endpt</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:itisTerms&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns21</span><span class="p">)</span>
+    <span class="n">nodes2</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="n">allnodes</span> <span class="o">=</span> <span class="p">[[</span><span class="n">_get_text_single</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes2</span><span class="p">]</span>
+
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">allnodes</span><span class="p">:</span>
+        <span class="n">kyz</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+        <span class="n">notuniq</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kyz</span> <span class="k">if</span> <span class="n">kyz</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">notuniq</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">notuniq</span><span class="p">:</span>
+                <span class="n">tt</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span> <span class="nb">list</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">z</span> <span class="p">])</span>
+                <span class="n">toadd</span> <span class="o">=</span> <span class="p">{</span> <span class="n">z</span><span class="p">:</span> <span class="n">tt</span> <span class="p">}</span>
+                <span class="n">uu</span> <span class="o">=</span> <span class="p">[</span> <span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">if</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">z</span> <span class="p">]</span>
+                <span class="n">uu</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toadd</span><span class="p">)</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uu</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span> <span class="p">[</span> <span class="p">{</span> <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">R</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="p">}</span> <span class="k">for</span> <span class="n">R</span> <span class="ow">in</span> <span class="n">output</span> <span class="p">]</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span> <span class="p">[</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">allnodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">]</span> <span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">_get_text_single</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">getitistermsfromcommonname</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get itis terms from common names</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getitistermsfromcommonname(&quot;buya&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="o">=</span><span class="s2">&quot;getITISTermsFromCommonName&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getitisterms</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get itis terms</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # fails</span>
+<span class="sd">        itis.getitisterms(&quot;bear&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="o">=</span><span class="s2">&quot;getITISTerms&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getitistermsfromscientificname</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get itis terms from scientific names</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getitistermsfromscientificname(&quot;ursidae&quot;)</span>
+<span class="sd">        itis.getitistermsfromscientificname(&quot;Ursus&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="o">=</span><span class="s2">&quot;getITISTermsFromScientificName&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get hierarchies from TSN values, full, upstream only, or immediate downstream</span>
+<span class="sd">    only. Uses the ITIS database.</span>
+
+<span class="sd">    :param tsn: One or more TSN&#39;s (taxonomic serial number)</span>
+<span class="sd">    :param what: One of full (full hierarchy), up (immediate upstream), or down</span>
+<span class="sd">       (immediate downstream)</span>
+
+<span class="sd">    Details Note that `itis.itis_downstream` gets taxa downstream to a particular</span>
+<span class="sd">       rank, whilc this function only gets immediate names downstream.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # Get full hierarchy</span>
+<span class="sd">        itis.hierarchy(tsn=180543)</span>
+
+<span class="sd">        # Get hierarchy upstream</span>
+<span class="sd">        itis.hierarchy(tsn=180543, &quot;up&quot;)</span>
+
+<span class="sd">        # Get hierarchy downstream</span>
+<span class="sd">        itis.hierarchy(tsn=180543, &quot;down&quot;)</span>
+
+<span class="sd">        # Many tsn&#39;s</span>
+<span class="sd">        itis.hierarchy(tsn=[180543,41074,36616])</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">tsn2</span> <span class="o">=</span> <span class="n">convertsingle</span><span class="p">(</span><span class="n">tsn</span><span class="p">)</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">what</span> <span class="o">==</span> <span class="s1">&#39;full&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tsn2</span><span class="p">)):</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn2</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">elif</span><span class="p">(</span><span class="n">what</span> <span class="o">==</span> <span class="s1">&#39;up&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tsn2</span><span class="p">)):</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn2</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tsn2</span><span class="p">)):</span>
+            <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gethierarchydownfromtsn</span><span class="p">(</span><span class="n">tsn2</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">temp</span>
+
+<span class="k">def</span> <span class="nf">getjurisdictionaloriginfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get jurisdictional origin from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getjurisdictionaloriginfromtsn(180543)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getJurisdictionalOriginFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;jurisdictionValue&quot;</span><span class="p">,</span><span class="s2">&quot;origin&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getjurisdictionoriginvalues</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get jurisdiction origin values</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getjurisdictionoriginvalues()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getJurisdictionalOriginValues&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax23&#39;</span><span class="p">:</span><span class="s1">&#39;http://metadata.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;jurisdiction&quot;</span><span class="p">,</span><span class="s2">&quot;origin&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="s2">&quot;ax23&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getjurisdictionvalues</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get possible jurisdiction values</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getjurisdictionvalues()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getJurisdictionValues&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span> <span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;jurisdictionValues&#39;</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">getkingdomnamefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get kingdom names from tsn</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getkingdomnamefromtsn(202385)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">_itisGET</span><span class="p">(</span><span class="s2">&quot;getKingdomNameFromTSN&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getKingdomNameFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span><span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s2">&quot;http://data.itis_service.itis.usgs.gov/xsd&quot;</span><span class="p">}</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdomId&quot;</span><span class="p">,</span><span class="s2">&quot;kingdomName&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getkingdomnames</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get all possible kingdom names</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getkingdomnames()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getKingdomNames&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax23&#39;</span><span class="p">:</span><span class="s2">&quot;http://metadata.itis_service.itis.usgs.gov/xsd&quot;</span><span class="p">}</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdomId&quot;</span><span class="p">,</span><span class="s2">&quot;kingdomName&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="s2">&quot;ax23&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getlastchangedate</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Provides the date the ITIS database was last updated.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getlastchangedate()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getLastChangeDate&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">ns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax23&#39;</span><span class="p">:</span><span class="s2">&quot;http://metadata.itis_service.itis.usgs.gov/xsd&quot;</span><span class="p">}</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax23:updateDate&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="n">dt</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">bb</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">dt</span>
+
+<span class="k">def</span> <span class="nf">getlsidfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Gets the unique LSID for the TSN, or an empty result if there is no match.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # valid TSN</span>
+<span class="sd">        itis.getlsidfromtsn(155166)</span>
+<span class="sd">        # invalid TSN, returns nothing</span>
+<span class="sd">        itis.getlsidfromtsn(0)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">_itisGET</span><span class="p">(</span><span class="s2">&quot;getLSIDFromTSN&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getLSIDFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span><span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">if</span> <span class="n">tt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="s2">&quot;no match&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">tt</span>
+
+<span class="k">def</span> <span class="nf">getothersourcesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns a list of the other sources used for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getothersourcesfromtsn(182662)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getOtherSourcesFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span><span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;acquisitionDate&quot;</span><span class="p">,</span><span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s2">&quot;referredTsn&quot;</span><span class="p">,</span><span class="s2">&quot;source&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sourceType&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">,</span><span class="s2">&quot;version&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse_2dict</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getparenttsnfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the parent TSN for the entered TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getparenttsnfromtsn(202385)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getParentTSNFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span><span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;parentTsn&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getpublicationsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns a list of the pulications used for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getpublicationsfromtsn(70340)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getPublicationsFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span><span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;actualPubDate&quot;</span><span class="p">,</span><span class="s2">&quot;isbn&quot;</span><span class="p">,</span><span class="s2">&quot;issn&quot;</span><span class="p">,</span><span class="s2">&quot;listedPubDate&quot;</span><span class="p">,</span><span class="s2">&quot;pages&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;pubComment&quot;</span><span class="p">,</span><span class="s2">&quot;pubName&quot;</span><span class="p">,</span><span class="s2">&quot;pubPlace&quot;</span><span class="p">,</span><span class="s2">&quot;publisher&quot;</span><span class="p">,</span><span class="s2">&quot;referenceAuthor&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;name&quot;</span><span class="p">,</span><span class="s2">&quot;refLanguage&quot;</span><span class="p">,</span><span class="s2">&quot;referredTsn&quot;</span><span class="p">,</span><span class="s2">&quot;title&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getranknames</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Provides a list of all the unique rank names contained in the database and</span>
+<span class="sd">    their kingdom and rank ID values.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getranknames()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getRankNames&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;kingdomName&quot;</span><span class="p">,</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span><span class="s2">&quot;rankName&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns23</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="s2">&quot;ax23&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getrecordfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Gets the partial ITIS record for the TSN in the LSID, found by comparing the</span>
+<span class="sd">    TSN in the search key to the TSN field. Returns an empty result set if</span>
+<span class="sd">    there is no match or the TSN is invalid.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getRecordFromLSID&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lsid&#39;</span><span class="p">:</span> <span class="n">lsid</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;authorship&quot;</span><span class="p">,</span><span class="s2">&quot;genusPart&quot;</span><span class="p">,</span><span class="s2">&quot;infragenericEpithet&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;infraspecificEpithet&quot;</span><span class="p">,</span><span class="s2">&quot;lsid&quot;</span><span class="p">,</span><span class="s2">&quot;nameComplete&quot;</span><span class="p">,</span><span class="s2">&quot;nomenclaturalCode&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;rank&quot;</span><span class="p">,</span><span class="s2">&quot;rankString&quot;</span><span class="p">,</span><span class="s2">&quot;specificEpithet&quot;</span><span class="p">,</span><span class="s2">&quot;uninomial&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getreviewyearfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the review year for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getreviewyearfromtsn(180541)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getReviewYearFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;rankId&quot;</span><span class="p">,</span><span class="s2">&quot;reviewYear&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getscientificnamefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the scientific name for the TSN. Also returns the component parts</span>
+<span class="sd">    (names and indicators) of the scientific name.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getscientificnamefromtsn(531894)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getScientificNameFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;combinedName&quot;</span><span class="p">,</span><span class="s2">&quot;unitInd1&quot;</span><span class="p">,</span><span class="s2">&quot;unitInd3&quot;</span><span class="p">,</span><span class="s2">&quot;unitName1&quot;</span><span class="p">,</span><span class="s2">&quot;unitName2&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;unitName3&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="c1"># def getsynonymnamesfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     Returns a list of the synonyms (if any) for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+        
+<span class="c1">#     itis.getsynonymnamesfromtsn(183671) # tsn not accepted</span>
+<span class="c1">#     itis.getsynonymnamesfromtsn(526852) # tsn accepted</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     out = _itisGET(&quot;getSynonymNamesFromTSN&quot;, {&#39;tsn&#39;: tsn}, **kwargs)</span>
+<span class="c1">#     if len(sapply(nodes, xmlValue)) == 0):</span>
+<span class="c1">#         name = list(&quot;nomatch&quot;)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         name = sapply(nodes, xmlValue)</span>
+<span class="c1">#     nodes = getNodeSet(out, &quot;//ax21:tsn&quot;, namespaces=ns21)</span>
+
+<span class="c1">#     if len(sapply(nodes, xmlValue)) == 1):</span>
+<span class="c1">#         tsn = sapply(nodes, xmlValue)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#       tsn = sapply(nodes, xmlValue)</span>
+<span class="c1">#       tsn = tsn[-1]</span>
+<span class="c1">#     data.frame(name=name, tsn=tsn, stringsAsFactors = FALSE)</span>
+
+<span class="k">def</span> <span class="nf">gettaxonauthorshipfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the author information for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gettaxonauthorshipfromtsn(183671)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getTaxonAuthorshipFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;authorship&quot;</span><span class="p">,</span><span class="s2">&quot;updateDate&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gettaxonomicusagefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the usage information for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gettaxonomicusagefromtsn(526852)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getTaxonomicUsageFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;taxonUsageRating&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">gettsnbyvernacularlanguage</span><span class="p">(</span><span class="n">language</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get tsn by vernacular language not the international language code (character)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gettsnbyvernacularlanguage(&quot;french&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getTsnByVernacularLanguage&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;language&#39;</span><span class="p">:</span> <span class="n">language</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commonName&quot;</span><span class="p">,</span><span class="s2">&quot;language&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">gettsnfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Gets the TSN corresponding to the LSID, or an empty result if there is no match.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.gettsnfromlsid(lsid=&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;)</span>
+<span class="sd">        itis.gettsnfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:0&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getTSNFromLSID&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;lsid&#39;</span><span class="p">:</span> <span class="n">lsid</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+    <span class="k">if</span> <span class="n">tt</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="s2">&quot;no match&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="k">return</span> <span class="n">tt</span>
+
+<span class="k">def</span> <span class="nf">getunacceptabilityreasonfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns the unacceptability reason, if any, for the TSN.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getunacceptabilityreasonfromtsn(183671)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getUnacceptabilityReasonFromTSN&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;tsn&quot;</span><span class="p">,</span><span class="s2">&quot;unacceptReason&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itis_parse</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">getvernacularlanguages</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Provides a list of the unique languages used in the vernacular table.</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.getvernacularlanguages()</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;getVernacularLanguages&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;languageNames&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns23</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">),</span> <span class="s2">&quot;ax23&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">searchbycommonname</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search for tsn by common name</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchbycommonname(x=&quot;american bullfrog&quot;)</span>
+<span class="sd">        itis.searchbycommonname(&quot;ferret-badger&quot;)</span>
+<span class="sd">        itis.searchbycommonname(&quot;polar bear&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchByCommonName&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commonName&quot;</span><span class="p">,</span><span class="s2">&quot;language&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:commonNames&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns21</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">searchbycommonnamebeginswith</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search for tsn by common name beginning with</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchbycommonnamebeginswith(&quot;inch&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchByCommonNameBeginsWith&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commonName&quot;</span><span class="p">,</span><span class="s2">&quot;language&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:commonNames&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns21</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">searchbycommonnameendswith</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search for tsn by common name ending with</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchbycommonnameendswith(&quot;snake&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchByCommonNameEndsWith&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;commonName&quot;</span><span class="p">,</span><span class="s2">&quot;language&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:commonNames&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns21</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">searchcommon</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">which</span> <span class="o">=</span> <span class="s2">&quot;begin&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Searches common name and acts as thin wrapper around</span>
+<span class="sd">    `itis.searchbycommonnamebeginswith` and `itis.searchbycommonnameendswith`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchcommon(&quot;inch&quot;)</span>
+<span class="sd">        itis.searchcommon(&quot;inch&quot;, which = &quot;end&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">which</span> <span class="o">==</span> <span class="s2">&quot;begin&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">searchbycommonnamebeginswith</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">searchbycommonnameendswith</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">searchbyscientificname</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search by scientific name</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchbyscientificname(x=&quot;Tardigrada&quot;)</span>
+<span class="sd">        itis.searchbyscientificname(&quot;Quercus douglasii&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchByScientificName&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;combinedName&quot;</span><span class="p">,</span><span class="s2">&quot;tsn&quot;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_itisdf</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">ns21</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">_tolower</span><span class="p">(</span><span class="n">matches</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">searchforanymatch</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search for any match</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchforanymatch(x=202385)</span>
+<span class="sd">        itis.searchforanymatch(x=&quot;dolphin&quot;)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchForAnyMatch&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># if isinstance(x, basestring):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">gettag</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">iter</span><span class="p">()],</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">iter</span><span class="p">()])))</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+<span class="k">def</span> <span class="nf">searchforanymatchpaged</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pagesize</span><span class="p">,</span> <span class="n">pagenum</span><span class="p">,</span> <span class="n">ascend</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Search for any matched page for descending (logical)</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)</span>
+<span class="sd">        itis.searchforanymatchpaged(&quot;Zy&quot;, pagesize=100, pagenum=1, ascend=False)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;srchKey&#39;</span><span class="p">:</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;pageSize&#39;</span><span class="p">:</span><span class="n">pagesize</span><span class="p">,</span> <span class="s1">&#39;pageNum&#39;</span><span class="p">:</span><span class="n">pagenum</span><span class="p">,</span> <span class="s1">&#39;ascend&#39;</span><span class="p">:</span><span class="n">ascend</span><span class="p">}</span>
+    <span class="n">out</span><span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s1">&#39;searchForAnyMatchPaged&#39;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s1">&#39;get&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">getchildren</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+            <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="n">gettag</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">iter</span><span class="p">()],</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">w</span><span class="o">.</span><span class="n">iter</span><span class="p">()])))</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+<span class="c1">## helper functions and variables</span>
+<span class="k">def</span> <span class="nf">convertsingle</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;int&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">ns21</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax21&#39;</span><span class="p">:</span><span class="s1">&#39;http://data.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+<span class="n">ns23</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ax23&#39;</span><span class="p">:</span><span class="s1">&#39;http://metadata.itis_service.itis.usgs.gov/xsd&#39;</span><span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">_parse2df</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:*&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">_parse_nodes</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">_parse_hier</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s1">&#39;//ax21:hierarchyList&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">uu</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)):</span>
+        <span class="n">uu</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;tsn&#39;</span><span class="p">,</span><span class="s1">&#39;author&#39;</span><span class="p">,</span><span class="s1">&#39;parentName&#39;</span><span class="p">,</span><span class="s1">&#39;parentTsn&#39;</span><span class="p">,</span><span class="s1">&#39;rankName&#39;</span><span class="p">,</span><span class="s1">&#39;taxonName&#39;</span><span class="p">],</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]])))</span>
+    <span class="k">return</span> <span class="n">uu</span>
+
+<span class="k">def</span> <span class="nf">_itisdf</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;//</span><span class="si">%s</span><span class="s1">:&#39;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span><span class="o">+</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please enter a valid search name&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span> <span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span> <span class="p">:</span>
+        <span class="c1"># for some reason, the list of tsn&#39;s sometimes begins with a</span>
+        <span class="c1"># spurious None</span>
+        <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">output</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="n">colnames</span> <span class="p">)[</span> <span class="n">colnames</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">_itisdict</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;//</span><span class="si">%s</span><span class="s1">:&#39;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span><span class="o">+</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s1">&#39;Please enter a valid search name&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">_itisextract</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;//</span><span class="si">%s</span><span class="s1">:&#39;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span><span class="o">+</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+<span class="k">def</span> <span class="nf">_array2df</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">colnames</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">obj</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">obj</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="k">def</span> <span class="nf">_itis_parse</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nsp</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:&quot;</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">nsp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_tolower</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vals</span><span class="p">))</span>
+    <span class="c1"># df = pd.DataFrame(dict(zip(_tolower(a), vals)))</span>
+    <span class="c1"># return df</span>
+
+<span class="k">def</span> <span class="nf">_itis_parse_2dict</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nsp</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:&quot;</span><span class="o">+</span><span class="n">x</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">nsp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">_get_text</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">_tolower</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">gettag</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;}&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'0.6.91',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

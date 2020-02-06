@@ -64,7 +64,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'pytaxize'
-copyright = u'2016, Scott Chamberlain'
+copyright = u'2020, Scott Chamberlain'
 author = u'Scott Chamberlain'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -72,7 +72,7 @@ author = u'Scott Chamberlain'
 # built documents.
 #
 # The short X.Y version.
-version = '0.5.9200'
+version = pytaxize.__version__
 # The full version, including alpha/beta/rc tags.
 release = version
 

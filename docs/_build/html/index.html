@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize &mdash; pytaxize 0.5.9200 documentation</title>
+  <title>pytaxize &mdash; pytaxize 0.6.91 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,27 +24,20 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="pytaxize 0.5.9200 documentation" href="#"/>
-        <link rel="next" title="Catalogue of Life" href="col.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Catalogue of Life" href="col.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -62,7 +57,7 @@
             
             
               <div class="version">
-                0.5.9200
+                0.6.91
               </div>
             
           
@@ -83,7 +78,10 @@
           
             
             
-                <ul>
+              
+            
+            
+              <ul>
 <li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gnr.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
@@ -102,34 +100,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">pytaxize</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">pytaxize</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>pytaxize</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>pytaxize</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -139,63 +157,63 @@
 <h1>pytaxize<a class="headerlink" href="#pytaxize" title="Permalink to this headline">¶</a></h1>
 <p><a class="reference external" href="https://pypi.python.org/pypi/pytaxize"><img alt="pypi" src="https://img.shields.io/pypi/v/pytaxize.svg" /></a> <a class="reference external" href="http://pytaxize.rtfd.org/"><img alt="docs" src="https://readthedocs.org/projects/pytaxize/badge/?version=latest" /></a> <a class="reference external" href="https://travis-ci.org/sckott/pytaxize"><img alt="travis" src="https://travis-ci.org/sckott/pytaxize.svg?branch=master" /></a> <a class="reference external" href="https://coveralls.io/github/sckott/pytaxize?branch=master"><img alt="coverage" src="https://coveralls.io/repos/sckott/pytaxize/badge.svg?branch=master&amp;service=github" /></a></p>
 <p>This is a port of the R package <a class="reference external" href="https://github.com/ropensci/taxize">taxize</a>.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.</p>
-<p>Why?  A significant advantage of a Python version of <cite>taxize</cite> will be for those that are pythonistas at heart. Also, you could use <cite>pytaxize</cite> in a web app, whereas you could with <cite>taxize</cite> (e.g., in a Shiny app), but it wouldn&#8217;t scale, be very fast, etc.</p>
+<p>Why?  A significant advantage of a Python version of <cite>taxize</cite> will be for those that are pythonistas at heart. Also, you could use <cite>pytaxize</cite> in a web app, whereas you could with <cite>taxize</cite> (e.g., in a Shiny app), but it wouldn’t scale, be very fast, etc.</p>
 </div>
 <div class="section" id="python-2-3">
 <h1>python 2/3<a class="headerlink" href="#python-2-3" title="Permalink to this headline">¶</a></h1>
-<p>I usually use Python <cite>2.x</cite> locally, but I&#8217;ve just been working on making <cite>pytaxize</cite> compatible with <cite>2.x</cite> and <cite>3.x</cite>. Please let me know if anything is broken on either version.</p>
+<p>I usually use Python <cite>2.x</cite> locally, but I’ve just been working on making <cite>pytaxize</cite> compatible with <cite>2.x</cite> and <cite>3.x</cite>. Please let me know if anything is broken on either version.</p>
 </div>
 <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize</span>
 </pre></div>
 </div>
 <p>python or ipython, etc.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="taxonomic-ids">
 <h1>Taxonomic Ids<a class="headerlink" href="#taxonomic-ids" title="Permalink to this headline">¶</a></h1>
-<p>I&#8217;ve started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What&#8217;s available right now is just getting COL ids.</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
+<p>I’ve started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What’s available right now is just getting COL ids.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">res</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span> <span class="n">db</span><span class="o">=</span><span class="s1">&#39;col&#39;</span><span class="p">)</span>
 <span class="n">res</span><span class="o">.</span><span class="n">get_colid</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">19275187</span><span class="p">]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="mi">19275187</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="vascan-search">
 <h1>Vascan search<a class="headerlink" href="#vascan-search" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">u&#39;apiVersion&#39;</span><span class="p">:</span> <span class="s1">u&#39;0.1&#39;</span><span class="p">,</span>
- <span class="s1">u&#39;results&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;matches&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;canonicalName&#39;</span><span class="p">:</span> <span class="s1">u&#39;Helianthus annuus&#39;</span><span class="p">,</span>
-     <span class="s1">u&#39;distribution&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">u&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="s1">u&#39;introduced&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locality&#39;</span><span class="p">:</span> <span class="s1">u&#39;NS&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locationID&#39;</span><span class="p">:</span> <span class="s1">u&#39;ISO 3166-2:CA-NS&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="s1">u&#39;introduced&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="s1">u&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="s1">u&#39;&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locality&#39;</span><span class="p">:</span> <span class="s1">u&#39;PE&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locationID&#39;</span><span class="p">:</span> <span class="s1">u&#39;ISO 3166-2:CA-PE&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="s1">u&#39;excluded&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="s1">u&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="s1">u&#39;&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locality&#39;</span><span class="p">:</span> <span class="s1">u&#39;NT&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;locationID&#39;</span><span class="p">:</span> <span class="s1">u&#39;ISO 3166-2:CA-NT&#39;</span><span class="p">,</span>
-       <span class="s1">u&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="s1">u&#39;doubtful&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="s1">u&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="s1">u&#39;introduced&#39;</span><span class="p">,</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="sa">u</span><span class="s1">&#39;apiVersion&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;0.1&#39;</span><span class="p">,</span>
+ <span class="sa">u</span><span class="s1">&#39;results&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="sa">u</span><span class="s1">&#39;matches&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="sa">u</span><span class="s1">&#39;canonicalName&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">,</span>
+     <span class="sa">u</span><span class="s1">&#39;distribution&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="sa">u</span><span class="s1">&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;introduced&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locality&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;NS&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locationID&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;ISO 3166-2:CA-NS&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;introduced&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="sa">u</span><span class="s1">&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locality&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;PE&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locationID&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;ISO 3166-2:CA-PE&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;excluded&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="sa">u</span><span class="s1">&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locality&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;NT&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;locationID&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;ISO 3166-2:CA-NT&#39;</span><span class="p">,</span>
+       <span class="sa">u</span><span class="s1">&#39;occurrenceStatus&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;doubtful&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="sa">u</span><span class="s1">&#39;establishmentMeans&#39;</span><span class="p">:</span> <span class="sa">u</span><span class="s1">&#39;introduced&#39;</span><span class="p">,</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="scrape-taxonomic-names">
 <h1>Scrape taxonomic names<a class="headerlink" href="#scrape-taxonomic-names" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">)</span>
 <span class="n">out</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span> <span class="n">identifiedName</span>  <span class="n">offsetEnd</span>  <span class="n">offsetStart</span>       <span class="n">scientificName</span>       <span class="n">verbatim</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span> <span class="n">identifiedName</span>  <span class="n">offsetEnd</span>  <span class="n">offsetStart</span>       <span class="n">scientificName</span>       <span class="n">verbatim</span>
 <span class="mi">0</span>       <span class="n">Waxiella</span>         <span class="mi">14</span>            <span class="mi">7</span>             <span class="n">Waxiella</span>       <span class="n">Waxiella</span>
 <span class="mi">1</span>    <span class="n">W</span><span class="o">.</span> <span class="n">africana</span>        <span class="mi">395</span>          <span class="mi">385</span>    <span class="n">Waxiella</span> <span class="n">africana</span>    <span class="n">W</span><span class="o">.</span> <span class="n">africana</span>
 <span class="mi">2</span>      <span class="n">W</span><span class="o">.</span> <span class="n">egbara</span>        <span class="mi">581</span>          <span class="mi">573</span>      <span class="n">Waxiella</span> <span class="n">egbara</span>      <span class="n">W</span><span class="o">.</span> <span class="n">egbara</span>
@@ -206,12 +224,12 @@
 </div>
 <div class="section" id="itis-low-level-functions">
 <h1>ITIS low level functions<a class="headerlink" href="#itis-low-level-functions" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="s1">&#39;208527&#39;</span><span class="p">)</span>
 
 <span class="s1">&#39;208527&#39;</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 
                                              <span class="n">comment</span>  \
 <span class="mi">0</span>  <span class="n">Status</span><span class="p">:</span> <span class="n">CITES</span> <span class="o">-</span> <span class="n">Appendix</span> <span class="n">I</span> <span class="k">as</span> <span class="n">U</span><span class="o">.</span> <span class="n">arctos</span> <span class="p">(</span><span class="n">Mexic</span><span class="o">...</span>
@@ -222,7 +240,7 @@
 <span class="mi">1</span>  <span class="n">Wilson</span> <span class="o">&amp;</span> <span class="n">Reeder</span><span class="p">,</span> <span class="n">eds</span><span class="o">.</span> <span class="p">(</span><span class="mi">2005</span><span class="p">)</span>  <span class="mi">18557</span>  <span class="mi">2007</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">20</span> <span class="mi">15</span><span class="p">:</span><span class="mo">06</span><span class="p">:</span><span class="mf">38.0</span>  <span class="mi">2014</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">03</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gethierarchyupfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
 
   <span class="n">author</span>  <span class="n">parentName</span> <span class="n">parentTsn</span> <span class="n">rankName</span> <span class="n">taxonName</span>    <span class="n">tsn</span>
 <span class="mi">0</span>   <span class="n">Raf</span><span class="o">.</span>  <span class="n">Asteraceae</span>     <span class="mi">35420</span>    <span class="n">Genus</span>  <span class="n">Agoseris</span>  <span class="mi">36485</span>
@@ -231,10 +249,10 @@
 </div>
 <div class="section" id="catalogue-of-life">
 <h1>Catalogue of Life<a class="headerlink" href="#catalogue-of-life" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">col_children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="p">[</span>        <span class="nb">id</span>                <span class="n">name</span>     <span class="n">rank</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>        <span class="nb">id</span>                <span class="n">name</span>     <span class="n">rank</span>
  <span class="mi">0</span>  <span class="mi">6971712</span>  <span class="n">Apis</span> <span class="n">andreniformis</span>  <span class="n">Species</span>
  <span class="mi">1</span>  <span class="mi">6971713</span>         <span class="n">Apis</span> <span class="n">cerana</span>  <span class="n">Species</span>
  <span class="mi">2</span>  <span class="mi">6971714</span>        <span class="n">Apis</span> <span class="n">dorsata</span>  <span class="n">Species</span>
@@ -247,12 +265,12 @@
 </div>
 <div class="section" id="parse-names">
 <h1>Parse names<a class="headerlink" href="#parse-names" title="Permalink to this headline">¶</a></h1>
-<p>Parse names using GBIF&#8217;s parser API</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gbif_parse</span><span class="p">(</span><span class="n">scientificname</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Arrhenatherum elatius var. elatius&#39;</span><span class="p">,</span>
+<p>Parse names using GBIF’s parser API</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pytaxize</span><span class="o">.</span><span class="n">gbif_parse</span><span class="p">(</span><span class="n">scientificname</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Arrhenatherum elatius var. elatius&#39;</span><span class="p">,</span>
                  <span class="s1">&#39;Secale cereale subsp. cereale&#39;</span><span class="p">,</span> <span class="s1">&#39;Secale cereale ssp. cereale&#39;</span><span class="p">,</span><span class="s1">&#39;Vanessa atalanta (Linnaeus, 1758)&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>  <span class="n">authorsParsed</span> <span class="n">bracketAuthorship</span> <span class="n">bracketYear</span>                  <span class="n">canonicalName</span>  \
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>  <span class="n">authorsParsed</span> <span class="n">bracketAuthorship</span> <span class="n">bracketYear</span>                  <span class="n">canonicalName</span>  \
 <span class="mi">0</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>  <span class="n">Arrhenatherum</span> <span class="n">elatius</span> <span class="n">elatius</span>
 <span class="mi">1</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>         <span class="n">Secale</span> <span class="n">cereale</span> <span class="n">cereale</span>
 <span class="mi">2</span>          <span class="bp">True</span>               <span class="n">NaN</span>         <span class="n">NaN</span>         <span class="n">Secale</span> <span class="n">cereale</span> <span class="n">cereale</span>
@@ -280,7 +298,7 @@
 </div>
 <div class="section" id="get-random-vector-of-taxon-names">
 <h1>Get random vector of taxon names<a class="headerlink" href="#get-random-vector-of-taxon-names" title="Permalink to this headline">¶</a></h1>
-<p>_not working yet..._</p>
+<p>_not working yet…_</p>
 </div>
 <div class="section" id="meta">
 <h1>Meta<a class="headerlink" href="#meta" title="Permalink to this headline">¶</a></h1>
@@ -321,12 +339,13 @@
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="col.html" class="btn btn-neutral float-right" title="Catalogue of Life" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="col.html" class="btn btn-neutral float-right" title="Catalogue of Life" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -336,11 +355,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Scott Chamberlain.
+        &copy; Copyright 2020, Scott Chamberlain.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -358,10 +377,12 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.5.9200',
+            VERSION:'0.6.91',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -370,19 +391,13 @@
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>

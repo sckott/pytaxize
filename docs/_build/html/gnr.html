@@ -8,9 +8,11 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Global Names Resolver &mdash; pytaxize 0.5.9200 documentation</title>
+  <title>Global Names Resolver &mdash; pytaxize 0.6.91 documentation</title>
   
 
+  
+  
   
   
 
@@ -22,28 +24,21 @@
 
   
 
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="pytaxize 0.5.9200 documentation" href="index.html"/>
-        <link rel="next" title="Global Names Index" href="gni.html"/>
-        <link rel="prev" title="Catalogue of Life" href="col.html"/> 
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Global Names Index" href="gni.html" />
+    <link rel="prev" title="Catalogue of Life" href="col.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -63,7 +58,7 @@
             
             
               <div class="version">
-                0.5.9200
+                0.6.91
               </div>
             
           
@@ -84,7 +79,10 @@
           
             
             
-                <ul class="current">
+              
+            
+            
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gni.html">Global Names Index</a></li>
@@ -103,34 +101,54 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">pytaxize</a>
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pytaxize</a>
+        
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Global Names Resolver</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Global Names Resolver</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/gnr.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/gnr.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -138,70 +156,20 @@
             
   <div class="section" id="module-pytaxize">
 <span id="global-names-resolver"></span><span id="gnr"></span><h1>Global Names Resolver<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
-<dl class="method">
-<dt id="pytaxize.gnr.gnr_datasources">
-<code class="descclassname">gnr.</code><code class="descname">gnr_datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gnr.gnr_datasources" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get data sources for the Global Names Resolver.</p>
-<dl class="docutils">
-<dt>Retrieve data sources used in Global Names Index, see</dt>
-<dd><a class="reference external" href="http://gni.globalnames.org/">http://gni.globalnames.org/</a> for information.</dd>
-</dl>
-<p>Usage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># all data sources</span>
-<span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-
-<span class="c1"># give me the id for EOL</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-<span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">out</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;EOL&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.gnr.gnr_resolve">
-<code class="descclassname">gnr.</code><code class="descname">gnr_resolve</code><span class="sig-paren">(</span><em>names='Homo sapiens'</em>, <em>source=None</em>, <em>format='json'</em>, <em>resolve_once='false'</em>, <em>with_context='false'</em>, <em>best_match_only='false'</em>, <em>header_only='false'</em>, <em>preferred_data_sources='false'</em>, <em>http='get'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gnr.gnr_resolve" title="Permalink to this definition">¶</a></dt>
-<dd><p>Uses the Global Names Resolver to resolve scientific names</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>names</strong> &#8211; List of taxonomic names</li>
-<li><strong>source</strong> &#8211; Source to pull from, one of x, y, z</li>
-<li><strong>format</strong> &#8211; One of json or xml</li>
-<li><strong>resolve_once</strong> &#8211; Logical, true or false</li>
-<li><strong>with_context</strong> &#8211; Return context with taxonomic names</li>
-<li><strong>best_match_only</strong> &#8211; Logical, if true (default) return the best match only</li>
-<li><strong>header_only</strong> &#8211; Return header only, logical</li>
-<li><strong>preferred_data_sources</strong> &#8211; Return only preferred data sources.</li>
-<li><strong>http</strong> &#8211; The HTTP method to use, one of &#8220;get&#8221; or &#8220;post&#8221;. Default=&#8221;get&#8221;</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>Usage:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_resolve</span><span class="p">(</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">)</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_resolve</span><span class="p">([</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">,</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</dd></dl>
-
 </div>
 
 
            </div>
+           
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="gni.html" class="btn btn-neutral float-right" title="Global Names Index" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="gni.html" class="btn btn-neutral float-right" title="Global Names Index" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="col.html" class="btn btn-neutral" title="Catalogue of Life" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="col.html" class="btn btn-neutral" title="Catalogue of Life" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -210,11 +178,11 @@
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2016, Scott Chamberlain.
+        &copy; Copyright 2020, Scott Chamberlain.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -232,10 +200,12 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.5.9200',
+            VERSION:'0.6.91',
+            LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
@@ -244,19 +214,13 @@
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-   
+  </script> 
 
 </body>
 </html>
