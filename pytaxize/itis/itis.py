@@ -1,11 +1,32 @@
 import sys
 import time
 import requests
-import pandas as pd
+import warnings
+
 from lxml import etree
 from pytaxize.refactor import Refactor
 
-itis_base = 'https://www.itis.gov/ITISWebService/services/ITISService/'
+try:
+    import pandas as pd
+except ImportError:
+    warnings.warn('Pandas library not installed, dataframes disabled')
+    pd = None
+itis_base = 'http://www.itis.gov/ITISWebService/services/ITISService/'
+
+def itis_ping(**kwargs):
+    '''
+    Ping the ITIS API
+
+    Usage::
+
+        import pytaxize
+        pytaxize.itis_ping()
+    '''
+    tt = Refactor(itis_base + 'getDescription', payload={}, request='get').xml(**kwargs)
+    ns = {'ax26':'http://itis_service.itis.usgs.gov/xsd'}
+    nodes = tt.xpath('//ax26:description', namespaces=ns)
+    text = [x.text for x in nodes][0]
+    return text
 
 def getacceptednamesfromtsn(tsn, **kwargs):
     '''
@@ -48,11 +69,13 @@ def getanymatchcount(x, **kwargs):
     out = Refactor(itis_base + 'getAnyMatchCount', payload={'srchKey': x}, request='get').xml(**kwargs)
     return int(out.getchildren()[0].text)
 
-def getcommentdetailfromtsn(tsn, **kwargs):
+
+def getcommentdetailfromtsn(tsn, as_dataframe=True, **kwargs):
     '''
     Get comment detail from TSN
 
     :param tsn: TSN for a taxonomic group (numeric)
+    :param as_dataframe: specify return type, if pandas is available (boolean)
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
@@ -60,17 +83,27 @@ def getcommentdetailfromtsn(tsn, **kwargs):
         from pytaxize import itis
         itis.getcommentdetailfromtsn(tsn=180543)
     '''
-    out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
-    ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
-    matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator","updateDate"]
-    colnames = ['comment','commid','commtime','commentator','updatedate']
-    return _itisdict(out, ns, matches, colnames)
+    out = Refactor(itis_base + 'getCommentDetailFromTSN', payload={'tsn': tsn},
+                   request='get').xml(**kwargs)
+    ns = {'ax21': 'http://data.itis_service.itis.usgs.gov/xsd'}
+    matches = ["commentDetail", "commentId", "commentTimeStamp", "commentator",
+               "updateDate"]
+    colnames = ['comment', 'commid', 'commtime', 'commentator', 'updatedate']
+    data = _itisdict(out, ns, matches, colnames)
 
-def getcommonnamesfromtsn(tsn, **kwargs):
+    if as_dataframe and pd:
+        df = pd.DataFrame.from_records(data)
+        return df
+    else:
+        return data
+
+
+def getcommonnamesfromtsn(tsn, as_dataframe=True, **kwargs):
     '''
     Get common names from tsn
 
     :param tsn: TSN for a taxonomic group (numeric)
+    :param as_dataframe: specify return type, if pandas is available (boolean)
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
@@ -78,15 +111,21 @@ def getcommonnamesfromtsn(tsn, **kwargs):
         from pytaxize import itis
         itis.getcommonnamesfromtsn(tsn=183833)
     '''
-    #out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
-    out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn}, request='get').xml(**kwargs)
-    ns = {'ax21':'http://data.itis_service.itis.usgs.gov/xsd'}
+    # out = _itisGET("getCommonNamesFromTSN", {'tsn': tsn}, **kwargs)
+    out = Refactor(itis_base + 'getCommonNamesFromTSN', payload={'tsn': tsn},
+                   request='get').xml(**kwargs)
+    ns = {'ax21': 'http://data.itis_service.itis.usgs.gov/xsd'}
     matches = ["commonName", "language", "tsn"]
-    colnames = ['comname','lang','tsn']
+    colnames = ['comname', 'lang', 'tsn']
     res = _itisextract(out, ns, matches, colnames)
     del res[2][-1]
-    return [ dict(zip(colnames, z)) for z in x ]
-    #return _array2df(res, colnames)
+    if as_dataframe and pd:
+        df = pd.DataFrame.from_records(res).T
+        df.columns = colnames
+        return df
+    else:
+        return res, colnames
+
 
 def getcoremetadatafromtsn(tsn, **kwargs):
     '''
