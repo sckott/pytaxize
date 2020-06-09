@@ -10,7 +10,7 @@ Why?  A significant advantage of a Python version of `taxize` will be for those 
 python 2/3
 ==========
 
-I usually use Python `2.x` locally, but I've just been working on making `pytaxize` compatible with `2.x` and `3.x`. Please let me know if anything is broken on either version.
+pytaxize is only developed in and tested with Python 3
 
 Installation
 ============
