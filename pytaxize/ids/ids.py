@@ -3,11 +3,13 @@ from ..col import search
 from ..ncbi import search
 from ..gbif.gbif_utils import *
 
+
 class NoResultException(Exception):
     pass
 
+
 class Ids(object):
-    '''
+    """
     ids: A class for taxonomic identifiers
 
     Usage::
@@ -16,146 +18,171 @@ class Ids(object):
 
       res = Ids('Poa annua', db='col')
       res.get_colid()
-    '''
+    """
+
     def __init__(self, name, db):
         # super(ids, self).__init__()
         self.db = db
         self.name = name
 
     def __repr__(self):
-      return """<%s %s:%s>""" % (type(self).__name__, self.db, self.name)
+        return """<%s %s:%s>""" % (type(self).__name__, self.db, self.name)
 
-    def get_colid(self, ask = True, verbose = True):
-      '''
+    def get_colid(self, ask=True, verbose=True):
+        """
       Get Catalogue of Life taxonomic identifiers
 
       Usage::
 
         pytaxize.get_colid(name = ['Poa annua'])
-      '''
-      def fun(name, ask, verbose):
-        id = rank_taken = None
-        res = col.search(name=[name])
+      """
 
-        if(len(res[0]) == 0):
-          raise NoResultException("Retrieving data for taxon '" + name + "'")
-          id = None
-        else:
-          res = [ dict((k, x[k]) for k in ('id', 'name', 'rank', 'name_status')) for x in res[0] ]
-          id = [ x['id'] for x in res ]
+        def fun(name, ask, verbose):
+            id = rank_taken = None
+            res = col.search(name=[name])
 
-        # not found on col
-        if(len(id) == 0):
-          raise NoResultException("Not found. Consider checking the spelling or alternate classification")
-          id = None
-
-        # more than one found on col -> user input
-        if(len(id) > 1):
-            if(ask):
-                print("\nMore than one eolid found for taxon '" + name + "'\n")
-                print(res)
-                take = input("\n Enter rownumber of taxon:\n\n")
-
-                if(len(str(take)) == 0):
-                    take = 'notake'
-                else:
-                    pass
-                if(int(take) in range(len(res))):
-                    take = int(take)
-                    print("Input accepted, took eolid '" + id[take] + "'.\n")
-                    id = id[take]
-                    rank_taken = res[take]['rank']
-                else:
-                    id = None
-                    print("\nReturned 'none'!\n\n")
+            if len(res[0]) == 0:
+                raise NoResultException("Retrieving data for taxon '" + name + "'")
+                id = None
             else:
-                id = 'none'
-        return {'id': id, 'rank': rank_taken, 'uri': make_id_uri(rank_taken, 'col', id)}
+                res = [
+                    dict((k, x[k]) for k in ("id", "name", "rank", "name_status"))
+                    for x in res[0]
+                ]
+                id = [x["id"] for x in res]
 
-      out = []
-      for i in range(len([self.name])):
-        out.append(fun([self.name][i], ask, verbose))
+            # not found on col
+            if len(id) == 0:
+                raise NoResultException(
+                    "Not found. Consider checking the spelling or alternate classification"
+                )
+                id = None
 
-      return out
+            # more than one found on col -> user input
+            if len(id) > 1:
+                if ask:
+                    print("\nMore than one eolid found for taxon '" + name + "'\n")
+                    print(res)
+                    take = input("\n Enter rownumber of taxon:\n\n")
 
-    def get_uid(self, ask = True, verbose = True):
-      '''
+                    if len(str(take)) == 0:
+                        take = "notake"
+                    else:
+                        pass
+                    if int(take) in range(len(res)):
+                        take = int(take)
+                        print("Input accepted, took eolid '" + id[take] + "'.\n")
+                        id = id[take]
+                        rank_taken = res[take]["rank"]
+                    else:
+                        id = None
+                        print("\nReturned 'none'!\n\n")
+                else:
+                    id = "none"
+            return {
+                "id": id,
+                "rank": rank_taken,
+                "uri": make_id_uri(rank_taken, "col", id),
+            }
+
+        out = []
+        for i in range(len([self.name])):
+            out.append(fun([self.name][i], ask, verbose))
+
+        return out
+
+    def get_uid(self, ask=True, verbose=True):
+        """
       Get NCBI taxonomic identifiers
 
       Usage::
 
         pytaxize.get_uid(name = 'Poa annua')
-      '''
-      def fun(name, ask, verbose):
-        id = rank_taken = None
-        res = ncbi.search(name = name)
+      """
 
-        if len(res[name]) == 0:
-          raise NoResultException("Retrieving data for taxon '" + name + "'")
-          id = None
-        else:
-          res = [ dict((k, x[k]) for k in ('id', 'name', 'rank', 'name_status')) for x in res[0] ]
-          id = [ x['id'] for x in res ]
+        def fun(name, ask, verbose):
+            id = rank_taken = None
+            res = ncbi.search(name=name)
 
-        # not found on ncbi
-        if len(id) == 0:
-          raise NoResultException("Not found. Consider checking the spelling or alternate classification")
-          id = None
-
-        # more than one found on ncbi -> user input
-        if len(id) > 1:
-            if ask:
-                print("\nMore than one eolid found for taxon '" + name + "'\n")
-                print(res)
-                take = input("\n Enter rownumber of taxon:\n\n")
-
-                if len(str(take)) == 0:
-                    take = 'notake'
-                else:
-                    pass
-                if int(take) in range(len(res)):
-                    take = int(take)
-                    print("Input accepted, took eolid '" + id[take] + "'.\n")
-                    id = id[take]
-                    rank_taken = res[take]['rank']
-                else:
-                    id = None
-                    print("\nReturned 'none'!\n\n")
+            if len(res[name]) == 0:
+                raise NoResultException("Retrieving data for taxon '" + name + "'")
+                id = None
             else:
-                id = 'none'
-        return {'id': id, 'rank': rank_taken, 'uri': make_id_uri(rank_taken, 'ncbi', id)}
+                res = [
+                    dict((k, x[k]) for k in ("id", "name", "rank", "name_status"))
+                    for x in res[0]
+                ]
+                id = [x["id"] for x in res]
 
-      out = []
-      for i in range(len([self.name])):
-        out.append(fun([self.name][i], ask, verbose))
+            # not found on ncbi
+            if len(id) == 0:
+                raise NoResultException(
+                    "Not found. Consider checking the spelling or alternate classification"
+                )
+                id = None
 
-      return out
+            # more than one found on ncbi -> user input
+            if len(id) > 1:
+                if ask:
+                    print("\nMore than one eolid found for taxon '" + name + "'\n")
+                    print(res)
+                    take = input("\n Enter rownumber of taxon:\n\n")
+
+                    if len(str(take)) == 0:
+                        take = "notake"
+                    else:
+                        pass
+                    if int(take) in range(len(res)):
+                        take = int(take)
+                        print("Input accepted, took eolid '" + id[take] + "'.\n")
+                        id = id[take]
+                        rank_taken = res[take]["rank"]
+                    else:
+                        id = None
+                        print("\nReturned 'none'!\n\n")
+                else:
+                    id = "none"
+            return {
+                "id": id,
+                "rank": rank_taken,
+                "uri": make_id_uri(rank_taken, "ncbi", id),
+            }
+
+        out = []
+        for i in range(len([self.name])):
+            out.append(fun([self.name][i], ask, verbose))
+
+        return out
+
 
 def converter(x):
-    if(x.__class__.__name__ == 'str'):
+    if x.__class__.__name__ == "str":
         return [x]
     else:
         return x
 
+
 def flatten(x):
-  return [item for sublist in x for item in sublist]
+    return [item for sublist in x for item in sublist]
+
 
 id_uris = {
-  'col': {
-    'species': 'http://www.catalogueoflife.org/col/details/species/id/%s',
-    'other': 'http://www.catalogueoflife.org/col/browse/tree/id/%s'
-  },
-  'ncbi': {
-    'species': 'https://www.ncbi.nlm.nih.gov/taxonomy/%s',
-    'other': 'https://www.ncbi.nlm.nih.gov/taxonomy/%s'
-  }
+    "col": {
+        "species": "http://www.catalogueoflife.org/col/details/species/id/%s",
+        "other": "http://www.catalogueoflife.org/col/browse/tree/id/%s",
+    },
+    "ncbi": {
+        "species": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
+        "other": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
+    },
 }
 
+
 def make_id_uri(rank, which, x):
-  if (rank is not None):
-    if (rank.lower() == "species"):
-      return id_uris[which]['species'] % x
+    if rank is not None:
+        if rank.lower() == "species":
+            return id_uris[which]["species"] % x
+        else:
+            return id_uris[which]["other"] % x
     else:
-      return id_uris[which]['other'] % x
-  else:
-    return None
+        return None

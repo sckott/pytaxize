@@ -8,8 +8,9 @@ import pkg_resources
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
+
 def search(name, modifier=None, rank_query=None):
-    '''
+    """
     Search NCBI's taxonomic data - get NCBI taxonomic IDs
 
     :param name: The string to search for
@@ -40,26 +41,26 @@ def search(name, modifier=None, rank_query=None):
         # rank query
         ncbi.search(name = "Pinus", rank_query = "genus")
         ncbi.search(name = "Pinus", rank_query = "subgenus")
-    '''
+    """
 
-    key = os.environ.get('ENTREZ_KEY')
+    key = os.environ.get("ENTREZ_KEY")
     if key is None:
         raise Exception("ENTREZ_KEY is not defined")
 
     def func(name):
         name = re.sub(" ", "+", name)
         if modifier is not None:
-          name = name + "[%s]" % modifier
+            name = name + "[%s]" % modifier
         term = name
         if rank_query is not None:
             term = term + " AND %s[Rank]" % rank_query
-        args = {'db': "taxonomy", 'term': term, 'api_key': key}
+        args = {"db": "taxonomy", "term": term, "api_key": key}
         tt = entrez("esearch", args)
-        stuff = tt.xpath('IdList/Id')
-        ids = [ int(z.text) for z in stuff ]
+        stuff = tt.xpath("IdList/Id")
+        ids = [int(z.text) for z in stuff]
         if len(ids) > 1:
-            ids = ','.join(map(str, ids))
-        args = {'db': "taxonomy", 'ID': ids, 'api_key': key}
+            ids = ",".join(map(str, ids))
+        args = {"db": "taxonomy", "ID": ids, "api_key": key}
         res = entrez("esummary", args)
         return res
 
@@ -69,6 +70,7 @@ def search(name, modifier=None, rank_query=None):
         temp.append(func(name[i]))
     return lists2dict(temp, name)
 
+
 # def entrez(path = "esearch", args):
 #     url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi"
 #     tt = Refactor(url, args, request = 'get').xml()
@@ -76,4 +78,5 @@ def search(name, modifier=None, rank_query=None):
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

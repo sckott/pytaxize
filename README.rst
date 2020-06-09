@@ -1,7 +1,7 @@
 pytaxize
 ========
 
-|docs| |travis| |coverage|
+|docs| |travis| |coverage| |black|
 
 This is a port of the R package `taxize <https://github.com/ropensci/taxize>`__.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.
 
@@ -181,3 +181,5 @@ Meta
 .. |coverage| image:: https://coveralls.io/repos/sckott/pytaxize/badge.svg?branch=master&service=github
    :target: https://coveralls.io/github/sckott/pytaxize?branch=master
 
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black

@@ -7,11 +7,13 @@ import json
 from pkg_resources import resource_filename
 from pytaxize.refactor import Refactor
 
+
 class NoResultException(Exception):
     pass
 
-def names_list(rank = 'genus', size = 10):
-    '''
+
+def names_list(rank="genus", size=10):
+    """
     Get a random vector of species names.
 
     :param rank: Taxonomic rank, one of species, genus (default), family, order.
@@ -26,26 +28,28 @@ def names_list(rank = 'genus', size = 10):
         pytaxize.names_list('order')
         pytaxize.names_list('order', 2)
         pytaxize.names_list('order', 15)
-    '''
-    if(rank == 'species'):
-      return names_list_helper(size, 'data/plantNames.csv')
-    if(rank == 'genus'):
-      return names_list_helper(size, 'data/plantGenusNames.csv')
-    if(rank == 'family'):
-      return names_list_helper(size, 'data/apg_families.csv')
-    if(rank == 'order'):
-      return names_list_helper(size, 'data/apg_orders.csv')
+    """
+    if rank == "species":
+        return names_list_helper(size, "data/plantNames.csv")
+    if rank == "genus":
+        return names_list_helper(size, "data/plantGenusNames.csv")
+    if rank == "family":
+        return names_list_helper(size, "data/apg_families.csv")
+    if rank == "order":
+        return names_list_helper(size, "data/apg_orders.csv")
     else:
-      return 'rank must be one of species, genus, family, or order'
+        return "rank must be one of species, genus, family, or order"
+
 
 def names_list_helper(size, path):
-  pnpath = resource_filename(__name__, path)
-  dat = pd.read_csv(pnpath, header=False)
-  dat2 = dat['names'][:size]
-  return [x for x in dat2]
+    pnpath = resource_filename(__name__, path)
+    dat = pd.read_csv(pnpath, header=False)
+    dat2 = dat["names"][:size]
+    return [x for x in dat2]
 
-def vascan_search(q, format='json', raw=False):
-    '''
+
+def vascan_search(q, format="json", raw=False):
+    """
     Search the CANADENSYS Vascan API.
 
     :param q: Taxonomic rank, one of species, genus (default), family, order.
@@ -70,32 +74,41 @@ def vascan_search(q, format='json', raw=False):
         # lots of names, in this case 50
         splist = pytaxize.names_list(rank='species', size=50)
         pytaxize.vascan_search(q = splist)
-    '''
-    if(format == 'json'):
+    """
+    if format == "json":
         url = "http://data.canadensys.net/vascan/api/0.1/search.json"
     else:
         url = "http://data.canadensys.net/vascan/api/0.1/search.xml"
 
-    if(len(q) > 1):
+    if len(q) > 1:
         query = "\n".join(q)
-        payload = {'q': query}
-        if(format == 'json'):
-          out = Refactor(url, payload, request='post').json()
+        payload = {"q": query}
+        if format == "json":
+            out = Refactor(url, payload, request="post").json()
         else:
-          out = Refactor(url, payload, request='post').raw()
+            out = Refactor(url, payload, request="post").raw()
         return out
     else:
-        payload = {'q': q}
-        if(format == 'json'):
-          out = Refactor(url, payload, request='get').json()
+        payload = {"q": q}
+        if format == "json":
+            out = Refactor(url, payload, request="get").json()
         else:
-          out = Refactor(url, payload, request='get').raw()
+            out = Refactor(url, payload, request="get").raw()
         return out
 
-def scrapenames(url = None, file = None, text = None, engine = None,
-  unique = None, verbatim = None, detect_language = None, all_data_sources = None,
-  data_source_ids = None):
-  '''
+
+def scrapenames(
+    url=None,
+    file=None,
+    text=None,
+    engine=None,
+    unique=None,
+    verbatim=None,
+    detect_language=None,
+    all_data_sources=None,
+    data_source_ids=None,
+):
+    """
   Resolve names using Global Names Recognition and Discovery.
 
   Uses the Global Names Recognition and Discovery service, see
@@ -140,35 +153,44 @@ def scrapenames(url = None, file = None, text = None, engine = None,
 
       # Get data from text string as an R object
       pytaxize.scrapenames(text='A spider named Pardosa moesta Banks, 1892')
-  '''
-  method = {'url': url, 'file': file, 'text': text}
-  method = {key: value for key, value in method.items() if value != None}
-  if(len(method) > 1):
-    sys.exit("Only one of url, file, or text can be used")
+  """
+    method = {"url": url, "file": file, "text": text}
+    method = {key: value for key, value in method.items() if value != None}
+    if len(method) > 1:
+        sys.exit("Only one of url, file, or text can be used")
 
-  base = "http://gnrd.globalnames.org/name_finder.json"
-  payload = {'url':url, 'text':text, 'engine':engine, 'unique':unique,
-             'verbatim':verbatim, 'detect_language':detect_language,
-             'all_data_sources':all_data_sources, 'data_source_ids':data_source_ids}
+    base = "http://gnrd.globalnames.org/name_finder.json"
+    payload = {
+        "url": url,
+        "text": text,
+        "engine": engine,
+        "unique": unique,
+        "verbatim": verbatim,
+        "detect_language": detect_language,
+        "all_data_sources": all_data_sources,
+        "data_source_ids": data_source_ids,
+    }
 
-  ss = []
-  for i in range(len(method.keys())):
-    ss.append(list(method.keys())[i] in ['url','text'])
-  out = requests_refactor(base, payload, 'get', content=True)
+    ss = []
+    for i in range(len(method.keys())):
+        ss.append(list(method.keys())[i] in ["url", "text"])
+    out = requests_refactor(base, payload, "get", content=True)
 
-  if(out['status'] != 303):
-    sys.exit("Woops, something went wrong")
-  else:
-    token_url = out['token_url']
-    st = 303
-    while(st == 303):
-      datout = requests_refactor(token_url, content=True)
-      st = datout['status']
-    dd = pd.DataFrame(datout['names'])
-    datout.pop('names')
-    meta = datout
-    return {'meta': meta, 'data': dd}
+    if out["status"] != 303:
+        sys.exit("Woops, something went wrong")
+    else:
+        token_url = out["token_url"]
+        st = 303
+        while st == 303:
+            datout = requests_refactor(token_url, content=True)
+            st = datout["status"]
+        dd = pd.DataFrame(datout["names"])
+        datout.pop("names")
+        meta = datout
+        return {"meta": meta, "data": dd}
+
 
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()

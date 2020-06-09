@@ -6,9 +6,9 @@ import vcr
 import pandas
 from pytaxize import col
 
-class COL(unittest.TestCase):
 
-    @vcr.use_cassette('test/vcr_cassettes/col_children.yml')
+class COL(unittest.TestCase):
+    @vcr.use_cassette("test/vcr_cassettes/col_children.yml")
     def test_col_children(self):
         "COL: col_children"
         self.assertIsInstance(col.children(name=["Apis"]), list)
@@ -18,7 +18,7 @@ class COL(unittest.TestCase):
         "COL: col_children checklist param fails well"
         col.children(name=["Apis"], checklist=2008)
 
-    @vcr.use_cassette('test/vcr_cassettes/col_downstream.yml')
+    @vcr.use_cassette("test/vcr_cassettes/col_downstream.yml")
     def test_col_downstream(self):
         "COL: col_downstream"
         res = col.downstream(name=["Apis"], downto="Species")

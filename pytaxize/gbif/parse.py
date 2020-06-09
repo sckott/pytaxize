@@ -2,8 +2,9 @@ import pandas as pd
 import json
 from pytaxize.refactor import Refactor
 
+
 def parse(name):
-    '''
+    """
     Parse taxon names using the GBIF name parser.
 
     :param name: A character vector of scientific names.
@@ -20,10 +21,12 @@ def parse(name):
 
         import pytaxize
         pytaxize.gbif_parse(name=['x Agropogon littoralis'])
-    '''
+    """
     name = list(name)
     url = "http://api.gbif.org/v0.9/parser/name"
-    headers = {'content-type': 'application/json'}
-    tt = Refactor(url, payload={}, request='post').json(data=json.dumps(name), headers=headers)
+    headers = {"content-type": "application/json"}
+    tt = Refactor(url, payload={}, request="post").json(
+        data=json.dumps(name), headers=headers
+    )
     res = pd.DataFrame(tt)
     return res

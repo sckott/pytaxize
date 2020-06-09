@@ -9,8 +9,9 @@ import pkg_resources
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
-def children(name = None, id = None, format = None, start = None, checklist = None):
-    '''
+
+def children(name=None, id=None, format=None, start=None, checklist=None):
+    """
     Search Catalogue of Life for for direct children of a particular taxon.
 
     :param name: The string to search for. Only exact matches found the name given
@@ -54,8 +55,8 @@ def children(name = None, id = None, format = None, start = None, checklist = No
         out = col.children(name=["Buteo","Apis","Accipiter"], checklist="2012")
         # get just one element in list of output
         out[0]
-    '''
-    
+    """
+
     assert_range_numeric(checklist, 2010, datetime.datetime.now().year)
 
     def func(x, y, checklist):
@@ -65,24 +66,28 @@ def children(name = None, id = None, format = None, start = None, checklist = No
             pass
         else:
             checklist = str(checklist)
-            if checklist in ['2012','2011','2010']:
+            if checklist in ["2012", "2011", "2010"]:
                 url = re.sub("col", "annual-checklist/" + checklist, url)
             else:
                 url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
                 url = re.sub("year", checklist, url)
 
-        payload = {'name':x, 'id':y, 'format':format, 'response':"full", 'start':start}
+        payload = {
+            "name": x,
+            "id": y,
+            "format": format,
+            "response": "full",
+            "start": start,
+        }
         payload = {k: v for k, v in payload.items() if v is not None}
-        tt = Refactor(url, payload, request='get').xml()
-        childtaxa = tt.xpath('//child_taxa//taxon')
+        tt = Refactor(url, payload, request="get").xml()
+        childtaxa = tt.xpath("//child_taxa//taxon")
         if len(childtaxa) == 0:
-            sys.exit('Please enter a valid search name')
+            sys.exit("Please enter a valid search name")
         outlist = []
         for i in range(len(childtaxa)):
             tt_ = childtaxa[i].getchildren()
-            outlist.append(
-                dict(zip(['id','name','rank'], [x.text for x in tt_[:3]]))
-            )
+            outlist.append(dict(zip(["id", "name", "rank"], [x.text for x in tt_[:3]])))
         return outlist
 
     if id is None:
@@ -98,8 +103,9 @@ def children(name = None, id = None, format = None, start = None, checklist = No
             temp.append(ss)
         return temp
 
-def downstream(name = None, downto = None, format = None, start = None, checklist = None):
-    '''
+
+def downstream(name=None, downto=None, format=None, start=None, checklist=None):
+    """
     :param name: The string to search for. Only exact matches found the name given
         will be returned, unless one or wildcards are included in the search
         string. An * (asterisk) character denotes a wildcard; a % (percentage)
@@ -133,20 +139,21 @@ def downstream(name = None, downto = None, format = None, start = None, checklis
 
         # Using a checklist from a specific year
         col.downstream(name="Apis", downto="Species", checklist=2011)
-    '''
+    """
     col_url = "https://www.catalogueoflife.org/col/webservice"
     year_url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
+
     def func(name, downto, format, start, checklist):
         if checklist is None:
             url = col_url
         else:
             checklist = str(checklist)
-            if checklist in ['2012','2011','2010']:
+            if checklist in ["2012", "2011", "2010"]:
                 url = re.sub("col", "annual-checklist/" + checklist, col_url)
             else:
                 url = re.sub("year", checklist, year_url)
 
-        rank_ref_path = pkg_resources.resource_filename('pytaxize', 'data/rank_ref.csv')
+        rank_ref_path = pkg_resources.resource_filename("pytaxize", "data/rank_ref.csv")
         dat = pd.read_csv(rank_ref_path)
 
         stuff = [x for x in dat.ranks]
@@ -154,51 +161,55 @@ def downstream(name = None, downto = None, format = None, start = None, checklis
         for i in range(len(stuff)):
             ss = downto in stuff[i]
             things.append(ss)
-        dat2 = dat.join(pd.DataFrame(things, columns=['match']))
-        subset = dat2[dat2.loc[dat2.match == True].index[0]: dat2.shape[0]]
-        torank = [x.split(',')[0] for x in subset.ranks]
+        dat2 = dat.join(pd.DataFrame(things, columns=["match"]))
+        subset = dat2[dat2.loc[dat2.match == True].index[0] : dat2.shape[0]]
+        torank = [x.split(",")[0] for x in subset.ranks]
 
         toget = name
         stop_ = "not"
-        notout = pd.DataFrame(columns=['rankName'])
+        notout = pd.DataFrame(columns=["rankName"])
         out = []
         iter = 0
         while stop_ == "not":
             iter += 1
 
             def searchcol(x, url):
-                payload = {'name': x, 'format': format,
-                    'response': "full", 'start': start}
+                payload = {
+                    "name": x,
+                    "format": format,
+                    "response": "full",
+                    "start": start,
+                }
                 payload = {k: v for k, v in payload.items() if v is not None}
-                tt = Refactor(url, payload, request='get').xml()
-                childtaxa = tt.xpath('//child_taxa//taxon')
+                tt = Refactor(url, payload, request="get").xml()
+                childtaxa = tt.xpath("//child_taxa//taxon")
                 outlist = []
                 for i in range(len(childtaxa)):
                     tt_ = childtaxa[i].getchildren()
                     outlist.append([x.text for x in tt_[:3]])
-                df = pd.DataFrame(outlist, columns=['id','name','rank'])
+                df = pd.DataFrame(outlist, columns=["id", "name", "rank"])
                 return df
 
             tt = searchcol(toget, url)
 
-            if downto in [x for x in tt['rank']]:
-                out.append(tt.loc[tt['rank'] == downto])
+            if downto in [x for x in tt["rank"]]:
+                out.append(tt.loc[tt["rank"] == downto])
 
-            if tt.loc[tt['rank'] != downto].shape[0] > 0:
-                sh = [x for x in tt['rank']]
+            if tt.loc[tt["rank"] != downto].shape[0] > 0:
+                sh = [x for x in tt["rank"]]
                 bb = []
                 for i in range(len(sh)):
-                  bb.append(sh[i] in torank)
+                    bb.append(sh[i] in torank)
                 notout = tt[bb]
             else:
                 vals = list()
                 vals.append(downto)
-                notout = pd.DataFrame(vals, columns=['rank'])
+                notout = pd.DataFrame(vals, columns=["rank"])
 
-            if all(notout['rank'] == downto):
+            if all(notout["rank"] == downto):
                 stop_ = "fam"
             else:
-                toget = notout['name']
+                toget = notout["name"]
                 stop_ = "not"
 
         return out
@@ -213,8 +224,9 @@ def downstream(name = None, downto = None, format = None, start = None, checklis
         temp.append(tt)
     return temp
 
+
 def search(name=None, id=None, start=None, checklist=None):
-    '''
+    """
     Search Catalogue of Life for taxonomic IDs
 
     :param name: The string to search for. Only exact matches found the name given
@@ -253,22 +265,22 @@ def search(name=None, id=None, start=None, checklist=None):
 
         # Example with more than 1 result
         col.search(name=['Poa'])
-    '''
+    """
 
     def func(x, y):
         url = "https://www.catalogueoflife.org/col/webservice"
         if checklist is None:
             pass
         else:
-            if checklist in ['2012','2011','2010']:
+            if checklist in ["2012", "2011", "2010"]:
                 url = re.sub("col", "annual-checklist/" + checklist, url)
             else:
                 url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
                 url = re.sub("year", checklist, url)
 
-        payload = {'name': x, 'id': y, 'start': start}
-        tt = Refactor(url, payload, request='get').xml()
-        stuff = tt.xpath('//result')
+        payload = {"name": x, "id": y, "start": start}
+        tt = Refactor(url, payload, request="get").xml()
+        stuff = tt.xpath("//result")
         outlist = []
         for i in range(len(stuff)):
             tt_ = stuff[i]
@@ -305,6 +317,8 @@ def search(name=None, id=None, start=None, checklist=None):
 
     #     return cbind(bb, accdf)
 
+
 if __name__ == "__main__":
     import doctest
+
     doctest.testmod()
