@@ -1,15 +1,12 @@
 import sys
 import requests
-import pandas as pd
 import json
 import time
 from pytaxize.refactor import Refactor
 import os
 
-
 class NoResultException(Exception):
     pass
-
 
 def gnr_datasources():
     """

@@ -1,52 +1,65 @@
 import sys
 import requests
 from lxml import etree
-import pandas as pd
 import re
 import json
 from pkg_resources import resource_filename
 from pytaxize.refactor import Refactor
+from pytaxize.itis.itis import _df
+import csv
 
+try:
+    import pandas as pd
+except ImportError:
+    warnings.warn("Pandas library not installed, dataframes disabled")
+    pd = None
 
 class NoResultException(Exception):
     pass
 
-
-def names_list(rank="genus", size=10):
+def names_list(rank="genus", size=10, as_dataframe=False):
     """
     Get a random vector of species names.
 
     :param rank: Taxonomic rank, one of species, genus (default), family, order.
     :param size: Number of names to get. Maximum depends on the rank.
+    :param as_dataframe: (optional) Type: boolean. Return as pandas data frame?
+      default: False
 
     Usage::
 
         import pytaxize
-        pytaxize.names_list()
-        pytaxize.names_list('species')
-        pytaxize.names_list('family')
-        pytaxize.names_list('order')
+        pytaxize.names_list(size=10)
+        pytaxize.names_list('species', size=10)
+        pytaxize.names_list('family', size=10)
+        pytaxize.names_list('order', size=10)
         pytaxize.names_list('order', 2)
         pytaxize.names_list('order', 15)
     """
     if rank == "species":
-        return names_list_helper(size, "data/plantNames.csv")
+        return names_list_helper(size, "data/plantNames.csv", as_dataframe)
     if rank == "genus":
-        return names_list_helper(size, "data/plantGenusNames.csv")
+        return names_list_helper(size, "data/plantGenusNames.csv", as_dataframe)
     if rank == "family":
-        return names_list_helper(size, "data/apg_families.csv")
+        return names_list_helper(size, "data/apg_families.csv", as_dataframe)
     if rank == "order":
-        return names_list_helper(size, "data/apg_orders.csv")
+        return names_list_helper(size, "data/apg_orders.csv", as_dataframe)
     else:
         return "rank must be one of species, genus, family, or order"
 
-
-def names_list_helper(size, path):
+def names_list_helper(size, path, as_dataframe=False):
     pnpath = resource_filename(__name__, path)
-    dat = pd.read_csv(pnpath, header=False)
-    dat2 = dat["names"][:size]
-    return [x for x in dat2]
-
+    if as_dataframe:
+      dat = pd.read_csv(pnpath)
+      return dat["names"][:size].tolist()
+    else:
+      with open(pnpath, newline='') as f:
+        reader = csv.reader(f)
+        next(reader)
+        dat = []
+        for row in reader:
+          dat.append(row)
+      return [w[0] for w in dat][:size]
 
 def vascan_search(q, format="json", raw=False):
     """
@@ -107,6 +120,7 @@ def scrapenames(
     detect_language=None,
     all_data_sources=None,
     data_source_ids=None,
+    as_dataframe=False
 ):
     """
   Resolve names using Global Names Recognition and Discovery.
@@ -115,29 +129,33 @@ def scrapenames(
   http://gnrd.globalnames.org/.
 
   :param url: An encoded URL for a web page, PDF, Microsoft Office document, or
-     image file, see examples
+    image file, see examples
   :param file: When using multipart/form-data as the content-type, a file may be sent.
-     This should be a path to your file on your machine.
+    This should be a path to your file on your machine.
   :param text: Type: string. Text content; best used with a POST request, see
-     examples
+    examples
   :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
-     2 for NetiNeti, or 0 for both. If absent, both engines are used.
-  :param unique: (optional) Type: boolean. If TRUE (default),
-     response has unique names without offsets.
-  :param verbatim: (optional) Type: boolean, If TRUE (default to FALSE),
-     response excludes verbatim strings.
+    2 for NetiNeti, or 0 for both. If absent, both engines are used.
+  :param unique: (optional) Type: boolean. If True (default),
+    response has unique names without offsets.
+  :param verbatim: (optional) Type: boolean, If True (default to False),
+    response excludes verbatim strings.
   :param detect_language: (optional) Type: boolean, When
-     TRUE (default), NetiNeti is not used if the language of incoming text is
-     determined not to be English. When 'false', NetiNeti will be used if requested.
+    True (default), NetiNeti is not used if the language of incoming text is
+    determined not to be English. When 'false', NetiNeti will be used if requested.
   :param all_data_sources: (optional) Type: bolean. Resolve found
-     names against all available Data Sources.
+    names against all available Data Sources.
   :param data_source_ids: (optional) Type: string. Pipe separated list of data
-     source ids to resolve found names against. See list of Data Sources.
+    source ids to resolve found names against. See list of Data Sources.
+  :param as_dataframe: (optional) Type: boolean. Return as pandas data frame?
+    default: False
 
   Usage::
+  
+      import pytaxize
 
       # Get data from a website using its URL
-      out = pytaxize.scrapenames(url = 'http://en.wikipedia.org/wiki/Araneae')
+      out = pytaxize.scrapenames(url = 'https://en.wikipedia.org/wiki/Spider')
       out['data'].head() # data
       out['meta'] # metadata
 
@@ -147,9 +165,8 @@ def scrapenames(
       out['meta'] # metadata
 
       # With arguments
-      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf',
-      unique=TRUE)
-      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=TRUE)
+      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', unique=True)
+      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=True)
 
       # Get data from text string as an R object
       pytaxize.scrapenames(text='A spider named Pardosa moesta Banks, 1892')
@@ -170,24 +187,28 @@ def scrapenames(
         "all_data_sources": all_data_sources,
         "data_source_ids": data_source_ids,
     }
-
-    ss = []
-    for i in range(len(method.keys())):
-        ss.append(list(method.keys())[i] in ["url", "text"])
-    out = requests_refactor(base, payload, "get", content=True)
-
-    if out["status"] != 303:
-        sys.exit("Woops, something went wrong")
-    else:
-        token_url = out["token_url"]
-        st = 303
-        while st == 303:
-            datout = requests_refactor(token_url, content=True)
-            st = datout["status"]
-        dd = pd.DataFrame(datout["names"])
-        datout.pop("names")
-        meta = datout
-        return {"meta": meta, "data": dd}
+    payload = {key: value for key, value in payload.items() if value != None}
+    out = requests.get(base, params=payload)
+    out.raise_for_status()
+    res = out.json()
+    data = res["names"]
+    meta = res
+    meta.pop("names")
+    if as_dataframe:
+      data = _df(data, True)
+    return {"meta": meta, "data": data}
+    # if out["status"] != 303:
+    #     sys.exit("Woops, something went wrong")
+    # else:
+    #     token_url = out["token_url"]
+    #     st = 303
+    #     while st == 303:
+    #         datout = requests_refactor(token_url, content=True)
+    #         st = datout["status"]
+    #     dd = pd.DataFrame(datout["names"])
+    #     datout.pop("names")
+    #     meta = datout
+    #     return {"meta": meta, "data": dd}
 
 
 if __name__ == "__main__":

@@ -1,0 +1,52 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: http://taxosaurus.org/sources/
+  response:
+    body:
+      string: '{"sources":[{"name":"NCBI","description":"NCBI Taxonomy","annotations":{},"uri":"http://www.ncbi.nlm.nih.gov/taxonomy","sourceId":"NCBI","publication":"Federhen
+        S. The Taxonomy Project.2002 Oct 9 [Updated 2003 Aug 13]. In: McEntyre J.,
+        Ostell J., editors. The NCBI Handbook [Internet]. Bethesda (MD): National
+        Center for Biotechnology Information (US);2002.","call":"python2.6 tnrs_adapter/ncbi_adapter/ncbi_adaptor.py","rank":3,"code":"ICZN,ICN,ICNB"},{"name":"iPlant
+        Collaborative TNRS v3.1","description":"The iPlant Collaborative TNRS provides
+        parsing and fuzzy matching for plant taxa.","annotations":{"Authority":"Author
+        attributed to the accepted name (where applicable)."},"uri":"http://tnrs.iplantcollaborative.org/","sourceId":"iPlant_TNRS","publication":"Boyle,
+        B. et.al. The taxonomic name resolution service: an online tool for automated
+        standardization of plant names. BMC Bioinformatics. 2013, 14:16. doi:10.1186/1471-2105-14-16.
+        If you use TNRS results in a publication, please also cite The Taxonomic Name
+        Resolution Service; http://tnrs.iplantcollaborative.org; version 3.1.","call":"perl
+        -Itnrs_adapter/iplant tnrs_adapter/iplant/iplant.pl","rank":2,"code":"ICN"},{"name":"Mammal
+        Species of the World v3.0","description":"Mammal Species of the World, 3rd
+        edition (MSW3) is a database of mammalian taxonomy. Our adaptor searches the
+        indexed database for both exact and loose mathces","annotations":{"Authority":"Don
+        E. Wilson & DeeAnn M. Reeder (editors). 2005. Mammal Species of the World.
+        A Taxonomic and Geographic Reference (3rd ed)"},"uri":"http://www.bucknell.edu/msw3/","sourceId":"MSW3","publication":"Don
+        E. Wilson & DeeAnn M. Reeder (editors). 2005. Mammal Species of the World.
+        A Taxonomic and Geographic Reference (3rd ed)","call":"python2.6 tnrs_adapter/MSW3/MSW3_adaptor.py","rank":4,"code":"ICZN"}],"status":"OK"}'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '1846'
+      Content-Type:
+      - text/json; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 20:36:31 GMT
+      Server:
+      - Apache/2.2.3 (CentOS)
+      X-Powered-By:
+      - Perl Dancer 1.3111
+    status:
+      code: 200
+      message: OK
+version: 1

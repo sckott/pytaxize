@@ -2,58 +2,85 @@ interactions:
 - request:
     body: null
     headers:
-      Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [python-requests/2.22.0]
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
     method: GET
-    uri: http://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
   response:
-    body: {string: ''}
+    body:
+      string: ''
     headers:
-      Connection: [Close]
-      Location: ['https://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543']
-    status: {code: 302, message: Redirect}
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
+    status:
+      code: 302
+      message: Redirect
 - request:
     body: null
     headers:
-      Accept: ['*/*']
-      Accept-Encoding: ['gzip, deflate']
-      Connection: [keep-alive]
-      User-Agent: [python-requests/2.22.0]
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
     method: GET
-    uri: https://www.itis.gov/ITISWebService/services/ITISService/getCommentDetailFromTSN?tsn=180543
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
   response:
-    body: {string: "<ns:getCommentDetailFromTSNResponse xmlns:ns=\"http://itis_service.itis.usgs.gov\"\
-        ><ns:return xmlns:ax21=\"http://data.itis_service.itis.usgs.gov/xsd\" xmlns:ax23=\"\
-        http://metadata.itis_service.itis.usgs.gov/xsd\" xmlns:ax26=\"http://itis_service.itis.usgs.gov/xsd\"\
-        \ xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:type=\"ax21:SvcTaxonCommentList\"\
-        ><ax21:tsn>180543</ax21:tsn><ax21:comments xsi:type=\"ax21:SvcTaxonComment\"\
-        ><ax21:commentDetail>Status: CITES - Appendix I as U. arctos (Mexico, Bhutan,\
-        \ China, and Mongolia populations) and U. a. isabellinus; otherwise Appendix\
-        \ II. U. S. ESA - Endangered as U. arctos pruinosus, as U. arctos in Mexico,\
-        \ and as U. a. arctos in Italy. Threatened as U. a. ho...</ax21:commentDetail><ax21:commentId>18556</ax21:commentId><ax21:commentTimeStamp>2007-08-20\
-        \ 15:06:38.0</ax21:commentTimeStamp><ax21:commentator>Wilson &amp; Reeder,\
-        \ eds. (2005)</ax21:commentator><ax21:updateDate>2014-02-03</ax21:updateDate></ax21:comments><ax21:comments\
-        \ xsi:type=\"ax21:SvcTaxonComment\"><ax21:commentDetail>Comments: Reviewed\
-        \ by Erdbrink (1953), Couturier (1954), Rausch (1963a), Kurt\xE9n (1973),\
-        \ Hall (1984) and Pasitschniak-Arts (1993). Ognev (1931) and Allen (1938)\
-        \ recognized U. pruinosus as distinct; not followed by Ellerman and Morrison-Scott\
-        \ (1951), Gao (1987), and Stroganov (1962). L\xF6nnberg (1923b) believed that\
-        \ differences between pruinosus and arctos warranted subgeneric distinction\
-        \ as (Mylarctos) pruinosus; however, this was not supported by Pocock's (1932b)\
-        \ thorough revision. Synonyms allocated a...</ax21:commentDetail><ax21:commentId>18557</ax21:commentId><ax21:commentTimeStamp>2007-08-20\
-        \ 15:06:38.0</ax21:commentTimeStamp><ax21:commentator>Wilson &amp; Reeder,\
-        \ eds. (2005)</ax21:commentator><ax21:updateDate>2014-02-03</ax21:updateDate></ax21:comments></ns:return></ns:getCommentDetailFromTSNResponse>"}
+    body:
+      string: !!binary |
+        eyJjbGFzcyI6Imdvdi51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRhdGEuU3ZjVGF4b25Db21tZW50
+        TGlzdCIsImNvbW1lbnRzIjpbeyJjbGFzcyI6Imdvdi51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRh
+        dGEuU3ZjVGF4b25Db21tZW50IiwiY29tbWVudERldGFpbCI6IlN0YXR1czogQ0lURVMgLSBBcHBl
+        bmRpeCBJIGFzIFUuIGFyY3RvcyAoTWV4aWNvLCBCaHV0YW4sIENoaW5hLCBhbmQgTW9uZ29saWEg
+        cG9wdWxhdGlvbnMpIGFuZCBVLiBhLiBpc2FiZWxsaW51czsgb3RoZXJ3aXNlIEFwcGVuZGl4IElJ
+        LiBVLiBTLiBFU0EgLSBFbmRhbmdlcmVkIGFzIFUuIGFyY3RvcyBwcnVpbm9zdXMsIGFzIFUuIGFy
+        Y3RvcyBpbiBNZXhpY28sIGFuZCBhcyBVLiBhLiBhcmN0b3MgaW4gSXRhbHkuIFRocmVhdGVuZWQg
+        YXMgVS4gYS4gaG8uLi4iLCJjb21tZW50SWQiOiIxODU1NiIsImNvbW1lbnRUaW1lU3RhbXAiOiIy
+        MDA3LTA4LTIwIDE1OjA2OjM4LjAiLCJjb21tZW50YXRvciI6IldpbHNvbiAmIFJlZWRlciwgZWRz
+        LiAoMjAwNSkiLCJ1cGRhdGVEYXRlIjoiMjAxNC0wMi0wMyJ9LHsiY2xhc3MiOiJnb3YudXNncy5p
+        dGlzLml0aXNfc2VydmljZS5kYXRhLlN2Y1RheG9uQ29tbWVudCIsImNvbW1lbnREZXRhaWwiOiJD
+        b21tZW50czogUmV2aWV3ZWQgYnkgRXJkYnJpbmsgKDE5NTMpLCBDb3V0dXJpZXIgKDE5NTQpLCBS
+        YXVzY2ggKDE5NjNhKSwgS3VydOluICgxOTczKSwgSGFsbCAoMTk4NCkgYW5kIFBhc2l0c2Nobmlh
+        ay1BcnRzICgxOTkzKS4gT2duZXYgKDE5MzEpIGFuZCBBbGxlbiAoMTkzOCkgcmVjb2duaXplZCBV
+        LiBwcnVpbm9zdXMgYXMgZGlzdGluY3Q7IG5vdCBmb2xsb3dlZCBieSBFbGxlcm1hbiBhbmQgTW9y
+        cmlzb24tU2NvdHQgKDE5NTEpLCBHYW8gKDE5ODcpLCBhbmQgU3Ryb2dhbm92ICgxOTYyKS4gTPZu
+        bmJlcmcgKDE5MjNiKSBiZWxpZXZlZCB0aGF0IGRpZmZlcmVuY2VzIGJldHdlZW4gcHJ1aW5vc3Vz
+        IGFuZCBhcmN0b3Mgd2FycmFudGVkIHN1YmdlbmVyaWMgZGlzdGluY3Rpb24gYXMgKE15bGFyY3Rv
+        cykgcHJ1aW5vc3VzOyBob3dldmVyLCB0aGlzIHdhcyBub3Qgc3VwcG9ydGVkIGJ5IFBvY29jaydz
+        ICgxOTMyYikgdGhvcm91Z2ggcmV2aXNpb24uIFN5bm9ueW1zIGFsbG9jYXRlZCBhLi4uIiwiY29t
+        bWVudElkIjoiMTg1NTciLCJjb21tZW50VGltZVN0YW1wIjoiMjAwNy0wOC0yMCAxNTowNjozOC4w
+        IiwiY29tbWVudGF0b3IiOiJXaWxzb24gJiBSZWVkZXIsIGVkcy4gKDIwMDUpIiwidXBkYXRlRGF0
+        ZSI6IjIwMTQtMDItMDMifV0sInRzbiI6IjE4MDU0MyJ9Cg==
     headers:
-      Connection: [keep-alive]
-      Content-Type: [application/xml;charset=UTF-8]
-      Date: ['Thu, 08 Aug 2019 00:34:33 GMT']
-      Strict-Transport-Security: [max-age=63072000; includeSubdomains; preload, max-age=63072000;
-          includeSubdomains; preload]
-      Transfer-Encoding: [chunked]
-      X-Application: [itis_webservices]
-      X-Node-Name: [not shown]
-      X-Upstream-Member: [not shown]
-    status: {code: 200, message: ''}
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1288'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Tue, 09 Jun 2020 20:14:58 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
 version: 1

@@ -1,0 +1,127 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: http://taxosaurus.org/submit?query=Helianthus+annus
+  response:
+    body:
+      string: '{"submit date":"Tue Jun  9 13:36:32 2020","version":"2.2.2","status":"found","token":"2aab1e015acbd4ca3e8561999e983c52","message":"Your
+        request is being processed. You can retrieve the results at http://taxosaurus.org/retrieve/2aab1e015acbd4ca3e8561999e983c52.","uri":"http://taxosaurus.org/retrieve/2aab1e015acbd4ca3e8561999e983c52"}'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '334'
+      Content-Type:
+      - text/json; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 20:36:31 GMT
+      Location:
+      - http://taxosaurus.org/retrieve/2aab1e015acbd4ca3e8561999e983c52
+      Server:
+      - Apache/2.2.3 (CentOS)
+      X-Powered-By:
+      - Perl Dancer 1.3111
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: http://taxosaurus.org/retrieve/2aab1e015acbd4ca3e8561999e983c52
+  response:
+    body:
+      string: '{"status":"found","message":"Job 2aab1e015acbd4ca3e8561999e983c52 is
+        still being processed. Please try refreshing in a few seconds."}'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '133'
+      Content-Type:
+      - text/json; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 20:36:32 GMT
+      Server:
+      - Apache/2.2.3 (CentOS)
+      X-Powered-By:
+      - Perl Dancer 1.3111
+    status:
+      code: 302
+      message: Found
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: http://taxosaurus.org/retrieve/2aab1e015acbd4ca3e8561999e983c52
+  response:
+    body:
+      string: '{"status":"OK","names":[{"matchCount":2,"matches":[{"acceptedName":"Helianthus
+        annuus","sourceId":"iPlant_TNRS","score":"0.9694502693699","matchedName":"Helianthus
+        annuus","annotations":{"Authority":"L."},"uri":"http://www.tropicos.org/Name/2700851"},{"acceptedName":"Helianthus
+        annuus","sourceId":"NCBI","score":"1","matchedName":"Helianthus annus","annotations":{},"uri":"https://www.ncbi.nlm.nih.gov/taxonomy/4232"}],"submittedName":"Helianthus
+        annus"}],"metadata":{"spellcheckers":[{"name":"NCBI","description":"NCBI Spell
+        Checker","annotations":{},"uri":"http://www.ncbi.nlm.nih.gov/","sourceId":1,"publication":"http://www.ncbi.nlm.nih.gov/pmc/articles/PMC2578899/","call":"python2.6
+        tnrs_spellchecker/ncbi_spell.py","rank":1}],"sources":[{"status":"200: OK","name":"NCBI","description":"NCBI
+        Taxonomy","uri":"http://www.ncbi.nlm.nih.gov/taxonomy","annotations":{},"sourceId":"NCBI","publication":"Federhen
+        S. The Taxonomy Project.2002 Oct 9 [Updated 2003 Aug 13]. In: McEntyre J.,
+        Ostell J., editors. The NCBI Handbook [Internet]. Bethesda (MD): National
+        Center for Biotechnology Information (US);2002.","rank":3,"code":"ICZN,ICN,ICNB"},{"status":"200:
+        OK","name":"iPlant Collaborative TNRS v3.1","description":"The iPlant Collaborative
+        TNRS provides parsing and fuzzy matching for plant taxa.","uri":"http://tnrs.iplantcollaborative.org/","annotations":{"Authority":"Author
+        attributed to the accepted name (where applicable)."},"sourceId":"iPlant_TNRS","publication":"Boyle,
+        B. et.al. The taxonomic name resolution service: an online tool for automated
+        standardization of plant names. BMC Bioinformatics. 2013, 14:16. doi:10.1186/1471-2105-14-16.
+        If you use TNRS results in a publication, please also cite The Taxonomic Name
+        Resolution Service; http://tnrs.iplantcollaborative.org; version 3.1.","rank":2,"code":"ICN"},{"status":"200:
+        OK","name":"Mammal Species of the World v3.0","description":"Mammal Species
+        of the World, 3rd edition (MSW3) is a database of mammalian taxonomy. Our
+        adaptor searches the indexed database for both exact and loose mathces","uri":"http://www.bucknell.edu/msw3/","annotations":{"Authority":"Don
+        E. Wilson & DeeAnn M. Reeder (editors). 2005. Mammal Species of the World.
+        A Taxonomic and Geographic Reference (3rd ed)"},"sourceId":"MSW3","publication":"Don
+        E. Wilson & DeeAnn M. Reeder (editors). 2005. Mammal Species of the World.
+        A Taxonomic and Geographic Reference (3rd ed)","rank":4,"code":"ICZN"}],"sub_date":"Tue
+        Jun  9 13:36:32 2020","resolver_version":"1.2.0","jobId":"2aab1e015acbd4ca3e8561999e983c52"}}'
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '2551'
+      Content-Type:
+      - text/json; charset=utf-8
+      Date:
+      - Tue, 09 Jun 2020 20:36:34 GMT
+      Server:
+      - Apache/2.2.3 (CentOS)
+      X-Powered-By:
+      - Perl Dancer 1.3111
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -11,7 +11,7 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
     method: GET
-    uri: http://www.itis.gov/ITISWebService/jsonservice/getAcceptedNamesFromTSN?tsn=208527
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getCommonNamesFromTSN?tsn=180543
   response:
     body:
       string: ''
@@ -19,7 +19,7 @@ interactions:
       Connection:
       - Close
       Location:
-      - https://www.itis.gov/ITISWebService/jsonservice/getAcceptedNamesFromTSN?tsn=208527
+      - https://www.itis.gov/ITISWebService/jsonservice/getCommonNamesFromTSN?tsn=180543
     status:
       code: 302
       message: Redirect
@@ -35,21 +35,24 @@ interactions:
       User-Agent:
       - python-requests/2.23.0
     method: GET
-    uri: https://www.itis.gov/ITISWebService/jsonservice/getAcceptedNamesFromTSN?tsn=208527
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getCommonNamesFromTSN?tsn=180543
   response:
     body:
-      string: '{"acceptedNames":[null],"class":"gov.usgs.itis.itis_service.data.SvcAcceptedNameList","tsn":"208527"}
+      string: '{"class":"gov.usgs.itis.itis_service.data.SvcCommonNameList","commonNames":[{"class":"gov.usgs.itis.itis_service.data.SvcCommonName","commonName":"Brown
+        Bear","language":"English","tsn":"180543"},{"class":"gov.usgs.itis.itis_service.data.SvcCommonName","commonName":"Grizzly
+        Bear","language":"English","tsn":"180543"},{"class":"gov.usgs.itis.itis_service.data.SvcCommonName","commonName":"Oso
+        pardo","language":"Spanish","tsn":"180543"}],"tsn":"180543"}
 
         '
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '102'
+      - '454'
       Content-Type:
       - text/json;charset=ISO-8859-1
       Date:
-      - Tue, 09 Jun 2020 20:14:58 GMT
+      - Tue, 09 Jun 2020 20:24:00 GMT
       Strict-Transport-Security:
       - max-age=63072000; includeSubdomains; preload
       - max-age=63072000; includeSubdomains; preload

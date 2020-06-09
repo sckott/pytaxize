@@ -2,13 +2,17 @@ import sys
 import requests
 import datetime
 from lxml import etree
-import pandas as pd
 import re
 import json
 import pkg_resources
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
+try:
+    import pandas as pd
+except ImportError:
+    warnings.warn("Pandas library not installed, dataframes disabled")
+    pd = None
 
 def children(name=None, id=None, format=None, start=None, checklist=None):
     """
