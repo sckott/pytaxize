@@ -76,6 +76,7 @@ def getcommentdetailfromtsn(tsn, as_dataframe=False, **kwargs):
     [z.pop("class") for z in out["comments"]]
     return _df(out["comments"], as_dataframe)
 
+
 def getcommonnamesfromtsn(tsn, as_dataframe=False, **kwargs):
     """
     Get common names from tsn
@@ -95,6 +96,7 @@ def getcommonnamesfromtsn(tsn, as_dataframe=False, **kwargs):
     [z.pop("class") for z in out["commonNames"]]
     return _df(out["commonNames"], as_dataframe)
 
+
 def getcoremetadatafromtsn(tsn, as_dataframe=False, **kwargs):
     """
     Get core metadata from tsn
@@ -112,6 +114,7 @@ def getcoremetadatafromtsn(tsn, as_dataframe=False, **kwargs):
     ).json(**kwargs)
     out.pop("class")
     return _df([out], as_dataframe)
+
 
 def getcoveragefromtsn(tsn, as_dataframe=False, **kwargs):
     """
@@ -150,6 +153,7 @@ def getcredibilityratingfromtsn(tsn, as_dataframe=False, **kwargs):
     out.pop("class")
     return _df(out, as_dataframe)
 
+
 def getcredibilityratings(**kwargs):
     """
     Get possible credibility ratings
@@ -167,6 +171,7 @@ def getcredibilityratings(**kwargs):
     )
     out.pop("class")
     return out["credibilityValues"]
+
 
 def getcurrencyfromtsn(tsn, as_dataframe=False, **kwargs):
     """
@@ -204,6 +209,7 @@ def getdatedatafromtsn(tsn, as_dataframe=False, **kwargs):
     out.pop("class")
     return _df(out, as_dataframe)
 
+
 def getexpertsfromtsn(tsn, as_dataframe=False, **kwargs):
     """
     Get expert information for the TSN.
@@ -218,6 +224,7 @@ def getexpertsfromtsn(tsn, as_dataframe=False, **kwargs):
     ).json(**kwargs)
     out.pop("class")
     return _df(out["experts"], as_dataframe)
+
 
 def gettaxonomicranknamefromtsn(tsn, as_dataframe=False, **kwargs):
     """
@@ -235,6 +242,7 @@ def gettaxonomicranknamefromtsn(tsn, as_dataframe=False, **kwargs):
     ).json(**kwargs)
     tt.pop("class")
     return _df(tt, as_dataframe)
+
 
 def getfullhierarchyfromtsn(tsn, as_dataframe=False, **kwargs):
     """
@@ -256,6 +264,7 @@ def getfullhierarchyfromtsn(tsn, as_dataframe=False, **kwargs):
     hier = tt["hierarchyList"]
     [z.pop("class") for z in hier]
     return _df(hier, as_dataframe)
+
 
 # def _fullrecord(verb, args, **kwargs):
 #     out = Refactor(itis_base + verb, payload=args, request="get").json(**kwargs)
@@ -290,9 +299,11 @@ def getfullhierarchyfromtsn(tsn, as_dataframe=False, **kwargs):
 
 #     return [parsedat(x) for x in toget]
 
+
 def _fullrecord(verb, args, **kwargs):
     out = Refactor(itis_base + verb, payload=args, request="get").json(**kwargs)
     return out
+
 
 def getfullrecordfromlsid(lsid, **kwargs):
     """
@@ -346,6 +357,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
     [z.pop("class") for z in out["geoDivisions"]]
     return _df(out["geoDivisions"], as_dataframe)
 
+
 # def getgeographicvalues(**kwargs):
 #     """
 #     Get all possible geographic values
@@ -353,7 +365,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     :param **kwargs: Curl options passed on to `requests.get`
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getgeographicvalues()
 #     """
@@ -370,7 +382,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get global species completeness from tsn
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getglobalspeciescompletenessfromtsn(180541)
 #     """
@@ -390,7 +402,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     :param tsn: TSN for a taxonomic group (numeric)
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gethierarchydownfromtsn(tsn = 161030)
 #     """
@@ -409,7 +421,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     :param tsn: TSN for a taxonomic group (numeric)
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gethierarchyupfromtsn(tsn = 36485)
 #         itis.gethierarchyupfromtsn(tsn = 37906)
@@ -427,7 +439,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get itis term
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis._itisterms("buya")
 #     """
@@ -468,7 +480,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get itis terms from common names
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getitistermsfromcommonname("buya")
 #     """
@@ -480,7 +492,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get itis terms
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         # fails
 #         itis.getitisterms("bear")
@@ -493,7 +505,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get itis terms from scientific names
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getitistermsfromscientificname("ursidae")
 #         itis.getitistermsfromscientificname("Ursus")
@@ -516,7 +528,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #        rank, whilc this function only gets immediate names downstream.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         # Get full hierarchy
 #         itis.hierarchy(tsn=180543)
@@ -549,7 +561,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get jurisdictional origin from tsn
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getjurisdictionaloriginfromtsn(180543)
 #     """
@@ -568,7 +580,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get jurisdiction origin values
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getjurisdictionoriginvalues()
 #     """
@@ -585,7 +597,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get possible jurisdiction values
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getjurisdictionvalues()
 #     """
@@ -601,7 +613,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get kingdom names from tsn
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getkingdomnamefromtsn(202385)
 #     """
@@ -619,7 +631,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get all possible kingdom names
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getkingdomnames()
 #     """
@@ -636,7 +648,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Provides the date the ITIS database was last updated.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getlastchangedate()
 #     """
@@ -655,7 +667,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Gets the unique LSID for the TSN, or an empty result if there is no match.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         # valid TSN
 #         itis.getlsidfromtsn(155166)
@@ -679,7 +691,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns a list of the other sources used for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getothersourcesfromtsn(182662)
 #     """
@@ -703,7 +715,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns the parent TSN for the entered TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getparenttsnfromtsn(202385)
 #     """
@@ -719,7 +731,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns a list of the pulications used for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getpublicationsfromtsn(70340)
 #     """
@@ -752,7 +764,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     their kingdom and rank ID values.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getranknames()
 #     """
@@ -768,7 +780,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     there is no match or the TSN is invalid.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getrecordfromlsid("urn:lsid:itis.gov:itis_tsn:180543")
 #     """
@@ -797,7 +809,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns the review year for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getreviewyearfromtsn(180541)
 #     """
@@ -814,7 +826,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     (names and indicators) of the scientific name.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getscientificnamefromtsn(531894)
 #     """
@@ -862,7 +874,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns the author information for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gettaxonauthorshipfromtsn(183671)
 #     """
@@ -878,7 +890,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns the usage information for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gettaxonomicusagefromtsn(526852)
 #     """
@@ -894,7 +906,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Get tsn by vernacular language not the international language code (character)
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gettsnbyvernacularlanguage("french")
 #     """
@@ -912,7 +924,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Gets the TSN corresponding to the LSID, or an empty result if there is no match.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.gettsnfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:28726")
 #         itis.gettsnfromlsid("urn:lsid:itis.gov:itis_tsn:0")
@@ -933,7 +945,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Returns the unacceptability reason, if any, for the TSN.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getunacceptabilityreasonfromtsn(183671)
 #     """
@@ -951,7 +963,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Provides a list of the unique languages used in the vernacular table.
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.getvernacularlanguages()
 #     """
@@ -967,7 +979,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search for tsn by common name
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchbycommonname(x="american bullfrog")
 #         itis.searchbycommonname("ferret-badger")
@@ -986,7 +998,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search for tsn by common name beginning with
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchbycommonnamebeginswith("inch")
 #     """
@@ -1005,7 +1017,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search for tsn by common name ending with
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchbycommonnameendswith("snake")
 #     """
@@ -1023,7 +1035,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     `itis.searchbycommonnamebeginswith` and `itis.searchbycommonnameendswith`
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchcommon("inch")
 #         itis.searchcommon("inch", which = "end")
@@ -1039,7 +1051,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search by scientific name
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchbyscientificname(x="Tardigrada")
 #         itis.searchbyscientificname("Quercus douglasii")
@@ -1056,7 +1068,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search for any match
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchforanymatch(x=202385)
 #         itis.searchforanymatch(x="dolphin")
@@ -1081,7 +1093,7 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     Search for any matched page for descending (logical)
 
 #     Usage::
-        
+
 #         from pytaxize import itis
 #         itis.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)
 #         itis.searchforanymatchpaged("Zy", pagesize=100, pagenum=1, ascend=False)
@@ -1229,6 +1241,7 @@ def _tolower(y):
 def gettag(y):
     return y.tag.split("}")[1]
 
+
 def _df(x, as_dataframe=False):
     if as_dataframe and pd:
         if isinstance(x, dict):
@@ -1237,6 +1250,7 @@ def _df(x, as_dataframe=False):
         return df
     else:
         return x
+
 
 if __name__ == "__main__":
     import doctest

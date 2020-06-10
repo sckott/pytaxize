@@ -5,8 +5,10 @@ import time
 from pytaxize.refactor import Refactor
 import os
 
+
 class NoResultException(Exception):
     pass
+
 
 def gnr_datasources():
     """

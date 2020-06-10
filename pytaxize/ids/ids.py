@@ -4,6 +4,7 @@ from ..col import search
 from pytaxize.ncbi import ncbi
 from ..gbif.gbif_utils import *
 
+
 class NoResultException(Exception):
     pass
 
@@ -63,7 +64,10 @@ class Ids(object):
                     rank_taken = z["Rank"]
                     result = _make_id(id[0], fname, z["Rank"], "ncbi")
                 if len(id) > 1:
-                    result = [ _make_id(w["TaxId"], w["ScientificName"], w["Rank"], "ncbi") for w in res[fname] ]
+                    result = [
+                        _make_id(w["TaxId"], w["ScientificName"], w["Rank"], "ncbi")
+                        for w in res[fname]
+                    ]
             out.append(result)
         # out = _flatten(out)
         if isinstance(out, dict):
@@ -71,6 +75,7 @@ class Ids(object):
         if isinstance(out[0], list):
             out = out[0]
         return out
+
     # def col(self, verbose=True):
     #     """
     #     Get Catalogue of Life taxonomic identifiers
@@ -134,6 +139,7 @@ class Ids(object):
 
     #     return out
 
+
 def _make_id(id, name, rank, type):
     if id is None:
         uri = None
@@ -146,6 +152,7 @@ def _make_id(id, name, rank, type):
         "uri": uri,
     }
 
+
 def _converter(x):
     if x.__class__.__name__ == "str":
         return [x]
@@ -155,6 +162,7 @@ def _converter(x):
 
 def _flatten(x):
     return [item for sublist in x for item in sublist]
+
 
 id_uris = {
     "col": {
@@ -166,6 +174,7 @@ id_uris = {
         "other": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
     },
 }
+
 
 def _make_id_uri(rank, which, x):
     if rank is not None:

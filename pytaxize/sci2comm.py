@@ -4,8 +4,9 @@ import json
 from pytaxize.refactor import Refactor
 from pytaxize.ids import Ids
 
-def sci2comm(sci=None, id=None, db='ncbi', **kwargs):
-  """
+
+def sci2comm(sci=None, id=None, db="ncbi", **kwargs):
+    """
   Get common names from scientific names.
 
   :param: sci (str) One or more scientific names or partial names.
@@ -27,23 +28,24 @@ def sci2comm(sci=None, id=None, db='ncbi', **kwargs):
     pytaxize.sci2comm('Pomatomus saltatrix')
     pytaxize.sci2comm('Loxodonta africana')
   """
-  x = Ids(sci)
-  out = x.ncbi()
-  if len(out) > 1:
-    res = [_ncbi_common_names(w["id"], **kwargs) for w in out]
-  else:
-    res = _ncbi_common_names(out[0]["id"], **kwargs)
-  if isinstance(sci, str):
-    sci = [sci]
-  return dict(zip(sci, res))
+    x = Ids(sci)
+    out = x.ncbi()
+    if len(out) > 1:
+        res = [_ncbi_common_names(w["id"], **kwargs) for w in out]
+    else:
+        res = _ncbi_common_names(out[0]["id"], **kwargs)
+    if isinstance(sci, str):
+        sci = [sci]
+    return dict(zip(sci, res))
+
 
 def _ncbi_common_names(x, **kwargs):
-  key = os.environ.get("ENTREZ_KEY")
-  if key is None:
-    raise Exception("ENTREZ_KEY is not defined")
+    key = os.environ.get("ENTREZ_KEY")
+    if key is None:
+        raise Exception("ENTREZ_KEY is not defined")
 
-  query = {"db": "taxonomy", "ID": x, "api_key": key}
-  url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-  res = Refactor(url, query, "get").xml(**kwargs)
-  z = res.xpath("//TaxaSet/Taxon/OtherNames/GenbankCommonName")
-  return [w.text for w in z]
+    query = {"db": "taxonomy", "ID": x, "api_key": key}
+    url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+    res = Refactor(url, query, "get").xml(**kwargs)
+    z = res.xpath("//TaxaSet/Taxon/OtherNames/GenbankCommonName")
+    return [w.text for w in z]

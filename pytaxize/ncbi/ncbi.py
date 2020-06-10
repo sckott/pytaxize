@@ -80,10 +80,12 @@ def search(sci_com, modifier=None, rank_query=None):
         temp.append(func(sci_com[i]))
     return lists2dict(temp, sci_com)
 
-def _entrez(path = "esearch", args = {}):
+
+def _entrez(path="esearch", args={}):
     url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi" % path
-    tt = Refactor(url, args, request = 'get').xml()
+    tt = Refactor(url, args, request="get").xml()
     return tt
+
 
 if __name__ == "__main__":
     import doctest

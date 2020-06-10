@@ -14,8 +14,10 @@ except ImportError:
     warnings.warn("Pandas library not installed, dataframes disabled")
     pd = None
 
+
 class NoResultException(Exception):
     pass
+
 
 def names_list(rank="genus", size=10, as_dataframe=False):
     """
@@ -47,19 +49,21 @@ def names_list(rank="genus", size=10, as_dataframe=False):
     else:
         return "rank must be one of species, genus, family, or order"
 
+
 def names_list_helper(size, path, as_dataframe=False):
     pnpath = resource_filename(__name__, path)
     if as_dataframe:
-      dat = pd.read_csv(pnpath)
-      return dat["names"][:size].tolist()
+        dat = pd.read_csv(pnpath)
+        return dat["names"][:size].tolist()
     else:
-      with open(pnpath, newline='') as f:
-        reader = csv.reader(f)
-        next(reader)
-        dat = []
-        for row in reader:
-          dat.append(row)
-      return [w[0] for w in dat][:size]
+        with open(pnpath, newline="") as f:
+            reader = csv.reader(f)
+            next(reader)
+            dat = []
+            for row in reader:
+                dat.append(row)
+        return [w[0] for w in dat][:size]
+
 
 def vascan_search(q, format="json", raw=False):
     """
@@ -120,7 +124,7 @@ def scrapenames(
     detect_language=None,
     all_data_sources=None,
     data_source_ids=None,
-    as_dataframe=False
+    as_dataframe=False,
 ):
     """
   Resolve names using Global Names Recognition and Discovery.
@@ -195,7 +199,7 @@ def scrapenames(
     meta = res
     meta.pop("names")
     if as_dataframe:
-      data = _df(data, True)
+        data = _df(data, True)
     return {"meta": meta, "data": data}
     # if out["status"] != 303:
     #     sys.exit("Woops, something went wrong")

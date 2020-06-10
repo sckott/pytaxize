@@ -7,6 +7,7 @@ except ImportError:
     warnings.warn("Pandas library not installed, dataframes disabled")
     pd = None
 
+
 def parse(name, as_dataframe=False):
     """
     Parse taxon names using the GBIF name parser.

@@ -10,6 +10,7 @@ except ImportError:
     warnings.warn("Pandas library not installed, dataframes disabled")
     pd = None
 
+
 class NoResultException(Exception):
     pass
 
@@ -45,6 +46,7 @@ def taxo_datasources(as_dataframe=False):
         return df
     else:
         return out
+
 
 def taxo_resolve(query, source=None, code=None, http="get"):
     """
