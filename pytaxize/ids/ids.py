@@ -4,7 +4,6 @@ from ..col import search
 from pytaxize.ncbi import ncbi
 from ..gbif.gbif_utils import *
 
-
 class NoResultException(Exception):
     pass
 
@@ -19,18 +18,27 @@ class Ids(object):
 
         res = Ids('Poa annua')
         res
+        res.name
         res.ncbi()
         # res.col() # not done yet
-
+        
+        # more than one result
         res = Ids(name="Echinacea")
+        res.ncbi()
+
+        # more than one name supplied
+        res = Ids(name=['Helianthus annuus', 'Poa annua'])
+        res
         res.ncbi()
     """
 
     def __init__(self, name):
+        if isinstance(name, str):
+            name = [name]
         self.name = name
 
     def __repr__(self):
-        return """<%s :%s>""" % (type(self).__name__, self.name)
+        return """<%s :%s>""" % (type(self).__name__, ",".join(self.name))
 
     def ncbi(self, verbose=True):
         """
@@ -42,8 +50,8 @@ class Ids(object):
             Ids.ncbi(name = 'Poa annua')
         """
         out = []
-        for i in range(len([self.name])):
-            fname = [self.name][i]
+        for i in range(len(self.name)):
+            fname = self.name[i]
             res = ncbi.search(sci_com=fname)
             if len(res[fname]) == 0:
                 warnings.warn("No results for taxon '" + fname + "'")
@@ -57,6 +65,11 @@ class Ids(object):
                 if len(id) > 1:
                     result = [ _make_id(w["TaxId"], w["ScientificName"], w["Rank"], "ncbi") for w in res[fname] ]
             out.append(result)
+        # out = _flatten(out)
+        if isinstance(out, dict):
+            out = [out]
+        if isinstance(out[0], list):
+            out = out[0]
         return out
     # def col(self, verbose=True):
     #     """

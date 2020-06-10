@@ -1,6 +1,5 @@
 from functools import reduce
 
-
 def assert_range_numeric(x, start, stop):
     if x is None:
         return
