@@ -34,6 +34,7 @@ Modules
    modules/gn
    modules/gbif
    modules/col
+   modules/scicomm
    modules/other
 
 :doc:`modules/intro`
@@ -56,6 +57,9 @@ Modules
 
 :doc:`modules/col`
     The col module: Catalogue of Life methods
+
+:doc:`modules/scicomm`
+    Scientific to common names, and vice versa
 
 :doc:`modules/other`
     Variety of other methods

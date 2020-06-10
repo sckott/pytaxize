@@ -1,16 +1,17 @@
 import os
 import requests
 import json
+from multipledispatch import dispatch
 from pytaxize.refactor import Refactor
 from pytaxize.ids import Ids
 
-
-def sci2comm(sci=None, id=None, db="ncbi", **kwargs):
+@dispatch((str, list))
+def sci2comm(x, db="ncbi"):
     """
     Get common names from scientific names.
 
-    :param sci: (str) One or more scientific names or partial names. optional
-    :param id: (str/int) One or more taxonomic identifiers. optional
+    :param x: (str|list(str)|Ids) One or more scientific names or partial names,
+        or an `Ids` object
     :param db: (str) Data source, default: "ncbi". NCBI only supported right
         now, other sources to come.
     :param \*\*kwargs: Curl options passed on to `requests.get`
@@ -22,29 +23,45 @@ def sci2comm(sci=None, id=None, db="ncbi", **kwargs):
 
     Usage::
       
-      import pytaxize
+      from pytaxize import scicomm
+      
+      # from names (str or list of str's)
+      scicomm.sci2comm('Helianthus annuus')
+      scicomm.sci2comm('Puma concolor')
+      scicomm.sci2comm(['Helianthus annuus', 'Poa annua'])
+      scicomm.sci2comm('Gadus morhua')
+      scicomm.sci2comm('Pomatomus saltatrix')
+      scicomm.sci2comm('Loxodonta africana')
+    
+      ## no results
+      ### not a real name
+      scicomm.sci2comm('foo bar')
+      ### good name, many id results, but no common names
+      scicomm.sci2comm("Echinacea")
 
-      pytaxize.sci2comm(sci='Helianthus annuus')
-      pytaxize.sci2comm(sci='Puma concolor')
-      pytaxize.sci2comm(sci=['Helianthus annuus', 'Poa annua'])
-      pytaxize.sci2comm('Gadus morhua')
-      pytaxize.sci2comm('Pomatomus saltatrix')
-      pytaxize.sci2comm('Loxodonta africana')
-
-      pytaxize.sci2comm('foo bar')
+      # from an Ids object
+      from pytaxize import Ids
+      x = Ids('Helianthus annuus')
+      x.ncbi()
+      scicomm.sci2comm(x)
     """
-    x = Ids(sci)
-    out = x.ncbi()
-    if len(out) > 1:
-        res = [_ncbi_common_names(w["id"], **kwargs) for w in out]
-    else:
-        res = _ncbi_common_names(out[0]["id"], **kwargs)
-    if isinstance(sci, str):
-        sci = [sci]
-    return dict(zip(sci, res))
+    z = Ids(x)
+    z.ncbi()
+    out = z.ids
+    res = [_ncbi_common_names(z["id"]) for w in out.values() for z in w]
+    if isinstance(x, str):
+        x = [x]
+    return dict(zip(x, res))
 
+@dispatch(Ids)
+def sci2comm(x, db="ncbi"):
+    out = x.ids
+    res = [_ncbi_common_names(z["id"]) for w in out.values() for z in w]
+    return dict(zip(x.name, res))
 
 def _ncbi_common_names(x, **kwargs):
+    if x is None:
+      return []
     key = os.environ.get("ENTREZ_KEY")
     if key is None:
         raise Exception("ENTREZ_KEY is not defined")

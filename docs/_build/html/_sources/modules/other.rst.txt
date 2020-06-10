@@ -14,5 +14,3 @@ Other methods
 .. automethod:: taxo.taxo_datasources
 
 .. automethod:: taxo.taxo_resolve
-
-.. automethod:: scicomm.sci2comm
