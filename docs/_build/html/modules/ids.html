@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview: module code &mdash; pytaxize 0.6.92 documentation</title>
+  <title>Taxonomic Identifiers Class &mdash; pytaxize 0.6.92 documentation</title>
   
 
   
@@ -82,15 +82,13 @@
             
               <p class="caption"><span class="caption-text">Modules</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../modules/intro.html">pytaxize modules</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/ids.html">Taxonomic Identifiers Class</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/ncbi.html">NCBI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/itis.html">ITIS</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/gn.html">Global Names Resolver</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/gn.html#module-pytaxize">Global Names Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/gbif.html">Global Biodiversity Information Facility</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/col.html">Catalogue of Life</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/other.html">Other methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html#module-pytaxize">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All the rest</span></p>
 <ul>
@@ -99,6 +97,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../conduct.html">Contributor Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
 </ul>
 
             
@@ -144,10 +145,14 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Overview: module code</li>
+      <li>Taxonomic Identifiers Class</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/ids.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -159,18 +164,46 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>All modules for which code is available</h1>
-<ul><li><a href="pytaxize/col/col.html">pytaxize.col.col</a></li>
-<li><a href="pytaxize/gbif/parse.html">pytaxize.gbif.parse</a></li>
-<li><a href="pytaxize/gn/gni.html">pytaxize.gn.gni</a></li>
-<li><a href="pytaxize/gn/gnr.html">pytaxize.gn.gnr</a></li>
-<li><a href="pytaxize/ids/ids.html">pytaxize.ids.ids</a></li>
-<li><a href="pytaxize/itis/itis.html">pytaxize.itis.itis</a></li>
-<li><a href="pytaxize/ncbi/ncbi.html">pytaxize.ncbi.ncbi</a></li>
-<li><a href="pytaxize/scicomm.html">pytaxize.scicomm</a></li>
-<li><a href="pytaxize/tax.html">pytaxize.tax</a></li>
-<li><a href="pytaxize/taxo.html">pytaxize.taxo</a></li>
-</ul>
+  <div class="section" id="module-pytaxize">
+<span id="taxonomic-identifiers-class"></span><span id="ids"></span><h1>Taxonomic Identifiers Class<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pytaxize.Ids">
+<em class="property">class </em><code class="descclassname">pytaxize.</code><code class="descname">Ids</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pytaxize/ids/ids.html#Ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>ids: A class for taxonomic identifiers</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">Ids</span>
+
+<span class="n">res</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">)</span>
+<span class="n">res</span>
+<span class="n">res</span><span class="o">.</span><span class="n">name</span>
+<span class="n">res</span><span class="o">.</span><span class="n">ncbi</span><span class="p">()</span>
+<span class="c1"># res.col() # not done yet</span>
+
+<span class="c1"># more than one result</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;Echinacea&quot;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">ncbi</span><span class="p">()</span>
+
+<span class="c1"># more than one name supplied</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">,</span> <span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+<span class="n">res</span>
+<span class="n">res</span><span class="o">.</span><span class="n">ncbi</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="pytaxize.Ids.ncbi">
+<code class="descname">ncbi</code><span class="sig-paren">(</span><em>verbose=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pytaxize/ids/ids.html#Ids.ncbi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Ids.ncbi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get NCBI taxonomic identifiers</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">Ids</span>
+<span class="n">Ids</span><span class="o">.</span><span class="n">ncbi</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Poa annua&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
 
            </div>
            

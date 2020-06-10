@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Global Names Resolver &mdash; pytaxize 0.6.92 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Global Biodiversity Information Facility" href="gbif.html" />
+    <link rel="prev" title="ITIS" href="itis.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.92
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-pytaxize">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Global Names Resolver</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/gn.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pytaxize">
+<span id="global-names-resolver"></span><span id="gn"></span><h1>Global Names Resolver<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="pytaxize.gn.datasources">
+<code class="descclassname">gn.</code><code class="descname">datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.datasources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data sources for the Global Names Resolver.</p>
+<dl class="docutils">
+<dt>Retrieve data sources used in Global Names Index, see</dt>
+<dd><a class="reference external" href="http://gni.globalnames.org/">http://gni.globalnames.org/</a> for information.</dd>
+</dl>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># all data sources</span>
+<span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gnr</span><span class="o">.</span><span class="n">datasources</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.gn.resolve">
+<code class="descclassname">gn.</code><code class="descname">resolve</code><span class="sig-paren">(</span><em>source=None</em>, <em>format='json'</em>, <em>resolve_once='false'</em>, <em>with_context='false'</em>, <em>best_match_only='false'</em>, <em>header_only='false'</em>, <em>preferred_data_sources='false'</em>, <em>http='get'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the Global Names Resolver to resolve scientific names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>names</strong> – List of taxonomic names</li>
+<li><strong>source</strong> – Source to pull from, one of x, y, z</li>
+<li><strong>format</strong> – One of json or xml</li>
+<li><strong>resolve_once</strong> – Logical, true or false</li>
+<li><strong>with_context</strong> – Return context with taxonomic names</li>
+<li><strong>best_match_only</strong> – Logical, if true (default) return the best match only</li>
+<li><strong>header_only</strong> – Return header only, logical</li>
+<li><strong>preferred_data_sources</strong> – Return only preferred data sources.</li>
+<li><strong>http</strong> – The HTTP method to use, one of “get” or “post”. Default=”get”</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">)</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">resolve</span><span class="p">([</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">,</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pytaxize">
+<span id="global-names-index"></span><h1>Global Names Index<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="pytaxize.gn.parse">
+<code class="descclassname">gn.</code><code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses the Global Names Index to parse scientific names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>names</strong> – List of scientific names.</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cyanistes caeruleus&#39;</span><span class="p">,</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.gn.search">
+<code class="descclassname">gn.</code><code class="descname">search</code><span class="sig-paren">(</span><em>per_page=30</em>, <em>page=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for names against the Global names index</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>search_term</strong> – Search term</li>
+<li><strong>per_page</strong> – Items to return per page</li>
+<li><strong>page</strong> – Page to return</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">search_term</span> <span class="o">=</span> <span class="s1">&#39;ani*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.gn.details">
+<code class="descclassname">gn.</code><code class="descname">details</code><span class="sig-paren">(</span><em>all_records=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.details" title="Permalink to this definition">¶</a></dt>
+<dd><p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="mi">17802847</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gbif.html" class="btn btn-neutral float-right" title="Global Biodiversity Information Facility" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="itis.html" class="btn btn-neutral" title="ITIS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.6.92',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

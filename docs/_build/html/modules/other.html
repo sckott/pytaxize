@@ -1,0 +1,450 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Other methods &mdash; pytaxize 0.6.92 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Changelog" href="../changelog_link.html" />
+    <link rel="prev" title="Catalogue of Life" href="col.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.6.92
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html#module-pytaxize">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Other methods</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/other.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pytaxize">
+<span id="other-methods"></span><span id="other"></span><h1>Other methods<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="method">
+<dt id="pytaxize.tax.names_list">
+<code class="descclassname">tax.</code><code class="descname">names_list</code><span class="sig-paren">(</span><em>size=10</em>, <em>as_dataframe=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.tax.names_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a random vector of species names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rank</strong> – Taxonomic rank, one of species, genus (default), family, order.</li>
+<li><strong>size</strong> – Number of names to get. Maximum depends on the rank.</li>
+<li><strong>as_dataframe</strong> – (optional) Type: boolean. Return as pandas data frame?
+default: False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="s1">&#39;family&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="s1">&#39;order&#39;</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.tax.vascan_search">
+<code class="descclassname">tax.</code><code class="descname">vascan_search</code><span class="sig-paren">(</span><em>format='json'</em>, <em>raw=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.tax.vascan_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search the CANADENSYS Vascan API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>q</strong> – Taxonomic rank, one of species, genus (default), family, order.</li>
+<li><strong>format</strong> – Number of names to get. Maximum depends on the rank.</li>
+<li><strong>raw</strong> – Raw data or not (default)</li>
+<li><strong>callopts</strong> – Further args passed to request</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">])</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">],</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">,</span> <span class="s2">&quot;Crataegus dodgei&quot;</span><span class="p">],</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># format type</span>
+<span class="c1">## json</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">## xml</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;xml&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># lots of names, in this case 50</span>
+<span class="n">splist</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">names_list</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s1">&#39;species&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">vascan_search</span><span class="p">(</span><span class="n">q</span> <span class="o">=</span> <span class="n">splist</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.tax.scrapenames">
+<code class="descclassname">tax.</code><code class="descname">scrapenames</code><span class="sig-paren">(</span><em>file=None</em>, <em>text=None</em>, <em>engine=None</em>, <em>unique=None</em>, <em>verbatim=None</em>, <em>detect_language=None</em>, <em>all_data_sources=None</em>, <em>data_source_ids=None</em>, <em>as_dataframe=False</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.tax.scrapenames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Resolve names using Global Names Recognition and Discovery.</p>
+<p>Uses the Global Names Recognition and Discovery service, see
+<a class="reference external" href="http://gnrd.globalnames.org/">http://gnrd.globalnames.org/</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>url</strong> – An encoded URL for a web page, PDF, Microsoft Office document, or
+image file, see examples</li>
+<li><strong>file</strong> – When using multipart/form-data as the content-type, a file may be sent.
+This should be a path to your file on your machine.</li>
+<li><strong>text</strong> – Type: string. Text content; best used with a POST request, see
+examples</li>
+<li><strong>engine</strong> – (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
+2 for NetiNeti, or 0 for both. If absent, both engines are used.</li>
+<li><strong>unique</strong> – (optional) Type: boolean. If True (default),
+response has unique names without offsets.</li>
+<li><strong>verbatim</strong> – (optional) Type: boolean, If True (default to False),
+response excludes verbatim strings.</li>
+<li><strong>detect_language</strong> – (optional) Type: boolean, When
+True (default), NetiNeti is not used if the language of incoming text is
+determined not to be English. When ‘false’, NetiNeti will be used if requested.</li>
+<li><strong>all_data_sources</strong> – (optional) Type: bolean. Resolve found
+names against all available Data Sources.</li>
+<li><strong>data_source_ids</strong> – (optional) Type: string. Pipe separated list of data
+source ids to resolve found names against. See list of Data Sources.</li>
+<li><strong>as_dataframe</strong> – (optional) Type: boolean. Return as pandas data frame?
+default: False</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+
+<span class="c1"># Get data from a website using its URL</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Spider&#39;</span><span class="p">)</span>
+<span class="n">out</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># data</span>
+<span class="n">out</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">]</span> <span class="c1"># metadata</span>
+
+<span class="c1"># Scrape names from a pdf at a URL</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">)</span>
+<span class="n">out</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span> <span class="c1"># data</span>
+<span class="n">out</span><span class="p">[</span><span class="s1">&#39;meta&#39;</span><span class="p">]</span> <span class="c1"># metadata</span>
+
+<span class="c1"># With arguments</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">,</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf&#39;</span><span class="p">,</span> <span class="n">all_data_sources</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Get data from text string as an R object</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">scrapenames</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="s1">&#39;A spider named Pardosa moesta Banks, 1892&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.taxo.taxo_datasources">
+<code class="descclassname">taxo.</code><code class="descname">taxo_datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.taxo.taxo_datasources" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data sources for Taxosaurus. Retrieve data sources used in
+Global Names Index, see <a class="reference external" href="http://taxosaurus.org/">http://taxosaurus.org/</a> for information.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># all data sources</span>
+<span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">taxo_datasources</span><span class="p">()</span>
+
+<span class="c1"># Output a dict</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">taxo_datasources</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.taxo.taxo_resolve">
+<code class="descclassname">taxo.</code><code class="descname">taxo_resolve</code><span class="sig-paren">(</span><em>source=None</em>, <em>code=None</em>, <em>http='get'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.taxo.taxo_resolve" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uses Taxosaurus to resolve scientific names</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>query</strong> – List of taxonomic names</li>
+<li><strong>source</strong> – (optional) Source to pull from</li>
+<li><strong>code</strong> – (optional) the abbreviation for one of the nomenclature codes
+(ICZN: International Code of Zoological Nomenclature; ICN: International
+Code of Nomenclature for algae, fungi, and plants; ICNB: International
+Code of Nomenclature of Bacteria)</li>
+<li><strong>http</strong> – (optional) The HTTP method to use, one of “get” or “post”.
+Default=”get”</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">taxo_resolve</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_resolve</span><span class="p">([</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">,</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.scicomm.sci2comm">
+<code class="descclassname">scicomm.</code><code class="descname">sci2comm</code><span class="sig-paren">(</span><em>id=None</em>, <em>db='ncbi'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.scicomm.sci2comm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get common names from scientific names.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>sci</strong> – (str) One or more scientific names or partial names. optional</li>
+<li><strong>id</strong> – (str/int) One or more taxonomic identifiers. optional</li>
+<li><strong>db</strong> – (str) Data source, default: “ncbi”. NCBI only supported right
+now, other sources to come.</li>
+<li><strong>**kwargs</strong> – Curl options passed on to <cite>requests.get</cite></li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">dict, keys are supplied scientific names, and values
+are common names</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Remember to set your Entrez API key as <cite>ENTREZ_KEY</cite></p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
+
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="n">sci</span><span class="o">=</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="n">sci</span><span class="o">=</span><span class="s1">&#39;Puma concolor&#39;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="n">sci</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">,</span> <span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="s1">&#39;Gadus morhua&#39;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="s1">&#39;Pomatomus saltatrix&#39;</span><span class="p">)</span>
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="s1">&#39;Loxodonta africana&#39;</span><span class="p">)</span>
+
+<span class="n">pytaxize</span><span class="o">.</span><span class="n">sci2comm</span><span class="p">(</span><span class="s1">&#39;foo bar&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../changelog_link.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="col.html" class="btn btn-neutral" title="Catalogue of Life" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.6.92',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

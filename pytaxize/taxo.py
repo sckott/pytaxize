@@ -17,22 +17,17 @@ class NoResultException(Exception):
 
 def taxo_datasources(as_dataframe=False):
     """
-    Get data sources for Taxosaurus.
+    Get data sources for Taxosaurus. Retrieve data sources used in
+    Global Names Index, see http://taxosaurus.org/ for information.
 
-    Retrieve data sources used in Global Names Index, see
-       http://taxosaurus.org/ for information.
+    Usage::
+    
+        # all data sources
+        import pytaxize
+        pytaxize.taxo_datasources()
 
-    Usage:
-    # all data sources
-    >>> import pytaxize
-    >>> pytaxize.taxo_datasources()
-                id                              name
-    0         NCBI                              NCBI
-    1  iPlant_TNRS    iPlant Collaborative TNRS v3.1
-    2         MSW3  Mammal Species of the World v3.0
-
-    # Output a dict
-    >>> pytaxize.taxo_datasources(False)
+        # Output a dict
+        pytaxize.taxo_datasources(False)
     """
     url = "http://taxosaurus.org/sources/"
     out = requests.get(url)
@@ -51,18 +46,21 @@ def taxo_datasources(as_dataframe=False):
 def taxo_resolve(query, source=None, code=None, http="get"):
     """
     Uses Taxosaurus to resolve scientific names
+
     :param query: List of taxonomic names
-    :param source(optional): Source to pull from
-    :param code(optional): the abbreviation for one of the nomenclature codes (ICZN: International Code of Zoological Nomenclature; ICN: International Code of Nomenclature for algae, fungi, and plants; ICNB: International Code of Nomenclature of Bacteria)
-    :param http(optional): The HTTP method to use, one of "get" or "post". Default="get"
+    :param source: (optional) Source to pull from
+    :param code: (optional) the abbreviation for one of the nomenclature codes
+        (ICZN: International Code of Zoological Nomenclature; ICN: International
+        Code of Nomenclature for algae, fungi, and plants; ICNB: International
+        Code of Nomenclature of Bacteria)
+    :param http: (optional) The HTTP method to use, one of "get" or "post".
+        Default="get"
     
-    Usage:
+    Usage::
     
-    >>> import pytaxize
-    >>> pytaxize.taxo_resolve(query='Helianthus annus')
-    [[{u'sourceId': u'iPlant_TNRS', u'acceptedName': u'Helianthus annuus', u'uri': u'http://www.tropicos.org/Name/2700851', u'matchedName': u'Helianthus annuus', u'score': u'0.9694502693699', u'annotations': {u'Authority': u'L.'}}, {u'sourceId': u'NCBI', u'acceptedName': u'Helianthus annuus', u'uri': u'http://www.ncbi.nlm.nih.gov/taxonomy/4232', u'matchedName': u'Helianthus annus', u'score': u'1', u'annotations': {}}]]
-    >>> pytaxize.gnr_resolve(['Helianthus annus','Poa annua'])
-    [[{u'sourceId': u'iPlant_TNRS', u'acceptedName': u'Helianthus annuus', u'uri': u'http://www.tropicos.org/Name/2700851', u'matchedName': u'Helianthus annuus', u'score': u'0.9694502693699', u'annotations': {u'Authority': u'L.'}}, {u'sourceId': u'NCBI', u'acceptedName': u'Helianthus annuus', u'uri': u'http://www.ncbi.nlm.nih.gov/taxonomy/4232', u'matchedName': u'Helianthus annus', u'score': u'1', u'annotations': {}}], [{u'sourceId': u'iPlant_TNRS', u'acceptedName': u'Megalachne', u'uri': u'http://www.tropicos.org/Name/40015658', u'matchedName': u'Pantathera', u'score': u'0.47790686999749', u'annotations': {u'Authority': u'Steud.'}}, {u'sourceId': u'NCBI', u'acceptedName': u'Panthera tigris', u'uri': u'http://www.ncbi.nlm.nih.gov/taxonomy/9694', u'matchedName': u'Panthera tigris', u'score': u'1', u'annotations': {}}, {u'sourceId': u'MSW3', u'acceptedName': u'Panthera tigris', u'uri': u'http://www.bucknell.edu/msw3/browse.asp?id=14000259', u'matchedName': u'Panthera tigris', u'score': u'1', u'annotations': {}}]]
+        import pytaxize
+        pytaxize.taxo_resolve(query='Helianthus annus')
+        pytaxize.gnr_resolve(['Helianthus annus','Poa annua'])
     """
     url = "http://taxosaurus.org/submit"
     payload = {}

@@ -45,4 +45,4 @@ from .itis import (
 from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve
 from .ids import Ids
-from .sci2comm import sci2comm
+from .scicomm import sci2comm

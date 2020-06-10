@@ -1,4 +1,14 @@
-.. _gni:
+.. _gn:
+
+Global Names Resolver
+=====================
+
+.. py:module:: pytaxize
+
+.. automethod:: gn.datasources
+
+.. automethod:: gn.resolve
+
 
 Global Names Index
 ==================
