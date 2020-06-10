@@ -157,8 +157,8 @@
   <div class="section" id="module-pytaxize">
 <span id="global-names-index"></span><span id="gni"></span><h1>Global Names Index<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
-<dt id="pytaxize.gn.gni_parse">
-<code class="descclassname">gn.</code><code class="descname">gni_parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.gni_parse" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.gn.parse">
+<code class="descclassname">gn.</code><code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.parse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the Global Names Index to parse scientific names</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -169,15 +169,15 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gni_parse</span><span class="p">(</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cyanistes caeruleus&#39;</span><span class="p">,</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Cyanistes caeruleus&#39;</span><span class="p">,</span><span class="s1">&#39;Helianthus annuus&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.gn.gni_search">
-<code class="descclassname">gn.</code><code class="descname">gni_search</code><span class="sig-paren">(</span><em>per_page=30</em>, <em>page=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.gni_search" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.gn.search">
+<code class="descclassname">gn.</code><code class="descname">search</code><span class="sig-paren">(</span><em>per_page=30</em>, <em>page=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Search for names against the Global names index</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -193,18 +193,18 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gni_search</span><span class="p">(</span><span class="n">search_term</span> <span class="o">=</span> <span class="s1">&#39;ani*&#39;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">search_term</span> <span class="o">=</span> <span class="s1">&#39;ani*&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.gn.gni_details">
-<code class="descclassname">gn.</code><code class="descname">gni_details</code><span class="sig-paren">(</span><em>all_records=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.gni_details" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.gn.details">
+<code class="descclassname">gn.</code><code class="descname">details</code><span class="sig-paren">(</span><em>all_records=1</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.details" title="Permalink to this definition">¶</a></dt>
 <dd><p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gni_details</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="mi">17802847</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gni</span><span class="o">.</span><span class="n">details</span><span class="p">(</span><span class="nb">id</span> <span class="o">=</span> <span class="mi">17802847</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>

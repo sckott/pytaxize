@@ -157,8 +157,8 @@
   <div class="section" id="module-pytaxize">
 <span id="global-names-resolver"></span><span id="gnr"></span><h1>Global Names Resolver<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
 <dl class="method">
-<dt id="pytaxize.gn.gnr_datasources">
-<code class="descclassname">gn.</code><code class="descname">gnr_datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.gnr_datasources" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.gn.datasources">
+<code class="descclassname">gn.</code><code class="descname">datasources</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.datasources" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data sources for the Global Names Resolver.</p>
 <dl class="docutils">
 <dt>Retrieve data sources used in Global Names Index, see</dt>
@@ -166,19 +166,15 @@
 </dl>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># all data sources</span>
-<span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-
-<span class="c1"># give me the id for EOL</span>
-<span class="n">out</span> <span class="o">=</span> <span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_datasources</span><span class="p">()</span>
-<span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">out</span> <span class="k">if</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="s1">&#39;EOL&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;id&#39;</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">gnr</span><span class="o">.</span><span class="n">datasources</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.gn.gnr_resolve">
-<code class="descclassname">gn.</code><code class="descname">gnr_resolve</code><span class="sig-paren">(</span><em>source=None</em>, <em>format='json'</em>, <em>resolve_once='false'</em>, <em>with_context='false'</em>, <em>best_match_only='false'</em>, <em>header_only='false'</em>, <em>preferred_data_sources='false'</em>, <em>http='get'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.gnr_resolve" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.gn.resolve">
+<code class="descclassname">gn.</code><code class="descname">resolve</code><span class="sig-paren">(</span><em>source=None</em>, <em>format='json'</em>, <em>resolve_once='false'</em>, <em>with_context='false'</em>, <em>best_match_only='false'</em>, <em>header_only='false'</em>, <em>preferred_data_sources='false'</em>, <em>http='get'</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.gn.resolve" title="Permalink to this definition">¶</a></dt>
 <dd><p>Uses the Global Names Resolver to resolve scientific names</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -200,9 +196,9 @@
 </tbody>
 </table>
 <p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pytaxize</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_resolve</span><span class="p">(</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">)</span>
-<span class="n">pytaxize</span><span class="o">.</span><span class="n">gnr_resolve</span><span class="p">([</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">,</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">gn</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">resolve</span><span class="p">(</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">)</span>
+<span class="n">gn</span><span class="o">.</span><span class="n">resolve</span><span class="p">([</span><span class="s1">&#39;Helianthus annus&#39;</span><span class="p">,</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </dd></dl>

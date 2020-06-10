@@ -21,8 +21,8 @@ __license__ = "MIT"
 
 from .gbif import parse
 from .col import children, downstream, search
-from .gn import gni_parse, gni_search, gni_details
-from .gn import gnr_datasources, gnr_resolve
+from .gn import gni
+from .gn import gnr
 from .ncbi import search
 from .itis import (
     getacceptednamesfromtsn,

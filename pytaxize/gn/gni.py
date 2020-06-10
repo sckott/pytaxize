@@ -8,16 +8,16 @@ class NoResultException(Exception):
     pass
 
 
-def gni_parse(names):
+def parse(names):
     """
     Uses the Global Names Index to parse scientific names
 
     :param names: List of scientific names.
-
+    
     Usage::
 
-        import pytaxize
-        pytaxize.gni_parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
+        from pytaxize import gn
+        gn.gni.parse(names = ['Cyanistes caeruleus','Helianthus annuus'])
     """
     url = "http://gni.globalnames.org/parsers.json"
     names = "|".join(names)
@@ -26,7 +26,7 @@ def gni_parse(names):
     return out
 
 
-def gni_search(search_term="ani*", per_page=30, page=1):
+def search(search_term="ani*", per_page=30, page=1):
     """
     Search for names against the Global names index
 
@@ -36,8 +36,8 @@ def gni_search(search_term="ani*", per_page=30, page=1):
 
     Usage::
 
-        import pytaxize
-        pytaxize.gni_search(search_term = 'ani*')
+        from pytaxize import gn
+        gn.gni.search(search_term = 'ani*')
     """
     url = "http://gni.globalnames.org/name_strings.json"
     params = {"search_term": search_term, "per_page": per_page, "page": page}
@@ -45,12 +45,12 @@ def gni_search(search_term="ani*", per_page=30, page=1):
     return out
 
 
-def gni_details(id=17802847, all_records=1):
+def details(id=17802847, all_records=1):
     """
     Usage::
 
-        import pytaxize
-        pytaxize.gni_details(id = 17802847)
+        from pytaxize import gn
+        gn.gni.details(id = 17802847)
     """
     url = "http://gni.globalnames.org/name_strings/"
     mylist = [url, str(id), ".json"]

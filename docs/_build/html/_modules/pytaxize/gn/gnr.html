@@ -163,7 +163,7 @@
     <span class="k">pass</span>
 
 
-<span class="k">def</span> <span class="nf">gnr_datasources</span><span class="p">():</span>
+<span class="k">def</span> <span class="nf">datasources</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get data sources for the Global Names Resolver.</span>
 
@@ -173,19 +173,15 @@
 <span class="sd">    Usage::</span>
 
 <span class="sd">        # all data sources</span>
-<span class="sd">        import pytaxize</span>
-<span class="sd">        pytaxize.gnr_datasources()</span>
-
-<span class="sd">        # give me the id for EOL</span>
-<span class="sd">        out = pytaxize.gnr_datasources()</span>
-<span class="sd">        [d for d in out if d[&#39;title&#39;] in &#39;EOL&#39;][0][&#39;id&#39;]</span>
+<span class="sd">        from pytaxize import gn</span>
+<span class="sd">        gn.gnr.datasources()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://resolver.globalnames.org/data_sources.json&quot;</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">data</span>
 
 
-<span class="k">def</span> <span class="nf">gnr_resolve</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span>
     <span class="n">names</span><span class="o">=</span><span class="s2">&quot;Homo sapiens&quot;</span><span class="p">,</span>
     <span class="n">source</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span>
@@ -211,9 +207,9 @@
 
 <span class="sd">    Usage::</span>
 
-<span class="sd">        import pytaxize</span>
-<span class="sd">        pytaxize.gnr_resolve(&#39;Helianthus annus&#39;)</span>
-<span class="sd">        pytaxize.gnr_resolve([&#39;Helianthus annus&#39;,&#39;Poa annua&#39;])</span>
+<span class="sd">        from pytaxize import gn</span>
+<span class="sd">        gn.resolve(&#39;Helianthus annus&#39;)</span>
+<span class="sd">        gn.resolve([&#39;Helianthus annus&#39;,&#39;Poa annua&#39;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">names</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">!=</span> <span class="s2">&quot;list&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">_gnr_resolve</span><span class="p">(</span>

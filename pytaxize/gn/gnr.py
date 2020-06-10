@@ -10,7 +10,7 @@ class NoResultException(Exception):
     pass
 
 
-def gnr_datasources():
+def datasources():
     """
     Get data sources for the Global Names Resolver.
 
@@ -20,19 +20,15 @@ def gnr_datasources():
     Usage::
 
         # all data sources
-        import pytaxize
-        pytaxize.gnr_datasources()
-
-        # give me the id for EOL
-        out = pytaxize.gnr_datasources()
-        [d for d in out if d['title'] in 'EOL'][0]['id']
+        from pytaxize import gn
+        gn.gnr.datasources()
     """
     url = "https://resolver.globalnames.org/data_sources.json"
     data = Refactor(url, payload={}, request="get").json()
     return data
 
 
-def gnr_resolve(
+def resolve(
     names="Homo sapiens",
     source=None,
     format="json",
@@ -58,9 +54,9 @@ def gnr_resolve(
 
     Usage::
 
-        import pytaxize
-        pytaxize.gnr_resolve('Helianthus annus')
-        pytaxize.gnr_resolve(['Helianthus annus','Poa annua'])
+        from pytaxize import gn
+        gn.resolve('Helianthus annus')
+        gn.resolve(['Helianthus annus','Poa annua'])
     """
     if names.__class__.__name__ != "list":
         return _gnr_resolve(
