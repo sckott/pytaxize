@@ -44,3 +44,4 @@ from .itis import (
 )
 from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve
+from .ids import Ids
