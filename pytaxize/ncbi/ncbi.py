@@ -9,17 +9,23 @@ from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
 
-def search(name, modifier=None, rank_query=None):
+def search(sci_com, modifier=None, rank_query=None):
     """
     Search NCBI's taxonomic data - get NCBI taxonomic IDs
 
-    :param name: The string to search for
-    :param modifier: The string to search for
-    :param rank_query: The string to search for
+    :param sci_com: list of common or scientific names
+    :param modifier: A modifier to the `sci_com` given. Options include:
+        Organism, Scientific Name, Common Name, All Names, Division, 
+        Filter, Lineage, GC, MGC, Name Tokens, Next Level, PGC, Properties,
+        Rank, Subtree, Synonym, Text Word. These are not checked, so make
+        sure they are entered correctly, as is.
+    :param rank_query: A taxonomic rank name to modify the query sent to NCBI.
+        Though note that some data sources use atypical ranks, so inspect the
+        data itself for options. Optional.
 
     Remember to set your Entrez API key as `ENTREZ_KEY`
 
-    :return: dict, named with values given to `name`, 
+    :return: dict, named with values given to `sci_com`, 
     where each value in the dict is a list of NCBI taxonomic
     identifiers
 
@@ -27,20 +33,17 @@ def search(name, modifier=None, rank_query=None):
 
         from pytaxize import ncbi
 
-        ncbi.search(name = "Apis")
+        ncbi.search(sci_com = "Apis")
 
         # Many names
-        ncbi.search(name=["Apis", "Puma concolor", "Pinus"])
+        ncbi.search(sci_com=["Apis", "Puma concolor", "Pinus"])
 
         # Example with more than 1 result
-        ncbi.search(name='Pinus')
+        ncbi.search(sci_com='Satyrium')
+        ncbi.search(sci_com=['Satyrium', 'Pinus'])
 
         # common names
-        ncbi.search(name = 'bear')
-
-        # rank query
-        ncbi.search(name = "Pinus", rank_query = "genus")
-        ncbi.search(name = "Pinus", rank_query = "subgenus")
+        ncbi.search(sci_com = 'bear')
     """
 
     key = os.environ.get("ENTREZ_KEY")
@@ -55,26 +58,32 @@ def search(name, modifier=None, rank_query=None):
         if rank_query is not None:
             term = term + " AND %s[Rank]" % rank_query
         args = {"db": "taxonomy", "term": term, "api_key": key}
-        tt = entrez("esearch", args)
-        stuff = tt.xpath("IdList/Id")
+        tt = _entrez("esearch", args)
+        stuff = tt.xpath("//IdList/Id")
         ids = [int(z.text) for z in stuff]
         if len(ids) > 1:
             ids = ",".join(map(str, ids))
         args = {"db": "taxonomy", "ID": ids, "api_key": key}
-        res = entrez("esummary", args)
-        return res
+        res = _entrez("esummary", args)
+        # docsums = res.xpath("//DocSum")[0].getchildren()
+        docsums = res.xpath("//DocSum")
+        out = []
+        for x in range(len(docsums)):
+            keys = [w.values()[0] for w in docsums[x][1:]]
+            vals = [w.text for w in docsums[x][1:]]
+            out.append(dict(zip(keys, vals)))
+        return out
 
-    name = str2list(name)
+    sci_com = str2list(sci_com)
     temp = []
-    for i in range(len(name)):
-        temp.append(func(name[i]))
-    return lists2dict(temp, name)
+    for i in range(len(sci_com)):
+        temp.append(func(sci_com[i]))
+    return lists2dict(temp, sci_com)
 
-
-# def entrez(path = "esearch", args):
-#     url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi"
-#     tt = Refactor(url, args, request = 'get').xml()
-#     return tt
+def _entrez(path = "esearch", args = {}):
+    url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi" % path
+    tt = Refactor(url, args, request = 'get').xml()
+    return tt
 
 if __name__ == "__main__":
     import doctest
