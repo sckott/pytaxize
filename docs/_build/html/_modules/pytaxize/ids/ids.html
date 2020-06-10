@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.ids.ids &mdash; pytaxize 0.6.91 documentation</title>
+  <title>pytaxize.ids.ids &mdash; pytaxize 0.6.92 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.6.91
+                0.6.92
               </div>
             
           
@@ -157,6 +157,7 @@
 <span class="kn">from</span> <span class="nn">pytaxize.ncbi</span> <span class="kn">import</span> <span class="n">ncbi</span>
 <span class="kn">from</span> <span class="nn">..gbif.gbif_utils</span> <span class="kn">import</span> <span class="o">*</span>
 
+
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
 
@@ -216,7 +217,10 @@
                     <span class="n">rank_taken</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">]</span>
                     <span class="n">result</span> <span class="o">=</span> <span class="n">_make_id</span><span class="p">(</span><span class="nb">id</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">fname</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">],</span> <span class="s2">&quot;ncbi&quot;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span> <span class="n">_make_id</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;TaxId&quot;</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;ScientificName&quot;</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">],</span> <span class="s2">&quot;ncbi&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="n">fname</span><span class="p">]</span> <span class="p">]</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="p">[</span>
+                        <span class="n">_make_id</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;TaxId&quot;</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;ScientificName&quot;</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;Rank&quot;</span><span class="p">],</span> <span class="s2">&quot;ncbi&quot;</span><span class="p">)</span>
+                        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">res</span><span class="p">[</span><span class="n">fname</span><span class="p">]</span>
+                    <span class="p">]</span>
             <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
         <span class="c1"># out = _flatten(out)</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -224,6 +228,7 @@
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">):</span>
             <span class="n">out</span> <span class="o">=</span> <span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">out</span></div></div>
+
     <span class="c1"># def col(self, verbose=True):</span>
     <span class="c1">#     &quot;&quot;&quot;</span>
     <span class="c1">#     Get Catalogue of Life taxonomic identifiers</span>
@@ -287,6 +292,7 @@
 
     <span class="c1">#     return out</span>
 
+
 <span class="k">def</span> <span class="nf">_make_id</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">uri</span> <span class="o">=</span> <span class="kc">None</span>
@@ -299,6 +305,7 @@
         <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="n">uri</span><span class="p">,</span>
     <span class="p">}</span>
 
+
 <span class="k">def</span> <span class="nf">_converter</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;str&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
@@ -308,6 +315,7 @@
 
 <span class="k">def</span> <span class="nf">_flatten</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">x</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+
 
 <span class="n">id_uris</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;col&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -319,6 +327,7 @@
         <span class="s2">&quot;other&quot;</span><span class="p">:</span> <span class="s2">&quot;https://www.ncbi.nlm.nih.gov/taxonomy/</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
     <span class="p">},</span>
 <span class="p">}</span>
+
 
 <span class="k">def</span> <span class="nf">_make_id_uri</span><span class="p">(</span><span class="n">rank</span><span class="p">,</span> <span class="n">which</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">rank</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -362,7 +371,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.6.91',
+            VERSION:'0.6.92',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

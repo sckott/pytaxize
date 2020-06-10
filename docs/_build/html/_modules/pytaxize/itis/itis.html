@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.itis.itis &mdash; pytaxize 0.6.91 documentation</title>
+  <title>pytaxize.itis.itis &mdash; pytaxize 0.6.92 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.6.91
+                0.6.92
               </div>
             
           
@@ -229,6 +229,7 @@
     <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get common names from tsn</span>
@@ -248,6 +249,7 @@
     <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;commonNames&quot;</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;commonNames&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get core metadata from tsn</span>
@@ -265,6 +267,7 @@
     <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">([</span><span class="n">out</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">getcoveragefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -303,6 +306,7 @@
     <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">getcredibilityratings</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get possible credibility ratings</span>
@@ -320,6 +324,7 @@
     <span class="p">)</span>
     <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;credibilityValues&quot;</span><span class="p">]</span>
+
 
 <span class="k">def</span> <span class="nf">getcurrencyfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -357,6 +362,7 @@
     <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
 
+
 <span class="k">def</span> <span class="nf">getexpertsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get expert information for the TSN.</span>
@@ -371,6 +377,7 @@
     <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;experts&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -388,6 +395,7 @@
     <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">tt</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
 
 <span class="k">def</span> <span class="nf">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -409,6 +417,7 @@
     <span class="n">hier</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="s2">&quot;hierarchyList&quot;</span><span class="p">]</span>
     <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">hier</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">hier</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
 
 <span class="c1"># def _fullrecord(verb, args, **kwargs):</span>
 <span class="c1">#     out = Refactor(itis_base + verb, payload=args, request=&quot;get&quot;).json(**kwargs)</span>
@@ -443,9 +452,11 @@
 
 <span class="c1">#     return [parsedat(x) for x in toget]</span>
 
+
 <span class="k">def</span> <span class="nf">_fullrecord</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="n">verb</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span>
+
 
 <span class="k">def</span> <span class="nf">getfullrecordfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -499,6 +510,7 @@
     <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;geoDivisions&quot;</span><span class="p">]]</span>
     <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;geoDivisions&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
 
+
 <span class="c1"># def getgeographicvalues(**kwargs):</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
 <span class="c1">#     Get all possible geographic values</span>
@@ -506,7 +518,7 @@
 <span class="c1">#     :param **kwargs: Curl options passed on to `requests.get`</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getgeographicvalues()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -523,7 +535,7 @@
 <span class="c1">#     Get global species completeness from tsn</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getglobalspeciescompletenessfromtsn(180541)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -543,7 +555,7 @@
 <span class="c1">#     :param tsn: TSN for a taxonomic group (numeric)</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gethierarchydownfromtsn(tsn = 161030)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -562,7 +574,7 @@
 <span class="c1">#     :param tsn: TSN for a taxonomic group (numeric)</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gethierarchyupfromtsn(tsn = 36485)</span>
 <span class="c1">#         itis.gethierarchyupfromtsn(tsn = 37906)</span>
@@ -580,7 +592,7 @@
 <span class="c1">#     Get itis term</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis._itisterms(&quot;buya&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -621,7 +633,7 @@
 <span class="c1">#     Get itis terms from common names</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getitistermsfromcommonname(&quot;buya&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -633,7 +645,7 @@
 <span class="c1">#     Get itis terms</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         # fails</span>
 <span class="c1">#         itis.getitisterms(&quot;bear&quot;)</span>
@@ -646,7 +658,7 @@
 <span class="c1">#     Get itis terms from scientific names</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getitistermsfromscientificname(&quot;ursidae&quot;)</span>
 <span class="c1">#         itis.getitistermsfromscientificname(&quot;Ursus&quot;)</span>
@@ -669,7 +681,7 @@
 <span class="c1">#        rank, whilc this function only gets immediate names downstream.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         # Get full hierarchy</span>
 <span class="c1">#         itis.hierarchy(tsn=180543)</span>
@@ -702,7 +714,7 @@
 <span class="c1">#     Get jurisdictional origin from tsn</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getjurisdictionaloriginfromtsn(180543)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -721,7 +733,7 @@
 <span class="c1">#     Get jurisdiction origin values</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getjurisdictionoriginvalues()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -738,7 +750,7 @@
 <span class="c1">#     Get possible jurisdiction values</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getjurisdictionvalues()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -754,7 +766,7 @@
 <span class="c1">#     Get kingdom names from tsn</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getkingdomnamefromtsn(202385)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -772,7 +784,7 @@
 <span class="c1">#     Get all possible kingdom names</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getkingdomnames()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -789,7 +801,7 @@
 <span class="c1">#     Provides the date the ITIS database was last updated.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getlastchangedate()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -808,7 +820,7 @@
 <span class="c1">#     Gets the unique LSID for the TSN, or an empty result if there is no match.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         # valid TSN</span>
 <span class="c1">#         itis.getlsidfromtsn(155166)</span>
@@ -832,7 +844,7 @@
 <span class="c1">#     Returns a list of the other sources used for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getothersourcesfromtsn(182662)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -856,7 +868,7 @@
 <span class="c1">#     Returns the parent TSN for the entered TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getparenttsnfromtsn(202385)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -872,7 +884,7 @@
 <span class="c1">#     Returns a list of the pulications used for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getpublicationsfromtsn(70340)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -905,7 +917,7 @@
 <span class="c1">#     their kingdom and rank ID values.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getranknames()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -921,7 +933,7 @@
 <span class="c1">#     there is no match or the TSN is invalid.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -950,7 +962,7 @@
 <span class="c1">#     Returns the review year for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getreviewyearfromtsn(180541)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -967,7 +979,7 @@
 <span class="c1">#     (names and indicators) of the scientific name.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getscientificnamefromtsn(531894)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1015,7 +1027,7 @@
 <span class="c1">#     Returns the author information for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gettaxonauthorshipfromtsn(183671)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1031,7 +1043,7 @@
 <span class="c1">#     Returns the usage information for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gettaxonomicusagefromtsn(526852)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1047,7 +1059,7 @@
 <span class="c1">#     Get tsn by vernacular language not the international language code (character)</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gettsnbyvernacularlanguage(&quot;french&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1065,7 +1077,7 @@
 <span class="c1">#     Gets the TSN corresponding to the LSID, or an empty result if there is no match.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.gettsnfromlsid(lsid=&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;)</span>
 <span class="c1">#         itis.gettsnfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:0&quot;)</span>
@@ -1086,7 +1098,7 @@
 <span class="c1">#     Returns the unacceptability reason, if any, for the TSN.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getunacceptabilityreasonfromtsn(183671)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1104,7 +1116,7 @@
 <span class="c1">#     Provides a list of the unique languages used in the vernacular table.</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.getvernacularlanguages()</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1120,7 +1132,7 @@
 <span class="c1">#     Search for tsn by common name</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchbycommonname(x=&quot;american bullfrog&quot;)</span>
 <span class="c1">#         itis.searchbycommonname(&quot;ferret-badger&quot;)</span>
@@ -1139,7 +1151,7 @@
 <span class="c1">#     Search for tsn by common name beginning with</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchbycommonnamebeginswith(&quot;inch&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1158,7 +1170,7 @@
 <span class="c1">#     Search for tsn by common name ending with</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchbycommonnameendswith(&quot;snake&quot;)</span>
 <span class="c1">#     &quot;&quot;&quot;</span>
@@ -1176,7 +1188,7 @@
 <span class="c1">#     `itis.searchbycommonnamebeginswith` and `itis.searchbycommonnameendswith`</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchcommon(&quot;inch&quot;)</span>
 <span class="c1">#         itis.searchcommon(&quot;inch&quot;, which = &quot;end&quot;)</span>
@@ -1192,7 +1204,7 @@
 <span class="c1">#     Search by scientific name</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchbyscientificname(x=&quot;Tardigrada&quot;)</span>
 <span class="c1">#         itis.searchbyscientificname(&quot;Quercus douglasii&quot;)</span>
@@ -1209,7 +1221,7 @@
 <span class="c1">#     Search for any match</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchforanymatch(x=202385)</span>
 <span class="c1">#         itis.searchforanymatch(x=&quot;dolphin&quot;)</span>
@@ -1234,7 +1246,7 @@
 <span class="c1">#     Search for any matched page for descending (logical)</span>
 
 <span class="c1">#     Usage::</span>
-        
+
 <span class="c1">#         from pytaxize import itis</span>
 <span class="c1">#         itis.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)</span>
 <span class="c1">#         itis.searchforanymatchpaged(&quot;Zy&quot;, pagesize=100, pagenum=1, ascend=False)</span>
@@ -1382,6 +1394,7 @@
 <span class="k">def</span> <span class="nf">gettag</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 
+
 <span class="k">def</span> <span class="nf">_df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">as_dataframe</span> <span class="ow">and</span> <span class="n">pd</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -1390,6 +1403,7 @@
         <span class="k">return</span> <span class="n">df</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span>
+
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
     <span class="kn">import</span> <span class="nn">doctest</span>
@@ -1429,7 +1443,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.6.91',
+            VERSION:'0.6.92',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

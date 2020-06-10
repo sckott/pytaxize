@@ -9,13 +9,16 @@ def sci2comm(sci=None, id=None, db="ncbi", **kwargs):
     """
   Get common names from scientific names.
 
-  :param: sci (str) One or more scientific names or partial names.
+  :param: sci (str) One or more scientific names or partial names. optional
+  :param: id (str/int) One or more taxonomic identifiers. optional
   :param: db (str) Data source, default: "ncbi". NCBI only supported right
   now, other sources to come.
   :param: **kwargs Curl options passed on to `requests.get`
 
   :return: dict, keys are supplied scientific names, and values
   are common names
+
+  Remember to set your Entrez API key as `ENTREZ_KEY`
 
   Usage::
     
@@ -27,6 +30,8 @@ def sci2comm(sci=None, id=None, db="ncbi", **kwargs):
     pytaxize.sci2comm('Gadus morhua')
     pytaxize.sci2comm('Pomatomus saltatrix')
     pytaxize.sci2comm('Loxodonta africana')
+
+    pytaxize.sci2comm('foo bar')
   """
     x = Ids(sci)
     out = x.ncbi()

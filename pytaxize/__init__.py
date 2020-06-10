@@ -14,7 +14,7 @@ Usage::
    col.col_children(name=["Apis"])
 """
 
-__version__ = "0.6.91"
+__version__ = "0.6.92"
 __title__ = "pytaxize"
 __author__ = "Scott Chamberlain"
 __license__ = "MIT"

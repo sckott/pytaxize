@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.tax &mdash; pytaxize 0.6.91 documentation</title>
+  <title>pytaxize.tax &mdash; pytaxize 0.6.92 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.6.91
+                0.6.92
               </div>
             
           
@@ -167,8 +167,10 @@
     <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Pandas library not installed, dataframes disabled&quot;</span><span class="p">)</span>
     <span class="n">pd</span> <span class="o">=</span> <span class="kc">None</span>
 
+
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
+
 
 <span class="k">def</span> <span class="nf">names_list</span><span class="p">(</span><span class="n">rank</span><span class="o">=</span><span class="s2">&quot;genus&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -200,19 +202,21 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;rank must be one of species, genus, family, or order&quot;</span>
 
+
 <span class="k">def</span> <span class="nf">names_list_helper</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">pnpath</span> <span class="o">=</span> <span class="n">resource_filename</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">as_dataframe</span><span class="p">:</span>
-      <span class="n">dat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pnpath</span><span class="p">)</span>
-      <span class="k">return</span> <span class="n">dat</span><span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="n">dat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">pnpath</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dat</span><span class="p">[</span><span class="s2">&quot;names&quot;</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
-      <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pnpath</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-        <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
-        <span class="n">dat</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
-          <span class="n">dat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-      <span class="k">return</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">pnpath</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">reader</span><span class="p">)</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+                <span class="n">dat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">][:</span><span class="n">size</span><span class="p">]</span>
+
 
 <span class="k">def</span> <span class="nf">vascan_search</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;json&quot;</span><span class="p">,</span> <span class="n">raw</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -273,7 +277,7 @@
     <span class="n">detect_language</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">all_data_sources</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">data_source_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span>
+    <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
 <span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">  Resolve names using Global Names Recognition and Discovery.</span>
@@ -348,7 +352,7 @@
     <span class="n">meta</span> <span class="o">=</span> <span class="n">res</span>
     <span class="n">meta</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;names&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">as_dataframe</span><span class="p">:</span>
-      <span class="n">data</span> <span class="o">=</span> <span class="n">_df</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">_df</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;meta&quot;</span><span class="p">:</span> <span class="n">meta</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="n">data</span><span class="p">}</span>
     <span class="c1"># if out[&quot;status&quot;] != 303:</span>
     <span class="c1">#     sys.exit(&quot;Woops, something went wrong&quot;)</span>
@@ -402,7 +406,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../',
-            VERSION:'0.6.91',
+            VERSION:'0.6.92',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
