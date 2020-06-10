@@ -5,8 +5,8 @@ Catalogue of Life
 
 .. py:module:: pytaxize
 
-.. automethod:: col.col_children
+.. automethod:: col.children
 
-.. automethod:: col.col_downstream
+.. automethod:: col.downstream
 
-.. automethod:: col.col_search
+.. automethod:: col.search

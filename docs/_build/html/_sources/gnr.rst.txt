@@ -5,6 +5,6 @@ Global Names Resolver
 
 .. py:module:: pytaxize
 
-.. automethod:: gnr.gnr_datasources
+.. automethod:: gn.gnr_datasources
 
-.. automethod:: gnr.gnr_resolve
+.. automethod:: gn.gnr_resolve

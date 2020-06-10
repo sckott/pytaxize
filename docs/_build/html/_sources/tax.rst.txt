@@ -9,6 +9,6 @@ Variety of functions
 
 .. automethod:: tax.vascan_search
 
-.. automethod:: tax.gbif_parse
+.. automethod:: gbif.parse
 
 .. automethod:: tax.scrapenames

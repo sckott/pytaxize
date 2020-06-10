@@ -5,8 +5,8 @@ Global Names Index
 
 .. py:module:: pytaxize
 
-.. automethod:: gni.gni_parse
+.. automethod:: gn.gni_parse
 
-.. automethod:: gni.gni_search
+.. automethod:: gn.gni_search
 
-.. automethod:: gni.gni_details
+.. automethod:: gn.gni_details

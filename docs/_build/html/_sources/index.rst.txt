@@ -1,7 +1,7 @@
 pytaxize
 ========
 
-|pypi| |docs| |travis| |coverage|
+|pypi| |docs| |travis| |coverage| |black|
 
 This is a port of the R package `taxize <https://github.com/ropensci/taxize>`__.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.
 
@@ -10,7 +10,7 @@ Why?  A significant advantage of a Python version of `taxize` will be for those 
 python 2/3
 ==========
 
-I usually use Python `2.x` locally, but I've just been working on making `pytaxize` compatible with `2.x` and `3.x`. Please let me know if anything is broken on either version.
+pytaxize is only developed in and tested with Python 3
 
 Installation
 ============
@@ -187,6 +187,8 @@ Meta
 .. |coverage| image:: https://coveralls.io/repos/sckott/pytaxize/badge.svg?branch=master&service=github
    :target: https://coveralls.io/github/sckott/pytaxize?branch=master
 
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
+   :target: https://github.com/psf/black
 
 
 Contents
