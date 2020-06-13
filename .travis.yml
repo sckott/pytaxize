@@ -5,6 +5,7 @@ cache: pip
 python:
   - "2.7"
   - "3.6"
+  - "3.8"
 
 install:
   - pip install 'requests>=2.8.14'
@@ -13,9 +14,10 @@ install:
   - pip install coveralls
   - pip install vcrpy
   - pip install vcrpy-unittest
+  - pip install pytest
 
 script:
-  - pytest --verbose --ignore setup.py
+  - pytest --verbose --disable-warnings --ignore setup.py
 
 after_success:
   - coveralls
