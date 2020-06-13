@@ -85,12 +85,15 @@
               <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gn.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gn.html#module-pytaxize">Global Names Index</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">Other methods</a></li>
 </ul>
 <p class="caption"><span class="caption-text">All the rest</span></p>
 <ul>
@@ -99,9 +102,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../conduct.html">Contributor Code of Conduct</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
 </ul>
 
             
@@ -169,30 +169,35 @@
   <div class="section" id="itis">
 <span id="id1"></span><h1>ITIS<a class="headerlink" href="#itis" title="Permalink to this headline">¶</a></h1>
 <span class="target" id="module-pytaxize"></span><dl class="method">
-<dt id="pytaxize.itis.getacceptednamesfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getacceptednamesfromtsn</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getacceptednamesfromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.accepted_names">
+<code class="descclassname">itis.</code><code class="descname">accepted_names</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.accepted_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get accepted names from tsn</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> – taxonomic serial number (TSN) (character or numeric)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – taxonomic serial number (TSN) (character or numeric)</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
 <span class="c1"># TSN accepted - good name</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">208527</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">accepted_names</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">208527</span><span class="p">)</span>
 <span class="c1"># TSN not accepted - input TSN is old name</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getacceptednamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">504239</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">accepted_names</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">504239</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getanymatchcount">
-<code class="descclassname">itis.</code><code class="descname">getanymatchcount</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getanymatchcount" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.any_match_count">
+<code class="descclassname">itis.</code><code class="descname">any_match_count</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.any_match_count" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get any match count.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -209,23 +214,23 @@
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getanymatchcount</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">any_match_count</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">202385</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">any_match_count</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;dolphin&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcommentdetailfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcommentdetailfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcommentdetailfromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.comment_detail">
+<code class="descclassname">itis.</code><code class="descname">comment_detail</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.comment_detail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get comment detail from TSN</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tsn</strong> – TSN for a taxonomic group (numeric)</li>
-<li><strong>as_dataframe</strong> – specify return type, if pandas is available (boolean)</li>
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
 <li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
 </li>
 </ul>
@@ -235,22 +240,22 @@
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcommentdetailfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">comment_detail</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcommonnamesfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcommonnamesfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcommonnamesfromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.common_names">
+<code class="descclassname">itis.</code><code class="descname">common_names</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.common_names" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get common names from tsn</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tsn</strong> – TSN for a taxonomic group (numeric)</li>
-<li><strong>as_dataframe</strong> – specify return type, if pandas is available (boolean)</li>
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
 <li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
 </li>
 </ul>
@@ -260,56 +265,98 @@
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcommonnamesfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183833</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">common_names</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183833</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcoremetadatafromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcoremetadatafromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoremetadatafromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.core_metadata">
+<code class="descclassname">itis.</code><code class="descname">core_metadata</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.core_metadata" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get core metadata from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
 <span class="c1"># coverage and currrency data</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">core_metadata</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
 <span class="c1"># no coverage or currrency data</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcoremetadatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183671</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">core_metadata</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">183671</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcoveragefromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcoveragefromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcoveragefromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.coverage">
+<code class="descclassname">itis.</code><code class="descname">coverage</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.coverage" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get coverge from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
 <span class="c1"># coverage data</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">28727</span><span class="p">)</span>
 <span class="c1"># no coverage data</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
 <span class="c1"># as data_frame</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcoveragefromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">coverage</span><span class="p">(</span><span class="mi">526852</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcredibilityratingfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcredibilityratingfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcredibilityratingfromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.credibility_rating">
+<code class="descclassname">itis.</code><code class="descname">credibility_rating</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.credibility_rating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get credibility rating from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">526852</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcredibilityratingfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">credibility_rating</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">526852</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">credibility_rating</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcredibilityratings">
-<code class="descclassname">itis.</code><code class="descname">getcredibilityratings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcredibilityratings" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.credibility_ratings">
+<code class="descclassname">itis.</code><code class="descname">credibility_ratings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.credibility_ratings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get possible credibility ratings</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -324,101 +371,154 @@
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcredibilityratings</span><span class="p">()</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">credibility_ratings</span><span class="p">()</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getcurrencyfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getcurrencyfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getcurrencyfromtsn" title="Permalink to this definition">¶</a></dt>
+<dt id="pytaxize.itis.currency">
+<code class="descclassname">itis.</code><code class="descname">currency</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.currency" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get currency from tsn</p>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="c1"># currency data</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
-<span class="c1"># no currency dat</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
-<span class="c1"># as data_frame</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getcurrencyfromtsn</span><span class="p">(</span><span class="mi">526852</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.itis.getdatedatafromtsn">
-<code class="descclassname">itis.</code><code class="descname">getdatedatafromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getdatedatafromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get date data from tsn</p>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getdatedatafromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.itis.getexpertsfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getexpertsfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getexpertsfromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get expert information for the TSN.</p>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getexpertsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180544</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.itis.gettaxonomicranknamefromtsn">
-<code class="descclassname">itis.</code><code class="descname">gettaxonomicranknamefromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.gettaxonomicranknamefromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the kingdom and rank information for the TSN.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> – TSN for a taxonomic group (numeric)</td>
-</tr>
-</tbody>
-</table>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">gettaxonomicranknamefromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.itis.getfullhierarchyfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getfullhierarchyfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullhierarchyfromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get full hierarchy from ts</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tsn</strong> – TSN for a taxonomic group (numeric)</td>
-</tr>
-</tbody>
-</table>
-<p>Usage:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">)</span>
-<span class="c1"># as data_frame</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullhierarchyfromtsn</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pytaxize.itis.getfullrecordfromlsid">
-<code class="descclassname">itis.</code><code class="descname">getfullrecordfromlsid</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullrecordfromlsid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the full ITIS record for the TSN in the LSID, found by comparing the
-TSN in the search key to the TSN field. Returns an empty result set if
-there is no match or the TSN is invalid.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="c1"># currency data</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="mi">28727</span><span class="p">)</span>
+<span class="c1"># no currency dat</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="mi">526852</span><span class="p">)</span>
+<span class="c1"># as data_frame</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="mi">526852</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.date_data">
+<code class="descclassname">itis.</code><code class="descname">date_data</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.date_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get date data from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">date_data</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.experts">
+<code class="descclassname">itis.</code><code class="descname">experts</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.experts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get expert information for the TSN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">experts</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180544</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.rank_name">
+<code class="descclassname">itis.</code><code class="descname">rank_name</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.rank_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the kingdom and rank information for the TSN.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">rank_name</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">202385</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.hierarchy_full">
+<code class="descclassname">itis.</code><code class="descname">hierarchy_full</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.hierarchy_full" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get full hierarchy from ts</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_full</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_full</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">)</span>
+<span class="c1"># as data_frame</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_full</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">100800</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.full_record">
+<code class="descclassname">itis.</code><code class="descname">full_record</code><span class="sig-paren">(</span><em>lsid=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.full_record" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the full ITIS record for a TSN or LSID</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
 <li><strong>lsid</strong> – lsid for a taxonomic group (character)</li>
 <li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
 </li>
@@ -429,23 +529,27 @@ there is no match or the TSN is invalid.</p>
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromlsid</span><span class="p">(</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="s2">&quot;504239&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="s2">&quot;202385&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="s2">&quot;183833&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">full_record</span><span class="p">(</span><span class="n">lsid</span><span class="o">=</span><span class="s2">&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getfullrecordfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getfullrecordfromtsn</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getfullrecordfromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the full ITIS record for a TSN</p>
+<dt id="pytaxize.itis.geographic_divisions">
+<code class="descclassname">itis.</code><code class="descname">geographic_divisions</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.geographic_divisions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get geographic divisions from tsn</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>tsn</strong> – tsn for a taxonomic group (character)</li>
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
 <li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
 </li>
 </ul>
@@ -455,20 +559,108 @@ there is no match or the TSN is invalid.</p>
 </table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;504239&quot;</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;202385&quot;</span><span class="p">)</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getfullrecordfromtsn</span><span class="p">(</span><span class="s2">&quot;183833&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">geographic_divisions</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pytaxize.itis.getgeographicdivisionsfromtsn">
-<code class="descclassname">itis.</code><code class="descname">getgeographicdivisionsfromtsn</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.getgeographicdivisionsfromtsn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get geographic divisions from tsn</p>
+<dt id="pytaxize.itis.geographic_values">
+<code class="descclassname">itis.</code><code class="descname">geographic_values</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.geographic_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all possible geographic values</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
 <p>Usage:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
-<span class="n">itis</span><span class="o">.</span><span class="n">getgeographicdivisionsfromtsn</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="mi">180543</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">geographic_values</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.hierarchy_down">
+<code class="descclassname">itis.</code><code class="descname">hierarchy_down</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.hierarchy_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hierarchy down from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_down</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">179913</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.hierarchy_up">
+<code class="descclassname">itis.</code><code class="descname">hierarchy_up</code><span class="sig-paren">(</span><em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.hierarchy_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get hierarchy up from tsn</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>tsn</strong> – (int) TSN for a taxonomic group</li>
+<li><strong>as_dataframe</strong> – (bool) specify return type, if pandas is available</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_up</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_up</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">37906</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pytaxize.itis.terms">
+<code class="descclassname">itis.</code><code class="descname">terms</code><span class="sig-paren">(</span><em>what='both'</em>, <em>as_dataframe=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.itis.terms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get itis terms</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>x</strong> – query term</li>
+<li><strong>what</strong> – One of both (search common and scientific names), common
+(search just common names), or scientific (search just scientific names)</li>
+<li><strong>as_dataframe</strong> – specify return type, if pandas is available (boolean)</li>
+<li><strong>**kwargs</strong> – <p>Curl options passed on to <cite>requests.get</cite></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">terms</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">terms</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;common&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">terms</span><span class="p">(</span><span class="s2">&quot;Poa&quot;</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;scientific&quot;</span><span class="p">)</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">terms</span><span class="p">(</span><span class="s2">&quot;bear&quot;</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd></dl>
