@@ -9,7 +9,7 @@ install: build
 	python3 setup.py install
 
 test:
-	python3 -m "nose" -v --with-coverage --cover-package=pytaxize
+	pytest --verbose --disable-warnings --cov=pytaxize/ --ignore setup.py
 
 docs:
 	cd docs;\
