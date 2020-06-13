@@ -14,7 +14,7 @@ Usage::
    col.col_children(name=["Apis"])
 """
 
-__version__ = "0.6.92"
+__version__ = "0.6.94"
 __title__ = "pytaxize"
 __author__ = "Scott Chamberlain"
 __license__ = "MIT"
@@ -25,22 +25,25 @@ from .gn import gni
 from .gn import gnr
 from .ncbi import search
 from .itis import (
-    getacceptednamesfromtsn,
-    getanymatchcount,
-    getcommentdetailfromtsn,
-    getcommonnamesfromtsn,
-    getcoremetadatafromtsn,
-    getcoveragefromtsn,
-    getcredibilityratingfromtsn,
-    getcredibilityratings,
-    getcurrencyfromtsn,
-    getdatedatafromtsn,
-    getexpertsfromtsn,
-    gettaxonomicranknamefromtsn,
-    getfullhierarchyfromtsn,
-    getfullrecordfromlsid,
-    getfullrecordfromtsn,
-    getgeographicdivisionsfromtsn,
+    accepted_names,
+    any_match_count,
+    comment_detail,
+    common_names,
+    core_metadata,
+    coverage,
+    credibility_rating,
+    credibility_ratings,
+    currency,
+    date_data,
+    experts,
+    rank_name,
+    hierarchy_full,
+    full_record,
+    geographic_divisions,
+    geographic_values,
+    hierarchy_down,
+    hierarchy_up,
+    terms,
 )
 from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve

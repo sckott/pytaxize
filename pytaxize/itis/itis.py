@@ -2,8 +2,7 @@ import sys
 import time
 import requests
 import warnings
-
-from lxml import etree
+from enum import Enum
 from pytaxize.refactor import Refactor
 
 try:
@@ -14,19 +13,20 @@ except ImportError:
 itis_base = "http://www.itis.gov/ITISWebService/jsonservice/"
 
 
-def getacceptednamesfromtsn(tsn, **kwargs):
+def accepted_names(tsn, **kwargs):
     """
     Get accepted names from tsn
 
     :param tsn: taxonomic serial number (TSN) (character or numeric)
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
         # TSN accepted - good name
-        itis.getacceptednamesfromtsn(tsn=208527)
+        itis.accepted_names(tsn=208527)
         # TSN not accepted - input TSN is old name
-        itis.getacceptednamesfromtsn(tsn=504239)
+        itis.accepted_names(tsn=504239)
     """
     out = Refactor(
         itis_base + "getAcceptedNamesFromTSN", payload={"tsn": tsn}, request="get"
@@ -38,7 +38,7 @@ def getacceptednamesfromtsn(tsn, **kwargs):
         return out["acceptedNames"][0]
 
 
-def getanymatchcount(x, **kwargs):
+def any_match_count(x, **kwargs):
     """
     Get any match count.
 
@@ -48,8 +48,8 @@ def getanymatchcount(x, **kwargs):
     Usage::
     
         from pytaxize import itis
-        itis.getanymatchcount(x=202385)
-        itis.getanymatchcount(x="dolphin")
+        itis.any_match_count(x=202385)
+        itis.any_match_count(x="dolphin")
     """
     out = Refactor(
         itis_base + "getAnyMatchCount", payload={"srchKey": x}, request="get"
@@ -57,18 +57,18 @@ def getanymatchcount(x, **kwargs):
     return out["return"]
 
 
-def getcommentdetailfromtsn(tsn, as_dataframe=False, **kwargs):
+def comment_detail(tsn, as_dataframe=False, **kwargs):
     """
     Get comment detail from TSN
 
-    :param tsn: TSN for a taxonomic group (numeric)
-    :param as_dataframe: specify return type, if pandas is available (boolean)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
                 
         from pytaxize import itis
-        itis.getcommentdetailfromtsn(tsn=180543)
+        itis.comment_detail(tsn=180543)
     """
     out = Refactor(
         itis_base + "getCommentDetailFromTSN", payload={"tsn": tsn}, request="get"
@@ -77,18 +77,18 @@ def getcommentdetailfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out["comments"], as_dataframe)
 
 
-def getcommonnamesfromtsn(tsn, as_dataframe=False, **kwargs):
+def common_names(tsn, as_dataframe=False, **kwargs):
     """
     Get common names from tsn
 
-    :param tsn: TSN for a taxonomic group (numeric)
-    :param as_dataframe: specify return type, if pandas is available (boolean)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getcommonnamesfromtsn(tsn=183833)
+        itis.common_names(tsn=183833)
     """
     out = Refactor(
         itis_base + "getCommonNamesFromTSN", payload={"tsn": tsn}, request="get"
@@ -97,17 +97,21 @@ def getcommonnamesfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out["commonNames"], as_dataframe)
 
 
-def getcoremetadatafromtsn(tsn, as_dataframe=False, **kwargs):
+def core_metadata(tsn, as_dataframe=False, **kwargs):
     """
     Get core metadata from tsn
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
         # coverage and currrency data
-        itis.getcoremetadatafromtsn(tsn=28727)
+        itis.core_metadata(tsn=28727)
         # no coverage or currrency data
-        itis.getcoremetadatafromtsn(tsn=183671)
+        itis.core_metadata(tsn=183671)
     """
     out = Refactor(
         itis_base + "getCoreMetadataFromTSN", payload={"tsn": tsn}, request="get"
@@ -116,19 +120,23 @@ def getcoremetadatafromtsn(tsn, as_dataframe=False, **kwargs):
     return _df([out], as_dataframe)
 
 
-def getcoveragefromtsn(tsn, as_dataframe=False, **kwargs):
+def coverage(tsn, as_dataframe=False, **kwargs):
     """
     Get coverge from tsn
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
         # coverage data
-        itis.getcoveragefromtsn(tsn=28727)
+        itis.coverage(tsn=28727)
         # no coverage data
-        itis.getcoveragefromtsn(526852)
+        itis.coverage(526852)
         # as data_frame
-        itis.getcoveragefromtsn(526852, as_dataframe=True)
+        itis.coverage(526852, as_dataframe=True)
     """
     out = Refactor(
         itis_base + "getCoverageFromTSN", payload={"tsn": tsn}, request="get"
@@ -137,15 +145,19 @@ def getcoveragefromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out, as_dataframe)
 
 
-def getcredibilityratingfromtsn(tsn, as_dataframe=False, **kwargs):
+def credibility_rating(tsn, as_dataframe=False, **kwargs):
     """
     Get credibility rating from tsn
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getcredibilityratingfromtsn(tsn=526852)
-        itis.getcredibilityratingfromtsn(28727)
+        itis.credibility_rating(tsn=526852)
+        itis.credibility_rating(28727)
     """
     out = Refactor(
         itis_base + "getCredibilityRatingFromTSN", payload={"tsn": tsn}, request="get"
@@ -154,7 +166,7 @@ def getcredibilityratingfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out, as_dataframe)
 
 
-def getcredibilityratings(**kwargs):
+def credibility_ratings(**kwargs):
     """
     Get possible credibility ratings
 
@@ -164,7 +176,7 @@ def getcredibilityratings(**kwargs):
     Usage::
         
         from pytaxize import itis
-        itis.getcredibilityratings()
+        itis.credibility_ratings()
     """
     out = Refactor(itis_base + "getCredibilityRatings", payload={}, request="get").json(
         **kwargs
@@ -173,19 +185,23 @@ def getcredibilityratings(**kwargs):
     return out["credibilityValues"]
 
 
-def getcurrencyfromtsn(tsn, as_dataframe=False, **kwargs):
+def currency(tsn, as_dataframe=False, **kwargs):
     """
     Get currency from tsn
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
         # currency data
-        itis.getcurrencyfromtsn(28727)
+        itis.currency(28727)
         # no currency dat
-        itis.getcurrencyfromtsn(526852)
+        itis.currency(526852)
         # as data_frame
-        itis.getcurrencyfromtsn(526852, as_dataframe=True)
+        itis.currency(526852, as_dataframe=True)
     """
     out = Refactor(
         itis_base + "getCurrencyFromTSN", payload={"tsn": tsn}, request="get"
@@ -194,14 +210,18 @@ def getcurrencyfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out, as_dataframe)
 
 
-def getdatedatafromtsn(tsn, as_dataframe=False, **kwargs):
+def date_data(tsn, as_dataframe=False, **kwargs):
     """
     Get date data from tsn
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getdatedatafromtsn(tsn=180543)
+        itis.date_data(tsn=180543)
     """
     out = Refactor(
         itis_base + "getDateDataFromTSN", payload={"tsn": tsn}, request="get"
@@ -210,14 +230,18 @@ def getdatedatafromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out, as_dataframe)
 
 
-def getexpertsfromtsn(tsn, as_dataframe=False, **kwargs):
+def experts(tsn, as_dataframe=False, **kwargs):
     """
     Get expert information for the TSN.
+
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getexpertsfromtsn(tsn=180544)
+        itis.experts(tsn=180544)
     """
     out = Refactor(
         itis_base + "getExpertsFromTSN", payload={"tsn": tsn}, request="get"
@@ -226,16 +250,18 @@ def getexpertsfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out["experts"], as_dataframe)
 
 
-def gettaxonomicranknamefromtsn(tsn, as_dataframe=False, **kwargs):
+def rank_name(tsn, as_dataframe=False, **kwargs):
     """
     Returns the kingdom and rank information for the TSN.
 
-    :param tsn: TSN for a taxonomic group (numeric)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.gettaxonomicranknamefromtsn(tsn = 202385)
+        itis.rank_name(tsn = 202385)
     """
     tt = Refactor(
         itis_base + "getTaxonomicRankNameFromTSN", payload={"tsn": tsn}, request="get"
@@ -244,19 +270,21 @@ def gettaxonomicranknamefromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(tt, as_dataframe)
 
 
-def getfullhierarchyfromtsn(tsn, as_dataframe=False, **kwargs):
+def hierarchy_full(tsn, as_dataframe=False, **kwargs):
     """
     Get full hierarchy from ts
 
-    :param tsn: TSN for a taxonomic group (numeric)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getfullhierarchyfromtsn(tsn = 37906)
-        itis.getfullhierarchyfromtsn(tsn = 100800)
+        itis.hierarchy_full(tsn = 37906)
+        itis.hierarchy_full(tsn = 100800)
         # as data_frame
-        itis.getfullhierarchyfromtsn(tsn = 100800, as_dataframe=True)
+        itis.hierarchy_full(tsn = 100800, as_dataframe=True)
     """
     tt = Refactor(
         itis_base + "getFullHierarchyFromTSN", payload={"tsn": tsn}, request="get"
@@ -305,50 +333,41 @@ def _fullrecord(verb, args, **kwargs):
     return out
 
 
-def getfullrecordfromlsid(lsid, **kwargs):
+def full_record(tsn=None, lsid=None, **kwargs):
     """
-    Returns the full ITIS record for the TSN in the LSID, found by comparing the
-    TSN in the search key to the TSN field. Returns an empty result set if
-    there is no match or the TSN is invalid.
+    Returns the full ITIS record for a TSN or LSID
 
+    :param tsn: (int) TSN for a taxonomic group
     :param lsid: lsid for a taxonomic group (character)
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getfullrecordfromlsid(lsid="urn:lsid:itis.gov:itis_tsn:180543")
-        itis.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:37906")
-        itis.getfullrecordfromlsid("urn:lsid:itis.gov:itis_tsn:100800")
+        itis.full_record(tsn="504239")
+        itis.full_record(tsn="202385")
+        itis.full_record(tsn="183833")
+        itis.full_record(lsid="urn:lsid:itis.gov:itis_tsn:180543")
+        itis.full_record(lsid="urn:lsid:itis.gov:itis_tsn:37906")
+        itis.full_record(lsid="urn:lsid:itis.gov:itis_tsn:100800")
     """
-    return _fullrecord("getFullRecordFromLSID", {"lsid": lsid}, **kwargs)
+    if tsn is not None:
+        return _fullrecord("getFullRecordFromTSN", {"tsn": tsn}, **kwargs)
+    if lsid is not None:
+        return _fullrecord("getFullRecordFromLSID", {"lsid": lsid}, **kwargs)
 
-
-def getfullrecordfromtsn(tsn, **kwargs):
+def geographic_divisions(tsn, as_dataframe=False, **kwargs):
     """
-    Returns the full ITIS record for a TSN
+    Get geographic divisions from tsn
 
-    :param tsn: tsn for a taxonomic group (character)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
     :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
         from pytaxize import itis
-        itis.getfullrecordfromtsn("504239")
-        itis.getfullrecordfromtsn("202385")
-        itis.getfullrecordfromtsn("183833")
-    """
-    return _fullrecord("getFullRecordFromTSN", {"tsn": tsn}, **kwargs)
-
-
-def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
-    """
-    Get geographic divisions from tsn
-
-    Usage::
-        
-        from pytaxize import itis
-        itis.getgeographicdivisionsfromtsn(tsn=180543)
+        itis.geographic_divisions(tsn=180543)
     """
     out = Refactor(
         itis_base + "getGeographicDivisionsFromTSN", payload={"tsn": tsn}, request="get"
@@ -358,33 +377,29 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
     return _df(out["geoDivisions"], as_dataframe)
 
 
-# def getgeographicvalues(**kwargs):
-#     """
-#     Get all possible geographic values
+def geographic_values(**kwargs):
+    """
+    Get all possible geographic values
 
-#     :param **kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
-#     Usage::
+    Usage::
 
-#         from pytaxize import itis
-#         itis.getgeographicvalues()
-#     """
-#     out = Refactor(itis_base + "getGeographicValues", payload={}, request="get").xml(
-#         **kwargs
-#     )
-#     ns = {"ax21": "http://metadata.itis_service.itis.usgs.gov/xsd"}
-#     nodes = out.xpath("//ax21:geographicValues", namespaces=ns)
-#     return [x.text for x in nodes]
+        from pytaxize import itis
+        itis.geographic_values()
+    """
+    out = Refactor(itis_base + "getGeographicValues", payload={},
+        request="get").json()
+    return out["geographicValues"]
 
-
-# def getglobalspeciescompletenessfromtsn(tsn, **kwargs):
+# def global_species_completeness(tsn, **kwargs):
 #     """
 #     Get global species completeness from tsn
 
 #     Usage::
 
 #         from pytaxize import itis
-#         itis.getglobalspeciescompletenessfromtsn(180541)
+#         itis.global_species_completeness(180541)
 #     """
 #     out = Refactor(
 #         itis_base + "getGlobalSpeciesCompletenessFromTSN",
@@ -395,125 +410,80 @@ def getgeographicdivisionsfromtsn(tsn, as_dataframe=False, **kwargs):
 #     return _itis_parse(toget, out, ns21)
 
 
-# def gethierarchydownfromtsn(tsn, **kwargs):
-#     """
-#     Get hierarchy down from tsn
+def hierarchy_down(tsn, as_dataframe=False, **kwargs):
+    """
+    Get hierarchy down from tsn
 
-#     :param tsn: TSN for a taxonomic group (numeric)
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
-#     Usage::
+    Usage::
 
-#         from pytaxize import itis
-#         itis.gethierarchydownfromtsn(tsn = 161030)
-#     """
-#     tt = Refactor(
-#         itis_base + "getHierarchyDownFromTSN", payload={"tsn": tsn}, request="get"
-#     ).json(**kwargs)
-#     ns = {"ax21": "http://data.itis_service.itis.usgs.gov/xsd"}
-#     df = _parse_hier(tt, ns)
-#     return df
+        from pytaxize import itis
+        itis.hierarchy_down(tsn = 179913)
+    """
+    tt = Refactor(
+        itis_base + "getHierarchyDownFromTSN", payload={"tsn": tsn}, request="get"
+    ).json(**kwargs)
+    tt.pop("class")
+    [z.pop("class") for z in tt["hierarchyList"]]
+    return _df(tt["hierarchyList"], as_dataframe)
 
+def hierarchy_up(tsn, as_dataframe=False, **kwargs):
+    """
+    Get hierarchy up from tsn
 
-# def gethierarchyupfromtsn(tsn, **kwargs):
-#     """
-#     Get hierarchy up from tsn
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param **kwargs: Curl options passed on to `requests.get`
 
-#     :param tsn: TSN for a taxonomic group (numeric)
+    Usage::
 
-#     Usage::
+        from pytaxize import itis
+        itis.hierarchy_up(tsn = 36485)
+        itis.hierarchy_up(tsn = 37906)
+    """
+    tt = Refactor(
+        itis_base + "getHierarchyUpFromTSN", payload={"tsn": tsn}, request="get"
+    ).json(**kwargs)
+    tt.pop("class")
+    return _df(tt, as_dataframe)
 
-#         from pytaxize import itis
-#         itis.gethierarchyupfromtsn(tsn = 36485)
-#         itis.gethierarchyupfromtsn(tsn = 37906)
-#     """
-#     tt = Refactor(
-#         itis_base + "getHierarchyUpFromTSN", payload={"tsn": tsn}, request="get"
-#     ).json(**kwargs)
-#     ns = {"ax21": "http://data.itis_service.itis.usgs.gov/xsd"}
-#     df = _parse2df(tt, ns)
-#     return df
+def _itisterms(endpt, args={}, as_dataframe=False, **kwargs):
+    out = Refactor(itis_base + endpt, payload=args, request="get").json(**kwargs)
+    [w.pop("class") for w in out['itisTerms']]
+    return _df(out['itisTerms'], as_dataframe)
 
+def _get_text_single(x):
+    vals = [x.text]
+    keys = [x.tag.split("}")[1]]
+    return dict(zip(keys, vals))
 
-# def _itisterms(endpt, args={}, **kwargs):
-#     """
-#     Get itis term
+def terms(x, what="both", as_dataframe=False, **kwargs):
+    """
+    Get itis terms
 
-#     Usage::
+    :param x: query term
+    :param what: One of both (search common and scientific names), common
+        (search just common names), or scientific (search just scientific names)
+    :param as_dataframe: specify return type, if pandas is available (boolean)
+    :param **kwargs: Curl options passed on to `requests.get`
 
-#         from pytaxize import itis
-#         itis._itisterms("buya")
-#     """
-#     out = Refactor(itis_base + endpt, payload=args, request="get").json(**kwargs)
+    Usage::
 
-#     nodes = out.xpath("//ax21:itisTerms", namespaces=ns21)
-#     nodes2 = [x.getchildren() for x in nodes]
-#     allnodes = [[_get_text_single(y) for y in x] for x in nodes2]
-
-#     output = []
-#     for x in allnodes:
-#         kyz = [list(y.keys())[0] for y in x]
-#         notuniq = set([v for v in kyz if kyz.count(v) > 1])
-#         if len(notuniq) > 0:
-#             for z in notuniq:
-#                 tt = ",".join(
-#                     [list(m.values())[0] for m in x if list(m.keys())[0] == z]
-#                 )
-#                 toadd = {z: tt}
-#                 uu = [v for v in x if list(v.keys())[0] not in z]
-#                 uu.append(toadd)
-#             output.append(uu)
-#         else:
-#             output.append(x)
-
-#     df = pd.DataFrame([{k: v for d in R for k, v in d.items()} for R in output])
-#     return df[[list(x.keys())[0] for x in allnodes[0]]]
-
-
-# def _get_text_single(x):
-#     vals = [x.text]
-#     keys = [x.tag.split("}")[1]]
-#     return dict(zip(keys, vals))
-
-
-# def getitistermsfromcommonname(x, **kwargs):
-#     """
-#     Get itis terms from common names
-
-#     Usage::
-
-#         from pytaxize import itis
-#         itis.getitistermsfromcommonname("buya")
-#     """
-#     return _itisterms(endpt="getITISTermsFromCommonName", args={"srchKey": x}, **kwargs)
-
-
-# def getitisterms(x, **kwargs):
-#     """
-#     Get itis terms
-
-#     Usage::
-
-#         from pytaxize import itis
-#         # fails
-#         itis.getitisterms("bear")
-#     """
-#     return _itisterms(endpt="getITISTerms", args={"srchKey": x}, **kwargs)
-
-
-# def getitistermsfromscientificname(x, **kwargs):
-#     """
-#     Get itis terms from scientific names
-
-#     Usage::
-
-#         from pytaxize import itis
-#         itis.getitistermsfromscientificname("ursidae")
-#         itis.getitistermsfromscientificname("Ursus")
-#     """
-#     return _itisterms(
-#         endpt="getITISTermsFromScientificName", args={"srchKey": x}, **kwargs
-#     )
-
+        from pytaxize import itis
+        itis.terms("bear")
+        itis.terms("bear", what="common")
+        itis.terms("Poa", what="scientific")
+        itis.terms("bear", as_dataframe=True)
+    """
+    class Endpts(Enum):
+        both = "getITISTerms"
+        common = "getITISTermsFromCommonName"
+        scientific = "getITISTermsFromScientificName"
+    return _itisterms(endpt=Endpts[what].value, args={"srchKey": x},
+        as_dataframe=as_dataframe, **kwargs)
 
 # def hierarchy(tsn=None, what="full"):
 #     """
@@ -1121,8 +1091,8 @@ def convertsingle(x):
         return x
 
 
-ns21 = {"ax21": "http://data.itis_service.itis.usgs.gov/xsd"}
-ns23 = {"ax23": "http://metadata.itis_service.itis.usgs.gov/xsd"}
+# ns21 = {"ax21": "http://data.itis_service.itis.usgs.gov/xsd"}
+# ns23 = {"ax23": "http://metadata.itis_service.itis.usgs.gov/xsd"}
 
 
 def _parse2df(obj, ns):

@@ -1,0 +1,86 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
+    status:
+      code: 302
+      message: Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getCommentDetailFromTSN?tsn=180543
+  response:
+    body:
+      string: !!binary |
+        eyJjbGFzcyI6Imdvdi51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRhdGEuU3ZjVGF4b25Db21tZW50
+        TGlzdCIsImNvbW1lbnRzIjpbeyJjbGFzcyI6Imdvdi51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRh
+        dGEuU3ZjVGF4b25Db21tZW50IiwiY29tbWVudERldGFpbCI6IlN0YXR1czogQ0lURVMgLSBBcHBl
+        bmRpeCBJIGFzIFUuIGFyY3RvcyAoTWV4aWNvLCBCaHV0YW4sIENoaW5hLCBhbmQgTW9uZ29saWEg
+        cG9wdWxhdGlvbnMpIGFuZCBVLiBhLiBpc2FiZWxsaW51czsgb3RoZXJ3aXNlIEFwcGVuZGl4IElJ
+        LiBVLiBTLiBFU0EgLSBFbmRhbmdlcmVkIGFzIFUuIGFyY3RvcyBwcnVpbm9zdXMsIGFzIFUuIGFy
+        Y3RvcyBpbiBNZXhpY28sIGFuZCBhcyBVLiBhLiBhcmN0b3MgaW4gSXRhbHkuIFRocmVhdGVuZWQg
+        YXMgVS4gYS4gaG8uLi4iLCJjb21tZW50SWQiOiIxODU1NiIsImNvbW1lbnRUaW1lU3RhbXAiOiIy
+        MDA3LTA4LTIwIDE1OjA2OjM4LjAiLCJjb21tZW50YXRvciI6IldpbHNvbiAmIFJlZWRlciwgZWRz
+        LiAoMjAwNSkiLCJ1cGRhdGVEYXRlIjoiMjAxNC0wMi0wMyJ9LHsiY2xhc3MiOiJnb3YudXNncy5p
+        dGlzLml0aXNfc2VydmljZS5kYXRhLlN2Y1RheG9uQ29tbWVudCIsImNvbW1lbnREZXRhaWwiOiJD
+        b21tZW50czogUmV2aWV3ZWQgYnkgRXJkYnJpbmsgKDE5NTMpLCBDb3V0dXJpZXIgKDE5NTQpLCBS
+        YXVzY2ggKDE5NjNhKSwgS3VydOluICgxOTczKSwgSGFsbCAoMTk4NCkgYW5kIFBhc2l0c2Nobmlh
+        ay1BcnRzICgxOTkzKS4gT2duZXYgKDE5MzEpIGFuZCBBbGxlbiAoMTkzOCkgcmVjb2duaXplZCBV
+        LiBwcnVpbm9zdXMgYXMgZGlzdGluY3Q7IG5vdCBmb2xsb3dlZCBieSBFbGxlcm1hbiBhbmQgTW9y
+        cmlzb24tU2NvdHQgKDE5NTEpLCBHYW8gKDE5ODcpLCBhbmQgU3Ryb2dhbm92ICgxOTYyKS4gTPZu
+        bmJlcmcgKDE5MjNiKSBiZWxpZXZlZCB0aGF0IGRpZmZlcmVuY2VzIGJldHdlZW4gcHJ1aW5vc3Vz
+        IGFuZCBhcmN0b3Mgd2FycmFudGVkIHN1YmdlbmVyaWMgZGlzdGluY3Rpb24gYXMgKE15bGFyY3Rv
+        cykgcHJ1aW5vc3VzOyBob3dldmVyLCB0aGlzIHdhcyBub3Qgc3VwcG9ydGVkIGJ5IFBvY29jaydz
+        ICgxOTMyYikgdGhvcm91Z2ggcmV2aXNpb24uIFN5bm9ueW1zIGFsbG9jYXRlZCBhLi4uIiwiY29t
+        bWVudElkIjoiMTg1NTciLCJjb21tZW50VGltZVN0YW1wIjoiMjAwNy0wOC0yMCAxNTowNjozOC4w
+        IiwiY29tbWVudGF0b3IiOiJXaWxzb24gJiBSZWVkZXIsIGVkcy4gKDIwMDUpIiwidXBkYXRlRGF0
+        ZSI6IjIwMTQtMDItMDMifV0sInRzbiI6IjE4MDU0MyJ9Cg==
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1288'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Sat, 13 Jun 2020 14:55:06 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
+version: 1

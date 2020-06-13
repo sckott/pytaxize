@@ -6,15 +6,15 @@ import vcr
 from pytaxize import itis
 
 class ITIS(unittest.TestCase):
-    @vcr.use_cassette("test/vcr_cassettes/itis_getacceptednamesfromtsn.yml")
-    def test_itis_getacceptednamesfromtsn(self):
-        "ITIS: getaccepednamesfromtsn"
-        assert itis.getacceptednamesfromtsn("208527") == {}
+    @vcr.use_cassette("test/vcr_cassettes/itis_accepted_names.yml")
+    def test_itis_accepted_names(self):
+        "ITIS: accepted_names"
+        assert itis.accepted_names("208527") == {}
 
-    @vcr.use_cassette("test/vcr_cassettes/itis_getcommentdetailfromtsn.yml")
-    def test_itis_getcommentdetailfromtsn(self):
-        "ITIS: getcommentdetailfromtsn"
-        comments = itis.getcommentdetailfromtsn(tsn=180543)
+    @vcr.use_cassette("test/vcr_cassettes/itis_comment_detail.yml")
+    def test_itis_comment_detail(self):
+        "ITIS: comment_detail"
+        comments = itis.comment_detail(tsn=180543)
         assert isinstance(comments, list)
         assert isinstance(comments[0], dict)
         assert len(comments) == 2
@@ -31,18 +31,18 @@ class ITIS(unittest.TestCase):
     #     hierarchy = itis.gethierarchyupfromtsn(tsn=36485)
     #     assert hierarchy[0]["rankName"] == "Genus"
 
-    @vcr.use_cassette("test/vcr_cassettes/itis_getcommonnamesfromtsn_dict.yml")
-    def test_itis_getcommonnamesfromtsn_dict(self):
-        "ITIS: getcommonnamesfromtsn"
-        common_names = itis.getcommonnamesfromtsn(
+    @vcr.use_cassette("test/vcr_cassettes/itis_common_names.yml")
+    def test_itis_common_names(self):
+        "ITIS: common_names"
+        common_names = itis.common_names(
             tsn=180543, as_dataframe=False
         )
         assert set(common_names[1]) == set(["commonName", "language", "tsn"])
 
-    @vcr.use_cassette("test/vcr_cassettes/itis_getcommonnamesfromtsn_dataframe.yml")
-    def test_itis_getcommonnamesfromtsn_dataframe(self):
-        "ITIS: getcommonnamesfromtsn"
-        common_names = itis.getcommonnamesfromtsn(
+    @vcr.use_cassette("test/vcr_cassettes/itis_common_names_dataframe.yml")
+    def test_itis_common_names_dataframe(self):
+        "ITIS: common_names"
+        common_names = itis.common_names(
             tsn=180543, as_dataframe=False
         )
         assert set(common_names[1]) == set(["commonName", "language", "tsn"])
