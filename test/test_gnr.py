@@ -6,32 +6,31 @@ import vcr
 from pytaxize import gn
 
 # expected results
-exp1 = {
-    u"canonical_form": u"Helianthus annus",
-    u"classification_path": u"",
-    u"classification_path_ids": u"",
-    u"classification_path_ranks": u"",
-    u"data_source_id": 12,
-    u"data_source_title": u"EOL",
-    u"edit_distance": 0,
-    u"gni_uuid": u"f5674e32-00cc-57e3-b632-6a0b89fa4df4",
-    u"imported_at": u"2012-05-08T02:42:50Z",
-    u"local_id": u"468106",
-    u"match_type": 1,
-    u"match_value": u"Exact string match",
-    u"name_string": u"Helianthus annus",
-    u"prescore": u"3|0|0",
-    u"score": 0.988,
-    u"taxon_id": u"s_5106367",
-    u"url": u"http://eol.org/pages/468106/names/synonyms",
-}
+exp1 = {'data_source_id': 169,
+ 'data_source_title': 'uBio NameBank',
+ 'gni_uuid': 'f5674e32-00cc-57e3-b632-6a0b89fa4df4',
+ 'name_string': 'Helianthus annus',
+ 'canonical_form': 'Helianthus annus',
+ 'classification_path': '|Helianthus annus',
+ 'classification_path_ranks': 'kingdom|',
+ 'classification_path_ids': '',
+ 'taxon_id': '102910884',
+ 'local_id': 'urn:lsid:ubio.org:namebank:10130157',
+ 'global_id': 'urn:lsid:ubio.org:namebank:10130157',
+ 'edit_distance': 0,
+ 'url': 'http://www.ubio.org/browser/details.php?namebankID=10130157',
+ 'imported_at': '2013-05-31T20:12:19Z',
+ 'match_type': 1,
+ 'match_value': 'Exact string match',
+ 'prescore': '3|0|0',
+ 'score': 0.988}
 
 
 class Gnr(unittest.TestCase):
-    @vcr.use_cassette("test/vcr_cassettes/gnr_resolve.yml")
+    @vcr.use_cassette("test/vcr_cassettes/gn_resolve.yml")
     def test_gnr_resolve(self):
-        "gnr_resolve"
-        assert exp1 == gn.gnr_resolve("Helianthus annus")[0][0]
+        "gn.resolve"
+        assert exp1 == gn.resolve("Helianthus annus")[0][0]
 
 
 # def test_gnr_resolve_remove_temporary_file():

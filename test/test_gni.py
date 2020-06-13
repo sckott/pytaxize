@@ -113,17 +113,17 @@ c = {
 
 
 class Gni(unittest.TestCase):
-    @vcr.use_cassette("test/vcr_cassettes/gni_parse.yml")
+    @vcr.use_cassette("test/vcr_cassettes/gn_parse.yml")
     def test_gni_parse(self):
-        "gni_parse"
-        assert b == gn.gni_parse(names=["Cyanistes caeruleus", "Helianthus annuus"])
+        "gn.parse"
+        assert b == gn.parse(names=["Cyanistes caeruleus", "Helianthus annuus"])
 
-    @vcr.use_cassette("test/vcr_cassettes/gni_search.yml")
+    @vcr.use_cassette("test/vcr_cassettes/gn_search.yml")
     def test_gni_search(self):
-        "gni_search"
-        assert c == gn.gni_search("ani*", per_page=1)
+        "gn.search"
+        assert c == gn.search("ani*", per_page=1)
 
-    @vcr.use_cassette("test/vcr_cassettes/gni_details.yml")
+    @vcr.use_cassette("test/vcr_cassettes/gn_details.yml")
     def test_gni_details(self):
-        "gni_details"
-        assert a == gn.gni_details(id=17802847)
+        "gn.details"
+        assert a == gn.details(id=17802847)

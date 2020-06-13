@@ -1,0 +1,61 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.23.0
+    method: GET
+    uri: https://resolver.globalnames.org/name_resolvers?format=json&resolve_once=false&with_context=false&best_match_only=false&header_only=false&preferred_data_sources=false&names=Helianthus+annus
+  response:
+    body:
+      string: '{"id":"7vg2qk8kkjwt","url":"http://resolver.globalnames.org/name_resolvers/7vg2qk8kkjwt.json","data_sources":[],"data":[{"supplied_name_string":"Helianthus
+        annus","is_known_name":true,"results":[{"data_source_id":169,"data_source_title":"uBio
+        NameBank","gni_uuid":"f5674e32-00cc-57e3-b632-6a0b89fa4df4","name_string":"Helianthus
+        annus","canonical_form":"Helianthus annus","classification_path":"|Helianthus
+        annus","classification_path_ranks":"kingdom|","classification_path_ids":"","taxon_id":"102910884","local_id":"urn:lsid:ubio.org:namebank:10130157","global_id":"urn:lsid:ubio.org:namebank:10130157","edit_distance":0,"url":"http://www.ubio.org/browser/details.php?namebankID=10130157","imported_at":"2013-05-31T20:12:19Z","match_type":1,"match_value":"Exact
+        string match","prescore":"3|0|0","score":0.988}],"preferred_results":[]}],"status":"success","message":"Success","parameters":{"with_context":false,"header_only":false,"with_canonical_ranks":false,"with_vernaculars":false,"best_match_only":false,"data_sources":[],"preferred_data_sources":[0],"resolve_once":false}}'
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Allow-Origin:
+      - '*'
+      Age:
+      - '0'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1078'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 13 Jun 2020 14:48:13 GMT
+      ETag:
+      - '"febf2a32f6d087c7d381bae0e97c88fe"'
+      Server:
+      - nginx/1.14.2
+      Via:
+      - 1.1 varnish (Varnish/6.0)
+      X-Rack-Cache:
+      - miss
+      X-Request-Id:
+      - 9550d909519ee4be5b3d8e09e6ac7344
+      X-Runtime:
+      - '0.082617'
+      X-UA-Compatible:
+      - IE=Edge,chrome=1
+      X-Varnish:
+      - '65213425'
+    status:
+      code: 200
+      message: OK
+version: 1
