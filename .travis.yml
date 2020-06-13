@@ -15,6 +15,7 @@ install:
   - pip install vcrpy
   - pip install vcrpy-unittest
   - pip install pytest
+  - pip install multipledispatch
 
 script:
   - pytest --verbose --disable-warnings --ignore setup.py
