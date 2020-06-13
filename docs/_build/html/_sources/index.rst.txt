@@ -107,8 +107,8 @@ Indices and tables
 .. |travis| image:: https://travis-ci.org/sckott/pytaxize.svg?branch=master
    :target: https://travis-ci.org/sckott/pytaxize
 
-.. |coverage| image:: https://coveralls.io/repos/sckott/pytaxize/badge.svg?branch=master&service=github
-   :target: https://coveralls.io/github/sckott/pytaxize?branch=master
+.. |coverage| image:: https://codecov.io/gh/sckott/pytaxize/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/sckott/pytaxize
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black

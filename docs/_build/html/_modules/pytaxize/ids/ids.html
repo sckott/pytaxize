@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.ids.ids &mdash; pytaxize 0.6.92 documentation</title>
+  <title>pytaxize.ids.ids &mdash; pytaxize 0.6.94 documentation</title>
   
 
   
@@ -56,7 +56,7 @@
             
             
               <div class="version">
-                0.6.92
+                0.6.94
               </div>
             
           
@@ -167,8 +167,8 @@
 <span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">..col</span> <span class="kn">import</span> <span class="n">search</span>
 <span class="kn">from</span> <span class="nn">pytaxize.ncbi</span> <span class="kn">import</span> <span class="n">ncbi</span>
+<span class="kn">from</span> <span class="nn">pytaxize.itis</span> <span class="kn">import</span> <span class="n">terms</span>
 <span class="kn">from</span> <span class="nn">..gbif.gbif_utils</span> <span class="kn">import</span> <span class="o">*</span>
-
 
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -209,7 +209,7 @@
 <span class="sd">        out[&quot;Echinacea&quot;]</span>
 
 <span class="sd">        # ITIS</span>
-<span class="sd">        x = Ids(&#39;Poa annua&#39;])</span>
+<span class="sd">        x = Ids(&#39;Poa annua&#39;)</span>
 <span class="sd">        x.itis()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -255,7 +255,8 @@
         <span class="k">return</span> <span class="n">x</span>
 
     <span class="k">def</span> <span class="nf">itis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">xxx</span></div>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">terms</span><span class="p">()</span></div>
 
 
 <span class="k">def</span> <span class="nf">_make_id</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
@@ -336,7 +337,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../../../',
-            VERSION:'0.6.92',
+            VERSION:'0.6.94',
             LANGUAGE:'None',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',

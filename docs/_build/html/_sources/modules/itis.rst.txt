@@ -5,7 +5,7 @@ ITIS
 
 .. py:module:: pytaxize
 
-.. automethod:: itis.accepted_names 
+.. automethod:: itis.accepted_names
 .. automethod:: itis.any_match_count
 .. automethod:: itis.comment_detail
 .. automethod:: itis.common_names
