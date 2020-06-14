@@ -2,8 +2,8 @@ import warnings
 import sys
 from ..col import search
 from pytaxize.ncbi import ncbi
+from pytaxize.itis import terms
 from ..gbif.gbif_utils import *
-
 
 class NoResultException(Exception):
     pass
@@ -22,6 +22,7 @@ class Ids(object):
         x.name
         x.ncbi()
         x.ids
+        x.db_ids
         
         # more than one result
         x = Ids(name="Echinacea")
@@ -42,6 +43,11 @@ class Ids(object):
         # extract just ids
         out = x.extract_ids()
         out["Echinacea"]
+
+        # ITIS
+        x = Ids("Helianthus annuus")
+        x.itis(type="scientific")
+        x.extract_ids()
     """
 
     def __init__(self, name):
@@ -49,6 +55,7 @@ class Ids(object):
             name = [name]
         self.name = name
         self.ids = {}
+        self.db_ids = None
 
     def __repr__(self):
         x = """<%s>\n""" % type(self).__name__
@@ -68,7 +75,6 @@ class Ids(object):
                 id = [x["TaxId"] for x in res[fname]]
                 if len(id) == 1:
                     z = res[fname][0]
-                    rank_taken = z["Rank"]
                     result = [_make_id(id[0], fname, z["Rank"], "ncbi")]
                 if len(id) > 1:
                     result = [
@@ -76,78 +82,46 @@ class Ids(object):
                         for w in res[fname]
                     ]
             out.append(result)
+        self.db_ids = "ncbi"
         self.ids = dict(zip(self.name, out))
+
+    # FIXME: ITIS doesn't give back ranks, ideally need ranks
+    def itis(self, type="scientific"):
+        out = []
+        for i in range(len(self.name)):
+            fname = self.name[i]
+            res = terms(x=self.name, what=type)
+            if len(res) == 0:
+                warnings.warn("No results for taxon '" + fname + "'")
+                result = [_make_id(None, fname, None, "itis")]
+            else:
+                id = [x["tsn"] for x in res]
+                if len(id) == 1:
+                    z = res[0]
+                    # rank_taken = z["Rank"]
+                    result = [_make_id(id[0], fname, "species", "itis")]
+                if len(id) > 1:
+                    result = [
+                        _make_id(w["tsn"], w["scientificName"], "species", "itis")
+                        for w in res
+                    ]
+            out.append(result)
+        self.db_ids = "itis"
+        self.ids = dict(zip(self.name, out))
+
+    def db(self, db, **kwargs):
+        if db == "ncbi":
+            self.ncbi()
+        elif db == "itis":
+            self.itis(**kwargs)
+        else:
+            raise Exception("'db' must be either ncbi or itis")
 
     def extract_ids(self):
         x = self.ids
         if len(x) > 0:
-            # x = [z["id"] for w in x.values() for z in w]
             x = {k:[w["id"] for w in v] for (k,v) in x.items()}
         return x
-
-    # def col(self):
-    #     """
-    #     Get Catalogue of Life taxonomic identifiers
-
-    #     Usage::
-
-    #         pytaxize.col(name = ['Poa annua'])
-    #     """
-
-    #     def fun(name, verbose):
-    #         id = rank_taken = None
-    #         res = col.search(name=[name])
-
-    #         if len(res[0]) == 0:
-    #             raise NoResultException("Retrieving data for taxon '" + name + "'")
-    #             id = None
-    #         else:
-    #             res = [
-    #                 dict((k, x[k]) for k in ("id", "name", "rank", "name_status"))
-    #                 for x in res[0]
-    #             ]
-    #             id = [x["id"] for x in res]
-
-    #         # not found on col
-    #         if len(id) == 0:
-    #             raise NoResultException(
-    #                 "Not found. Consider checking the spelling or alternate classification"
-    #             )
-    #             id = None
-
-    #         # more than one found on col -> user input
-    #         if len(id) > 1:
-    #             if ask:
-    #                 print("\nMore than one eolid found for taxon '" + name + "'\n")
-    #                 print(res)
-    #                 take = input("\n Enter rownumber of taxon:\n\n")
-
-    #                 if len(str(take)) == 0:
-    #                     take = "notake"
-    #                 else:
-    #                     pass
-    #                 if int(take) in range(len(res)):
-    #                     take = int(take)
-    #                     print("Input accepted, took eolid '" + id[take] + "'.\n")
-    #                     id = id[take]
-    #                     rank_taken = res[take]["rank"]
-    #                 else:
-    #                     id = None
-    #                     print("\nReturned 'none'!\n\n")
-    #             else:
-    #                 id = "none"
-    #         return {
-    #             "id": id,
-    #             "rank": rank_taken,
-    #             "uri": _make_id_uri(rank_taken, "col", id),
-    #         }
-
-    #     out = []
-    #     for i in range(len([self.name])):
-    #         out.append(fun([self.name][i], verbose))
-
-    #     return out
-
 
 def _make_id(id, name, rank, type):
     if id is None:
@@ -181,6 +155,10 @@ id_uris = {
     "ncbi": {
         "species": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
         "other": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
+    },
+    "itis": {
+        "species": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=%s",
+        "other": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=%s",
     },
 }
 

@@ -89,13 +89,15 @@ def common_names(tsn, as_dataframe=False, **kwargs):
         
         from pytaxize import itis
         itis.common_names(tsn=183833)
+        # no common names
+        itis.common_names(tsn=726872)
     """
     out = Refactor(
         itis_base + "getCommonNamesFromTSN", payload={"tsn": tsn}, request="get"
     ).json(**kwargs)
-    [z.pop("class") for z in out["commonNames"]]
+    if out["commonNames"][0] is not None:
+        [z.pop("class") for z in out["commonNames"]]
     return _df(out["commonNames"], as_dataframe)
-
 
 def core_metadata(tsn, as_dataframe=False, **kwargs):
     """
@@ -452,6 +454,8 @@ def hierarchy_up(tsn, as_dataframe=False, **kwargs):
 
 def _itisterms(endpt, args={}, as_dataframe=False, **kwargs):
     out = Refactor(itis_base + endpt, payload=args, request="get").json(**kwargs)
+    if out['itisTerms'][0] is None:
+        return {}
     [w.pop("class") for w in out['itisTerms']]
     return _df(out['itisTerms'], as_dataframe)
 
