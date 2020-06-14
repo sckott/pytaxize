@@ -3,6 +3,7 @@ from nose.tools import *
 import unittest
 import vcr
 from pytaxize import Ids
+import pytest
 
 class IdsTest(unittest.TestCase):
     @vcr.use_cassette("test/vcr_cassettes/ids_ncbi.yml")
