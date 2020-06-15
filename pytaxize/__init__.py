@@ -7,20 +7,15 @@ pytaxize library
 ~~~~~~~~~~~~~~~~
 
 pytaxize is a taxonomic toolkit for Python. Example usage:
-
-Usage::
-
-   from pytaxize import col
-   col.col_children(name=["Apis"])
 """
 
-__version__ = "0.6.94"
+__version__ = "0.7.0"
 __title__ = "pytaxize"
 __author__ = "Scott Chamberlain"
 __license__ = "MIT"
 
 from .gbif import parse
-from .col import children, downstream, search
+from .col import children, search
 from .gn import gni
 from .gn import gnr
 from .ncbi import search
@@ -44,6 +39,10 @@ from .itis import (
     hierarchy_down,
     hierarchy_up,
     terms,
+    global_species_completeness,
+    jurisdictional_origin,
+    jurisdiction_origin_values,
+    jurisdiction_values,
 )
 from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve

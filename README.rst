@@ -15,37 +15,44 @@ pytaxize is only developed in and tested with Python 3
 Installation
 ============
 
+Stable from pypi
+
+.. code-block:: console
+
+    pip install pytaxize
+
+Development version
+
 .. code-block:: console
 
     sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize
 
-python or ipython, etc.
-
-.. code-block:: python
-
-    import pytaxize
 
 Taxonomic Ids
 =============
 
 I've started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What's available right now is just getting COL ids.
 
-NOT WORKING YET! 
+.. code-block:: python
+    
+    from pytaxize import Ids
+    res = Ids('Poa annua')
+    res.ncbi()
+    res.ids
 
 .. code-block:: python
 
-    res = pytaxize.Ids('Poa annua', db='col')
-    res.get_colid()
-
-.. code-block:: python
-
-    [19275187]
+    {'Poa annua': [{'id': '93036',
+       'name': 'Poa annua',
+       'rank': 'species',
+       'uri': 'https://www.ncbi.nlm.nih.gov/taxonomy/93036'}]}
 
 Vascan search
 =============
 
 .. code-block:: python
-
+  
+    import pytaxize
     pytaxize.vascan_search(q = ["Helianthus annuus"])
 
 .. code-block:: python
@@ -69,21 +76,25 @@ Vascan search
 Scrape taxonomic names
 ======================
 
-NOT WORKING YET! 
-
 .. code-block:: python
 
     out = pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf')
-    out['data'].head()
+    out['data'][0:3]
 
 .. code-block:: python
 
-     identifiedName  offsetEnd  offsetStart       scientificName       verbatim
-    0       Waxiella         14            7             Waxiella       Waxiella
-    1    W. africana        395          385    Waxiella africana    W. africana
-    2      W. egbara        581          573      Waxiella egbara      W. egbara
-    3  W. erithraeus        771          759  Waxiella erithraeus  W. erithraeus
-    4       W. gwaai        951          944       Waxiella gwaai       W. gwaai
+    [{'verbatim': '(Hemiptera:',
+      'scientificName': 'Hemiptera',
+      'offsetStart': 222,
+      'offsetEnd': 233},
+     {'verbatim': 'Sternorrhyncha:',
+      'scientificName': 'Sternorrhyncha',
+      'offsetStart': 234,
+      'offsetEnd': 249},
+     {'verbatim': 'Coccoidea:',
+      'scientificName': 'Coccoidea',
+      'offsetStart': 250,
+      'offsetEnd': 260}]
 
 ITIS low level functions
 ========================
@@ -91,28 +102,37 @@ ITIS low level functions
 .. code-block:: python
     
     from pytaxize import itis
-    itis.getacceptednamesfromtsn('208527')
+    itis.accepted_names(504239)
 
-    '208527'
-
-.. code-block:: python
-
-    itis.getcommentdetailfromtsn(tsn=180543)
-
-                                                 comment  \
-    0  Status: CITES - Appendix I as U. arctos (Mexic...
-    1  Comments: Reviewed by Erdbrink (1953), Couturi...
-
-                        commentator commid               commtime  updatedate
-    0  Wilson & Reeder, eds. (2005)  18556  2007-08-20 15:06:38.0  2014-02-03
-    1  Wilson & Reeder, eds. (2005)  18557  2007-08-20 15:06:38.0  2014-02-03
+    {'acceptedName': 'Dasiphora fruticosa',
+       'acceptedTsn': '836659',
+       'author': '(L.) Rydb.'}
 
 .. code-block:: python
 
-    itis.gethierarchyupfromtsn(tsn = 36485)
+    itis.comment_detail(tsn=180543)
 
-      author  parentName parentTsn rankName taxonName    tsn
-    0   Raf.  Asteraceae     35420    Genus  Agoseris  36485
+    [{'commentDetail': 'Status: CITES - Appendix I as U. arctos (Mexico, Bhutan, China, and Mongolia populations) and U. a. isabellinus; otherwise Appendix II. U. S. ESA - Endangered as U. arctos pruinosus, as U. arctos in Mexico, and as U. a. arctos in Italy. Threatened as U. a. ho...',
+      'commentId': '18556',
+      'commentTimeStamp': '2007-08-20 15:06:38.0',
+      'commentator': 'Wilson & Reeder, eds. (2005)',
+      'updateDate': '2014-02-03'},
+     {'commentDetail': "Comments: Reviewed by Erdbrink (1953), Couturier (1954), Rausch (1963a), Kurtén (1973), Hall (1984) and Pasitschniak-Arts (1993). Ognev (1931) and Allen (1938) recognized U. pruinosus as distinct; not followed by Ellerman and Morrison-Scott (1951), Gao (1987), and Stroganov (1962). Lönnberg (1923b) believed that differences between pruinosus and arctos warranted subgeneric distinction as (Mylarctos) pruinosus; however, this was not supported by Pocock's (1932b) thorough revision. Synonyms allocated a...",
+      'commentId': '18557',
+      'commentTimeStamp': '2007-08-20 15:06:38.0',
+      'commentator': 'Wilson & Reeder, eds. (2005)',
+      'updateDate': '2014-02-03'}]
+
+.. code-block:: python
+
+    itis.hierarchy_up(tsn = 36485)
+
+    {'author': 'Raf.',
+     'parentName': 'Asteraceae',
+     'parentTsn': '35420',
+     'rankName': 'Genus',
+     'taxonName': 'Agoseris',
+     'tsn': '36485'}
 
 Catalogue of Life
 =================
@@ -120,19 +140,20 @@ Catalogue of Life
 .. code-block:: python
   
     from pytaxize import col
-    col.col_children(name=["Apis"])
-
+    x = col.children(name=["Apis"])
+    x[0][0:3]
 
 .. code-block:: python
 
-    [        id                name     rank
-     0  6971712  Apis andreniformis  Species
-     1  6971713         Apis cerana  Species
-     2  6971714        Apis dorsata  Species
-     3  6971715         Apis florea  Species
-     4  6971716  Apis koschevnikovi  Species
-     5  6845885      Apis mellifera  Species
-     6  6971717    Apis nigrocincta  Species]
+    [{'id': '7a4a38c5095963949d6d6ec917d471de',
+      'name': 'Apis andreniformis',
+      'rank': 'Species'},
+     {'id': '39610a4ceff7e5244e334a3fbc5e47e5',
+      'name': 'Apis cerana',
+      'rank': 'Species'},
+     {'id': 'e1d4cbf3872c6c310b7a1c17ddd00ebc',
+      'name': 'Apis dorsata',
+      'rank': 'Species'}]
 
 Parse names
 ===========
@@ -148,11 +169,20 @@ Parse names using GBIF's parser API
 
 .. code-block:: python
 
-                      scientificName        type   genusOrAbove  ... rankMarker
-  Arrhenatherum elatius var. elatius  SCIENTIFIC  Arrhenatherum  ...       var.
-       Secale cereale subsp. cereale  SCIENTIFIC         Secale  ...     subsp.
-         Secale cereale ssp. cereale  SCIENTIFIC         Secale  ...     subsp.
-   Vanessa atalanta (Linnaeus, 1758)  SCIENTIFIC        Vanessa  ...        sp.
+    [{'scientificName': 'Arrhenatherum elatius var. elatius',
+      'type': 'SCIENTIFIC',
+      'genusOrAbove': 'Arrhenatherum',
+      'specificEpithet': 'elatius',
+      'infraSpecificEpithet': 'elatius',
+      'parsed': True,
+      'parsedPartially': False,
+      'canonicalName': 'Arrhenatherum elatius elatius',
+      'canonicalNameWithMarker': 'Arrhenatherum elatius var. elatius',
+      'canonicalNameComplete': 'Arrhenatherum elatius var. elatius',
+      'rankMarker': 'var.'},
+     {'scientificName': 'Secale cereale subsp. cereale',
+      'type': 'SCIENTIFIC',
+      ...
 
 Contributors
 ============

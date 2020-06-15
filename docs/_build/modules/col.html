@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Catalogue of Life &mdash; pytaxize 0.7.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Scientific and common names" href="scicomm.html" />
+    <link rel="prev" title="Global Biodiversity Information Facility" href="gbif.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gn.html#module-0">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="other.html">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Catalogue of Life</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/col.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-pytaxize">
+<span id="catalogue-of-life"></span><span id="col"></span><h1>Catalogue of Life<a class="headerlink" href="#module-pytaxize" title="Permalink to this headline">¶</a></h1>
+<dl class="py method">
+<dt id="pytaxize.col.children">
+<code class="sig-prename descclassname">col.</code><code class="sig-name descname">children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">format</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">checklist</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.col.children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search Catalogue of Life for for direct children of a particular taxon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The string to search for. Only exact matches found the name given
+will be returned, unless one or wildcards are included in the search
+string. An * (asterisk) character denotes a wildcard; a % (percentage)
+character may also be used. The name must be at least 3 characters long,
+not counting wildcard characters.</p></li>
+<li><p><strong>id</strong> – The record ID of the specific record to return (only for scientific
+names of species or infraspecific taxa)</p></li>
+<li><p><strong>format</strong> – format of the results returned. Valid values are format=xml and
+format=php; if the format parameter is omitted, the results are returned
+in the default XML format. If format=php then results are returned as a
+PHP array in serialized string format, which can be converted back to an
+array in PHP using the unserialize command</p></li>
+<li><p><strong>start</strong> – The first record to return. If omitted, the results are returned
+from the first record (start=0). This is useful if the total number of
+results is larger than the maximum number of results returned by a single
+Web service query (currently the maximum number of results returned by a
+single query is 500 for terse queries and 50 for full queries).</p></li>
+<li><p><strong>checklist</strong> – The year of the checklist to query, if you want a specific
+year’s checklist instead of the lastest as default (numeric). Valid years
+are 2010 through the previous year from the current date. If none given,
+the “lastest” checklist is used</p></li>
+</ul>
+</dd>
+</dl>
+<p>You must provide one of name or id. The other parameters (format and start) are
+optional. Returns A list of data.frame’s.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">col</span>
+<span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+
+<span class="c1"># An example where there is no classification, results in data.frame with no rows</span>
+<span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;4fdb38d6220462049eab9e3f285144e0&quot;</span><span class="p">])</span>
+
+<span class="c1"># Use a specific year&#39;s checklist</span>
+<span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2012&quot;</span><span class="p">)</span>
+<span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2009&quot;</span><span class="p">)</span>
+
+<span class="c1"># Pass in many names or many id&#39;s</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Buteo&quot;</span><span class="p">,</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Accipiter&quot;</span><span class="p">],</span> <span class="n">checklist</span><span class="o">=</span><span class="s2">&quot;2012&quot;</span><span class="p">)</span>
+<span class="c1"># get just one element in list of output</span>
+<span class="n">out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="pytaxize.col.search">
+<code class="sig-prename descclassname">col.</code><code class="sig-name descname">search</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">start</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">checklist</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#pytaxize.col.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search Catalogue of Life for taxonomic IDs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The string to search for. Only exact matches found the name given
+will be returned, unless one or wildcards are included in the search
+string. An * (asterisk) character denotes a wildcard; a % (percentage)
+character may also be used. The name must be at least 3 characters long,
+not counting wildcard characters.</p></li>
+<li><p><strong>id</strong> – The record ID of the specific record to return (only for scientific
+names of species or infraspecific taxa)</p></li>
+<li><p><strong>start</strong> – The first record to return. If omitted, the results are returned
+from the first record (start=0). This is useful if the total number of
+results is larger than the maximum number of results returned by a single
+Web service query (currently the maximum number of results returned by a
+single query is 500 for terse queries and 50 for full queries).</p></li>
+<li><p><strong>checklist</strong> – The year of the checklist to query, if you want a specific
+year’s checklist instead of the lastest as default (numeric).</p></li>
+</ul>
+</dd>
+</dl>
+<p>You must provide one of name or id. The other parameters (format and start)
+are optional.</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">col</span>
+
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">15669061</span><span class="p">)</span>
+
+<span class="c1"># Many names</span>
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">,</span><span class="s2">&quot;Puma concolor&quot;</span><span class="p">])</span>
+
+<span class="c1"># Many ids - DOESNT WORK</span>
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="p">[</span><span class="mi">15669061</span><span class="p">,</span><span class="mi">6862841</span><span class="p">])</span>
+
+<span class="c1"># An example where there is no data</span>
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">11935941</span><span class="p">)</span>
+
+<span class="c1"># Example with more than 1 result</span>
+<span class="n">col</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Poa&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="scicomm.html" class="btn btn-neutral float-right" title="Scientific and common names" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gbif.html" class="btn btn-neutral float-left" title="Global Biodiversity Information Facility" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

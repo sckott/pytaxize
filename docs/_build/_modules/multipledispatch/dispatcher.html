@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>multipledispatch.dispatcher &mdash; pytaxize 0.7.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gn.html#module-0">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules/other.html">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>multipledispatch.dispatcher</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for multipledispatch.dispatcher</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">.conflict</span> <span class="kn">import</span> <span class="n">ordering</span><span class="p">,</span> <span class="n">ambiguities</span><span class="p">,</span> <span class="n">super_signature</span><span class="p">,</span> <span class="n">AmbiguityWarning</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">expand_tuples</span>
+<span class="kn">from</span> <span class="nn">.variadic</span> <span class="kn">import</span> <span class="n">Variadic</span><span class="p">,</span> <span class="n">isvariadic</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="k">as</span> <span class="nn">itl</span>
+
+
+<span class="k">class</span> <span class="nc">MDNotImplementedError</span><span class="p">(</span><span class="ne">NotImplementedError</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; A NotImplementedError for multiple dispatch &quot;&quot;&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">ambiguity_warn</span><span class="p">(</span><span class="n">dispatcher</span><span class="p">,</span> <span class="n">ambiguities</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Raise warning when ambiguity is detected</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dispatcher : Dispatcher</span>
+<span class="sd">        The dispatcher on which the ambiguity was detected</span>
+<span class="sd">    ambiguities : set</span>
+<span class="sd">        Set of type signature pairs that are ambiguous within this dispatcher</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        Dispatcher.add</span>
+<span class="sd">        warning_text</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span><span class="n">warning_text</span><span class="p">(</span><span class="n">dispatcher</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">ambiguities</span><span class="p">),</span> <span class="n">AmbiguityWarning</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">halt_ordering</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Deprecated interface to temporarily disable ordering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span>
+        <span class="s1">&#39;halt_ordering is deprecated, you can safely remove this call.&#39;</span><span class="p">,</span>
+        <span class="ne">DeprecationWarning</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">restart_ordering</span><span class="p">(</span><span class="n">on_ambiguity</span><span class="o">=</span><span class="n">ambiguity_warn</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Deprecated interface to temporarily resume ordering.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">warn</span><span class="p">(</span>
+        <span class="s1">&#39;restart_ordering is deprecated, if you would like to eagerly order&#39;</span>
+        <span class="s1">&#39;the dispatchers, you should call the ``reorder()`` method on each&#39;</span>
+        <span class="s1">&#39; dispatcher.&#39;</span><span class="p">,</span>
+        <span class="ne">DeprecationWarning</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">variadic_signature_matches_iter</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">full_signature</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Check if a set of input types matches a variadic signature.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The algorithm is as follows:</span>
+
+<span class="sd">    Initialize the current signature to the first in the sequence</span>
+
+<span class="sd">    For each type in `types`:</span>
+<span class="sd">        If the current signature is variadic</span>
+<span class="sd">            If the type matches the signature</span>
+<span class="sd">                yield True</span>
+<span class="sd">            Else</span>
+<span class="sd">                Try to get the next signature</span>
+<span class="sd">                If no signatures are left we can&#39;t possibly have a match</span>
+<span class="sd">                    so yield False</span>
+<span class="sd">        Else</span>
+<span class="sd">            yield True if the type matches the current signature</span>
+<span class="sd">            Get the next signature</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sigiter</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">full_signature</span><span class="p">)</span>
+    <span class="n">sig</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">sigiter</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">types</span><span class="p">:</span>
+        <span class="n">matches</span> <span class="o">=</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">sig</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="n">matches</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">isvariadic</span><span class="p">(</span><span class="n">sig</span><span class="p">):</span>
+            <span class="c1"># we&#39;re not matching a variadic argument, so move to the next</span>
+            <span class="c1"># element in the signature</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">sigiter</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">sigiter</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="n">isvariadic</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We have signature items left over, so all of our arguments</span>
+            <span class="c1"># haven&#39;t matched</span>
+            <span class="k">yield</span> <span class="kc">False</span>
+
+
+<span class="k">def</span> <span class="nf">variadic_signature_matches</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">full_signature</span><span class="p">):</span>
+    <span class="c1"># No arguments always matches a variadic signature</span>
+    <span class="k">assert</span> <span class="n">full_signature</span>
+    <span class="k">return</span> <span class="nb">all</span><span class="p">(</span><span class="n">variadic_signature_matches_iter</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">full_signature</span><span class="p">))</span>
+
+
+<span class="k">class</span> <span class="nc">Dispatcher</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Dispatch methods based on type signature</span>
+
+<span class="sd">    Use ``dispatch`` to add implementations</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+
+<span class="sd">    &gt;&gt;&gt; from multipledispatch import dispatch</span>
+<span class="sd">    &gt;&gt;&gt; @dispatch(int)</span>
+<span class="sd">    ... def f(x):</span>
+<span class="sd">    ...     return x + 1</span>
+
+<span class="sd">    &gt;&gt;&gt; @dispatch(float)</span>
+<span class="sd">    ... def f(x):</span>
+<span class="sd">    ...     return x - 1</span>
+
+<span class="sd">    &gt;&gt;&gt; f(3)</span>
+<span class="sd">    4</span>
+<span class="sd">    &gt;&gt;&gt; f(3.0)</span>
+<span class="sd">    2.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;funcs&#39;</span><span class="p">,</span> <span class="s1">&#39;_ordering&#39;</span><span class="p">,</span> <span class="s1">&#39;_cache&#39;</span><span class="p">,</span> <span class="s1">&#39;doc&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">doc</span> <span class="o">=</span> <span class="n">doc</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">types</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; register dispatcher with new implementation</span>
+
+<span class="sd">        &gt;&gt;&gt; f = Dispatcher(&#39;f&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; @f.register(int)</span>
+<span class="sd">        ... def inc(x):</span>
+<span class="sd">        ...     return x + 1</span>
+
+<span class="sd">        &gt;&gt;&gt; @f.register(float)</span>
+<span class="sd">        ... def dec(x):</span>
+<span class="sd">        ...     return x - 1</span>
+
+<span class="sd">        &gt;&gt;&gt; @f.register(list)</span>
+<span class="sd">        ... @f.register(tuple)</span>
+<span class="sd">        ... def reverse(x):</span>
+<span class="sd">        ...     return x[::-1]</span>
+
+<span class="sd">        &gt;&gt;&gt; f(1)</span>
+<span class="sd">        2</span>
+
+<span class="sd">        &gt;&gt;&gt; f(1.0)</span>
+<span class="sd">        0.0</span>
+
+<span class="sd">        &gt;&gt;&gt; f([1, 2, 3])</span>
+<span class="sd">        [3, 2, 1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">_</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span>
+        <span class="k">return</span> <span class="n">_</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_func_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">inspect</span><span class="p">,</span> <span class="s2">&quot;signature&quot;</span><span class="p">):</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_func_annotations</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; get annotations of function positional parameters</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">get_func_params</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">Parameter</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">Parameter</span>
+
+            <span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="n">param</span> <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span>
+                      <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">kind</span> <span class="ow">in</span>
+                      <span class="p">(</span><span class="n">Parameter</span><span class="o">.</span><span class="n">POSITIONAL_ONLY</span><span class="p">,</span>
+                       <span class="n">Parameter</span><span class="o">.</span><span class="n">POSITIONAL_OR_KEYWORD</span><span class="p">))</span>
+
+            <span class="n">annotations</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+                <span class="n">param</span><span class="o">.</span><span class="n">annotation</span>
+                <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">ann</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Parameter</span><span class="o">.</span><span class="n">empty</span> <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">annotations</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">annotations</span>
+
+    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signature</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Add new types/method pair to dispatcher</span>
+
+<span class="sd">        &gt;&gt;&gt; D = Dispatcher(&#39;add&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; D.add((int, int), lambda x, y: x + y)</span>
+<span class="sd">        &gt;&gt;&gt; D.add((float, float), lambda x, y: x + y)</span>
+
+<span class="sd">        &gt;&gt;&gt; D(1, 2)</span>
+<span class="sd">        3</span>
+<span class="sd">        &gt;&gt;&gt; D(1, 2.0)</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        ...</span>
+<span class="sd">        NotImplementedError: Could not find signature for add: &lt;int, float&gt;</span>
+
+<span class="sd">        When ``add`` detects a warning it calls the ``on_ambiguity`` callback</span>
+<span class="sd">        with a dispatcher/itself, and a set of ambiguous type signature pairs</span>
+<span class="sd">        as inputs.  See ``ambiguity_warn`` for an example.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Handle annotations</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">signature</span><span class="p">:</span>
+            <span class="n">annotations</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_func_annotations</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">annotations</span><span class="p">:</span>
+                <span class="n">signature</span> <span class="o">=</span> <span class="n">annotations</span>
+
+        <span class="c1"># Handle union types</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">)</span> <span class="k">for</span> <span class="n">typ</span> <span class="ow">in</span> <span class="n">signature</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">typs</span> <span class="ow">in</span> <span class="n">expand_tuples</span><span class="p">(</span><span class="n">signature</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">typs</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="n">new_signature</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">typ</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">signature</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="nb">list</span><span class="p">)):</span>
+                <span class="n">str_sig</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="nb">type</span><span class="p">)</span>
+                                    <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">signature</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Tried to dispatch on non-type: </span><span class="si">%s</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;In signature: &lt;</span><span class="si">%s</span><span class="s2">&gt;</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                <span class="s2">&quot;In function: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span>
+                                <span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="n">str_sig</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+
+            <span class="c1"># handle variadic signatures</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">typ</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">index</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s1">&#39;Variadic signature must be the last element&#39;</span>
+                    <span class="p">)</span>
+
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                        <span class="s1">&#39;Variadic signature must contain exactly one element. &#39;</span>
+                        <span class="s1">&#39;To use a variadic union type place the desired types &#39;</span>
+                        <span class="s1">&#39;inside of a tuple, e.g., [(int, str)]&#39;</span>
+                    <span class="p">)</span>
+                <span class="n">new_signature</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Variadic</span><span class="p">[</span><span class="n">typ</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">new_signature</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">typ</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">new_signature</span><span class="p">)]</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordering</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">ordering</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ordering</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">reorder</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">on_ambiguity</span><span class="o">=</span><span class="n">ambiguity_warn</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ordering</span> <span class="o">=</span> <span class="n">od</span> <span class="o">=</span> <span class="n">ordering</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">)</span>
+        <span class="n">amb</span> <span class="o">=</span> <span class="n">ambiguities</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">amb</span><span class="p">:</span>
+            <span class="n">on_ambiguity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amb</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">od</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">])</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">types</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                    <span class="s1">&#39;Could not find signature for </span><span class="si">%s</span><span class="s1">: &lt;</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">types</span><span class="p">)))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span><span class="p">[</span><span class="n">types</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">MDNotImplementedError</span><span class="p">:</span>
+            <span class="n">funcs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch_iter</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">)</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">funcs</span><span class="p">)</span>  <span class="c1"># burn first</span>
+            <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">funcs</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+                <span class="k">except</span> <span class="n">MDNotImplementedError</span><span class="p">:</span>
+                    <span class="k">pass</span>
+
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;Matching functions for &quot;</span>
+                <span class="s2">&quot;</span><span class="si">%s</span><span class="s2">: &lt;</span><span class="si">%s</span><span class="s2">&gt; found, but none completed successfully&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">types</span><span class="p">),</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;&lt;dispatched </span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+    <span class="fm">__repr__</span> <span class="o">=</span> <span class="fm">__str__</span>
+
+    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">types</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Deterimine appropriate implementation for this type signature</span>
+
+<span class="sd">        This method is internal.  Users should call this object as a function.</span>
+<span class="sd">        Implementation resolution occurs within the ``__call__`` method.</span>
+
+<span class="sd">        &gt;&gt;&gt; from multipledispatch import dispatch</span>
+<span class="sd">        &gt;&gt;&gt; @dispatch(int)</span>
+<span class="sd">        ... def inc(x):</span>
+<span class="sd">        ...     return x + 1</span>
+
+<span class="sd">        &gt;&gt;&gt; implementation = inc.dispatch(int)</span>
+<span class="sd">        &gt;&gt;&gt; implementation(3)</span>
+<span class="sd">        4</span>
+
+<span class="sd">        &gt;&gt;&gt; print(inc.dispatch(float))</span>
+<span class="sd">        None</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">          ``multipledispatch.conflict`` - module to determine resolution order</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">types</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">[</span><span class="n">types</span><span class="p">]</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dispatch_iter</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">dispatch_iter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">types</span><span class="p">):</span>
+
+        <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">signature</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span> <span class="o">==</span> <span class="n">n</span> <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">issubclass</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">signature</span><span class="p">)):</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">[</span><span class="n">signature</span><span class="p">]</span>
+                <span class="k">yield</span> <span class="n">result</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">signature</span><span class="p">)</span> <span class="ow">and</span> <span class="n">isvariadic</span><span class="p">(</span><span class="n">signature</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">variadic_signature_matches</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="n">signature</span><span class="p">):</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">[</span><span class="n">signature</span><span class="p">]</span>
+                    <span class="k">yield</span> <span class="n">result</span>
+
+    <span class="k">def</span> <span class="nf">resolve</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">types</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Deterimine appropriate implementation for this type signature</span>
+
+<span class="sd">        .. deprecated:: 0.4.4</span>
+<span class="sd">            Use ``dispatch(*types)`` instead</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">warn</span><span class="p">(</span><span class="s2">&quot;resolve() is deprecated, use dispatch(*types)&quot;</span><span class="p">,</span>
+             <span class="ne">DeprecationWarning</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="s1">&#39;funcs&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;funcs&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_ordering</span> <span class="o">=</span> <span class="n">ordering</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cache</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">__doc__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Multiply dispatched method: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">:</span>
+            <span class="n">docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">doc</span><span class="p">)</span>
+
+        <span class="n">other</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">sig</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">funcs</span><span class="p">[</span><span class="n">sig</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">:</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;Inputs: &lt;</span><span class="si">%s</span><span class="s1">&gt;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;-&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="n">func</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+                <span class="n">docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">other</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">str_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">other</span><span class="p">:</span>
+            <span class="n">docs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;Other signatures:</span><span class="se">\n</span><span class="s1">    &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">    &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span><span class="o">.</span><span class="vm">__doc__</span>
+
+    <span class="k">def</span> <span class="nf">help</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Print docstring for the function corresponding to inputs &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_help</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="o">*</span><span class="nb">map</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">args</span><span class="p">))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;No function found&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">source</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Print source code for the function corresponding to inputs &quot;&quot;&quot;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_source</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">source</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;File: </span><span class="si">%s</span><span class="se">\n\n</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsourcefile</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span>
+
+
+<span class="k">class</span> <span class="nc">MethodDispatcher</span><span class="p">(</span><span class="n">Dispatcher</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Dispatch methods based on type signature</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        Dispatcher</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;obj&#39;</span><span class="p">,</span> <span class="s1">&#39;cls&#39;</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_func_params</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">inspect</span><span class="p">,</span> <span class="s2">&quot;signature&quot;</span><span class="p">):</span>
+            <span class="n">sig</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">signature</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">itl</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">sig</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">values</span><span class="p">(),</span> <span class="mi">1</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">owner</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">obj</span> <span class="o">=</span> <span class="n">instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cls</span> <span class="o">=</span> <span class="n">owner</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">types</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">type</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">])</span>
+        <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="o">*</span><span class="n">types</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">func</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;Could not find signature for </span><span class="si">%s</span><span class="s1">: &lt;</span><span class="si">%s</span><span class="s1">&gt;&#39;</span> <span class="o">%</span>
+                                      <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">types</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">obj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">str_signature</span><span class="p">(</span><span class="n">sig</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; String representation of type signature</span>
+
+<span class="sd">    &gt;&gt;&gt; str_signature((int, float))</span>
+<span class="sd">    &#39;int, float&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="bp">cls</span> <span class="ow">in</span> <span class="n">sig</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">warning_text</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">amb</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; The text for ambiguity warnings &quot;&quot;&quot;</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ambiguities exist in dispatched function </span><span class="si">%s</span><span class="se">\n\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;The following signatures may result in ambiguous behavior:</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">amb</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\t</span><span class="s2">&quot;</span> <span class="o">+</span> \
+            <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;[&#39;</span> <span class="o">+</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;]&#39;</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Consider making the following additions:</span><span class="se">\n\n</span><span class="s2">&quot;</span>
+    <span class="n">text</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;@dispatch(&#39;</span> <span class="o">+</span> <span class="n">str_signature</span><span class="p">(</span><span class="n">super_signature</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+                         <span class="o">+</span> <span class="s1">&#39;)</span><span class="se">\n</span><span class="s1">def </span><span class="si">%s</span><span class="s1">(...)&#39;</span> <span class="o">%</span> <span class="n">name</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">amb</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

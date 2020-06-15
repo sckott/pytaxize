@@ -18,7 +18,7 @@ def accepted_names(tsn, **kwargs):
     Get accepted names from tsn
 
     :param tsn: taxonomic serial number (TSN) (character or numeric)
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -43,7 +43,7 @@ def any_match_count(x, **kwargs):
     Get any match count.
 
     :param x: text or taxonomic serial number (TSN) (character or numeric)
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
     
@@ -63,7 +63,7 @@ def comment_detail(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
                 
@@ -83,7 +83,7 @@ def common_names(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -105,7 +105,7 @@ def core_metadata(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -128,7 +128,7 @@ def coverage(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -153,7 +153,7 @@ def credibility_rating(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -172,7 +172,7 @@ def credibility_ratings(**kwargs):
     """
     Get possible credibility ratings
 
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
     :return: a dict
 
     Usage::
@@ -193,7 +193,7 @@ def currency(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -218,7 +218,7 @@ def date_data(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -238,7 +238,7 @@ def experts(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -258,7 +258,7 @@ def rank_name(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -278,7 +278,7 @@ def hierarchy_full(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -341,7 +341,7 @@ def full_record(tsn=None, lsid=None, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param lsid: lsid for a taxonomic group (character)
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -364,7 +364,7 @@ def geographic_divisions(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
         
@@ -383,7 +383,7 @@ def geographic_values(**kwargs):
     """
     Get all possible geographic values
 
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -394,22 +394,26 @@ def geographic_values(**kwargs):
         request="get").json()
     return out["geographicValues"]
 
-# def global_species_completeness(tsn, **kwargs):
-#     """
-#     Get global species completeness from tsn
+def global_species_completeness(tsn, as_dataframe=False, **kwargs):
+    """
+    Get global species completeness from tsn
+    
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
-#     Usage::
+    Usage::
 
-#         from pytaxize import itis
-#         itis.global_species_completeness(180541)
-#     """
-#     out = Refactor(
-#         itis_base + "getGlobalSpeciesCompletenessFromTSN",
-#         payload={"tsn": tsn},
-#         request="get",
-#     ).json(**kwargs)
-#     toget = ["completeness", "rankId", "tsn"]
-#     return _itis_parse(toget, out, ns21)
+        from pytaxize import itis
+        itis.global_species_completeness(180541)
+    """
+    out = Refactor(
+        itis_base + "getGlobalSpeciesCompletenessFromTSN",
+        payload={"tsn": tsn},
+        request="get",
+    ).json(**kwargs)
+    out.pop("class")
+    return _df(out, as_dataframe)
 
 
 def hierarchy_down(tsn, as_dataframe=False, **kwargs):
@@ -418,7 +422,7 @@ def hierarchy_down(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -438,7 +442,7 @@ def hierarchy_up(tsn, as_dataframe=False, **kwargs):
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -471,8 +475,8 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
     :param x: query term
     :param what: One of both (search common and scientific names), common
         (search just common names), or scientific (search just scientific names)
-    :param as_dataframe: specify return type, if pandas is available (boolean)
-    :param **kwargs: Curl options passed on to `requests.get`
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -530,56 +534,70 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
 #     return temp
 
 
-# def getjurisdictionaloriginfromtsn(tsn, **kwargs):
-#     """
-#     Get jurisdictional origin from tsn
+def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
+    """
+    Get jurisdictional origin from tsn
 
-#     Usage::
+    :param tsn: (int) TSN for a taxonomic group
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
-#         from pytaxize import itis
-#         itis.getjurisdictionaloriginfromtsn(180543)
-#     """
-#     out = Refactor(
-#         itis_base + "getJurisdictionalOriginFromTSN",
-#         payload={"tsn": tsn},
-#         request="get",
-#     ).json(**kwargs)
-#     ns = {"ax21": "http://data.itis_service.itis.usgs.gov/xsd"}
-#     toget = ["jurisdictionValue", "origin", "updateDate"]
-#     return _itis_parse(toget, out, ns)
+    Usage::
 
-
-# def getjurisdictionoriginvalues(**kwargs):
-#     """
-#     Get jurisdiction origin values
-
-#     Usage::
-
-#         from pytaxize import itis
-#         itis.getjurisdictionoriginvalues()
-#     """
-#     out = Refactor(
-#         itis_base + "getJurisdictionalOriginValues", payload={}, request="get"
-#     ).json(**kwargs)
-#     ns = {"ax23": "http://metadata.itis_service.itis.usgs.gov/xsd"}
-#     matches = ["jurisdiction", "origin"]
-#     return _itisdf(out, ns, matches, matches, "ax23")
+        from pytaxize import itis
+        itis.jurisdictional_origin(180543)
+        itis.jurisdictional_origin(180543, True)
+    """
+    out = Refactor(
+        itis_base + "getJurisdictionalOriginFromTSN",
+        payload={"tsn": tsn},
+        request="get",
+    ).json(**kwargs)
+    out.pop("class")
+    if out["jurisdictionalOrigins"][0] is not None:
+        [z.pop("class") for z in out["jurisdictionalOrigins"]]
+    return _df(out["jurisdictionalOrigins"], as_dataframe)
 
 
-# def getjurisdictionvalues(**kwargs):
-#     """
-#     Get possible jurisdiction values
+def jurisdiction_origin_values(as_dataframe=False, **kwargs):
+    """
+    Get jurisdiction origin values
+    
+    :param as_dataframe: (bool) specify return type, if pandas is available
+    :param \*\*kwargs: Curl options passed on to `requests.get`
 
-#     Usage::
+    Usage::
 
-#         from pytaxize import itis
-#         itis.getjurisdictionvalues()
-#     """
-#     out = Refactor(itis_base + "getJurisdictionValues", payload={}, request="get").xml(
-#         **kwargs
-#     )
-#     vals = [x.text for x in out.getchildren()[0].getchildren()]
-#     return pd.DataFrame(vals, columns=["jurisdictionValues"])
+        from pytaxize import itis
+        itis.jurisdiction_origin_values()
+    """
+    out = Refactor(
+        itis_base + "getJurisdictionalOriginValues", payload={}, request="get"
+    ).json(**kwargs)
+    out.pop("class")
+    [z.pop("class") for z in out["originValues"]]
+    return _df(out["originValues"], as_dataframe)
+
+
+def jurisdiction_values(**kwargs):
+    """
+    Get possible jurisdiction values
+
+    :param \*\*kwargs: Curl options passed on to `requests.get`
+
+    :return: list
+
+    Usage::
+
+        from pytaxize import itis
+        itis.jurisdiction_values()
+    """
+    out = Refactor(
+        itis_base + "getJurisdictionValues", payload={}, request="get").json(
+        **kwargs
+    )
+    out.pop("class")
+    return out["jurisdictionValues"]
 
 
 # def getkingdomnamefromtsn(tsn, **kwargs):

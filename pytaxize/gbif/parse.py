@@ -13,9 +13,9 @@ def parse(name, as_dataframe=False):
     Parse taxon names using the GBIF name parser.
 
     :param name: A character vector of scientific names.
-      Returns a DataFrame containing fields extracted from parsed
-      taxon names. Fields returned are the union of fields extracted from
-      all species names in scientificname
+        Returns a DataFrame containing fields extracted from parsed
+        taxon names. Fields returned are the union of fields extracted from
+        all species names in scientificname
     :param as_dataframe: (optional) Type: boolean. Return as pandas data frame?
         default: False
 

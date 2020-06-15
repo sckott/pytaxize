@@ -1,3 +1,3 @@
 # -*- coding: utf-8 -*-
 
-from .col import children, downstream, search
+from .col import children, search

@@ -1,0 +1,1459 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pytaxize.itis.itis &mdash; pytaxize 0.7.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gn.html#module-0">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/other.html">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pytaxize.itis.itis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pytaxize.itis.itis</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s2">&quot;Pandas library not installed, dataframes disabled&quot;</span><span class="p">)</span>
+    <span class="n">pd</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">itis_base</span> <span class="o">=</span> <span class="s2">&quot;http://www.itis.gov/ITISWebService/jsonservice/&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">accepted_names</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get accepted names from tsn</span>
+
+<span class="sd">    :param tsn: taxonomic serial number (TSN) (character or numeric)</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # TSN accepted - good name</span>
+<span class="sd">        itis.accepted_names(tsn=208527)</span>
+<span class="sd">        # TSN not accepted - input TSN is old name</span>
+<span class="sd">        itis.accepted_names(tsn=504239)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getAcceptedNamesFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;acceptedNames&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">out</span><span class="p">[</span><span class="s2">&quot;acceptedNames&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;acceptedNames&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">any_match_count</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get any match count.</span>
+
+<span class="sd">    :param x: text or taxonomic serial number (TSN) (character or numeric)</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">    </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.any_match_count(x=202385)</span>
+<span class="sd">        itis.any_match_count(x=&quot;dolphin&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getAnyMatchCount&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;srchKey&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;return&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">comment_detail</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get comment detail from TSN</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">                </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.comment_detail(tsn=180543)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCommentDetailFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;comments&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">common_names</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get common names from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.common_names(tsn=183833)</span>
+<span class="sd">        # no common names</span>
+<span class="sd">        itis.common_names(tsn=726872)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCommonNamesFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;commonNames&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;commonNames&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;commonNames&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">core_metadata</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get core metadata from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # coverage and currrency data</span>
+<span class="sd">        itis.core_metadata(tsn=28727)</span>
+<span class="sd">        # no coverage or currrency data</span>
+<span class="sd">        itis.core_metadata(tsn=183671)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCoreMetadataFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">([</span><span class="n">out</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">coverage</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get coverge from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # coverage data</span>
+<span class="sd">        itis.coverage(tsn=28727)</span>
+<span class="sd">        # no coverage data</span>
+<span class="sd">        itis.coverage(526852)</span>
+<span class="sd">        # as data_frame</span>
+<span class="sd">        itis.coverage(526852, as_dataframe=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCoverageFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">credibility_rating</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get credibility rating from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.credibility_rating(tsn=526852)</span>
+<span class="sd">        itis.credibility_rating(28727)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCredibilityRatingFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">credibility_ratings</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get possible credibility ratings</span>
+
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+<span class="sd">    :return: a dict</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.credibility_ratings()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCredibilityRatings&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;credibilityValues&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">currency</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get currency from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        # currency data</span>
+<span class="sd">        itis.currency(28727)</span>
+<span class="sd">        # no currency dat</span>
+<span class="sd">        itis.currency(526852)</span>
+<span class="sd">        # as data_frame</span>
+<span class="sd">        itis.currency(526852, as_dataframe=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getCurrencyFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">date_data</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get date data from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.date_data(tsn=180543)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getDateDataFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">experts</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get expert information for the TSN.</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.experts(tsn=180544)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getExpertsFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;experts&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">rank_name</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the kingdom and rank information for the TSN.</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.rank_name(tsn = 202385)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getTaxonomicRankNameFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">hierarchy_full</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get full hierarchy from ts</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.hierarchy_full(tsn = 37906)</span>
+<span class="sd">        itis.hierarchy_full(tsn = 100800)</span>
+<span class="sd">        # as data_frame</span>
+<span class="sd">        itis.hierarchy_full(tsn = 100800, as_dataframe=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getFullHierarchyFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">hier</span> <span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="s2">&quot;hierarchyList&quot;</span><span class="p">]</span>
+    <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">hier</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">hier</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="c1"># def _fullrecord(verb, args, **kwargs):</span>
+<span class="c1">#     out = Refactor(itis_base + verb, payload=args, request=&quot;get&quot;).json(**kwargs)</span>
+<span class="c1">#     toget = [</span>
+<span class="c1">#         &quot;acceptedNameList&quot;,</span>
+<span class="c1">#         &quot;commentList&quot;,</span>
+<span class="c1">#         &quot;commonNameList&quot;,</span>
+<span class="c1">#         &quot;completenessRating&quot;,</span>
+<span class="c1">#         &quot;coreMetadata&quot;,</span>
+<span class="c1">#         &quot;credibilityRating&quot;,</span>
+<span class="c1">#         &quot;currencyRating&quot;,</span>
+<span class="c1">#         &quot;dateData&quot;,</span>
+<span class="c1">#         &quot;expertList&quot;,</span>
+<span class="c1">#         &quot;geographicDivisionList&quot;,</span>
+<span class="c1">#         &quot;hierarchyUp&quot;,</span>
+<span class="c1">#         &quot;jurisdictionalOriginList&quot;,</span>
+<span class="c1">#         &quot;kingdom&quot;,</span>
+<span class="c1">#         &quot;otherSourceList&quot;,</span>
+<span class="c1">#         &quot;parentTSN&quot;,</span>
+<span class="c1">#         &quot;publicationList&quot;,</span>
+<span class="c1">#         &quot;scientificName&quot;,</span>
+<span class="c1">#         &quot;synonymList&quot;,</span>
+<span class="c1">#         &quot;taxRank&quot;,</span>
+<span class="c1">#         &quot;taxonAuthor&quot;,</span>
+<span class="c1">#         &quot;unacceptReason&quot;,</span>
+<span class="c1">#         &quot;usage&quot;,</span>
+<span class="c1">#     ]</span>
+
+<span class="c1">#     def parsedat(x):</span>
+<span class="c1">#         ch = out.xpath(&quot;//ax21:&quot; + x, namespaces=ns21)[0].getchildren()</span>
+<span class="c1">#         return _get_text(ch)</span>
+
+<span class="c1">#     return [parsedat(x) for x in toget]</span>
+
+
+<span class="k">def</span> <span class="nf">_fullrecord</span><span class="p">(</span><span class="n">verb</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="n">verb</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span> <span class="nf">full_record</span><span class="p">(</span><span class="n">tsn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lsid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the full ITIS record for a TSN or LSID</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param lsid: lsid for a taxonomic group (character)</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.full_record(tsn=&quot;504239&quot;)</span>
+<span class="sd">        itis.full_record(tsn=&quot;202385&quot;)</span>
+<span class="sd">        itis.full_record(tsn=&quot;183833&quot;)</span>
+<span class="sd">        itis.full_record(lsid=&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;)</span>
+<span class="sd">        itis.full_record(lsid=&quot;urn:lsid:itis.gov:itis_tsn:37906&quot;)</span>
+<span class="sd">        itis.full_record(lsid=&quot;urn:lsid:itis.gov:itis_tsn:100800&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">tsn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_fullrecord</span><span class="p">(</span><span class="s2">&quot;getFullRecordFromTSN&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">lsid</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_fullrecord</span><span class="p">(</span><span class="s2">&quot;getFullRecordFromLSID&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;lsid&quot;</span><span class="p">:</span> <span class="n">lsid</span><span class="p">},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">geographic_divisions</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get geographic divisions from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+<span class="sd">        </span>
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.geographic_divisions(tsn=180543)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getGeographicDivisionsFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;geoDivisions&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;geoDivisions&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">geographic_values</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get all possible geographic values</span>
+
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.geographic_values()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getGeographicValues&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;geographicValues&quot;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">global_species_completeness</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get global species completeness from tsn</span>
+<span class="sd">    </span>
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.global_species_completeness(180541)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getGlobalSpeciesCompletenessFromTSN&quot;</span><span class="p">,</span>
+        <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span>
+        <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">hierarchy_down</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get hierarchy down from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.hierarchy_down(tsn = 179913)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getHierarchyDownFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">tt</span><span class="p">[</span><span class="s2">&quot;hierarchyList&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">tt</span><span class="p">[</span><span class="s2">&quot;hierarchyList&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">hierarchy_up</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get hierarchy up from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.hierarchy_up(tsn = 36485)</span>
+<span class="sd">        itis.hierarchy_up(tsn = 37906)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getHierarchyUpFromTSN&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">tt</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">tt</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{},</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">itis_base</span> <span class="o">+</span> <span class="n">endpt</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span><span class="p">[</span><span class="s1">&#39;itisTerms&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s1">&#39;itisTerms&#39;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s1">&#39;itisTerms&#39;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_get_text_single</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">terms</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">what</span><span class="o">=</span><span class="s2">&quot;both&quot;</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get itis terms</span>
+
+<span class="sd">    :param x: query term</span>
+<span class="sd">    :param what: One of both (search common and scientific names), common</span>
+<span class="sd">        (search just common names), or scientific (search just scientific names)</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.terms(&quot;bear&quot;)</span>
+<span class="sd">        itis.terms(&quot;bear&quot;, what=&quot;common&quot;)</span>
+<span class="sd">        itis.terms(&quot;Poa&quot;, what=&quot;scientific&quot;)</span>
+<span class="sd">        itis.terms(&quot;bear&quot;, as_dataframe=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">class</span> <span class="nc">Endpts</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+        <span class="n">both</span> <span class="o">=</span> <span class="s2">&quot;getITISTerms&quot;</span>
+        <span class="n">common</span> <span class="o">=</span> <span class="s2">&quot;getITISTermsFromCommonName&quot;</span>
+        <span class="n">scientific</span> <span class="o">=</span> <span class="s2">&quot;getITISTermsFromScientificName&quot;</span>
+    <span class="k">return</span> <span class="n">_itisterms</span><span class="p">(</span><span class="n">endpt</span><span class="o">=</span><span class="n">Endpts</span><span class="p">[</span><span class="n">what</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;srchKey&quot;</span><span class="p">:</span> <span class="n">x</span><span class="p">},</span>
+        <span class="n">as_dataframe</span><span class="o">=</span><span class="n">as_dataframe</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="c1"># def hierarchy(tsn=None, what=&quot;full&quot;):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get hierarchies from TSN values, full, upstream only, or immediate downstream</span>
+<span class="c1">#     only. Uses the ITIS database.</span>
+
+<span class="c1">#     :param tsn: One or more TSN&#39;s (taxonomic serial number)</span>
+<span class="c1">#     :param what: One of full (full hierarchy), up (immediate upstream), or down</span>
+<span class="c1">#        (immediate downstream)</span>
+
+<span class="c1">#     Details Note that `itis.itis_downstream` gets taxa downstream to a particular</span>
+<span class="c1">#        rank, whilc this function only gets immediate names downstream.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         # Get full hierarchy</span>
+<span class="c1">#         itis.hierarchy(tsn=180543)</span>
+
+<span class="c1">#         # Get hierarchy upstream</span>
+<span class="c1">#         itis.hierarchy(tsn=180543, &quot;up&quot;)</span>
+
+<span class="c1">#         # Get hierarchy downstream</span>
+<span class="c1">#         itis.hierarchy(tsn=180543, &quot;down&quot;)</span>
+
+<span class="c1">#         # Many tsn&#39;s</span>
+<span class="c1">#         itis.hierarchy(tsn=[180543,41074,36616])</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     tsn2 = convertsingle(tsn)</span>
+<span class="c1">#     temp = []</span>
+<span class="c1">#     if what == &quot;full&quot;:</span>
+<span class="c1">#         for i in range(len(tsn2)):</span>
+<span class="c1">#             temp.append(getfullhierarchyfromtsn(tsn2[i]))</span>
+<span class="c1">#     elif what == &quot;up&quot;:</span>
+<span class="c1">#         for i in range(len(tsn2)):</span>
+<span class="c1">#             temp.append(gethierarchyupfromtsn(tsn2[i]))</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         for i in range(len(tsn2)):</span>
+<span class="c1">#             temp.append(gethierarchydownfromtsn(tsn2[i]))</span>
+<span class="c1">#     return temp</span>
+
+
+<span class="k">def</span> <span class="nf">jurisdictional_origin</span><span class="p">(</span><span class="n">tsn</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get jurisdictional origin from tsn</span>
+
+<span class="sd">    :param tsn: (int) TSN for a taxonomic group</span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.jurisdictional_origin(180543)</span>
+<span class="sd">        itis.jurisdictional_origin(180543, True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getJurisdictionalOriginFromTSN&quot;</span><span class="p">,</span>
+        <span class="n">payload</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;tsn&quot;</span><span class="p">:</span> <span class="n">tsn</span><span class="p">},</span>
+        <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;jurisdictionalOrigins&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;jurisdictionalOrigins&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;jurisdictionalOrigins&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">jurisdiction_origin_values</span><span class="p">(</span><span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get jurisdiction origin values</span>
+<span class="sd">    </span>
+<span class="sd">    :param as_dataframe: (bool) specify return type, if pandas is available</span>
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.jurisdiction_origin_values()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getJurisdictionalOriginValues&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">z</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;originValues&quot;</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">_df</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;originValues&quot;</span><span class="p">],</span> <span class="n">as_dataframe</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">jurisdiction_values</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get possible jurisdiction values</span>
+
+<span class="sd">    :param \*\*kwargs: Curl options passed on to `requests.get`</span>
+
+<span class="sd">    :return: list</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import itis</span>
+<span class="sd">        itis.jurisdiction_values()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span>
+        <span class="n">itis_base</span> <span class="o">+</span> <span class="s2">&quot;getJurisdictionValues&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="o">=</span><span class="p">{},</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">(</span>
+        <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;jurisdictionValues&quot;</span><span class="p">]</span>
+
+
+<span class="c1"># def getkingdomnamefromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get kingdom names from tsn</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getkingdomnamefromtsn(202385)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = _itisGET(&quot;getKingdomNameFromTSN&quot;, {&quot;tsn&quot;: tsn}, **kwargs)</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getKingdomNameFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     ns = {&quot;ax21&quot;: &quot;http://data.itis_service.itis.usgs.gov/xsd&quot;}</span>
+<span class="c1">#     toget = [&quot;kingdomId&quot;, &quot;kingdomName&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns)</span>
+
+
+<span class="c1"># def getkingdomnames(**kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get all possible kingdom names</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getkingdomnames()</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(itis_base + &quot;getKingdomNames&quot;, payload={}, request=&quot;get&quot;).xml(</span>
+<span class="c1">#         **kwargs</span>
+<span class="c1">#     )</span>
+<span class="c1">#     ns = {&quot;ax23&quot;: &quot;http://metadata.itis_service.itis.usgs.gov/xsd&quot;}</span>
+<span class="c1">#     matches = [&quot;kingdomId&quot;, &quot;kingdomName&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itisdf(out, ns, matches, _tolower(matches), &quot;ax23&quot;)</span>
+
+
+<span class="c1"># def getlastchangedate(**kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Provides the date the ITIS database was last updated.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getlastchangedate()</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(itis_base + &quot;getLastChangeDate&quot;, payload={}, request=&quot;get&quot;).xml(</span>
+<span class="c1">#         **kwargs</span>
+<span class="c1">#     )</span>
+<span class="c1">#     ns = {&quot;ax23&quot;: &quot;http://metadata.itis_service.itis.usgs.gov/xsd&quot;}</span>
+<span class="c1">#     nodes = out.xpath(&quot;//ax23:updateDate&quot;, namespaces=ns)</span>
+<span class="c1">#     bb = nodes[0].text</span>
+<span class="c1">#     dt = time.strptime(bb.split()[0], &quot;%Y-%m-%d&quot;)</span>
+<span class="c1">#     return dt</span>
+
+
+<span class="c1"># def getlsidfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Gets the unique LSID for the TSN, or an empty result if there is no match.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         # valid TSN</span>
+<span class="c1">#         itis.getlsidfromtsn(155166)</span>
+<span class="c1">#         # invalid TSN, returns nothing</span>
+<span class="c1">#         itis.getlsidfromtsn(0)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = _itisGET(&quot;getLSIDFromTSN&quot;, {&quot;tsn&quot;: tsn}, **kwargs)</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getLSIDFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     tt = out.getchildren()[0].text</span>
+<span class="c1">#     if tt is None:</span>
+<span class="c1">#         tt = &quot;no match&quot;</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         pass</span>
+<span class="c1">#     return tt</span>
+
+
+<span class="c1"># def getothersourcesfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns a list of the other sources used for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getothersourcesfromtsn(182662)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getOtherSourcesFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [</span>
+<span class="c1">#         &quot;acquisitionDate&quot;,</span>
+<span class="c1">#         &quot;name&quot;,</span>
+<span class="c1">#         &quot;referredTsn&quot;,</span>
+<span class="c1">#         &quot;source&quot;,</span>
+<span class="c1">#         &quot;sourceType&quot;,</span>
+<span class="c1">#         &quot;updateDate&quot;,</span>
+<span class="c1">#         &quot;version&quot;,</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     return _itis_parse_2dict(toget, out, ns21)</span>
+
+
+<span class="c1"># def getparenttsnfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the parent TSN for the entered TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getparenttsnfromtsn(202385)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getParentTSNFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [&quot;parentTsn&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getpublicationsfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns a list of the pulications used for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getpublicationsfromtsn(70340)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getPublicationsFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [</span>
+<span class="c1">#         &quot;actualPubDate&quot;,</span>
+<span class="c1">#         &quot;isbn&quot;,</span>
+<span class="c1">#         &quot;issn&quot;,</span>
+<span class="c1">#         &quot;listedPubDate&quot;,</span>
+<span class="c1">#         &quot;pages&quot;,</span>
+<span class="c1">#         &quot;pubComment&quot;,</span>
+<span class="c1">#         &quot;pubName&quot;,</span>
+<span class="c1">#         &quot;pubPlace&quot;,</span>
+<span class="c1">#         &quot;publisher&quot;,</span>
+<span class="c1">#         &quot;referenceAuthor&quot;,</span>
+<span class="c1">#         &quot;name&quot;,</span>
+<span class="c1">#         &quot;refLanguage&quot;,</span>
+<span class="c1">#         &quot;referredTsn&quot;,</span>
+<span class="c1">#         &quot;title&quot;,</span>
+<span class="c1">#         &quot;updateDate&quot;,</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getranknames(**kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Provides a list of all the unique rank names contained in the database and</span>
+<span class="c1">#     their kingdom and rank ID values.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getranknames()</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(itis_base + &quot;getRankNames&quot;, payload={}, request=&quot;get&quot;).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;kingdomName&quot;, &quot;rankId&quot;, &quot;rankName&quot;]</span>
+<span class="c1">#     return _itisdf(out, ns23, matches, _tolower(matches), &quot;ax23&quot;)</span>
+
+
+<span class="c1"># def getrecordfromlsid(lsid, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Gets the partial ITIS record for the TSN in the LSID, found by comparing the</span>
+<span class="c1">#     TSN in the search key to the TSN field. Returns an empty result set if</span>
+<span class="c1">#     there is no match or the TSN is invalid.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getrecordfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:180543&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getRecordFromLSID&quot;, payload={&quot;lsid&quot;: lsid}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [</span>
+<span class="c1">#         &quot;authorship&quot;,</span>
+<span class="c1">#         &quot;genusPart&quot;,</span>
+<span class="c1">#         &quot;infragenericEpithet&quot;,</span>
+<span class="c1">#         &quot;infraspecificEpithet&quot;,</span>
+<span class="c1">#         &quot;lsid&quot;,</span>
+<span class="c1">#         &quot;nameComplete&quot;,</span>
+<span class="c1">#         &quot;nomenclaturalCode&quot;,</span>
+<span class="c1">#         &quot;rank&quot;,</span>
+<span class="c1">#         &quot;rankString&quot;,</span>
+<span class="c1">#         &quot;specificEpithet&quot;,</span>
+<span class="c1">#         &quot;uninomial&quot;,</span>
+<span class="c1">#         &quot;tsn&quot;,</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getreviewyearfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the review year for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getreviewyearfromtsn(180541)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getReviewYearFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [&quot;rankId&quot;, &quot;reviewYear&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getscientificnamefromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the scientific name for the TSN. Also returns the component parts</span>
+<span class="c1">#     (names and indicators) of the scientific name.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getscientificnamefromtsn(531894)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getScientificNameFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [</span>
+<span class="c1">#         &quot;combinedName&quot;,</span>
+<span class="c1">#         &quot;unitInd1&quot;,</span>
+<span class="c1">#         &quot;unitInd3&quot;,</span>
+<span class="c1">#         &quot;unitName1&quot;,</span>
+<span class="c1">#         &quot;unitName2&quot;,</span>
+<span class="c1">#         &quot;unitName3&quot;,</span>
+<span class="c1">#         &quot;tsn&quot;,</span>
+<span class="c1">#     ]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getsynonymnamesfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     Returns a list of the synonyms (if any) for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#     itis.getsynonymnamesfromtsn(183671) # tsn not accepted</span>
+<span class="c1">#     itis.getsynonymnamesfromtsn(526852) # tsn accepted</span>
+<span class="c1">#     &#39;&#39;&#39;</span>
+<span class="c1">#     out = _itisGET(&quot;getSynonymNamesFromTSN&quot;, {&#39;tsn&#39;: tsn}, **kwargs)</span>
+<span class="c1">#     if len(sapply(nodes, xmlValue)) == 0):</span>
+<span class="c1">#         name = list(&quot;nomatch&quot;)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         name = sapply(nodes, xmlValue)</span>
+<span class="c1">#     nodes = getNodeSet(out, &quot;//ax21:tsn&quot;, namespaces=ns21)</span>
+
+<span class="c1">#     if len(sapply(nodes, xmlValue)) == 1):</span>
+<span class="c1">#         tsn = sapply(nodes, xmlValue)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#       tsn = sapply(nodes, xmlValue)</span>
+<span class="c1">#       tsn = tsn[-1]</span>
+<span class="c1">#     data.frame(name=name, tsn=tsn, stringsAsFactors = FALSE)</span>
+
+
+<span class="c1"># def gettaxonauthorshipfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the author information for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.gettaxonauthorshipfromtsn(183671)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getTaxonAuthorshipFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [&quot;authorship&quot;, &quot;updateDate&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def gettaxonomicusagefromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the usage information for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.gettaxonomicusagefromtsn(526852)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getTaxonomicUsageFromTSN&quot;, payload={&quot;tsn&quot;: tsn}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [&quot;taxonUsageRating&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def gettsnbyvernacularlanguage(language, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Get tsn by vernacular language not the international language code (character)</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.gettsnbyvernacularlanguage(&quot;french&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getTsnByVernacularLanguage&quot;,</span>
+<span class="c1">#         payload={&quot;language&quot;: language},</span>
+<span class="c1">#         request=&quot;get&quot;,</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;commonName&quot;, &quot;language&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itisdf(out, ns21, matches, _tolower(matches))</span>
+
+
+<span class="c1"># def gettsnfromlsid(lsid, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Gets the TSN corresponding to the LSID, or an empty result if there is no match.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.gettsnfromlsid(lsid=&quot;urn:lsid:itis.gov:itis_tsn:28726&quot;)</span>
+<span class="c1">#         itis.gettsnfromlsid(&quot;urn:lsid:itis.gov:itis_tsn:0&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getTSNFromLSID&quot;, payload={&quot;lsid&quot;: lsid}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     tt = out.getchildren()[0].text</span>
+<span class="c1">#     if tt is None:</span>
+<span class="c1">#         tt = &quot;no match&quot;</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         pass</span>
+<span class="c1">#     return tt</span>
+
+
+<span class="c1"># def getunacceptabilityreasonfromtsn(tsn, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Returns the unacceptability reason, if any, for the TSN.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getunacceptabilityreasonfromtsn(183671)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;getUnacceptabilityReasonFromTSN&quot;,</span>
+<span class="c1">#         payload={&quot;tsn&quot;: tsn},</span>
+<span class="c1">#         request=&quot;get&quot;,</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     toget = [&quot;tsn&quot;, &quot;unacceptReason&quot;]</span>
+<span class="c1">#     return _itis_parse(toget, out, ns21)</span>
+
+
+<span class="c1"># def getvernacularlanguages(**kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Provides a list of the unique languages used in the vernacular table.</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.getvernacularlanguages()</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(itis_base + &quot;getVernacularLanguages&quot;, payload={}, request=&quot;get&quot;).xml(</span>
+<span class="c1">#         **kwargs</span>
+<span class="c1">#     )</span>
+<span class="c1">#     matches = [&quot;languageNames&quot;]</span>
+<span class="c1">#     return _itisdf(out, ns23, matches, _tolower(matches), &quot;ax23&quot;)</span>
+
+
+<span class="c1"># def searchbycommonname(x, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search for tsn by common name</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchbycommonname(x=&quot;american bullfrog&quot;)</span>
+<span class="c1">#         itis.searchbycommonname(&quot;ferret-badger&quot;)</span>
+<span class="c1">#         itis.searchbycommonname(&quot;polar bear&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchByCommonName&quot;, payload={&quot;srchKey&quot;: x}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;commonName&quot;, &quot;language&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     tmp = out.xpath(&quot;//ax21:commonNames&quot;, namespaces=ns21)</span>
+<span class="c1">#     return _itisdf(tmp[0], ns21, matches, _tolower(matches))</span>
+
+
+<span class="c1"># def searchbycommonnamebeginswith(x, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search for tsn by common name beginning with</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchbycommonnamebeginswith(&quot;inch&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchByCommonNameBeginsWith&quot;,</span>
+<span class="c1">#         payload={&quot;srchKey&quot;: x},</span>
+<span class="c1">#         request=&quot;get&quot;,</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;commonName&quot;, &quot;language&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     tmp = out.xpath(&quot;//ax21:commonNames&quot;, namespaces=ns21)</span>
+<span class="c1">#     return _itisdf(tmp[0], ns21, matches, _tolower(matches))</span>
+
+
+<span class="c1"># def searchbycommonnameendswith(x, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search for tsn by common name ending with</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchbycommonnameendswith(&quot;snake&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchByCommonNameEndsWith&quot;, payload={&quot;srchKey&quot;: x}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;commonName&quot;, &quot;language&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     tmp = out.xpath(&quot;//ax21:commonNames&quot;, namespaces=ns21)</span>
+<span class="c1">#     return _itisdf(tmp[0], ns21, matches, _tolower(matches))</span>
+
+
+<span class="c1"># def searchcommon(x, which=&quot;begin&quot;, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Searches common name and acts as thin wrapper around</span>
+<span class="c1">#     `itis.searchbycommonnamebeginswith` and `itis.searchbycommonnameendswith`</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchcommon(&quot;inch&quot;)</span>
+<span class="c1">#         itis.searchcommon(&quot;inch&quot;, which = &quot;end&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     if which == &quot;begin&quot;:</span>
+<span class="c1">#         return searchbycommonnamebeginswith(x, **kwargs)</span>
+<span class="c1">#     else:</span>
+<span class="c1">#         return searchbycommonnameendswith(x, **kwargs)</span>
+
+
+<span class="c1"># def searchbyscientificname(x, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search by scientific name</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchbyscientificname(x=&quot;Tardigrada&quot;)</span>
+<span class="c1">#         itis.searchbyscientificname(&quot;Quercus douglasii&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchByScientificName&quot;, payload={&quot;srchKey&quot;: x}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     matches = [&quot;combinedName&quot;, &quot;tsn&quot;]</span>
+<span class="c1">#     return _itisdf(out, ns21, matches, _tolower(matches))</span>
+
+
+<span class="c1"># def searchforanymatch(x, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search for any match</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchforanymatch(x=202385)</span>
+<span class="c1">#         itis.searchforanymatch(x=&quot;dolphin&quot;)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchForAnyMatch&quot;, payload={&quot;srchKey&quot;: x}, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     # if isinstance(x, basestring):</span>
+<span class="c1">#     tmp = out.getchildren()[0].getchildren()</span>
+<span class="c1">#     output = []</span>
+<span class="c1">#     for v in tmp:</span>
+<span class="c1">#         tmp = v.getchildren()</span>
+<span class="c1">#         for w in tmp:</span>
+<span class="c1">#             output.append(</span>
+<span class="c1">#                 dict(zip([gettag(e) for e in w.iter()], [e.text for e in w.iter()]))</span>
+<span class="c1">#             )</span>
+<span class="c1">#     return output</span>
+
+
+<span class="c1"># def searchforanymatchpaged(x, pagesize, pagenum, ascend, **kwargs):</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     Search for any matched page for descending (logical)</span>
+
+<span class="c1">#     Usage::</span>
+
+<span class="c1">#         from pytaxize import itis</span>
+<span class="c1">#         itis.searchforanymatchpaged(x=202385, pagesize=100, pagenum=1, ascend=False)</span>
+<span class="c1">#         itis.searchforanymatchpaged(&quot;Zy&quot;, pagesize=100, pagenum=1, ascend=False)</span>
+<span class="c1">#     &quot;&quot;&quot;</span>
+<span class="c1">#     args = {&quot;srchKey&quot;: x, &quot;pageSize&quot;: pagesize, &quot;pageNum&quot;: pagenum, &quot;ascend&quot;: ascend}</span>
+<span class="c1">#     out = Refactor(</span>
+<span class="c1">#         itis_base + &quot;searchForAnyMatchPaged&quot;, payload=args, request=&quot;get&quot;</span>
+<span class="c1">#     ).json(**kwargs)</span>
+<span class="c1">#     tmp = out.getchildren()[0].getchildren()</span>
+<span class="c1">#     output = []</span>
+<span class="c1">#     for v in tmp:</span>
+<span class="c1">#         tmp = v.getchildren()</span>
+<span class="c1">#         for w in tmp:</span>
+<span class="c1">#             output.append(</span>
+<span class="c1">#                 dict(zip([gettag(e) for e in w.iter()], [e.text for e in w.iter()]))</span>
+<span class="c1">#             )</span>
+<span class="c1">#     return output</span>
+
+
+<span class="c1">## helper functions and variables</span>
+<span class="k">def</span> <span class="nf">convertsingle</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;int&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="c1"># ns21 = {&quot;ax21&quot;: &quot;http://data.itis_service.itis.usgs.gov/xsd&quot;}</span>
+<span class="c1"># ns23 = {&quot;ax23&quot;: &quot;http://metadata.itis_service.itis.usgs.gov/xsd&quot;}</span>
+
+
+<span class="k">def</span> <span class="nf">_parse2df</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:*&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">_parse_nodes</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_parse_hier</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">ns</span><span class="p">):</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:hierarchyList&quot;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">ns</span><span class="p">)</span>
+    <span class="n">uu</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)):</span>
+        <span class="n">uu</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="nb">dict</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span>
+                    <span class="p">[</span>
+                        <span class="s2">&quot;tsn&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;author&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;parentName&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;parentTsn&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;rankName&quot;</span><span class="p">,</span>
+                        <span class="s2">&quot;taxonName&quot;</span><span class="p">,</span>
+                    <span class="p">],</span>
+                    <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">uu</span>
+
+
+<span class="k">def</span> <span class="nf">_itisdf</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;//</span><span class="si">%s</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please enter a valid search name&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+        <span class="c1"># for some reason, the list of tsn&#39;s sometimes begins with a</span>
+        <span class="c1"># spurious None</span>
+        <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">output</span><span class="p">)),</span> <span class="n">columns</span><span class="o">=</span><span class="n">colnames</span><span class="p">)[</span><span class="n">colnames</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">_itisdict</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;//</span><span class="si">%s</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="s2">&quot;Please enter a valid search name&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">output</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_itisextract</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">matches</span><span class="p">,</span> <span class="n">colnames</span><span class="p">,</span> <span class="n">pastens</span><span class="o">=</span><span class="s2">&quot;ax21&quot;</span><span class="p">):</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;//</span><span class="si">%s</span><span class="s2">:&quot;</span> <span class="o">%</span> <span class="n">pastens</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">[</span><span class="n">prefix</span> <span class="o">+</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">matches</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">output</span>
+
+
+<span class="k">def</span> <span class="nf">_array2df</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">colnames</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">]):</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">obj</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">colnames</span><span class="p">,</span> <span class="n">obj</span><span class="p">))])</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="k">def</span> <span class="nf">_itis_parse</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nsp</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:&quot;</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">nsp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
+
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">_tolower</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">vals</span><span class="p">))</span>
+    <span class="c1"># df = pd.DataFrame(dict(zip(_tolower(a), vals)))</span>
+    <span class="c1"># return df</span>
+
+
+<span class="k">def</span> <span class="nf">_itis_parse_2dict</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">nsp</span><span class="p">):</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//ax21:&quot;</span> <span class="o">+</span> <span class="n">x</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="n">nsp</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">]</span>
+
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">xpathfunc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">a</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_get_text</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_tolower</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">y</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">gettag</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">y</span><span class="o">.</span><span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;}&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">_df</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">as_dataframe</span> <span class="ow">and</span> <span class="n">pd</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

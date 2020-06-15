@@ -20,4 +20,8 @@ from .itis import (
     hierarchy_down,
     hierarchy_up,
     terms,
+    global_species_completeness,
+    jurisdictional_origin,
+    jurisdiction_origin_values,
+    jurisdiction_values,
 )

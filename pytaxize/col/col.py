@@ -8,11 +8,11 @@ import pkg_resources
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 
-try:
-    import pandas as pd
-except ImportError:
-    warnings.warn("Pandas library not installed, dataframes disabled")
-    pd = None
+# try:
+#     import pandas as pd
+# except ImportError:
+#     warnings.warn("Pandas library not installed, dataframes disabled")
+#     pd = None
 
 
 def children(name=None, id=None, format=None, start=None, checklist=None):
@@ -109,125 +109,125 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
         return temp
 
 
-def downstream(name=None, downto=None, format=None, start=None, checklist=None):
-    """
-    :param name: The string to search for. Only exact matches found the name given
-        will be returned, unless one or wildcards are included in the search
-        string. An * (asterisk) character denotes a wildcard; a % (percentage)
-        character may also be used. The name must be at least 3 characters long,
-        not counting wildcard characters.
-    :param downto: The taxonomic level you want to go down to. See examples below.
-        The taxonomic level IS case sensitive, and you do have to spell it
-        correctly. See rank_ref for spelling.
-    :param checklist: The year of the checklist to query, if you want a specific
-        year's checklist instead of the lastest as default (numeric).
-    :param format: The returned format (default = None). If NULL xml is used.
-        Currently only xml is supported.
-    :param start:  The first record to return (default = None). If NULL, the
-       results are returned from the first record (start=0). This is useful if
-       the total number of results is larger than the maximum number of results
-       returned by a single Web service query (currently the maximum number of
-       results returned by a single query is 500 for terse queries and 50 for
-       full queries).
+# def downstream(name=None, downto=None, format=None, start=None, checklist=None):
+#     """
+#     :param name: The string to search for. Only exact matches found the name given
+#         will be returned, unless one or wildcards are included in the search
+#         string. An * (asterisk) character denotes a wildcard; a % (percentage)
+#         character may also be used. The name must be at least 3 characters long,
+#         not counting wildcard characters.
+#     :param downto: The taxonomic level you want to go down to. See examples below.
+#         The taxonomic level IS case sensitive, and you do have to spell it
+#         correctly. See rank_ref for spelling.
+#     :param checklist: The year of the checklist to query, if you want a specific
+#         year's checklist instead of the lastest as default (numeric).
+#     :param format: The returned format (default = None). If NULL xml is used.
+#         Currently only xml is supported.
+#     :param start:  The first record to return (default = None). If NULL, the
+#        results are returned from the first record (start=0). This is useful if
+#        the total number of results is larger than the maximum number of results
+#        returned by a single Web service query (currently the maximum number of
+#        results returned by a single query is 500 for terse queries and 50 for
+#        full queries).
 
-    Returns a list of Pandas DataFrame's.
+#     Returns a list of Pandas DataFrame's.
 
-    Usage::
+#     Usage::
         
-        from pytaxize import col
+#         from pytaxize import col
 
-        col.downstream(name="Apis", downto="Species")
-        col.downstream(name="Insecta", downto="Order")
+#         col.downstream(name="Apis", downto="Species")
+#         col.downstream(name="Insecta", downto="Order")
 
-        # Multiple names at once
-        col.downstream(name=["Insecta","Diplopoda"], downto="Order")
+#         # Multiple names at once
+#         col.downstream(name=["Insecta","Diplopoda"], downto="Order")
 
-        # Using a checklist from a specific year
-        col.downstream(name="Apis", downto="Species", checklist=2011)
-    """
-    col_url = "https://www.catalogueoflife.org/col/webservice"
-    year_url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
+#         # Using a checklist from a specific year
+#         col.downstream(name="Apis", downto="Species", checklist=2011)
+#     """
+#     col_url = "https://www.catalogueoflife.org/col/webservice"
+#     year_url = "https://www.catalogueoflife.org/annual-checklist/year/webservice"
 
-    def func(name, downto, format, start, checklist):
-        if checklist is None:
-            url = col_url
-        else:
-            checklist = str(checklist)
-            if checklist in ["2012", "2011", "2010"]:
-                url = re.sub("col", "annual-checklist/" + checklist, col_url)
-            else:
-                url = re.sub("year", checklist, year_url)
+#     def func(name, downto, format, start, checklist):
+#         if checklist is None:
+#             url = col_url
+#         else:
+#             checklist = str(checklist)
+#             if checklist in ["2012", "2011", "2010"]:
+#                 url = re.sub("col", "annual-checklist/" + checklist, col_url)
+#             else:
+#                 url = re.sub("year", checklist, year_url)
 
-        rank_ref_path = pkg_resources.resource_filename("pytaxize", "data/rank_ref.csv")
-        dat = pd.read_csv(rank_ref_path)
+#         rank_ref_path = pkg_resources.resource_filename("pytaxize", "data/rank_ref.csv")
+#         dat = pd.read_csv(rank_ref_path)
 
-        stuff = [x for x in dat.ranks]
-        things = []
-        for i in range(len(stuff)):
-            ss = downto in stuff[i]
-            things.append(ss)
-        dat2 = dat.join(pd.DataFrame(things, columns=["match"]))
-        subset = dat2[dat2.loc[dat2.match == True].index[0] : dat2.shape[0]]
-        torank = [x.split(",")[0] for x in subset.ranks]
+#         stuff = [x for x in dat.ranks]
+#         things = []
+#         for i in range(len(stuff)):
+#             ss = downto in stuff[i]
+#             things.append(ss)
+#         dat2 = dat.join(pd.DataFrame(things, columns=["match"]))
+#         subset = dat2[dat2.loc[dat2.match == True].index[0] : dat2.shape[0]]
+#         torank = [x.split(",")[0] for x in subset.ranks]
 
-        toget = name
-        stop_ = "not"
-        notout = pd.DataFrame(columns=["rankName"])
-        out = []
-        iter = 0
-        while stop_ == "not":
-            iter += 1
+#         toget = name
+#         stop_ = "not"
+#         notout = pd.DataFrame(columns=["rankName"])
+#         out = []
+#         iter = 0
+#         while stop_ == "not":
+#             iter += 1
 
-            def searchcol(x, url):
-                payload = {
-                    "name": x,
-                    "format": format,
-                    "response": "full",
-                    "start": start,
-                }
-                payload = {k: v for k, v in payload.items() if v is not None}
-                tt = Refactor(url, payload, request="get").xml()
-                childtaxa = tt.xpath("//child_taxa//taxon")
-                outlist = []
-                for i in range(len(childtaxa)):
-                    tt_ = childtaxa[i].getchildren()
-                    outlist.append([x.text for x in tt_[:3]])
-                df = pd.DataFrame(outlist, columns=["id", "name", "rank"])
-                return df
+#             def searchcol(x, url):
+#                 payload = {
+#                     "name": x,
+#                     "format": format,
+#                     "response": "full",
+#                     "start": start,
+#                 }
+#                 payload = {k: v for k, v in payload.items() if v is not None}
+#                 tt = Refactor(url, payload, request="get").xml()
+#                 childtaxa = tt.xpath("//child_taxa//taxon")
+#                 outlist = []
+#                 for i in range(len(childtaxa)):
+#                     tt_ = childtaxa[i].getchildren()
+#                     outlist.append([x.text for x in tt_[:3]])
+#                 df = pd.DataFrame(outlist, columns=["id", "name", "rank"])
+#                 return df
 
-            tt = searchcol(toget, url)
+#             tt = searchcol(toget, url)
 
-            if downto in [x for x in tt["rank"]]:
-                out.append(tt.loc[tt["rank"] == downto])
+#             if downto in [x for x in tt["rank"]]:
+#                 out.append(tt.loc[tt["rank"] == downto])
 
-            if tt.loc[tt["rank"] != downto].shape[0] > 0:
-                sh = [x for x in tt["rank"]]
-                bb = []
-                for i in range(len(sh)):
-                    bb.append(sh[i] in torank)
-                notout = tt[bb]
-            else:
-                vals = list()
-                vals.append(downto)
-                notout = pd.DataFrame(vals, columns=["rank"])
+#             if tt.loc[tt["rank"] != downto].shape[0] > 0:
+#                 sh = [x for x in tt["rank"]]
+#                 bb = []
+#                 for i in range(len(sh)):
+#                     bb.append(sh[i] in torank)
+#                 notout = tt[bb]
+#             else:
+#                 vals = list()
+#                 vals.append(downto)
+#                 notout = pd.DataFrame(vals, columns=["rank"])
 
-            if all(notout["rank"] == downto):
-                stop_ = "fam"
-            else:
-                toget = notout["name"]
-                stop_ = "not"
+#             if all(notout["rank"] == downto):
+#                 stop_ = "fam"
+#             else:
+#                 toget = notout["name"]
+#                 stop_ = "not"
 
-        return out
+#         return out
 
-    if isinstance(name, str):
-        nametmp = list()
-        nametmp.append(name)
-        name = nametmp
-    temp = []
-    for i in range(len(name)):
-        tt = func(name[i], downto, format, start, checklist)
-        temp.append(tt)
-    return temp
+#     if isinstance(name, str):
+#         nametmp = list()
+#         nametmp.append(name)
+#         name = nametmp
+#     temp = []
+#     for i in range(len(name)):
+#         tt = func(name[i], downto, format, start, checklist)
+#         temp.append(tt)
+#     return temp
 
 
 def search(name=None, id=None, start=None, checklist=None):

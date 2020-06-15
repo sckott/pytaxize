@@ -10,7 +10,7 @@ from enum import Enum
 @dispatch((str, list))
 def sci2comm(x, db="ncbi"):
     """
-    Get common names from scientific names.
+    Get common names from scientific names or ids
 
     :param x: (str|list(str)|Ids) One or more scientific names or partial names,
         or an `Ids` object
@@ -21,7 +21,7 @@ def sci2comm(x, db="ncbi"):
     :return: dict, keys are supplied scientific names, and values
         are common names
 
-    Remember to set your Entrez API key as `ENTREZ_KEY`
+    :note: Remember to set your Entrez API key as `ENTREZ_KEY`
 
     Usage::
       

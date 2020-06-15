@@ -23,11 +23,11 @@ def search(sci_com, modifier=None, rank_query=None):
         Though note that some data sources use atypical ranks, so inspect the
         data itself for options. Optional.
 
-    Remember to set your Entrez API key as `ENTREZ_KEY`
+    :note: Remember to set your Entrez API key as `ENTREZ_KEY`
 
     :return: dict, named with values given to `sci_com`, 
-    where each value in the dict is a list of NCBI taxonomic
-    identifiers
+        where each value in the dict is a list of NCBI taxonomic
+        identifiers
 
     Usage::
 
