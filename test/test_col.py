@@ -3,7 +3,7 @@ import os
 from nose.tools import *
 import unittest
 import vcr
-import pandas
+# import pandas
 from pytaxize import col
 
 
@@ -18,9 +18,9 @@ class COL(unittest.TestCase):
         "COL: col_children checklist param fails well"
         col.children(name=["Apis"], checklist=2008)
 
-    @vcr.use_cassette("test/vcr_cassettes/col_downstream.yml")
-    def test_col_downstream(self):
-        "COL: col_downstream"
-        res = col.downstream(name=["Apis"], downto="Species")
-        self.assertIsInstance(res, list)
-        self.assertIsInstance(res[0][0], pandas.core.frame.DataFrame)
+    # @vcr.use_cassette("test/vcr_cassettes/col_downstream.yml")
+    # def test_col_downstream(self):
+    #     "COL: col_downstream"
+    #     res = col.downstream(name=["Apis"], downto="Species")
+    #     self.assertIsInstance(res, list)
+    #     self.assertIsInstance(res[0][0], pandas.core.frame.DataFrame)
