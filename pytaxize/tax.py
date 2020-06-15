@@ -1,4 +1,5 @@
 import sys
+import warnings
 import requests
 from lxml import etree
 import re
