@@ -4,6 +4,7 @@ Other methods
 =============
 
 .. py:module:: pytaxize
+  :noindex:
 
 .. automethod:: tax.names_list
 

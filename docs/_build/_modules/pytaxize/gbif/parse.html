@@ -166,6 +166,7 @@
             
   <h1>Source code for pytaxize.gbif.parse</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
 
 <span class="k">try</span><span class="p">:</span>
@@ -175,7 +176,7 @@
     <span class="n">pd</span> <span class="o">=</span> <span class="kc">None</span>
 
 
-<div class="viewcode-block" id="parse"><a class="viewcode-back" href="../../../modules/gbif.html#pytaxize.gbif.parse">[docs]</a><span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">as_dataframe</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parse taxon names using the GBIF name parser.</span>
 
@@ -207,7 +208,7 @@
     <span class="p">)</span>
     <span class="k">if</span> <span class="n">as_dataframe</span><span class="p">:</span>
         <span class="n">tt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tt</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">tt</span></div>
+    <span class="k">return</span> <span class="n">tt</span>
 </pre></div>
 
            </div>
