@@ -60,3 +60,6 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 
 intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
+
+# The master toctree document.
+master_doc = 'index'
