@@ -1,7 +1,7 @@
 pytaxize
 ========
 
-|docs| |travis| |coverage| |black|
+|pypi|  |docs| |travis| |coverage| |black|
 
 This is a port of the R package `taxize <https://github.com/ropensci/taxize>`__.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.
 
@@ -201,6 +201,9 @@ Meta
 
 * Please note that this project is released with a `Contributor Code of Conduct <https://github.com/sckott/pytaxize/blob/master/CONDUCT.md>`__. By participating in this project you agree to abide by its terms.
 * License: MIT; see `LICENSE file <https://github.com/sckott/pytaxize/blob/master/LICENSE>`__
+
+.. |pypi| image:: https://img.shields.io/pypi/v/pytaxize.svg
+   :target: https://pypi.python.org/pypi/pytaxize
 
 .. |docs| image:: https://readthedocs.org/projects/pytaxize/badge/?version=latest
    :target: http://pytaxize.rtfd.org/
