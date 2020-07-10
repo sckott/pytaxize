@@ -3,10 +3,6 @@ import sys
 from pytaxize.itis import hierarchy_down
 
 
-class NoResultException(Exception):
-    pass
-
-
 class Children(object):
     """
     Children: Retrieve taxonomic children
@@ -30,12 +26,6 @@ class Children(object):
         res[179913]
         res[174321]
         res[9999999]
-
-        # NCBI
-        x = Children()
-        x
-        x.ids
-        x.ncbi()
     """
 
     def __init__(self, ids):
