@@ -2,6 +2,7 @@ import warnings
 import sys
 from pytaxize.itis import hierarchy_down
 
+
 class NoResultException(Exception):
     pass
 

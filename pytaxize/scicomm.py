@@ -7,6 +7,7 @@ from pytaxize.ids import Ids
 from pytaxize.itis import common_names
 from enum import Enum
 
+
 @dispatch((str, list))
 def sci2comm(x, db="ncbi"):
     """
@@ -63,38 +64,41 @@ def sci2comm(x, db="ncbi"):
         x = [x]
     return dict(zip(x, res))
 
+
 @dispatch(Ids)
 def sci2comm(x):
     out = x.ids
     res = [CommonNames(z["id"], x.db_ids).call() for w in out.values() for z in w]
     return dict(zip(x.name, res))
 
+
 class CommonNames(object):
-  """CommonNames"""
-  def __init__(self, id, db):
-    super(CommonNames, self).__init__()
-    self.id = id
-    self.db = db
+    """CommonNames"""
 
-  def call(self):
-    if self.db == "ncbi":
-      return self.ncbi(self.id)
-    if self.db == "itis":
-      return self.itis(self.id)
-    
-  def ncbi(self, x, **kwargs):
-      if x is None:
-        return []
-      key = os.environ.get("ENTREZ_KEY")
-      if key is None:
-          raise Exception("ENTREZ_KEY is not defined")
+    def __init__(self, id, db):
+        super(CommonNames, self).__init__()
+        self.id = id
+        self.db = db
 
-      query = {"db": "taxonomy", "ID": x, "api_key": key}
-      url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
-      res = Refactor(url, query, "get").xml(**kwargs)
-      z = res.xpath("//TaxaSet/Taxon/OtherNames/GenbankCommonName")
-      return [w.text for w in z]
+    def call(self):
+        if self.db == "ncbi":
+            return self.ncbi(self.id)
+        if self.db == "itis":
+            return self.itis(self.id)
 
-  def itis(self, x, **kwargs):
-      res = common_names(tsn = x)
-      return [w["commonName"] for w in res] if res[0] is not None else []
+    def ncbi(self, x, **kwargs):
+        if x is None:
+            return []
+        key = os.environ.get("ENTREZ_KEY")
+        if key is None:
+            raise Exception("ENTREZ_KEY is not defined")
+
+        query = {"db": "taxonomy", "ID": x, "api_key": key}
+        url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+        res = Refactor(url, query, "get").xml(**kwargs)
+        z = res.xpath("//TaxaSet/Taxon/OtherNames/GenbankCommonName")
+        return [w.text for w in z]
+
+    def itis(self, x, **kwargs):
+        res = common_names(tsn=x)
+        return [w["commonName"] for w in res] if res[0] is not None else []

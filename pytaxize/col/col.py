@@ -133,7 +133,7 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
 #     Returns a list of Pandas DataFrame's.
 
 #     Usage::
-        
+
 #         from pytaxize import col
 
 #         col.downstream(name="Apis", downto="Species")

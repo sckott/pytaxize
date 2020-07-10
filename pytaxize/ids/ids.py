@@ -5,6 +5,7 @@ from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
 from ..gbif.gbif_utils import *
 
+
 class NoResultException(Exception):
     pass
 
@@ -120,8 +121,9 @@ class Ids(object):
     def extract_ids(self):
         x = self.ids
         if len(x) > 0:
-            x = {k:[w["id"] for w in v] for (k,v) in x.items()}
+            x = {k: [w["id"] for w in v] for (k, v) in x.items()}
         return x
+
 
 def _make_id(id, name, rank, type):
     if id is None:

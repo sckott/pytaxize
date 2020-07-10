@@ -99,6 +99,7 @@ def common_names(tsn, as_dataframe=False, **kwargs):
         [z.pop("class") for z in out["commonNames"]]
     return _df(out["commonNames"], as_dataframe)
 
+
 def core_metadata(tsn, as_dataframe=False, **kwargs):
     """
     Get core metadata from tsn
@@ -358,6 +359,7 @@ def full_record(tsn=None, lsid=None, **kwargs):
     if lsid is not None:
         return _fullrecord("getFullRecordFromLSID", {"lsid": lsid}, **kwargs)
 
+
 def geographic_divisions(tsn, as_dataframe=False, **kwargs):
     """
     Get geographic divisions from tsn
@@ -390,9 +392,9 @@ def geographic_values(**kwargs):
         from pytaxize import itis
         itis.geographic_values()
     """
-    out = Refactor(itis_base + "getGeographicValues", payload={},
-        request="get").json()
+    out = Refactor(itis_base + "getGeographicValues", payload={}, request="get").json()
     return out["geographicValues"]
+
 
 def global_species_completeness(tsn, as_dataframe=False, **kwargs):
     """
@@ -440,6 +442,7 @@ def hierarchy_down(tsn, as_dataframe=False, **kwargs):
     [z.pop("class") for z in tt["hierarchyList"] if z is not None]
     return _df(tt["hierarchyList"], as_dataframe)
 
+
 def hierarchy_up(tsn, as_dataframe=False, **kwargs):
     """
     Get hierarchy up from tsn
@@ -460,17 +463,20 @@ def hierarchy_up(tsn, as_dataframe=False, **kwargs):
     tt.pop("class")
     return _df(tt, as_dataframe)
 
+
 def _itisterms(endpt, args={}, as_dataframe=False, **kwargs):
     out = Refactor(itis_base + endpt, payload=args, request="get").json(**kwargs)
-    if out['itisTerms'][0] is None:
+    if out["itisTerms"][0] is None:
         return {}
-    [w.pop("class") for w in out['itisTerms']]
-    return _df(out['itisTerms'], as_dataframe)
+    [w.pop("class") for w in out["itisTerms"]]
+    return _df(out["itisTerms"], as_dataframe)
+
 
 def _get_text_single(x):
     vals = [x.text]
     keys = [x.tag.split("}")[1]]
     return dict(zip(keys, vals))
+
 
 def terms(x, what="both", as_dataframe=False, **kwargs):
     """
@@ -490,12 +496,19 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
         itis.terms("Poa", what="scientific")
         itis.terms("bear", as_dataframe=True)
     """
+
     class Endpts(Enum):
         both = "getITISTerms"
         common = "getITISTermsFromCommonName"
         scientific = "getITISTermsFromScientificName"
-    return _itisterms(endpt=Endpts[what].value, args={"srchKey": x},
-        as_dataframe=as_dataframe, **kwargs)
+
+    return _itisterms(
+        endpt=Endpts[what].value,
+        args={"srchKey": x},
+        as_dataframe=as_dataframe,
+        **kwargs
+    )
+
 
 # def hierarchy(tsn=None, what="full"):
 #     """
@@ -596,8 +609,7 @@ def jurisdiction_values(**kwargs):
         from pytaxize import itis
         itis.jurisdiction_values()
     """
-    out = Refactor(
-        itis_base + "getJurisdictionValues", payload={}, request="get").json(
+    out = Refactor(itis_base + "getJurisdictionValues", payload={}, request="get").json(
         **kwargs
     )
     out.pop("class")
