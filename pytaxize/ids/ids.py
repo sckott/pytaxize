@@ -3,7 +3,6 @@ import sys
 from ..col import search
 from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
-from ..gbif.gbif_utils import *
 
 
 class NoResultException(Exception):
