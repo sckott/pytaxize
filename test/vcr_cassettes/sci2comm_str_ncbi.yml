@@ -1,0 +1,209 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term=Helianthus%2Bannuus
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
+        UXTxdw6JDHBVSA1OTSxKzghKLS7NKVEICHXy8XRWUNLV1/fz8dXXdwlxUUgtBqtQMDIwMDMwM7LQ
+        13f1U1JQyigpKSi20tdPLS3JzCnWy0tOytTLy8nVy8vM0EvPL4OK66eUpOjDdUKN0gMKKtlxAQAA
+        AP//hJA9C8IwEIZ3f0V3h/NrPA5E/AJta9VJHIINWIypNBeo/94kVbE6uIQnz3vkLoet3oST0mqm
+        PkIDmElei9qLJ3mzZVEx9YJrGJf5qjDs3lvmNBoMBwgOOv4MHneV0EYJdivZSoa2YHG6UBRFuJPV
+        1cWemwstpCqE5rM1XaG1teYwViqKxVWaI0IoCcWzQqqc3hlCI0L29afgpvVNlbmkGOGFXsPHBJik
+        NM+SfYrgKITfM+PGyur+of/M+1OO0N5/5wEAAP//AwDdzBJ5PQIAAA==
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private
+      Connection:
+      - Keep-Alive
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Fri, 10 Jul 2020 19:15:21 GMT
+      Keep-Alive:
+      - timeout=4, max=40
+      NCBI-PHID:
+      - 322C6F801DD187F5000043CC2BB2CEBC.1.1.m_1
+      NCBI-SID:
+      - 97351BD5CD56418D_1459SID
+      Server:
+      - Finatra
+      Set-Cookie:
+      - ncbi_sid=97351BD5CD56418D_1459SID; domain=.nih.gov; path=/; expires=Sat, 10
+        Jul 2021 19:15:21 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-RateLimit-Limit:
+      - '10'
+      X-RateLimit-Remaining:
+      - '9'
+      X-UA-Compatible:
+      - IE=Edge
+      X-XSS-Protection:
+      - 1; mode=block
+      content-encoding:
+      - gzip
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?ID=4232&db=taxonomy
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
+        UXTxdw6JDHBVSA0uzc1NLKoMSi0uzSlRCAh18vF0VlDS1df38/HV13cJcVEAyoCVKJQZKhgZGJgY
+        GhhZ6uu7+ikpKGWUlBQUW+nrp5aWZOYU6+UlJ2Xq5eXk6uVlZuil55dBxfVTSlL04TphxumWGeoB
+        JZTsuAAAAAD//7JBdYQdFwAAAP//bJDBDoIwDIbP+hTLXsAEPSKJkYNcPAgv0IyiDawjbEN9ewcJ
+        l7lb//b7mrR5aVRoFftdXrXFKTtm+SEUS3SoxR00nmXtwHkrRfMd1zSFG2UBytGMAQ9gJDyA+xi3
+        IypCm+RLmmn5Y+ygb0kZl5bqsI4ddaSWHKs3HAjYvbwVwOx9esfVaG045at1IqznbjBvnJJ6A5+q
+        3cyKHT5xktsX//FLDynjBwAA//9SsjPAqtw9NQ8z1BH+wh4okFDGiCvcQRBcmlRcgK4eq0pfYOIG
+        hnZiCTCmXBJL4EEGZtsZGRha6Bsa6hsZKxgYWBnAvWSjD0tiAAAAAP//4gIAAAD//7LRR09+AAAA
+        AP//AwA+WIzbRgMAAA==
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private
+      Connection:
+      - Keep-Alive
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Fri, 10 Jul 2020 19:15:21 GMT
+      Keep-Alive:
+      - timeout=4, max=40
+      NCBI-PHID:
+      - D0BD71697844DFA5000013D587E51FD6.1.1.m_1
+      NCBI-SID:
+      - A0EF1C824CCC3B33_2378SID
+      Server:
+      - Finatra
+      Set-Cookie:
+      - ncbi_sid=A0EF1C824CCC3B33_2378SID; domain=.nih.gov; path=/; expires=Sat, 10
+        Jul 2021 19:15:21 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-RateLimit-Limit:
+      - '10'
+      X-RateLimit-Remaining:
+      - '8'
+      X-UA-Compatible:
+      - IE=Edge
+      X-XSS-Protection:
+      - 1; mode=block
+      content-encoding:
+      - gzip
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?ID=4232&db=taxonomy
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAAJyPT1PCMBDF73yK2LNmoXJyYpmx7SgOAjPUg8dQAs2Ybmr+UPDTS1sHBvWCOe2+
+        fft+GzbalYpshbFS430woP2AjKIeu0pmcfY2T0nGd3whHJm/PkzGMQluAKaTF4AkS5qZxmsyGLqC
+        PHP03OxJ2O+HAOk0IEHhXGXvAOq6ppgvJUVVUpQF3egtCHRGfMKHF2bfhIFrwujKrYID/psasRYR
+        9cjhNfV4FQ3D25BBV3f6IpeHNLmW+ZSXInoSSnJ0hbeEI3pvGfxwdGszVwjT9LYTWvFR4JLje6zL
+        UmNrztuSWI9rpWthGPz2nPbP21aKFbc2TtKIe1doI92ewVE7tybSVn//gUwog+P4xIML+KW0thJK
+        SdxcfAH/B/0LAAD//8SW226cMBCG7/sUvEE4BtCiSFW0yU2RVk3VewdbGyvGRhhXzdt3zC6sYTft
+        VBs5V3h8mg/PP2N/nHf9qd6NLv7lv7pZq6nakR40N2s2qm7cnsOc7yCjO+ACecIvjtaXI8ovbjPy
+        bicAxGLQ4MHIPbcgx6HDTBAjG3hzr6iL9ngPPsDl+HW7R+SnAfYjPbXj7j+c7VXVfFCXPdSTi3rl
+        oz5zUi+9XNyz+sYlI3tINwiSEaQPVL8nkutWb4KteYXSogayCX7ynlPe2VMhbBM8QRHpBtW9vNlB
+        x+IS7G37DMuOgz960rywydoaaAgxr+xY35J5o5rspRJcdZpTazJN4OyVHmeBW2Yob9TwJhhVEgAf
+        jZQMwOzYDmJMOjYQYS2iBzsAcxrSdlAjxWh8td1EsLnZMDt7bCtOR2NSIRgBEbbdLHtPhk2Q6QAX
+        x7n97UTGqaVunw1jEmW3+aKqzjNWtfM8PpfL67x+VLVUQQ9fV+MHMayY/sIY51mJIpzVggHTBmL6
+        ClWBqvYauiQJyxCFt1AwBvEj6LK0TFB0bkJh4GwWmavYQHtxHP0vHOQ3LrzP1xMmEfLwnHrjKSmy
+        IoxxbG758wSXF1lyi0xZpxp7PLoUJzv3cvBElyRlgYJbXFUYuMY+fq5K2DTJowKnutXN6Ut4UZzi
+        ivHyIveEV0ZFjLtsT+8KT2g2tnGIq8buQ8dfYHNczk7vLn8hLWLc++n0DPTElsbh+w+nPwAAAP//
+        vFg7DoMwDN05BTeInYD4CHVpl25d2h1KipBoQVEYuH3DLw39KRVSBwaeg/2w4sTPZnjdlNoQq0Xe
+        a+E1tNCuRh8Nsg2vS3otq25VDQANwW6XGf26ZTeynl6EyDy7Cn2nIP51kKgkol0SDZY25KQoM75u
+        47Hf0vdpgrTkVfBhTvGFl9ZosypLDqJWF6MsFyOoCeyegvTwELspzko2J0QDr+tOadXy/U1uEMd1
+        GjCYLePod00m2QqeSr5TzwajyCdACQ1ciGLqxaBq17CPHxybfAbUJRISREKZiyz2g9hXx6Nhn/6/
+        zWb3jEBIgLmAyvfgfjY6OonOHQAA//8Cs8ADgwAAAAD//wMAs12oprgUAAA=
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private
+      Connection:
+      - Keep-Alive
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Fri, 10 Jul 2020 19:15:21 GMT
+      Keep-Alive:
+      - timeout=4, max=40
+      NCBI-PHID:
+      - 939B5A8B493487E5000022D8E81AF9A2.1.1.m_5
+      NCBI-SID:
+      - C561FD2E938399C9_66AESID
+      Server:
+      - Finatra
+      Set-Cookie:
+      - ncbi_sid=C561FD2E938399C9_66AESID; domain=.nih.gov; path=/; expires=Sat, 10
+        Jul 2021 19:15:22 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-RateLimit-Limit:
+      - '10'
+      X-RateLimit-Remaining:
+      - '7'
+      X-UA-Compatible:
+      - IE=Edge
+      X-XSS-Protection:
+      - 1; mode=block
+      content-encoding:
+      - gzip
+    status:
+      code: 200
+      message: OK
+version: 1

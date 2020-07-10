@@ -1,0 +1,131 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term=Poa%2Bannua
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
+        UXTxdw6JDHBVSA1OTSxKzghKLS7NKVEICHXy8XRWUNLV1/fz8dXXdwlxUUgtBqtQMDIwMDMwM7LQ
+        13f1U1JQyigpKSi20tdPLS3JzCnWy0tOytTLy8nVy8vM0EvPL4OK66eUpOjDdUKN0gMKKtlxAQAA
+        AP//dJDBCoJAEIbvPYX3DmMIQTAMRFQIpaZ2ig5D7kFaNXQFe/t21wo1uizffv+wMzs46k24qdpS
+        0QKhB4yFOnJnxJuMSRTXilzrekY/O+SN0u/5Ga0811siaJqZ0waY1lw2kpXeSSIUjIXi250cx8FU
+        1IWODfcXiiqec1m2fFlL6QRciOaKYCNbtMuFzOibIfTCZpPPWLftHrLKBAUIHzQaBp0xjGgfh+cI
+        QZMNp7PiqRX1c6D/zPlThjBe+OwFAAD//wMADLBAvi4CAAA=
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private
+      Connection:
+      - Keep-Alive
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Fri, 10 Jul 2020 19:14:01 GMT
+      Keep-Alive:
+      - timeout=4, max=40
+      NCBI-PHID:
+      - D0BD71697844DFA500005CD549BF8607.1.1.m_1
+      NCBI-SID:
+      - 6DB5D5DDCEC01E34_75E5SID
+      Server:
+      - Finatra
+      Set-Cookie:
+      - ncbi_sid=6DB5D5DDCEC01E34_75E5SID; domain=.nih.gov; path=/; expires=Sat, 10
+        Jul 2021 19:14:01 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-RateLimit-Limit:
+      - '10'
+      X-RateLimit-Remaining:
+      - '9'
+      X-UA-Compatible:
+      - IE=Edge
+      X-XSS-Protection:
+      - 1; mode=block
+      content-encoding:
+      - gzip
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?ID=93036&db=taxonomy
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
+        UXTxdw6JDHBVSA0uzc1NLKoMSi0uzSlRCAh18vF0VlDS1df38/HV13cJcVEAyoCVKJQZKhgZGJgY
+        GhhZ6uu7+ikpKGWUlBQUW+nrp5aWZOYU6+UlJ2Xq5eXk6uVlZuil55dBxfVTSlL04TphxumWGeoB
+        JZTsuAAAAAD//7JBdYQdFwAAAP//bJDBCsIwDIbP+hSjL+BgIAizIO7Si4jbC4QuShltx5YNfXtT
+        QQ81t/zh+wL56yZaXuntpja9PlRlta93PKVM6IsLeDyqloCWWRXda/ykiZ9UGiy5FRlnMBNuEIYc
+        n0e0DmeRb9zqUpG542OINpIstXwukLs7m3KuXiMUEMIConuOnm9Lnoh38DT9lzSB8IGT+tX1z58G
+        kJVSwN8AAAD//7JVck/NwwxeoAewexsSjhixgdOvwaVJxQVEedMXmHyBwZlYAowKl8QSeNiA2XbA
+        dGWqb2Cob2ipYGBgZQD3io0+LBEBAAAA///iAgAAAP//stFHT2AAAAAA//8DAFDx/OUoAwAA
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - private
+      Connection:
+      - Keep-Alive
+      Content-Security-Policy:
+      - upgrade-insecure-requests
+      Content-Type:
+      - text/xml; charset=UTF-8
+      Date:
+      - Fri, 10 Jul 2020 19:14:01 GMT
+      Keep-Alive:
+      - timeout=4, max=40
+      NCBI-PHID:
+      - 939B5A8B493487E500005AD887556B6F.1.1.m_1
+      NCBI-SID:
+      - 9339DCA6F8D21585_81E3SID
+      Server:
+      - Finatra
+      Set-Cookie:
+      - ncbi_sid=9339DCA6F8D21585_81E3SID; domain=.nih.gov; path=/; expires=Sat, 10
+        Jul 2021 19:14:02 GMT
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Transfer-Encoding:
+      - chunked
+      X-RateLimit-Limit:
+      - '10'
+      X-RateLimit-Remaining:
+      - '8'
+      X-UA-Compatible:
+      - IE=Edge
+      X-XSS-Protection:
+      - 1; mode=block
+      content-encoding:
+      - gzip
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -81,6 +81,45 @@ def search(sci_com, modifier=None, rank_query=None):
     return lists2dict(temp, sci_com)
 
 
+def hierarchy(ids):
+    """
+    Get a full taxonomic hierarchy from NCBI
+
+    :param ids: one or more NCBI taxonomy ids
+
+    :note: Remember to set your Entrez API key as `ENTREZ_KEY`
+
+    :return: dict, named with ids given to `ids`, 
+        where each value in the dict is a list of taxa, each
+        a dict with the fields ``ScientificName``, ``Rank``, and ``TaxId``
+
+    Usage::
+
+        from pytaxize import ncbi
+        ncbi.hierarchy(ids=9606)
+        ncbi.hierarchy(ids=[9606,55062,4231])
+    """
+    toget = ["ScientificName", "Rank", "TaxId"]
+    key = os.environ.get("ENTREZ_KEY")
+    if key is None:
+        raise Exception("ENTREZ_KEY is not defined")
+    if not isinstance(ids, list):
+        ids = [ids]
+    idz = ",".join([str(x) for x in ids])
+    args = {"db": "taxonomy", "ID": idz, "api_key": key}
+    res = _entrez("efetch", args)
+    taxa = res.xpath("//TaxaSet/Taxon")
+    out = []
+    for x in range(len(taxa)):
+        nodes = taxa[x].xpath(".//LineageEx/Taxon")
+        tmp = [
+            dict(zip(toget, [node.xpath(w)[0].text for w in toget])) for node in nodes
+        ]
+        tmp.append(dict(zip(toget, [taxa[x].xpath(w)[0].text for w in toget])))
+        out.append(tmp)
+    return dict(zip(ids, out))
+
+
 def _entrez(path="esearch", args={}):
     url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi" % path
     tt = Refactor(url, args, request="get").xml()
