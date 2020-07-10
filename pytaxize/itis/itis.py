@@ -428,12 +428,16 @@ def hierarchy_down(tsn, as_dataframe=False, **kwargs):
 
         from pytaxize import itis
         itis.hierarchy_down(tsn = 179913)
+        itis.hierarchy_down(tsn = 161994)
+        itis.hierarchy_down(tsn = 9999999)
     """
     tt = Refactor(
         itis_base + "getHierarchyDownFromTSN", payload={"tsn": tsn}, request="get"
     ).json(**kwargs)
     tt.pop("class")
-    [z.pop("class") for z in tt["hierarchyList"]]
+    if tt["hierarchyList"]:
+        pass
+    [z.pop("class") for z in tt["hierarchyList"] if z is not None]
     return _df(tt["hierarchyList"], as_dataframe)
 
 def hierarchy_up(tsn, as_dataframe=False, **kwargs):

@@ -1,0 +1,211 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=179913
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=179913
+    status:
+      code: 302
+      message: Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=179913
+  response:
+    body:
+      string: '{"author":"Linnaeus, 1758","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecordList","hierarchyList":[{"author":"Gill,
+        1872","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Mammalia","parentTsn":"179913","rankName":"Subclass","taxonName":"Prototheria","tsn":"179914"},{"author":"Parker
+        and Haswell, 1897","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Mammalia","parentTsn":"179913","rankName":"Subclass","taxonName":"Theria","tsn":"179916"}],"rankName":"Class","sciName":"Mammalia","tsn":"179913"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '561'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Fri, 10 Jul 2020 15:12:29 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=174321
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=174321
+    status:
+      code: 302
+      message: Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=174321
+  response:
+    body:
+      string: !!binary |
+        eyJhdXRob3IiOiJHcmF5LCAxODI1IiwiY2xhc3MiOiJnb3YudXNncy5pdGlzLml0aXNfc2Vydmlj
+        ZS5kYXRhLlN2Y0hpZXJhcmNoeVJlY29yZExpc3QiLCJoaWVyYXJjaHlMaXN0IjpbeyJhdXRob3Ii
+        OiJXYWdsZXIsIDE4MzAiLCJjbGFzcyI6Imdvdi51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRhdGEu
+        U3ZjSGllcmFyY2h5UmVjb3JkIiwicGFyZW50TmFtZSI6IkJvaWRhZSIsInBhcmVudFRzbiI6IjE3
+        NDMyMSIsInJhbmtOYW1lIjoiR2VudXMiLCJ0YXhvbk5hbWUiOiJFcGljcmF0ZXMiLCJ0c24iOiIx
+        NzQzMjcifSx7ImF1dGhvciI6Ikxpbm5hZXVzLCAxNzU4IiwiY2xhc3MiOiJnb3YudXNncy5pdGlz
+        Lml0aXNfc2VydmljZS5kYXRhLlN2Y0hpZXJhcmNoeVJlY29yZCIsInBhcmVudE5hbWUiOiJCb2lk
+        YWUiLCJwYXJlbnRUc24iOiIxNzQzMjEiLCJyYW5rTmFtZSI6IkdlbnVzIiwidGF4b25OYW1lIjoi
+        Qm9hIiwidHNuIjoiMjA5NTY4In0seyJhdXRob3IiOiJEYXVkaW4sIDE4MDMiLCJjbGFzcyI6Imdv
+        di51c2dzLml0aXMuaXRpc19zZXJ2aWNlLmRhdGEuU3ZjSGllcmFyY2h5UmVjb3JkIiwicGFyZW50
+        TmFtZSI6IkJvaWRhZSIsInBhcmVudFRzbiI6IjE3NDMyMSIsInJhbmtOYW1lIjoiR2VudXMiLCJ0
+        YXhvbk5hbWUiOiJDb3JhbGx1cyIsInRzbiI6IjIwOTU3MSJ9LHsiYXV0aG9yIjoiV2FnbGVyLCAx
+        ODMwIiwiY2xhc3MiOiJnb3YudXNncy5pdGlzLml0aXNfc2VydmljZS5kYXRhLlN2Y0hpZXJhcmNo
+        eVJlY29yZCIsInBhcmVudE5hbWUiOiJCb2lkYWUiLCJwYXJlbnRUc24iOiIxNzQzMjEiLCJyYW5r
+        TmFtZSI6IkdlbnVzIiwidGF4b25OYW1lIjoiRXVuZWN0ZXMiLCJ0c24iOiIyMDk1NzcifSx7ImF1
+        dGhvciI6IkR1belyaWwgYW5kIEJpYnJvbiwgMTg0NCIsImNsYXNzIjoiZ292LnVzZ3MuaXRpcy5p
+        dGlzX3NlcnZpY2UuZGF0YS5TdmNIaWVyYXJjaHlSZWNvcmQiLCJwYXJlbnROYW1lIjoiQm9pZGFl
+        IiwicGFyZW50VHNuIjoiMTc0MzIxIiwicmFua05hbWUiOiJHZW51cyIsInRheG9uTmFtZSI6IkNo
+        aWxhYm90aHJ1cyIsInRzbiI6Ijk1MTIxMCJ9XSwicmFua05hbWUiOiJGYW1pbHkiLCJzY2lOYW1l
+        IjoiQm9pZGFlIiwidHNuIjoiMTc0MzIxIn0K
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '1110'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Fri, 10 Jul 2020 15:12:29 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=9999999
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=9999999
+    status:
+      code: 302
+      message: Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getHierarchyDownFromTSN?tsn=9999999
+  response:
+    body:
+      string: '{"author":"","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecordList","hierarchyList":[null],"rankName":"","sciName":"","tsn":"9999999"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '145'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Fri, 10 Jul 2020 15:12:30 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
+version: 1

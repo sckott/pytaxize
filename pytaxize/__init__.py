@@ -9,7 +9,7 @@ pytaxize library
 pytaxize is a taxonomic toolkit for Python. Example usage:
 """
 
-__version__ = "0.7.0"
+__version__ = "0.7.1"
 __title__ = "pytaxize"
 __author__ = "Scott Chamberlain"
 __license__ = "MIT"
@@ -47,4 +47,5 @@ from .itis import (
 from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve
 from .ids import Ids
+from .children import Children
 from .scicomm import sci2comm
