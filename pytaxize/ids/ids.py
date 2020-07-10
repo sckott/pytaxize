@@ -3,7 +3,7 @@ import sys
 from ..col import search
 from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
-
+from .gbif_helpers import process_single_species_with_gbif
 
 class NoResultException(Exception):
     pass
@@ -108,6 +108,11 @@ class Ids(object):
             out.append(result)
         self.db_ids = "itis"
         self.ids = dict(zip(self.name, out))
+    
+    def gbif(self,rank="species"):
+        key = rank+"Key"
+        self.db_ids = "gbif"
+        self.ids = dict(zip(self.name,map(lambda x: process_single_species_with_gbif(x,key),self.name)))
 
     def db(self, db, **kwargs):
         if db == "ncbi":
@@ -120,7 +125,7 @@ class Ids(object):
     def extract_ids(self):
         x = self.ids
         if len(x) > 0:
-            x = {k: [w["id"] for w in v] for (k, v) in x.items()}
+            x = {k: [w.get("id",None) for w in v] for (k, v) in x.items()}
         return x
 
 
@@ -162,7 +167,6 @@ id_uris = {
         "other": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=%s",
     },
 }
-
 
 def _make_id_uri(rank, which, x):
     if rank is not None:
