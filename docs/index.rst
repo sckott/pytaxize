@@ -92,6 +92,8 @@ Modules
 
    modules/intro
    modules/ids
+   modules/children
+   modules/classification
    modules/scicomm
    modules/ncbi
    modules/itis
@@ -105,6 +107,12 @@ Modules
 
 :doc:`modules/ids`
     The Ids class
+
+:doc:`modules/children`
+    The Children class
+
+:doc:`modules/classification`
+    The Classification class
 
 :doc:`modules/scicomm`
     Scientific to common names, and vice versa

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize.ids.ids &mdash; pytaxize 0.7.0 documentation</title>
+  <title>pytaxize.ids.ids &mdash; pytaxize 0.7.1 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.7.0
+                0.7.1
               </div>
             
           
@@ -86,6 +86,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/intro.html">pytaxize modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/children.html">Children</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/classification.html">Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/scicomm.html">Scientific and common names</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/ncbi.html">NCBI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../modules/itis.html">ITIS</a></li>
@@ -171,6 +173,7 @@
 <span class="kn">from</span> <span class="nn">pytaxize.ncbi</span> <span class="kn">import</span> <span class="n">ncbi</span>
 <span class="kn">from</span> <span class="nn">pytaxize.itis</span> <span class="kn">import</span> <span class="n">terms</span>
 <span class="kn">from</span> <span class="nn">..gbif.gbif_utils</span> <span class="kn">import</span> <span class="o">*</span>
+
 
 <span class="k">class</span> <span class="nc">NoResultException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="k">pass</span>
@@ -287,8 +290,9 @@
     <span class="k">def</span> <span class="nf">extract_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:[</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="n">x</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">x</span></div>
+
 
 <span class="k">def</span> <span class="nf">_make_id</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>

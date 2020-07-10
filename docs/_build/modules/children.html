@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pytaxize modules &mdash; pytaxize 0.7.1 documentation</title>
+  <title>Children &mdash; pytaxize 0.7.1 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Taxonomic Identifiers Class" href="ids.html" />
-    <link rel="prev" title="pytaxize" href="../index.html" /> 
+    <link rel="next" title="Classification" href="classification.html" />
+    <link rel="prev" title="Taxonomic Identifiers Class" href="ids.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,8 +86,10 @@
             
               <p class="caption"><span class="caption-text">Modules</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">pytaxize modules</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Children</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">Classification</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scicomm.html">Scientific and common names</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ncbi.html">NCBI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
@@ -149,13 +151,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>pytaxize modules</li>
+      <li>Children</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/modules/intro.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/modules/children.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -168,21 +170,34 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="pytaxize-modules">
-<span id="intro-modules"></span><h1>pytaxize modules<a class="headerlink" href="#pytaxize-modules" title="Permalink to this headline">¶</a></h1>
-<p><cite>pytaxize</cite> is split up into modules:</p>
-<ul class="simple">
-<li><p>Taxonomic IDs - Class for getting taxonomic ids from different data sources</p></li>
-<li><p>Scientific names to common names - convert among scientific and common names</p></li>
-<li><p>NCBI - methods for NCBI</p></li>
-<li><p>Integrated Taxonomic Information System  - methods for ITIS</p></li>
-<li><p>Global Names Resolver - resolve names with the Global Names Resolver</p></li>
-<li><p>Global Names Index - various methods for the GNI data source</p></li>
-<li><p>Global Biodiversity Information Facility - Taxonomic names related methods for GBIF</p></li>
-<li><p>Catalogue of Life - methods for COL - will be transitioned to COL+ soon</p></li>
-<li><p>Other methods - variety of other methods</p></li>
-</ul>
-<p>You can import the entire library, or each module individually as needed.</p>
+  <div class="section" id="children">
+<span id="id1"></span><h1>Children<a class="headerlink" href="#children" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-pytaxize"></span><dl class="py class">
+<dt id="pytaxize.Children">
+<em class="property">class </em><code class="sig-prename descclassname">pytaxize.</code><code class="sig-name descname">Children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pytaxize/children/children.html#Children"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pytaxize.Children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Children: Retrieve taxonomic children</p>
+<p>Usage:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">Children</span>
+
+<span class="c1"># ITIS</span>
+<span class="c1">## one id</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Children</span><span class="p">(</span><span class="mi">179913</span><span class="p">)</span>
+<span class="n">x</span>
+<span class="n">x</span><span class="o">.</span><span class="n">ids</span>
+<span class="n">x</span><span class="o">.</span><span class="n">itis</span><span class="p">()</span>
+
+<span class="c1">## many ids - with one invalid id</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Children</span><span class="p">([</span><span class="mi">179913</span><span class="p">,</span> <span class="mi">174321</span><span class="p">,</span> <span class="mi">9999999</span><span class="p">])</span>
+<span class="n">x</span>
+<span class="n">x</span><span class="o">.</span><span class="n">ids</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">itis</span><span class="p">()</span>
+<span class="n">res</span><span class="p">[</span><span class="mi">179913</span><span class="p">]</span>
+<span class="n">res</span><span class="p">[</span><span class="mi">174321</span><span class="p">]</span>
+<span class="n">res</span><span class="p">[</span><span class="mi">9999999</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 
 
@@ -193,10 +208,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="ids.html" class="btn btn-neutral float-right" title="Taxonomic Identifiers Class" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="classification.html" class="btn btn-neutral float-right" title="Classification" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral float-left" title="pytaxize" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ids.html" class="btn btn-neutral float-left" title="Taxonomic Identifiers Class" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
