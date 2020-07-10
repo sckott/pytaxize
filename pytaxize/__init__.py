@@ -18,7 +18,7 @@ from .gbif import parse
 from .col import children, search
 from .gn import gni
 from .gn import gnr
-from .ncbi import search
+from .ncbi import search,hierarchy
 from .itis import (
     accepted_names,
     any_match_count,
@@ -48,4 +48,5 @@ from .tax import names_list, vascan_search, scrapenames
 from .taxo import taxo_datasources, taxo_resolve
 from .ids import Ids
 from .children import Children
+from .classification import Classification
 from .scicomm import sci2comm
