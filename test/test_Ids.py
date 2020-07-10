@@ -22,7 +22,7 @@ class IdsTest(unittest.TestCase):
         assert len(x.ids) > 0
         assert x.db_ids == "ncbi"
     
-    @vcr.use_cassette("test/vcr_cassettes/ids_gbif.yml")
+    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_1.yml")
     @pytest.mark.skipif(
         "TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
         reason="Skipping this test on Travis CI.",
@@ -39,7 +39,11 @@ class IdsTest(unittest.TestCase):
         assert isinstance(result,dict)
         assert 'Panthera tigris' in result 
 
-    
+    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_2.yml")
+    @pytest.mark.skipif(
+        "TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
+        reason="Skipping this test on Travis CI.",
+    )    
     def test_ids_gbif_list_of_names(self):
         entry_data = ["Panthera tigris","Panthera leo"]
         x = Ids(entry_data)
