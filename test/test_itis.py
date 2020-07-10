@@ -26,7 +26,7 @@ class ITIS(unittest.TestCase):
     #     df = itis.searchbycommonname("grizzly")
     #     assert set(list(df.columns)) == set(["tsn", "language", "commonname"])
 
-    # @vcr.use_cassette("test/vcr_cassettes/tis_gethierarchyupfromtsn.yml")
+    # @vcr.use_cassette("test/vcr_cassettes/itis_gethierarchyupfromtsn.yml")
     # def test_itis_gethierarchyupfromtsn(self):
     #     "ITIS: gethierarchyupfromtsn"
     #     hierarchy = itis.gethierarchyupfromtsn(tsn=36485)
