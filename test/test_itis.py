@@ -5,6 +5,7 @@ import unittest
 import vcr
 from pytaxize import itis
 
+
 class ITIS(unittest.TestCase):
     @vcr.use_cassette("test/vcr_cassettes/itis_accepted_names.yml")
     def test_itis_accepted_names(self):
@@ -34,15 +35,11 @@ class ITIS(unittest.TestCase):
     @vcr.use_cassette("test/vcr_cassettes/itis_common_names.yml")
     def test_itis_common_names(self):
         "ITIS: common_names"
-        common_names = itis.common_names(
-            tsn=180543, as_dataframe=False
-        )
+        common_names = itis.common_names(tsn=180543, as_dataframe=False)
         assert set(common_names[1]) == set(["commonName", "language", "tsn"])
 
     @vcr.use_cassette("test/vcr_cassettes/itis_common_names_dataframe.yml")
     def test_itis_common_names_dataframe(self):
         "ITIS: common_names"
-        common_names = itis.common_names(
-            tsn=180543, as_dataframe=False
-        )
+        common_names = itis.common_names(tsn=180543, as_dataframe=False)
         assert set(common_names[1]) == set(["commonName", "language", "tsn"])

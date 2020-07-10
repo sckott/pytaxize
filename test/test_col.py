@@ -3,6 +3,7 @@ import os
 from nose.tools import *
 import unittest
 import vcr
+
 # import pandas
 from pytaxize import col
 

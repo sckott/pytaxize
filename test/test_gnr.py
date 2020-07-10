@@ -6,24 +6,26 @@ import vcr
 from pytaxize import gn
 
 # expected results
-exp1 = {'data_source_id': 169,
- 'data_source_title': 'uBio NameBank',
- 'gni_uuid': 'f5674e32-00cc-57e3-b632-6a0b89fa4df4',
- 'name_string': 'Helianthus annus',
- 'canonical_form': 'Helianthus annus',
- 'classification_path': '|Helianthus annus',
- 'classification_path_ranks': 'kingdom|',
- 'classification_path_ids': '',
- 'taxon_id': '102910884',
- 'local_id': 'urn:lsid:ubio.org:namebank:10130157',
- 'global_id': 'urn:lsid:ubio.org:namebank:10130157',
- 'edit_distance': 0,
- 'url': 'http://www.ubio.org/browser/details.php?namebankID=10130157',
- 'imported_at': '2013-05-31T20:12:19Z',
- 'match_type': 1,
- 'match_value': 'Exact string match',
- 'prescore': '3|0|0',
- 'score': 0.988}
+exp1 = {
+    "data_source_id": 169,
+    "data_source_title": "uBio NameBank",
+    "gni_uuid": "f5674e32-00cc-57e3-b632-6a0b89fa4df4",
+    "name_string": "Helianthus annus",
+    "canonical_form": "Helianthus annus",
+    "classification_path": "|Helianthus annus",
+    "classification_path_ranks": "kingdom|",
+    "classification_path_ids": "",
+    "taxon_id": "102910884",
+    "local_id": "urn:lsid:ubio.org:namebank:10130157",
+    "global_id": "urn:lsid:ubio.org:namebank:10130157",
+    "edit_distance": 0,
+    "url": "http://www.ubio.org/browser/details.php?namebankID=10130157",
+    "imported_at": "2013-05-31T20:12:19Z",
+    "match_type": 1,
+    "match_value": "Exact string match",
+    "prescore": "3|0|0",
+    "score": 0.988,
+}
 
 
 class Gnr(unittest.TestCase):

@@ -5,6 +5,7 @@ import vcr
 from pytaxize import Children
 import pytest
 
+
 class ChildrenTest(unittest.TestCase):
     @vcr.use_cassette("test/vcr_cassettes/children_itis.yml")
     def test_children_itis(self):
