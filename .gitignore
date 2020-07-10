@@ -57,5 +57,3 @@ Ipython Notebook
 Thumbs.db
 
 # cassettes to ignore
-test/vcr_cassettes/sci2comm_str_ncbi.yml
-test/vcr_cassettes/ids_ncbi.yml
