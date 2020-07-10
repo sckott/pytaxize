@@ -14,7 +14,6 @@ __title__ = "pytaxize"
 __author__ = "Scott Chamberlain"
 __license__ = "MIT"
 
-from .gbif import parse
 from .col import children, search
 from .gn import gni
 from .gn import gnr
