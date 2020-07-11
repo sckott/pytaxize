@@ -23,6 +23,10 @@ id_uris = {
         "species": "https://api.gbif.org/v1/species/suggest?q=%s&rank=%s",
         "other": "https://api.gbif.org/v1/species/suggest?q=%s&rank=%s",
     },
+    "eol": {
+        "species": "https://eol.org/api/search/1.0.json?q=%s&exact=true",
+        "other": "https://eol.org/api/search/1.0.json?q=%s&exact=true",
+    },
 }
 
 

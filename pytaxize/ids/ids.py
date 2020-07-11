@@ -4,6 +4,7 @@ from ..col import search
 from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
 from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
+from .eol_helpers import eol_query_for_single_name, process_eol_response
 from .format_helpers import _make_id
 
 
@@ -119,6 +120,11 @@ class Ids(object):
                 self.name, list(map(lambda x: process_gbif_response(x, rank), response))
             )
         )
+
+    def eol(self):
+        self.db_ids = "eol"
+        response = map(eol_query_for_single_name, self.name)
+        self.ids = dict(zip(self.name, list(map(process_eol_response, response))))
 
     def db(self, db, **kwargs):
         if db == "ncbi":
