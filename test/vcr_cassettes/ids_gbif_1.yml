@@ -8,13 +8,13 @@ interactions:
       - gzip, deflate
       Connection:
       - keep-alive
-      User-Agent:
-      - python-requests/2.24.0
+      user-agent:
+      - python-requests/2.24.0,pygbif/0.4.0
     method: GET
-    uri: https://api.gbif.org/v1/species?name=Panthera%20tigris
+    uri: https://api.gbif.org/v1/species?name=Panthera+tigris&rank=SPECIES&limit=100
   response:
     body:
-      string: "{\"offset\":0,\"limit\":20,\"endOfRecords\":true,\"results\":[{\"key\":5219416,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif:5219416\",\"sourceTaxonKey\":132081394,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+      string: "{\"offset\":0,\"limit\":100,\"endOfRecords\":true,\"results\":[{\"key\":5219416,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif:5219416\",\"sourceTaxonKey\":132081394,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
         tigris\",\"kingdomKey\":1,\"phylumKey\":44,\"classKey\":359,\"orderKey\":732,\"familyKey\":9703,\"genusKey\":2435194,\"speciesKey\":5219416,\"datasetKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\",\"constituentKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"parentKey\":2435194,\"parent\":\"Panthera\",\"basionymKey\":4969819,\"basionym\":\"Felis
         tigris (Linnaeus, 1758)\",\"scientificName\":\"Panthera tigris (Linnaeus,
         1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\" (Linnaeus,
@@ -80,23 +80,23 @@ interactions:
       Access-Control-Allow-Origin:
       - '*'
       Age:
-      - '980'
+      - '0'
       Cache-Control:
       - public, max-age=3601
       Connection:
       - keep-alive
       Content-Length:
-      - '14809'
+      - '14810'
       Content-Type:
       - application/json
       Date:
-      - Fri, 10 Jul 2020 20:36:13 GMT
+      - Sat, 11 Jul 2020 18:11:41 GMT
       Server:
       - Jetty(9.3.z-SNAPSHOT)
       Via:
       - 1.1 varnish (Varnish/5.2)
       X-Varnish:
-      - 360613707 355337397
+      - 924327495 941361051
     status:
       code: 200
       message: OK

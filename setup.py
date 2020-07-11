@@ -29,7 +29,7 @@ setup(
     url="https://github.com/sckott/pytaxize",
     license="MIT",
     packages=find_packages(exclude=["test-*"]),
-    install_requires=["requests", "lxml", "multipledispatch"],
+    install_requires=["requests", "lxml", "multipledispatch","pytaxize"],
     extras_require={"test": ["vcrpy", "vcrpy-unittest"], "dataframe": ["pandas"]},
     package_data={"pytaxize": ["data/*.csv"]},
     include_package_data=True,
