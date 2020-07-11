@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: http://www.itis.gov/ITISWebService/jsonservice/getFullHierarchyFromTSN?tsn=558090
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - Close
+      Location:
+      - https://www.itis.gov/ITISWebService/jsonservice/getFullHierarchyFromTSN?tsn=558090
+    status:
+      code: 302
+      message: Redirect
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://www.itis.gov/ITISWebService/jsonservice/getFullHierarchyFromTSN?tsn=558090
+  response:
+    body:
+      string: '{"author":"","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecordList","hierarchyList":[{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"","parentTsn":"","rankName":"Kingdom","taxonName":"Animalia","tsn":"202423"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Animalia","parentTsn":"202423","rankName":"Subkingdom","taxonName":"Bilateria","tsn":"914154"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Bilateria","parentTsn":"914154","rankName":"Infrakingdom","taxonName":"Deuterostomia","tsn":"914156"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Deuterostomia","parentTsn":"914156","rankName":"Phylum","taxonName":"Chordata","tsn":"158852"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Chordata","parentTsn":"158852","rankName":"Subphylum","taxonName":"Vertebrata","tsn":"331030"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Vertebrata","parentTsn":"331030","rankName":"Infraphylum","taxonName":"Gnathostomata","tsn":"914179"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Gnathostomata","parentTsn":"914179","rankName":"Superclass","taxonName":"Tetrapoda","tsn":"914181"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Tetrapoda","parentTsn":"914181","rankName":"Class","taxonName":"Aves","tsn":"174371"},{"author":null,"class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Aves","parentTsn":"174371","rankName":"Order","taxonName":"Passeriformes","tsn":"178265"},{"author":"Bonaparte,
+        1850","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Passeriformes","parentTsn":"178265","rankName":"Family","taxonName":"Estrildidae","tsn":"179604"},{"author":"Gould,
+        1842","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Estrildidae","parentTsn":"179604","rankName":"Genus","taxonName":"Poephila","tsn":"558090"},{"author":"(Gould,
+        1840)","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Poephila","parentTsn":"558090","rankName":"Species","taxonName":"Poephila
+        acuticauda","tsn":"562367"},{"author":"(Gould, 1837)","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Poephila","parentTsn":"558090","rankName":"Species","taxonName":"Poephila
+        cincta","tsn":"562368"},{"author":"Gould, 1842","class":"gov.usgs.itis.itis_service.data.SvcHierarchyRecord","parentName":"Poephila","parentTsn":"558090","rankName":"Species","taxonName":"Poephila
+        personata","tsn":"562369"}],"rankName":"","sciName":"","tsn":"558090"}
+
+        '
+    headers:
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '2785'
+      Content-Type:
+      - text/json;charset=ISO-8859-1
+      Date:
+      - Sat, 11 Jul 2020 21:02:07 GMT
+      Strict-Transport-Security:
+      - max-age=63072000; includeSubdomains; preload
+      - max-age=63072000; includeSubdomains; preload
+      X-Application:
+      - itis_webservices
+      X-Node-Name:
+      - not shown
+      X-Upstream-Member:
+      - not shown
+    status:
+      code: 200
+      message: ''
+version: 1

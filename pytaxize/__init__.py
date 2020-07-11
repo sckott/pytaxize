@@ -48,3 +48,4 @@ from .taxo import taxo_datasources, taxo_resolve
 from .ids import Ids
 from .children import Children
 from .scicomm import sci2comm
+from .classification import Classification

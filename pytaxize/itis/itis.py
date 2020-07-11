@@ -293,7 +293,6 @@ def hierarchy_full(tsn, as_dataframe=False, **kwargs):
         itis_base + "getFullHierarchyFromTSN", payload={"tsn": tsn}, request="get"
     ).json(**kwargs)
     hier = tt["hierarchyList"]
-    [z.pop("class") for z in hier]
     return _df(hier, as_dataframe)
 
 
