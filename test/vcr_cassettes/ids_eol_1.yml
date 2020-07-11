@@ -1,0 +1,136 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.24.0
+    method: GET
+    uri: https://eol.org/api/search/1.0.json?q=Panthera%20tigris&exact=true
+  response:
+    body:
+      string: "{\"totalResults\":129,\"startIndex\":1,\"itemsPerPage\":50,\"results\":[{\"id\":328674,\"title\":\"Panthera
+        tigris\",\"link\":\"https://eol.org/pages/328674\",\"content\":\"Panthera
+        tigris; Panthera tigris (Linnaeus, 1758); Panthera tigris \xC3\x97 Panthera
+        leo; \\u003ci\\u003ePanthera tigris\\u003c/i\\u003e\"},{\"id\":1253183,\"title\":\"Panthera
+        tigris altaica\",\"link\":\"https://eol.org/pages/1253183\",\"content\":\"Panthera
+        tigris altaica; Panthera tigris subsp. altaica Temminck, 1844; Panthera tigris
+        altaica Temminck, 1844; Panthera tigris longipilis (Fitzinger, 1868); Panthera
+        tigris ssp. altaica Temminck, 1844; \\u003ci\\u003ePanthera tigris altaica\\u003c/i\\u003e;
+        \\u003ci\\u003ePanthera tigris longipilis\\u003c/i\\u003e\"},{\"id\":52384402,\"title\":\"Panthera
+        tigris jacksoni\",\"link\":\"https://eol.org/pages/52384402\",\"content\":\"Panthera
+        tigris jacksoni; \\u003ci\\u003ePanthera tigris jacksoni\\u003c/i\\u003e\"},{\"id\":1271385,\"title\":\"Panthera
+        tigris balica\",\"link\":\"https://eol.org/pages/1271385\",\"content\":\"Panthera
+        tigris balica; Panthera tigris subsp. balica Schwarz, 1912; Panthera tigris
+        balica Schwarz, 1912; Panthera tigris ssp. balica Schwarz, 1912; Panthera
+        tigris balica Schwarz, 1912.; \\u003ci\\u003ePanthera tigris balica\\u003c/i\\u003e\"},{\"id\":1271383,\"title\":\"Panthera
+        tigris sumatrae\",\"link\":\"https://eol.org/pages/1271383\",\"content\":\"Panthera
+        tigris sumatrae; Panthera tigris subsp. sumatrae Pocock, 1929; Panthera tigris
+        sumatrae Pocock 1929; Panthera tigris sumatrae Pocock, 1929; Panthera tigris
+        ssp. sumatrae Pocock, 1929; Panthera tigris ssp. sumatrae; \\u003ci\\u003ePanthera
+        tigris sumatrae\\u003c/i\\u003e\"},{\"id\":1271371,\"title\":\"Panthera tigris
+        amoyensis\",\"link\":\"https://eol.org/pages/1271371\",\"content\":\"Panthera
+        tigris amoyensis; Panthera tigris subsp. amoyensis (Hilzheimer, 1905); Panthera
+        tigris amoyensis (Hilzheimer, 1905); Panthera tigris ssp. amoyensis (Hilzheimer,
+        1905); \\u003ci\\u003ePanthera tigris amoyensis\\u003c/i\\u003e\"},{\"id\":1271382,\"title\":\"Panthera
+        tigris virgata\",\"link\":\"https://eol.org/pages/1271382\",\"content\":\"Panthera
+        tigris virgata; Panthera tigris subsp. virgata (Illiger, 1815); Panthera tigris
+        virgata (Illiger, 1815); Panthera tigris ssp. virgata (Illiger, 1815); \\u003ci\\u003ePanthera
+        tigris virgata\\u003c/i\\u003e\"},{\"id\":1271372,\"title\":\"Panthera tigris
+        corbetti\",\"link\":\"https://eol.org/pages/1271372\",\"content\":\"Panthera
+        tigris corbetti; Panthera tigris subsp. corbetti Mazak, 1968; Panthera tigris
+        corbetti Mazak, 1968; Panthera tigris ssp. corbetti Mazak, 1968; \\u003ci\\u003ePanthera
+        tigris corbetti\\u003c/i\\u003e\"},{\"id\":1271384,\"title\":\"Panthera tigris
+        sondaica\",\"link\":\"https://eol.org/pages/1271384\",\"content\":\"Panthera
+        tigris sondaica; Panthera tigris subsp. sondaica Temminck, 1844; Panthera
+        tigris sondaica Temminck, 1844; Panthera tigris ssp. sondaica Temminck, 1844;
+        Panthera tigris sondaica Temminck, 1844.; \\u003ci\\u003ePanthera tigris sondaica\\u003c/i\\u003e\"},{\"id\":49313214,\"title\":\"Panthera
+        tigris jacksoni\",\"link\":\"https://eol.org/pages/49313214\",\"content\":\"Panthera
+        tigris jacksoni; \\u003ci\\u003ePanthera tigris jacksoni\\u003c/i\\u003e\"},{\"id\":51111565,\"title\":\"panthera
+        tigris\",\"link\":\"https://eol.org/pages/51111565\",\"content\":\"panthera
+        tigris\"},{\"id\":51631320,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/51631320\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":55075564,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/55075564\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":55115996,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/55115996\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52451467,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52451467\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52454114,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52454114\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":56874292,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/56874292\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":56922393,\"title\":\"Panthera tigris acutidens\",\"link\":\"https://eol.org/pages/56922393\",\"content\":\"Panthera
+        tigris acutidens\"},{\"id\":56950839,\"title\":\"Panthera tigris soloensis\",\"link\":\"https://eol.org/pages/56950839\",\"content\":\"Panthera
+        tigris soloensis\"},{\"id\":56950840,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/56950840\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":51621915,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/51621915\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":51631321,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/51631321\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52339282,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52339282\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52484299,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52484299\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52468400,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52468400\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52477245,\"title\":\"Panthera tigris soloensis\",\"link\":\"https://eol.org/pages/52477245\",\"content\":\"Panthera
+        tigris soloensis\"},{\"id\":52477247,\"title\":\"Panthera tigris acutidens\",\"link\":\"https://eol.org/pages/52477247\",\"content\":\"Panthera
+        tigris acutidens\"},{\"id\":55635102,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/55635102\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":54159498,\"title\":\"Panthera tigris soloensis\",\"link\":\"https://eol.org/pages/54159498\",\"content\":\"Panthera
+        tigris soloensis\"},{\"id\":56880629,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/56880629\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":56880631,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/56880631\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":55073585,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/55073585\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":55835515,\"title\":\"Panthera tigris acutidens\",\"link\":\"https://eol.org/pages/55835515\",\"content\":\"Panthera
+        tigris acutidens\"},{\"id\":56890739,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/56890739\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":56950841,\"title\":\"Panthera tigris acutidens\",\"link\":\"https://eol.org/pages/56950841\",\"content\":\"Panthera
+        tigris acutidens\"},{\"id\":52311190,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52311190\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52458592,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/52458592\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":52445501,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52445501\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52477244,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/52477244\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":56855869,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/56855869\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52311189,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/52311189\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":52458593,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52458593\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52370894,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52370894\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":52447661,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/52447661\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":51621916,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/51621916\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":51380584,\"title\":\"Panthera tigris acutidens\",\"link\":\"https://eol.org/pages/51380584\",\"content\":\"Panthera
+        tigris acutidens\"},{\"id\":47192044,\"title\":\"Panthera\",\"link\":\"https://eol.org/pages/47192044\",\"content\":\"Panthera
+        Tigris Tigris\"},{\"id\":55065695,\"title\":\"Panthera tigris jacksoni\",\"link\":\"https://eol.org/pages/55065695\",\"content\":\"Panthera
+        tigris jacksoni\"},{\"id\":55114822,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/55114822\",\"content\":\"Panthera
+        tigris trinilensis\"},{\"id\":56950838,\"title\":\"Panthera tigris trinilensis\",\"link\":\"https://eol.org/pages/56950838\",\"content\":\"Panthera
+        tigris trinilensis\"}]}"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Headers:
+      - DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range
+      Access-Control-Allow-Methods:
+      - GET, POST, OPTIONS
+      Access-Control-Allow-Origin:
+      - '*'
+      Access-Control-Expose-Headers:
+      - Content-Length,Content-Range
+      Age:
+      - '0'
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '8228'
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Sat, 11 Jul 2020 19:49:42 GMT
+      ETag:
+      - W/"fa642c12b5b70a9ca804cbd700d73b62"
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-Frame-Options:
+      - ALLOWALL
+      X-Request-Id:
+      - f064d299-16ba-465b-88c0-9f6cd6ac954a
+      X-Robots-Tag:
+      - noindex
+      X-Runtime:
+      - '0.238435'
+    status:
+      code: 200
+      message: OK
+version: 1
