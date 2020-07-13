@@ -3,6 +3,8 @@ import sys
 from ..col import search
 from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
+from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
+from .format_helpers import _make_id
 
 
 class NoResultException(Exception):
@@ -109,6 +111,15 @@ class Ids(object):
         self.db_ids = "itis"
         self.ids = dict(zip(self.name, out))
 
+    def gbif(self, rank="species"):
+        self.db_ids = "gbif"
+        response = map(lambda x: gbif_query_for_single_name(x, rank), self.name)
+        self.ids = dict(
+            zip(
+                self.name, list(map(lambda x: process_gbif_response(x, rank), response))
+            )
+        )
+
     def db(self, db, **kwargs):
         if db == "ncbi":
             self.ncbi()
@@ -120,55 +131,5 @@ class Ids(object):
     def extract_ids(self):
         x = self.ids
         if len(x) > 0:
-            x = {k: [w["id"] for w in v] for (k, v) in x.items()}
+            x = {k: [w.get("id", None) for w in v] for (k, v) in x.items()}
         return x
-
-
-def _make_id(id, name, rank, type):
-    if id is None:
-        uri = None
-    else:
-        uri = _make_id_uri(rank, type, id)
-    return {
-        "id": id,
-        "name": name,
-        "rank": rank,
-        "uri": uri,
-    }
-
-
-def _converter(x):
-    if x.__class__.__name__ == "str":
-        return [x]
-    else:
-        return x
-
-
-def _flatten(x):
-    return [item for sublist in x for item in sublist]
-
-
-id_uris = {
-    "col": {
-        "species": "http://www.catalogueoflife.org/col/details/species/id/%s",
-        "other": "http://www.catalogueoflife.org/col/browse/tree/id/%s",
-    },
-    "ncbi": {
-        "species": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
-        "other": "https://www.ncbi.nlm.nih.gov/taxonomy/%s",
-    },
-    "itis": {
-        "species": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=%s",
-        "other": "https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=%s",
-    },
-}
-
-
-def _make_id_uri(rank, which, x):
-    if rank is not None:
-        if rank.lower() == "species":
-            return id_uris[which]["species"] % x
-        else:
-            return id_uris[which]["other"] % x
-    else:
-        return None
