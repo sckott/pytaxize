@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pytaxize.ncbi.ncbi &mdash; pytaxize 0.7.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/children.html">Children</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gn.html#module-0">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules/other.html">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>pytaxize.ncbi.ncbi</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pytaxize.ncbi.ncbi</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">from</span> <span class="nn">lxml</span> <span class="kn">import</span> <span class="n">etree</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="kn">from</span> <span class="nn">pytaxize.refactor</span> <span class="kn">import</span> <span class="n">Refactor</span>
+<span class="kn">from</span> <span class="nn">pytaxize.utils</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="n">sci_com</span><span class="p">,</span> <span class="n">modifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rank_query</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Search NCBI&#39;s taxonomic data - get NCBI taxonomic IDs</span>
+
+<span class="sd">    :param sci_com: list of common or scientific names</span>
+<span class="sd">    :param modifier: A modifier to the `sci_com` given. Options include:</span>
+<span class="sd">        Organism, Scientific Name, Common Name, All Names, Division, </span>
+<span class="sd">        Filter, Lineage, GC, MGC, Name Tokens, Next Level, PGC, Properties,</span>
+<span class="sd">        Rank, Subtree, Synonym, Text Word. These are not checked, so make</span>
+<span class="sd">        sure they are entered correctly, as is.</span>
+<span class="sd">    :param rank_query: A taxonomic rank name to modify the query sent to NCBI.</span>
+<span class="sd">        Though note that some data sources use atypical ranks, so inspect the</span>
+<span class="sd">        data itself for options. Optional.</span>
+
+<span class="sd">    :note: Remember to set your Entrez API key as `ENTREZ_KEY`</span>
+
+<span class="sd">    :return: dict, named with values given to `sci_com`, </span>
+<span class="sd">        where each value in the dict is a list of NCBI taxonomic</span>
+<span class="sd">        identifiers</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import ncbi</span>
+
+<span class="sd">        ncbi.search(sci_com = &quot;Apis&quot;)</span>
+
+<span class="sd">        # Many names</span>
+<span class="sd">        ncbi.search(sci_com=[&quot;Apis&quot;, &quot;Puma concolor&quot;, &quot;Pinus&quot;])</span>
+
+<span class="sd">        # Example with more than 1 result</span>
+<span class="sd">        ncbi.search(sci_com=&#39;Satyrium&#39;)</span>
+<span class="sd">        ncbi.search(sci_com=[&#39;Satyrium&#39;, &#39;Pinus&#39;])</span>
+
+<span class="sd">        # common names</span>
+<span class="sd">        ncbi.search(sci_com = &#39;bear&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ENTREZ_KEY&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;ENTREZ_KEY is not defined&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">func</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;+&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">modifier</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;[</span><span class="si">%s</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="n">modifier</span>
+        <span class="n">term</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="k">if</span> <span class="n">rank_query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">term</span> <span class="o">=</span> <span class="n">term</span> <span class="o">+</span> <span class="s2">&quot; AND </span><span class="si">%s</span><span class="s2">[Rank]&quot;</span> <span class="o">%</span> <span class="n">rank_query</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;taxonomy&quot;</span><span class="p">,</span> <span class="s2">&quot;term&quot;</span><span class="p">:</span> <span class="n">term</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
+        <span class="n">tt</span> <span class="o">=</span> <span class="n">_entrez</span><span class="p">(</span><span class="s2">&quot;esearch&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="n">stuff</span> <span class="o">=</span> <span class="n">tt</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//IdList/Id&quot;</span><span class="p">)</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">stuff</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">ids</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">ids</span><span class="p">))</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;taxonomy&quot;</span><span class="p">,</span> <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">ids</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">_entrez</span><span class="p">(</span><span class="s2">&quot;esummary&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+        <span class="c1"># docsums = res.xpath(&quot;//DocSum&quot;)[0].getchildren()</span>
+        <span class="n">docsums</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//DocSum&quot;</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">docsums</span><span class="p">)):</span>
+            <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">values</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">docsums</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">:]]</span>
+            <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">docsums</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="mi">1</span><span class="p">:]]</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">vals</span><span class="p">)))</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="n">sci_com</span> <span class="o">=</span> <span class="n">str2list</span><span class="p">(</span><span class="n">sci_com</span><span class="p">)</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sci_com</span><span class="p">)):</span>
+        <span class="n">temp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">(</span><span class="n">sci_com</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">lists2dict</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="n">sci_com</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">hierarchy</span><span class="p">(</span><span class="n">ids</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a full taxonomic hierarchy from NCBI</span>
+
+<span class="sd">    :param ids: one or more NCBI taxonomy ids</span>
+
+<span class="sd">    :note: Remember to set your Entrez API key as `ENTREZ_KEY`</span>
+
+<span class="sd">    :return: dict, named with ids given to `ids`, </span>
+<span class="sd">        where each value in the dict is a list of taxa, each</span>
+<span class="sd">        a dict with the fields ``ScientificName``, ``Rank``, and ``TaxId``</span>
+
+<span class="sd">    Usage::</span>
+
+<span class="sd">        from pytaxize import ncbi</span>
+<span class="sd">        ncbi.hierarchy(ids=9606)</span>
+<span class="sd">        ncbi.hierarchy(ids=[9606,55062,4231])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">toget</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ScientificName&quot;</span><span class="p">,</span> <span class="s2">&quot;Rank&quot;</span><span class="p">,</span> <span class="s2">&quot;TaxId&quot;</span><span class="p">]</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ENTREZ_KEY&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;ENTREZ_KEY is not defined&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">ids</span><span class="p">]</span>
+    <span class="n">idz</span> <span class="o">=</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">])</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;db&quot;</span><span class="p">:</span> <span class="s2">&quot;taxonomy&quot;</span><span class="p">,</span> <span class="s2">&quot;ID&quot;</span><span class="p">:</span> <span class="n">idz</span><span class="p">,</span> <span class="s2">&quot;api_key&quot;</span><span class="p">:</span> <span class="n">key</span><span class="p">}</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="n">_entrez</span><span class="p">(</span><span class="s2">&quot;efetch&quot;</span><span class="p">,</span> <span class="n">args</span><span class="p">)</span>
+    <span class="n">taxa</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;//TaxaSet/Taxon&quot;</span><span class="p">)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">taxa</span><span class="p">)):</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">taxa</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="s2">&quot;.//LineageEx/Taxon&quot;</span><span class="p">)</span>
+        <span class="n">tmp</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">w</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">toget</span><span class="p">]))</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span>
+        <span class="p">]</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">toget</span><span class="p">,</span> <span class="p">[</span><span class="n">taxa</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">xpath</span><span class="p">(</span><span class="n">w</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">toget</span><span class="p">])))</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">out</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_entrez</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="s2">&quot;esearch&quot;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">{}):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://eutils.ncbi.nlm.nih.gov/entrez/eutils/</span><span class="si">%s</span><span class="s2">.fcgi&quot;</span> <span class="o">%</span> <span class="n">path</span>
+    <span class="n">tt</span> <span class="o">=</span> <span class="n">Refactor</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">xml</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">tt</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

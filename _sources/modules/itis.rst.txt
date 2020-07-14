@@ -1,0 +1,31 @@
+.. _itis:
+
+ITIS
+====
+
+.. py:module:: pytaxize.itis
+
+.. automethod:: itis.accepted_names
+.. automethod:: itis.any_match_count
+.. automethod:: itis.comment_detail
+.. automethod:: itis.common_names
+.. automethod:: itis.core_metadata
+.. automethod:: itis.coverage
+.. automethod:: itis.credibility_rating
+.. automethod:: itis.credibility_ratings
+.. automethod:: itis.currency
+.. automethod:: itis.date_data
+.. automethod:: itis.experts
+.. automethod:: itis.rank_name
+.. automethod:: itis.hierarchy_full
+.. automethod:: itis.full_record
+.. automethod:: itis.geographic_divisions
+.. automethod:: itis.geographic_values
+.. automethod:: itis.hierarchy_down
+.. automethod:: itis.hierarchy_up
+.. automethod:: itis.terms
+.. automethod:: itis.global_species_completeness
+.. automethod:: itis.jurisdictional_origin
+.. automethod:: itis.jurisdiction_origin_values
+.. automethod:: itis.jurisdiction_values
+

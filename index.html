@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pytaxize &mdash; pytaxize 0.7.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="pytaxize modules" href="modules/intro.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home"> pytaxize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.7.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Modules</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules/intro.html">pytaxize modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/ids.html">Taxonomic Identifiers Class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/children.html">Children</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/classification.html">Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/scicomm.html">Scientific and common names</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/ncbi.html">NCBI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/itis.html">ITIS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gn.html">Global Names Resolver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gn.html#module-0">Global Names Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/gbif.html">Global Biodiversity Information Facility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/col.html">Catalogue of Life</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/other.html">Other methods</a></li>
+</ul>
+<p class="caption"><span class="caption-text">All the rest</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog_link.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributors.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conduct.html">Contributor Code of Conduct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">pytaxize</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>pytaxize</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pytaxize">
+<h1>pytaxize<a class="headerlink" href="#pytaxize" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference external" href="https://pypi.python.org/pypi/pytaxize"><img alt="pypi" src="https://img.shields.io/pypi/v/pytaxize.svg" /></a> <a class="reference external" href="http://pytaxize.rtfd.org/"><img alt="docs" src="https://readthedocs.org/projects/pytaxize/badge/?version=latest" /></a> <a class="reference external" href="https://travis-ci.org/sckott/pytaxize"><img alt="travis" src="https://travis-ci.org/sckott/pytaxize.svg?branch=master" /></a> <a class="reference external" href="https://codecov.io/gh/sckott/pytaxize"><img alt="coverage" src="https://codecov.io/gh/sckott/pytaxize/branch/master/graph/badge.svg" /></a> <a class="reference external" href="https://github.com/psf/black"><img alt="black" src="https://img.shields.io/badge/code%20style-black-000000.svg" /></a></p>
+<p>This is a port of the R package <a class="reference external" href="https://github.com/ropensci/taxize">taxize</a>.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.</p>
+<p>Why?  A significant advantage of a Python version of <cite>taxize</cite> will be for those that are pythonistas at heart. Also, you could use <cite>pytaxize</cite> in a web app, whereas you could with <cite>taxize</cite> (e.g., in a Shiny app), but it wouldn’t scale, be very fast, etc.</p>
+</div>
+<div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>Stable from pypi</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install pytaxize</span>
+</pre></div>
+</div>
+<p>Development version</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="taxonomic-ids">
+<h1>Taxonomic Ids<a class="headerlink" href="#taxonomic-ids" title="Permalink to this headline">¶</a></h1>
+<p>I’ve started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What’s available right now is just getting COL ids.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">Ids</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">)</span>
+<span class="n">res</span><span class="o">.</span><span class="n">ncbi</span><span class="p">()</span>
+<span class="n">res</span><span class="o">.</span><span class="n">ids</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s1">&#39;Poa annua&#39;</span><span class="p">:</span> <span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;93036&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Poa annua&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="s1">&#39;species&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;uri&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.ncbi.nlm.nih.gov/taxonomy/93036&#39;</span><span class="p">}]}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="itis">
+<h1>ITIS<a class="headerlink" href="#itis" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">itis</span>
+<span class="n">itis</span><span class="o">.</span><span class="n">accepted_names</span><span class="p">(</span><span class="mi">504239</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s1">&#39;acceptedName&#39;</span><span class="p">:</span> <span class="s1">&#39;Dasiphora fruticosa&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;acceptedTsn&#39;</span><span class="p">:</span> <span class="s1">&#39;836659&#39;</span><span class="p">,</span>
+   <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;(L.) Rydb.&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">itis</span><span class="o">.</span><span class="n">hierarchy_up</span><span class="p">(</span><span class="n">tsn</span> <span class="o">=</span> <span class="mi">36485</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s1">&#39;Raf.&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;parentName&#39;</span><span class="p">:</span> <span class="s1">&#39;Asteraceae&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;parentTsn&#39;</span><span class="p">:</span> <span class="s1">&#39;35420&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;rankName&#39;</span><span class="p">:</span> <span class="s1">&#39;Genus&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;taxonName&#39;</span><span class="p">:</span> <span class="s1">&#39;Agoseris&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;tsn&#39;</span><span class="p">:</span> <span class="s1">&#39;36485&#39;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="catalogue-of-life">
+<h1>Catalogue of Life<a class="headerlink" href="#catalogue-of-life" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pytaxize</span> <span class="kn">import</span> <span class="n">col</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">children</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Apis&quot;</span><span class="p">])</span>
+<span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">[{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;7a4a38c5095963949d6d6ec917d471de&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Apis andreniformis&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="s1">&#39;Species&#39;</span><span class="p">},</span>
+ <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;39610a4ceff7e5244e334a3fbc5e47e5&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;Apis cerana&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;rank&#39;</span><span class="p">:</span> <span class="s1">&#39;Species&#39;</span><span class="p">}]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modules">
+<h1>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="simple">
+<dt><a class="reference internal" href="modules/intro.html"><span class="doc">pytaxize modules</span></a></dt><dd><p>Introduction to pygbif modules.</p>
+</dd>
+<dt><a class="reference internal" href="modules/ids.html"><span class="doc">Taxonomic Identifiers Class</span></a></dt><dd><p>The Ids class</p>
+</dd>
+<dt><a class="reference internal" href="modules/children.html"><span class="doc">Children</span></a></dt><dd><p>The Children class</p>
+</dd>
+<dt><a class="reference internal" href="modules/classification.html"><span class="doc">Classification</span></a></dt><dd><p>The Classification class</p>
+</dd>
+<dt><a class="reference internal" href="modules/scicomm.html"><span class="doc">Scientific and common names</span></a></dt><dd><p>Scientific to common names, and vice versa</p>
+</dd>
+<dt><a class="reference internal" href="modules/ncbi.html"><span class="doc">NCBI</span></a></dt><dd><p>The ncbi module: NCBI methods</p>
+</dd>
+<dt><a class="reference internal" href="modules/itis.html"><span class="doc">ITIS</span></a></dt><dd><p>The itis module: ITIS methods</p>
+</dd>
+<dt><a class="reference internal" href="modules/gn.html"><span class="doc">Global Names Resolver</span></a></dt><dd><p>The gn module: methods for Global Names Index and Resolver</p>
+</dd>
+<dt><a class="reference internal" href="modules/gbif.html"><span class="doc">Global Biodiversity Information Facility</span></a></dt><dd><p>The gbif module: GBIF methods</p>
+</dd>
+<dt><a class="reference internal" href="modules/col.html"><span class="doc">Catalogue of Life</span></a></dt><dd><p>The col module: Catalogue of Life methods</p>
+</dd>
+<dt><a class="reference internal" href="modules/other.html"><span class="doc">Other methods</span></a></dt><dd><p>Variety of other methods</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="all-the-rest">
+<h1>All the rest<a class="headerlink" href="#all-the-rest" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+<dl class="simple">
+<dt><a class="reference internal" href="changelog_link.html"><span class="doc">Changelog</span></a></dt><dd><p>See what has changed in recent pygbif versions.</p>
+</dd>
+<dt><a class="reference internal" href="contributors.html"><span class="doc">Contributors</span></a></dt><dd><p>pygbif contributors.</p>
+</dd>
+<dt><a class="reference internal" href="contributing.html"><span class="doc">Contributing</span></a></dt><dd><p>Learn how to contribute to the pygbif project.</p>
+</dd>
+<dt><a class="reference internal" href="conduct.html"><span class="doc">Contributor Code of Conduct</span></a></dt><dd><p>Expected behavior in this community. By participating in this project you agree to abide by its terms.</p>
+</dd>
+<dt><a class="reference internal" href="license.html"><span class="doc">LICENSE</span></a></dt><dd><p>The pygbif license.</p>
+</dd>
+</dl>
+<div class="section" id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="modules/intro.html" class="btn btn-neutral float-right" title="pytaxize modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Scott Chamberlain
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
