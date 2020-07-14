@@ -8,15 +8,15 @@ python:
   - "3.8"
 
 install:
-  - pip install 'requests>=2.8.14'
+  - pip install -r requirements.txt
+
+install:
   - pip install 'pandas>=0.22'
-  - pip install 'lxml>=4.2.1'
   - pip install codecov
   - pip install vcrpy
   - pip install vcrpy-unittest
   - pip install pytest
   - pip install pytest-cov
-  - pip install multipledispatch
 
 script:
   - pytest --verbose --disable-warnings --cov=pytaxize/ --ignore setup.py
