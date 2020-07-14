@@ -1,7 +1,7 @@
 pytaxize
 ========
 
-|pypi| |docs| |travis| |coverage| |black|
+|pypi| |travis| |coverage| |black|
 
 This is a port of the R package `taxize <https://github.com/ropensci/taxize>`__.  There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.
 
@@ -171,9 +171,6 @@ Indices and tables
 
 .. |pypi| image:: https://img.shields.io/pypi/v/pytaxize.svg
    :target: https://pypi.python.org/pypi/pytaxize
-
-.. |docs| image:: https://readthedocs.org/projects/pytaxize/badge/?version=latest
-   :target: http://pytaxize.rtfd.org/
 
 .. |travis| image:: https://travis-ci.org/sckott/pytaxize.svg?branch=master
    :target: https://travis-ci.org/sckott/pytaxize
