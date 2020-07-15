@@ -26,7 +26,7 @@ id_uris = {
     "eol": {
         "species": "https://eol.org/api/search/1.0.json?q=%s&exact=true",
         "other": "https://eol.org/api/search/1.0.json?q=%s&exact=true",
-    }
+    },
 }
 
 
