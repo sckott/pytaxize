@@ -8,7 +8,6 @@ from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
 from .format_helpers import _make_id
 from .eol_helpers import (
     eol_search_query_for_single_name,
-    eol_taxa_query_for_single_PageID,
     process_eol_search_response,
     process_list_of_taxa_details,
     eol_taxa_query,
