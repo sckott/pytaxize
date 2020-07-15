@@ -1,11 +1,18 @@
 import warnings
 import sys
+import itertools
 from ..col import search
 from pytaxize.ncbi import ncbi
 from pytaxize.itis import terms
 from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
 from .format_helpers import _make_id
-from .eol_helpers import eol_query_for_single_name, process_eol_response
+from .eol_helpers import (
+    eol_search_query_for_single_name,
+    eol_taxa_query_for_single_PageID,
+    process_eol_search_response,
+    process_list_of_taxa_details,
+    eol_taxa_query,
+)
 
 
 class NoResultException(Exception):
@@ -123,8 +130,18 @@ class Ids(object):
 
     def eol(self):
         self.db_ids = "eol"
-        response = map(eol_query_for_single_name, self.name)
-        self.ids = dict(zip(self.name, list(map(process_eol_response, response))))
+        response = zip(self.name, map(eol_search_query_for_single_name, self.name))
+        pageIds_per_species = list(map(process_eol_search_response, response))
+        taxa_dicts_per_species = map(eol_taxa_query, pageIds_per_species)
+        taxa_dicts_per_species = list(
+            map(lambda x: list(itertools.chain(*x)), taxa_dicts_per_species)
+        )
+        self.ids = dict(
+            zip(
+                self.name,
+                list(map(process_list_of_taxa_details, taxa_dicts_per_species)),
+            )
+        )
 
     def db(self, db, **kwargs):
         if db == "ncbi":
