@@ -63,9 +63,9 @@ class Classification(object):
         # out = []
         # for i in range(len(self.ids)):
         #     id = self.ids[i]
-            # if res[0] is None:
-            #     warnings.warn("No results for taxon '" + str(id) + "'")
-            #     res = {}
-            # out.append(res)
+        # if res[0] is None:
+        #     warnings.warn("No results for taxon '" + str(id) + "'")
+        #     res = {}
+        # out.append(res)
         # out = dict(zip(self.ids, out))
         return res
