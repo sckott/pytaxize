@@ -29,6 +29,7 @@ def eol_taxa_query_for_single_PageID(pid):
         .get("taxonConcept", {})
         .get("taxonConcepts", {})
     )
+    response = list(map(lambda x: {**x,'page_id':pid},response))
     return response
 
 
@@ -49,15 +50,18 @@ def process_eol_search_response(name_response_tuple):
 
 
 def process_list_of_taxa_details(list_of_responses):
-    extracted_ids = list(
+    useful_data = list(
         map(
-            lambda x: _make_id(
+            lambda x: {**_make_id(
                 x.get("identifier", ""),
                 x.get("scientificName", ""),
                 x.get("taxonRank", None),
                 "eol",
-            ),
+            ),'page_id':x.get("page_id","")},
             list_of_responses,
         )
     )
-    return extracted_ids
+    for item in useful_data:
+        item['uri'] = 'https://eol.org/pages/'+str(item['page_id'])
+    return useful_data
+
