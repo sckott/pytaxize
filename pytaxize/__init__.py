@@ -17,7 +17,7 @@ __license__ = "MIT"
 from .col import children, search
 from .gn import gni
 from .gn import gnr
-from .ncbi import search,hierarchy
+from .ncbi import search, hierarchy
 from .itis import (
     accepted_names,
     any_match_count,

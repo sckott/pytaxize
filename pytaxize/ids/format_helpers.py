@@ -39,7 +39,7 @@ def _make_id_uri(rank, which, x):
         app = x
         if which == "gbif":
             app = (x, rank)
-        
+
         if which == "eol":
             app = ""
 
