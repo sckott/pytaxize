@@ -7,8 +7,9 @@ def eol_search_query_for_single_name(name):
     # or with an implementation of EoL in taxize
     response = (
         Refactor(
-            url="https://eol.org/api/search/1.0.json?q=%s&exact=true" % name,
+            url="https://eol.org/api/search/1.0.json",
             request="get",
+            payload={'q':name,'exact':True}
         )
         .json()
         .get("results", {})
