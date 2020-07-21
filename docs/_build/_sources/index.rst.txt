@@ -98,7 +98,6 @@ Modules
    modules/ncbi
    modules/itis
    modules/gn
-   modules/gbif
    modules/col
    modules/other
 
@@ -125,9 +124,6 @@ Modules
 
 :doc:`modules/gn`
     The gn module: methods for Global Names Index and Resolver
-
-:doc:`modules/gbif`
-    The gbif module: GBIF methods
 
 :doc:`modules/col`
     The col module: Catalogue of Life methods
