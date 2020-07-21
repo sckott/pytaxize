@@ -95,7 +95,6 @@
 <li class="toctree-l1"><a class="reference internal" href="itis.html">ITIS</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gn.html">Global Names Resolver</a></li>
 <li class="toctree-l1"><a class="reference internal" href="gn.html#module-0">Global Names Index</a></li>
-<li class="toctree-l1"><a class="reference internal" href="gbif.html">Global Biodiversity Information Facility</a></li>
 <li class="toctree-l1"><a class="reference internal" href="col.html">Catalogue of Life</a></li>
 <li class="toctree-l1"><a class="reference internal" href="other.html">Other methods</a></li>
 </ul>
@@ -210,6 +209,12 @@
 <span class="n">x</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">)</span>
 <span class="n">x</span><span class="o">.</span><span class="n">itis</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;scientific&quot;</span><span class="p">)</span>
 <span class="n">x</span><span class="o">.</span><span class="n">extract_ids</span><span class="p">()</span>
+
+<span class="c1"># EOL</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">Ids</span><span class="p">(</span><span class="s2">&quot;Helianthus annuus&quot;</span><span class="p">)</span>
+<span class="n">z</span><span class="o">.</span><span class="n">eol</span><span class="p">()</span>
+<span class="n">z</span><span class="o">.</span><span class="n">extract_ids</span><span class="p">()</span>
+<span class="n">z</span><span class="o">.</span><span class="n">ids</span>
 </pre></div>
 </div>
 </dd></dl>
