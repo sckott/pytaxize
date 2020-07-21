@@ -34,18 +34,18 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Fri, 10 Jul 2020 19:14:01 GMT
+      - Tue, 21 Jul 2020 20:59:29 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - D0BD71697844DFA500005CD549BF8607.1.1.m_1
+      - 322C39DEE17700E500003FEEA947FEA5.1.1.m_1
       NCBI-SID:
-      - 6DB5D5DDCEC01E34_75E5SID
+      - A5C099A7485361B0_E06CSID
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=6DB5D5DDCEC01E34_75E5SID; domain=.nih.gov; path=/; expires=Sat, 10
-        Jul 2021 19:14:01 GMT
+      - ncbi_sid=A5C099A7485361B0_E06CSID; domain=.nih.gov; path=/; expires=Wed, 21
+        Jul 2021 20:59:30 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:
@@ -99,18 +99,18 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Fri, 10 Jul 2020 19:14:01 GMT
+      - Tue, 21 Jul 2020 20:59:30 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - 939B5A8B493487E500005AD887556B6F.1.1.m_1
+      - 939B242C456D9D85000060FAA15B3F79.1.1.m_1
       NCBI-SID:
-      - 9339DCA6F8D21585_81E3SID
+      - 18224076CEE05047_733ESID
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=9339DCA6F8D21585_81E3SID; domain=.nih.gov; path=/; expires=Sat, 10
-        Jul 2021 19:14:02 GMT
+      - ncbi_sid=18224076CEE05047_733ESID; domain=.nih.gov; path=/; expires=Wed, 21
+        Jul 2021 20:59:31 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:

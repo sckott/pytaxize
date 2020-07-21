@@ -7,7 +7,7 @@ import pytest
 
 
 class IdsTest(unittest.TestCase):
-    @vcr.use_cassette("test/vcr_cassettes/ids_ncbi.yml")
+    @vcr.use_cassette("test/vcr_cassettes/ids_ncbi.yml", filter_query_parameters=['api_key'])
     @pytest.mark.skipif(
         "TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
         reason="Skipping this test on Travis CI.",
@@ -22,27 +22,27 @@ class IdsTest(unittest.TestCase):
         assert len(x.ids) > 0
         assert x.db_ids == "ncbi"
     
-    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_1.yml")
+    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_single_name.yml")
     def test_ids_gbif_single_name(self):
         self.individual_id_retrieval("gbif","Panthera tigris")
 
-    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_2.yml")   
+    @vcr.use_cassette("test/vcr_cassettes/ids_gbif_list_of_names.yml")   
     def test_ids_gbif_list_of_names(self):
         self.individual_id_retrieval("gbif",["Panthera tigris","Panthera leo"])
 
-    @vcr.use_cassette("test/vcr_cassettes/ids_eol_1.yml")
+    @vcr.use_cassette("test/vcr_cassettes/ids_eol_single_name.yml")
     def test_ids_eol_single_name(self):
         self.individual_id_retrieval("eol","Panthera tigris")
 
-    @vcr.use_cassette("test/vcr_cassettes/ids_eol_2.yml")   
+    @vcr.use_cassette("test/vcr_cassettes/ids_eol_list_of_names.yml")   
     def test_ids_eol_list_of_names(self):
         self.individual_id_retrieval("eol",["Panthera tigris","Panthera leo"])
 
-    @vcr.use_cassette("test/vcr_cassettes/ids_itis_1.yml")
+    @vcr.use_cassette("test/vcr_cassettes/ids_itis_single_name.yml")
     def test_ids_itis_single_name(self):
         self.individual_id_retrieval("itis","Panthera tigris")
 
-    @vcr.use_cassette("test/vcr_cassettes/ids_itis_2.yml")   
+    @vcr.use_cassette("test/vcr_cassettes/ids_itis_list_of_names.yml")   
     def test_ids_itis_list_of_names(self):
         self.individual_id_retrieval("itis",["Panthera tigris","Panthera leo"])
 
