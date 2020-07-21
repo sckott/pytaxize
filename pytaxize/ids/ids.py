@@ -57,6 +57,12 @@ class Ids(object):
         x = Ids("Helianthus annuus")
         x.itis(type="scientific")
         x.extract_ids()
+
+        # EOL
+        z = Ids("Helianthus annuus")
+        z.eol()
+        z.extract_ids()
+        z.ids
     """
 
     def __init__(self, name):
