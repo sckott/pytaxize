@@ -4,7 +4,7 @@ import requests
 from lxml import etree
 import re
 import json
-from pkg_resources import resource_filename
+# from pkg_resources import resource_filename
 from pytaxize.refactor import Refactor
 from pytaxize.itis.itis import _df
 import csv
@@ -181,7 +181,8 @@ def scrapenames(
     if len(method) > 1:
         sys.exit("Only one of url, file, or text can be used")
 
-    base = "http://gnrd.globalnames.org/name_finder.json"
+    # base = "http://gnrd.globalnames.org/name_finder.json"
+    base = "http://gnrd.globalnames.org/api/v1/find"
     payload = {
         "url": url,
         "text": text,
@@ -193,7 +194,7 @@ def scrapenames(
         "data_source_ids": data_source_ids,
     }
     payload = {key: value for key, value in payload.items() if value != None}
-    out = requests.get(base, params=payload)
+    out = requests.post(base, json=payload)
     out.raise_for_status()
     res = out.json()
     data = res["names"]
