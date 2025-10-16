@@ -4,7 +4,7 @@ import requests
 from lxml import etree
 import re
 import json
-# from pkg_resources import resource_filename
+from pkg_resources import resource_filename
 from pytaxize.refactor import Refactor
 from pytaxize.itis.itis import _df
 import csv
