@@ -182,7 +182,7 @@ def scrapenames(
         sys.exit("Only one of url, file, or text can be used")
 
     # base = "http://gnrd.globalnames.org/name_finder.json"
-    base = "http://gnrd.globalnames.org/api/v1/find"
+    base = "https://finder.globalnames.org/api/v1/find"
     payload = {
         "url": url,
         "text": text,
