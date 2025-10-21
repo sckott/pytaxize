@@ -34,7 +34,7 @@ Taxonomic Ids
 I've started working on a class interface for taxonomic IDs, which will have a bunch of extension methods to do various things with taxon ids. What's available right now is just getting COL ids.
 
 .. code-block:: python
-    
+
     from pytaxize import Ids
     res = Ids('Poa annua')
     res.ncbi()
@@ -51,7 +51,7 @@ Vascan search
 =============
 
 .. code-block:: python
-  
+
     import pytaxize
     pytaxize.vascan_search(q = ["Helianthus annuus"])
 
@@ -100,7 +100,7 @@ ITIS low level functions
 ========================
 
 .. code-block:: python
-    
+
     from pytaxize import itis
     itis.accepted_names(504239)
 
@@ -138,7 +138,7 @@ Catalogue of Life
 =================
 
 .. code-block:: python
-  
+
     from pytaxize import col
     x = col.children(name=["Apis"])
     x[0][0:3]
@@ -161,7 +161,7 @@ Parse names
 Parse names using GBIF's parser API
 
 .. code-block:: python
-    
+
     from pytaxize import gbif
     gbif.parse(name=['Arrhenatherum elatius var. elatius',
     	 'Secale cereale subsp. cereale', 'Secale cereale ssp. cereale',
@@ -199,16 +199,16 @@ Contributors
 Meta
 ====
 
-* Please note that this project is released with a `Contributor Code of Conduct <https://github.com/sckott/pytaxize/blob/master/CONDUCT.md>`__. By participating in this project you agree to abide by its terms.
-* License: MIT; see `LICENSE file <https://github.com/sckott/pytaxize/blob/master/LICENSE>`__
+* Please note that this project is released with a `Contributor Code of Conduct <https://github.com/sckott/pytaxize/blob/main/CONDUCT.md>`__. By participating in this project you agree to abide by its terms.
+* License: MIT; see `LICENSE file <https://github.com/sckott/pytaxize/blob/main/LICENSE>`__
 
 .. |pypi| image:: https://img.shields.io/pypi/v/pytaxize.svg
    :target: https://pypi.python.org/pypi/pytaxize
 
-.. |travis| image:: https://travis-ci.org/sckott/pytaxize.svg?branch=master
+.. |travis| image:: https://travis-ci.org/sckott/pytaxize.svg?branch=main
    :target: https://travis-ci.org/sckott/pytaxize
 
-.. |coverage| image:: https://codecov.io/gh/sckott/pytaxize/branch/master/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/sckott/pytaxize/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/sckott/pytaxize
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
