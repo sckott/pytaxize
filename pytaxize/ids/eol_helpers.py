@@ -9,7 +9,7 @@ def eol_search_query_for_single_name(name):
         Refactor(
             url="https://eol.org/api/search/1.0.json",
             request="get",
-            payload={'q':name,'exact':True}
+            payload={"q": name, "exact": True},
         )
         .json()
         .get("results", {})
@@ -25,7 +25,10 @@ def eol_taxa_query_for_single_PageID(pid):
     # will replace later with either a pre-made package
     # or with an implementation of EoL in taxize
     response = (
-        Refactor(url="https://eol.org/api/pages/1.0/%s.json" % pid, request="get",)
+        Refactor(
+            url="https://eol.org/api/pages/1.0/%s.json" % pid,
+            request="get",
+        )
         .json()
         .get("taxonConcept", {})
         .get("taxonConcepts", {})
@@ -44,7 +47,10 @@ def process_eol_search_response(name_response_tuple):
         )
     )
     extracted_ids = list(
-        map(lambda page_dict: page_dict.get("id", None), list_of_response_dicts,)
+        map(
+            lambda page_dict: page_dict.get("id", None),
+            list_of_response_dicts,
+        )
     )
     extracted_ids = list(filter(lambda id_: id_ is not None, extracted_ids))
     return extracted_ids

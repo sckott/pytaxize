@@ -40,7 +40,7 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
         year's checklist instead of the lastest as default (numeric). Valid years
         are 2010 through the previous year from the current date. If none given,
         the "lastest" checklist is used
-    
+
     You must provide one of name or id. The other parameters (format and start) are
     optional. Returns A list of data.frame's.
 

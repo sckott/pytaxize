@@ -11,7 +11,7 @@ class Classification(object):
     Usage::
 
         from pytaxize import Classification
-        
+
         # ITIS
         ## one id
         x = Classification(99208)
@@ -19,7 +19,7 @@ class Classification(object):
         x.ids
         res = x.itis()
         res[99208]
-        
+
         ## many ids - with one invalid id
         x = Classification([99208, 129313, 9999999])
         x

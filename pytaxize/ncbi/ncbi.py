@@ -15,7 +15,7 @@ def search(sci_com, modifier=None, rank_query=None):
 
     :param sci_com: list of common or scientific names
     :param modifier: A modifier to the `sci_com` given. Options include:
-        Organism, Scientific Name, Common Name, All Names, Division, 
+        Organism, Scientific Name, Common Name, All Names, Division,
         Filter, Lineage, GC, MGC, Name Tokens, Next Level, PGC, Properties,
         Rank, Subtree, Synonym, Text Word. These are not checked, so make
         sure they are entered correctly, as is.
@@ -25,7 +25,7 @@ def search(sci_com, modifier=None, rank_query=None):
 
     :note: Remember to set your Entrez API key as `ENTREZ_KEY`
 
-    :return: dict, named with values given to `sci_com`, 
+    :return: dict, named with values given to `sci_com`,
         where each value in the dict is a list of NCBI taxonomic
         identifiers
 
@@ -89,7 +89,7 @@ def hierarchy(ids):
 
     :note: Remember to set your Entrez API key as `ENTREZ_KEY`
 
-    :return: dict, named with ids given to `ids`, 
+    :return: dict, named with ids given to `ids`,
         where each value in the dict is a list of taxa, each
         a dict with the fields ``ScientificName``, ``Rank``, and ``TaxId``
 

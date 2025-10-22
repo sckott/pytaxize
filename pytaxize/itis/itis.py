@@ -21,7 +21,7 @@ def accepted_names(tsn, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         # TSN accepted - good name
         itis.accepted_names(tsn=208527)
@@ -46,7 +46,7 @@ def any_match_count(x, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-    
+
         from pytaxize import itis
         itis.any_match_count(x=202385)
         itis.any_match_count(x="dolphin")
@@ -66,7 +66,7 @@ def comment_detail(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-                
+
         from pytaxize import itis
         itis.comment_detail(tsn=180543)
     """
@@ -86,7 +86,7 @@ def common_names(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.common_names(tsn=183833)
         # no common names
@@ -109,7 +109,7 @@ def core_metadata(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         # coverage and currrency data
         itis.core_metadata(tsn=28727)
@@ -132,7 +132,7 @@ def coverage(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         # coverage data
         itis.coverage(tsn=28727)
@@ -157,7 +157,7 @@ def credibility_rating(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.credibility_rating(tsn=526852)
         itis.credibility_rating(28727)
@@ -177,7 +177,7 @@ def credibility_ratings(**kwargs):
     :return: a dict
 
     Usage::
-        
+
         from pytaxize import itis
         itis.credibility_ratings()
     """
@@ -197,7 +197,7 @@ def currency(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         # currency data
         itis.currency(28727)
@@ -222,7 +222,7 @@ def date_data(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.date_data(tsn=180543)
     """
@@ -242,7 +242,7 @@ def experts(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.experts(tsn=180544)
     """
@@ -262,7 +262,7 @@ def rank_name(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.rank_name(tsn = 202385)
     """
@@ -282,7 +282,7 @@ def hierarchy_full(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.hierarchy_full(tsn = 37906)
         itis.hierarchy_full(tsn = 100800)
@@ -345,7 +345,7 @@ def full_record(tsn=None, lsid=None, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.full_record(tsn="504239")
         itis.full_record(tsn="202385")
@@ -369,7 +369,7 @@ def geographic_divisions(tsn, as_dataframe=False, **kwargs):
     :param \*\*kwargs: Curl options passed on to `requests.get`
 
     Usage::
-        
+
         from pytaxize import itis
         itis.geographic_divisions(tsn=180543)
     """
@@ -399,7 +399,7 @@ def geographic_values(**kwargs):
 def global_species_completeness(tsn, as_dataframe=False, **kwargs):
     """
     Get global species completeness from tsn
-    
+
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
     :param \*\*kwargs: Curl options passed on to `requests.get`
@@ -506,7 +506,7 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
         endpt=Endpts[what].value,
         args={"srchKey": x},
         as_dataframe=as_dataframe,
-        **kwargs
+        **kwargs,
     )
 
 
@@ -579,7 +579,7 @@ def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
 def jurisdiction_origin_values(as_dataframe=False, **kwargs):
     """
     Get jurisdiction origin values
-    
+
     :param as_dataframe: (bool) specify return type, if pandas is available
     :param \*\*kwargs: Curl options passed on to `requests.get`
 

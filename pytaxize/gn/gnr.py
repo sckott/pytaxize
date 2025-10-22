@@ -106,7 +106,6 @@ def _gnr_resolve(
     preferred_data_sources="false",
     http="get",
 ):
-
     url = "https://resolver.globalnames.org/name_resolvers"
     payload = {
         "data_source_ids": source,

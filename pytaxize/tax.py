@@ -128,54 +128,54 @@ def scrapenames(
     as_dataframe=False,
 ):
     """
-  Resolve names using Global Names Recognition and Discovery.
+    Resolve names using Global Names Recognition and Discovery.
 
-  Uses the Global Names Recognition and Discovery service, see
-  http://gnrd.globalnames.org/.
+    Uses the Global Names Recognition and Discovery service, see
+    http://gnrd.globalnames.org/.
 
-  :param url: An encoded URL for a web page, PDF, Microsoft Office document, or
-    image file, see examples
-  :param file: When using multipart/form-data as the content-type, a file may be sent.
-    This should be a path to your file on your machine.
-  :param text: Type: string. Text content; best used with a POST request, see
-    examples
-  :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
-    2 for NetiNeti, or 0 for both. If absent, both engines are used.
-  :param unique: (optional) Type: boolean. If True (default),
-    response has unique names without offsets.
-  :param verbatim: (optional) Type: boolean, If True (default to False),
-    response excludes verbatim strings.
-  :param detect_language: (optional) Type: boolean, When
-    True (default), NetiNeti is not used if the language of incoming text is
-    determined not to be English. When 'false', NetiNeti will be used if requested.
-  :param all_data_sources: (optional) Type: bolean. Resolve found
-    names against all available Data Sources.
-  :param data_source_ids: (optional) Type: string. Pipe separated list of data
-    source ids to resolve found names against. See list of Data Sources.
-  :param as_dataframe: (optional) Type: boolean. Return as pandas data frame?
-    default: False
+    :param url: An encoded URL for a web page, PDF, Microsoft Office document, or
+      image file, see examples
+    :param file: When using multipart/form-data as the content-type, a file may be sent.
+      This should be a path to your file on your machine.
+    :param text: Type: string. Text content; best used with a POST request, see
+      examples
+    :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
+      2 for NetiNeti, or 0 for both. If absent, both engines are used.
+    :param unique: (optional) Type: boolean. If True (default),
+      response has unique names without offsets.
+    :param verbatim: (optional) Type: boolean, If True (default to False),
+      response excludes verbatim strings.
+    :param detect_language: (optional) Type: boolean, When
+      True (default), NetiNeti is not used if the language of incoming text is
+      determined not to be English. When 'false', NetiNeti will be used if requested.
+    :param all_data_sources: (optional) Type: bolean. Resolve found
+      names against all available Data Sources.
+    :param data_source_ids: (optional) Type: string. Pipe separated list of data
+      source ids to resolve found names against. See list of Data Sources.
+    :param as_dataframe: (optional) Type: boolean. Return as pandas data frame?
+      default: False
 
-  Usage::
-  
-      import pytaxize
+    Usage::
 
-      # Get data from a website using its URL
-      out = pytaxize.scrapenames(url = 'https://en.wikipedia.org/wiki/Spider')
-      out['data'].head() # data
-      out['meta'] # metadata
+        import pytaxize
 
-      # Scrape names from a pdf at a URL
-      out = pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf')
-      out['data'].head() # data
-      out['meta'] # metadata
+        # Get data from a website using its URL
+        out = pytaxize.scrapenames(url = 'https://en.wikipedia.org/wiki/Spider')
+        out['data'].head() # data
+        out['meta'] # metadata
 
-      # With arguments
-      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', unique=True)
-      pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=True)
+        # Scrape names from a pdf at a URL
+        out = pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf')
+        out['data'].head() # data
+        out['meta'] # metadata
 
-      # Get data from text string as an R object
-      pytaxize.scrapenames(text='A spider named Pardosa moesta Banks, 1892')
-  """
+        # With arguments
+        pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', unique=True)
+        pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=True)
+
+        # Get data from text string as an R object
+        pytaxize.scrapenames(text='A spider named Pardosa moesta Banks, 1892')
+    """
     method = {"url": url, "file": file, "text": text}
     method = {key: value for key, value in method.items() if value != None}
     if len(method) > 1:

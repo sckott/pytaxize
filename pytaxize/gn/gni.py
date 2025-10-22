@@ -13,7 +13,7 @@ def parse(names):
     Uses the Global Names Index to parse scientific names
 
     :param names: List of scientific names.
-    
+
     Usage::
 
         from pytaxize import gn
@@ -59,7 +59,7 @@ def details(id=17802847, all_records=1):
     out = Refactor(url2, payload=params, request="get").json()
     try:
         return out
-    except (ValueError):
+    except ValueError:
         raise NoResultException("GNI didn't return a result (id: %s)" % id)
 
 

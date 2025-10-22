@@ -10,14 +10,14 @@ class Children(object):
     Usage::
 
         from pytaxize import Children
-        
+
         # ITIS
         ## one id
         x = Children(179913)
         x
         x.ids
         x.itis()
-        
+
         ## many ids - with one invalid id
         x = Children([179913, 174321, 9999999])
         x

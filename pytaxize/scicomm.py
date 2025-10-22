@@ -25,9 +25,9 @@ def sci2comm(x, db="ncbi"):
     :note: Remember to set your Entrez API key as `ENTREZ_KEY`
 
     Usage::
-      
+
       from pytaxize import scicomm
-      
+
       # from names (str or list of str's)
       scicomm.sci2comm('Helianthus annuus')
       scicomm.sci2comm('Puma concolor')
@@ -37,7 +37,7 @@ def sci2comm(x, db="ncbi"):
       scicomm.sci2comm('Loxodonta africana')
 
       scicomm.sci2comm('Lycaon pictus', db="itis")
-    
+
       ## no results
       ### not a real name
       scicomm.sci2comm('foo bar')

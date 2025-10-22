@@ -32,7 +32,7 @@ class Ids(object):
         x.ncbi()
         x.ids
         x.db_ids
-        
+
         # more than one result
         x = Ids(name="Echinacea")
         x.ncbi()

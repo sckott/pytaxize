@@ -22,7 +22,7 @@ def taxo_datasources(as_dataframe=False):
     Global Names Index, see http://taxosaurus.org/ for information.
 
     Usage::
-    
+
         # all data sources
         import pytaxize
         pytaxize.taxo_datasources()
@@ -56,9 +56,9 @@ def taxo_resolve(query, source=None, code=None, http="get"):
         Code of Nomenclature of Bacteria)
     :param http: (optional) The HTTP method to use, one of "get" or "post".
         Default="get"
-    
+
     Usage::
-    
+
         import pytaxize
         pytaxize.taxo_resolve(query='Helianthus annus')
         pytaxize.gnr_resolve(['Helianthus annus','Poa annua'])
