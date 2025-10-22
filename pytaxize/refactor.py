@@ -1,6 +1,7 @@
+import time
+
 import requests
 from lxml import etree
-import time
 
 
 class Refactor:

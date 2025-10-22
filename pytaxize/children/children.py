@@ -1,5 +1,6 @@
-import warnings
 import sys
+import warnings
+
 from pytaxize.itis import hierarchy_down
 
 

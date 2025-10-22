@@ -1,6 +1,8 @@
-import sys
-import requests
 import json
+import sys
+
+import requests
+
 from pytaxize.refactor import Refactor
 
 

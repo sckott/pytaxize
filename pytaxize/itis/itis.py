@@ -1,8 +1,10 @@
 import sys
 import time
-import requests
 import warnings
 from enum import Enum
+
+import requests
+
 from pytaxize.refactor import Refactor
 
 try:

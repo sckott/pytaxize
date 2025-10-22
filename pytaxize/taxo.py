@@ -1,9 +1,10 @@
-import sys
-import warnings
-import requests
 import json
-import time
 import os
+import sys
+import time
+import warnings
+
+import requests
 
 try:
     import pandas as pd

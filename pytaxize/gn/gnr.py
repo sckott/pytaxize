@@ -1,9 +1,11 @@
-import sys
-import requests
 import json
-import time
-from pytaxize.refactor import Refactor
 import os
+import sys
+import time
+
+import requests
+
+from pytaxize.refactor import Refactor
 
 
 class NoResultException(Exception):

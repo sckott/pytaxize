@@ -1,10 +1,12 @@
-import os
-import requests
 import datetime
-from lxml import etree
-import re
 import json
+import os
+import re
+
 import pkg_resources
+import requests
+from lxml import etree
+
 from pytaxize.refactor import Refactor
 from pytaxize.utils import *
 

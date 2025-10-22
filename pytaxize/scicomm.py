@@ -1,11 +1,13 @@
-import os
-import requests
 import json
+import os
+from enum import Enum
+
+import requests
 from multipledispatch import dispatch
-from pytaxize.refactor import Refactor
+
 from pytaxize.ids import Ids
 from pytaxize.itis import common_names
-from enum import Enum
+from pytaxize.refactor import Refactor
 
 
 @dispatch((str, list))

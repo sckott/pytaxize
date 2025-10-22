@@ -1,12 +1,9 @@
-import sys
-import requests
 import datetime
-from lxml import etree
 import re
-import json
-import pkg_resources
+import sys
+
 from pytaxize.refactor import Refactor
-from pytaxize.utils import *
+from pytaxize.utils import assert_range_numeric
 
 # try:
 #     import pandas as pd

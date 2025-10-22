@@ -18,8 +18,8 @@ def str2list(x):
     return x
 
 
-def flatten(l):
-    return reduce(lambda x, y: x + y, l)
+def flatten(a_list):
+    return reduce(lambda x, y: x + y, a_list)
 
 
 def lists2dict(vals, names):
