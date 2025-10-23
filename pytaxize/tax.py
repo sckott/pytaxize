@@ -1,11 +1,8 @@
 import csv
-import json
-import re
 import sys
 import warnings
 
 import requests
-from lxml import etree
 from pkg_resources import resource_filename
 
 from pytaxize.itis.itis import _df
@@ -18,7 +15,7 @@ except ImportError:
     pd = None
 
 
-class NoResultException(Exception):
+class NoResultError(Exception):
     pass
 
 
@@ -82,14 +79,17 @@ def vascan_search(q, format="json", raw=False):
         import pytaxize
         pytaxize.vascan_search(q = ["Helianthus annuus"])
         pytaxize.vascan_search(q = ["Helianthus annuus"], raw=True)
-        pytaxize.vascan_search(q = ["Helianthus annuus", "Crataegus dodgei"], raw=True)
+        pytaxize.vascan_search(q = ["Helianthus annuus", "Crataegus dodgei"],
+        raw=True)
 
         # format type
         ## json
-        pytaxize.vascan_search(q = ["Helianthus annuus"], format="json", raw=True)
+        pytaxize.vascan_search(q = ["Helianthus annuus"], format="json",
+        raw=True)
 
         ## xml
-        pytaxize.vascan_search(q = ["Helianthus annuus"], format="xml", raw=True)
+        pytaxize.vascan_search(q = ["Helianthus annuus"], format="xml",
+        raw=True)
 
         # lots of names, in this case 50
         splist = pytaxize.names_list(rank='species', size=50)
@@ -135,22 +135,24 @@ def scrapenames(
     Uses the Global Names Recognition and Discovery service, see
     http://gnrd.globalnames.org/.
 
-    :param url: An encoded URL for a web page, PDF, Microsoft Office document, or
-      image file, see examples
-    :param file: When using multipart/form-data as the content-type, a file may be sent.
-      This should be a path to your file on your machine.
+    :param url: An encoded URL for a web page, PDF, Microsoft Office document,
+      or image file, see examples
+    :param file: When using multipart/form-data as the content-type, a file may
+      be sent. This should be a path to your file on your machine.
     :param text: Type: string. Text content; best used with a POST request, see
       examples
-    :param engine: (optional) Type: integer, Default: 0. Either 1 for TaxonFinder,
-      2 for NetiNeti, or 0 for both. If absent, both engines are used.
+    :param engine: (optional) Type: integer, Default: 0. Either 1 for
+      TaxonFinder, 2 for NetiNeti, or 0 for both. If absent, both engines are
+      used.
     :param unique: (optional) Type: boolean. If True (default),
       response has unique names without offsets.
     :param verbatim: (optional) Type: boolean, If True (default to False),
       response excludes verbatim strings.
     :param detect_language: (optional) Type: boolean, When
       True (default), NetiNeti is not used if the language of incoming text is
-      determined not to be English. When 'false', NetiNeti will be used if requested.
-    :param all_data_sources: (optional) Type: bolean. Resolve found
+      determined not to be English. When 'false', NetiNeti will be used if
+      requested.
+    :param all_data_sources: (optional) Type: boolean. Resolve found
       names against all available Data Sources.
     :param data_source_ids: (optional) Type: string. Pipe separated list of data
       source ids to resolve found names against. See list of Data Sources.
@@ -172,14 +174,20 @@ def scrapenames(
         out['meta'] # metadata
 
         # With arguments
-        pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', unique=True)
-        pytaxize.scrapenames(url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf', all_data_sources=True)
+        pytaxize.scrapenames(
+          url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf',
+          unique=True
+        )
+        pytaxize.scrapenames(
+          url = 'http://www.mapress.com/zootaxa/2012/f/z03372p265f.pdf',
+          all_data_sources=True
+        )
 
         # Get data from text string as an R object
         pytaxize.scrapenames(text='A spider named Pardosa moesta Banks, 1892')
     """
     method = {"url": url, "file": file, "text": text}
-    method = {key: value for key, value in method.items() if value != None}
+    method = {key: value for key, value in method.items() if value is not None}
     if len(method) > 1:
         sys.exit("Only one of url, file, or text can be used")
 
@@ -194,7 +202,9 @@ def scrapenames(
         "all_data_sources": all_data_sources,
         "data_source_ids": data_source_ids,
     }
-    payload = {key: value for key, value in payload.items() if value != None}
+    payload = {
+        key: value for key, value in payload.items() if value is not None
+    }
     out = requests.post(base, json=payload)
     out.raise_for_status()
     res = out.json()

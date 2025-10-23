@@ -1,9 +1,6 @@
 import sys
-import time
 import warnings
 from enum import Enum
-
-import requests
 
 from pytaxize.refactor import Refactor
 
@@ -16,7 +13,7 @@ itis_base = "http://www.itis.gov/ITISWebService/jsonservice/"
 
 
 def accepted_names(tsn, **kwargs):
-    """
+    r"""
     Get accepted names from tsn
 
     :param tsn: taxonomic serial number (TSN) (character or numeric)
@@ -41,7 +38,7 @@ def accepted_names(tsn, **kwargs):
 
 
 def any_match_count(x, **kwargs):
-    """
+    r"""
     Get any match count.
 
     :param x: text or taxonomic serial number (TSN) (character or numeric)
@@ -60,7 +57,7 @@ def any_match_count(x, **kwargs):
 
 
 def comment_detail(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get comment detail from TSN
 
     :param tsn: (int) TSN for a taxonomic group
@@ -80,7 +77,7 @@ def comment_detail(tsn, as_dataframe=False, **kwargs):
 
 
 def common_names(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get common names from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -103,7 +100,7 @@ def common_names(tsn, as_dataframe=False, **kwargs):
 
 
 def core_metadata(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get core metadata from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -126,7 +123,7 @@ def core_metadata(tsn, as_dataframe=False, **kwargs):
 
 
 def coverage(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get coverge from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -151,7 +148,7 @@ def coverage(tsn, as_dataframe=False, **kwargs):
 
 
 def credibility_rating(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get credibility rating from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -172,7 +169,7 @@ def credibility_rating(tsn, as_dataframe=False, **kwargs):
 
 
 def credibility_ratings(**kwargs):
-    """
+    r"""
     Get possible credibility ratings
 
     :param \*\*kwargs: Curl options passed on to `requests.get`
@@ -191,7 +188,7 @@ def credibility_ratings(**kwargs):
 
 
 def currency(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get currency from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -216,7 +213,7 @@ def currency(tsn, as_dataframe=False, **kwargs):
 
 
 def date_data(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get date data from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -236,7 +233,7 @@ def date_data(tsn, as_dataframe=False, **kwargs):
 
 
 def experts(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get expert information for the TSN.
 
     :param tsn: (int) TSN for a taxonomic group
@@ -256,7 +253,7 @@ def experts(tsn, as_dataframe=False, **kwargs):
 
 
 def rank_name(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Returns the kingdom and rank information for the TSN.
 
     :param tsn: (int) TSN for a taxonomic group
@@ -276,7 +273,7 @@ def rank_name(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_full(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get full hierarchy from ts
 
     :param tsn: (int) TSN for a taxonomic group
@@ -339,7 +336,7 @@ def _fullrecord(verb, args, **kwargs):
 
 
 def full_record(tsn=None, lsid=None, **kwargs):
-    """
+    r"""
     Returns the full ITIS record for a TSN or LSID
 
     :param tsn: (int) TSN for a taxonomic group
@@ -363,7 +360,7 @@ def full_record(tsn=None, lsid=None, **kwargs):
 
 
 def geographic_divisions(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get geographic divisions from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -384,7 +381,7 @@ def geographic_divisions(tsn, as_dataframe=False, **kwargs):
 
 
 def geographic_values(**kwargs):
-    """
+    r"""
     Get all possible geographic values
 
     :param \*\*kwargs: Curl options passed on to `requests.get`
@@ -399,7 +396,7 @@ def geographic_values(**kwargs):
 
 
 def global_species_completeness(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get global species completeness from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -421,7 +418,7 @@ def global_species_completeness(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_down(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get hierarchy down from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -446,7 +443,7 @@ def hierarchy_down(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_up(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get hierarchy up from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -481,7 +478,7 @@ def _get_text_single(x):
 
 
 def terms(x, what="both", as_dataframe=False, **kwargs):
-    """
+    r"""
     Get itis terms
 
     :param x: query term
@@ -554,7 +551,7 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
 
 
 def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
-    """
+    r"""
     Get jurisdictional origin from tsn
 
     :param tsn: (int) TSN for a taxonomic group
@@ -579,7 +576,7 @@ def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
 
 
 def jurisdiction_origin_values(as_dataframe=False, **kwargs):
-    """
+    r"""
     Get jurisdiction origin values
 
     :param as_dataframe: (bool) specify return type, if pandas is available
@@ -599,7 +596,7 @@ def jurisdiction_origin_values(as_dataframe=False, **kwargs):
 
 
 def jurisdiction_values(**kwargs):
-    """
+    r"""
     Get possible jurisdiction values
 
     :param \*\*kwargs: Curl options passed on to `requests.get`

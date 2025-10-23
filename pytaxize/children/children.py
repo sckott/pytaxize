@@ -1,10 +1,9 @@
-import sys
 import warnings
 
 from pytaxize.itis import hierarchy_down
 
 
-class Children(object):
+class Children:
     """
     Children: Retrieve taxonomic children
 
@@ -35,8 +34,8 @@ class Children(object):
         self.ids = ids
 
     def __repr__(self):
-        x = """<%s>\n""" % type(self).__name__
-        y = """  ids: %s""" % ",".join([str(w) for w in self.ids[:10]])
+        x = f"""<{type(self).__name__}\n"""
+        y = f"ids: {','.join([str(w) for w in self.ids[:10]])}"
         return x + y
 
     def itis(self):

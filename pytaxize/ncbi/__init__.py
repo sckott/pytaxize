@@ -1,3 +1,6 @@
-# -*- coding: utf-8 -*-
-
 from .ncbi import hierarchy, search
+
+__all__ = [
+    "hierarchy",
+    "search",
+]

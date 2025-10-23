@@ -1,14 +1,8 @@
-import datetime
-import json
 import os
 import re
 
-import pkg_resources
-import requests
-from lxml import etree
-
 from pytaxize.refactor import Refactor
-from pytaxize.utils import *
+from pytaxize.utils import lists2dict, str2list
 
 
 def search(sci_com, modifier=None, rank_query=None):
@@ -55,10 +49,10 @@ def search(sci_com, modifier=None, rank_query=None):
     def func(name):
         name = re.sub(" ", "+", name)
         if modifier is not None:
-            name = name + "[%s]" % modifier
+            name = name + f"[{modifier}]"
         term = name
         if rank_query is not None:
-            term = term + " AND %s[Rank]" % rank_query
+            term = term + f" AND {rank_query}[Rank]"
         args = {"db": "taxonomy", "term": term, "api_key": key}
         tt = _entrez("esearch", args)
         stuff = tt.xpath("//IdList/Id")
@@ -123,7 +117,7 @@ def hierarchy(ids):
 
 
 def _entrez(path="esearch", args={}):
-    url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/%s.fcgi" % path
+    url = f"https://eutils.ncbi.nlm.nih.gov/entrez/eutils/{path}.fcgi"
     tt = Refactor(url, args, request="get").xml()
     return tt
 

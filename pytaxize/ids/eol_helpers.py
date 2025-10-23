@@ -18,15 +18,15 @@ def eol_search_query_for_single_name(name):
 
 
 def eol_taxa_query(list_of_ids):
-    return list(map(eol_taxa_query_for_single_PageID, list_of_ids))
+    return list(map(eol_taxa_query_for_single_pageid, list_of_ids))
 
 
-def eol_taxa_query_for_single_PageID(pid):
+def eol_taxa_query_for_single_pageid(pid):
     # will replace later with either a pre-made package
     # or with an implementation of EoL in taxize
     response = (
         Refactor(
-            url="https://eol.org/api/pages/1.0/%s.json" % pid,
+            url=f"https://eol.org/api/pages/1.0/{pid}.json",
             request="get",
         )
         .json()

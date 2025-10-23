@@ -16,31 +16,25 @@ help:
 %: Makefile
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 
+.PHONY: install test docs
 
-all: build install
-
-.PHONY: build install test docs distclean dist upload
-
-build:
-	python3 setup.py build
-
-install: build
-	python3 setup.py install
+install:
+	uv pip install .
 
 test:
-	pytest --verbose --disable-warnings --cov=pytaxize/ --ignore setup.py
+	uv run pytest --verbose --disable-warnings --cov=pytaxize/ --ignore setup.py
 
 docs:
 	sphinx-build -b html docs/ docs/_build
 
 check:
-	python3 -m twine check dist/*
+	uv run python -m twine check dist/*
 
 distclean:
 	rm dist/*
 
 dist:
-	python3 setup.py sdist bdist_wheel --universal
+	uv run python setup.py sdist bdist_wheel --universal
 
 register:
 	python3 setup.py register
@@ -50,3 +44,21 @@ up:
 
 uptest:
 	python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+
+lint-fix:
+	uv run ruff check --select I --fix pytaxize
+
+lint-check:
+	uv run ruff check pytaxize
+
+format-check:
+	uv run ruff format --check pytaxize
+
+format-fix:
+	uv run ruff format pytaxize
+
+ipython:
+	uv run --with rich --with ipython python -m IPython
+
+py:
+	uv run python

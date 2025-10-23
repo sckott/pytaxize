@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .classification import Classification
+
+__all__ = ["Classification"]

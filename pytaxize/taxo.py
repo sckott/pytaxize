@@ -1,4 +1,3 @@
-import json
 import os
 import sys
 import time
@@ -13,7 +12,7 @@ except ImportError:
     pd = None
 
 
-class NoResultException(Exception):
+class NoResultError(Exception):
     pass
 
 

@@ -1,5 +1,0 @@
-lxml>=0.1
-requests>=2.0
-multipledispatch>=0.6.0
-enum
-pygbif

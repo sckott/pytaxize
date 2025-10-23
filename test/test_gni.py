@@ -1,114 +1,114 @@
 """Tests for GNI module of pytaxize"""
-import os
-from nose.tools import *
 import unittest
+
 import vcr
+
 from pytaxize import gn
 
 a = {
-    u"data": [
+    "data": [
         {
-            u"data_source": {
-                u"created_at": u"2009/08/14 18:56:01 +0000",
-                u"data_hash": u"da39a3ee5e6b4b0d3255bfef95601890afd80709",
-                u"data_url": u"http://gnapartnership.org/gna_test/ion/data.xml",
-                u"data_zip_compressed": None,
-                u"description": u"ION will ultimately contain all the organism names related data found within the Thomson Reuters life science literature databases.",
-                u"id": 30,
-                u"name_strings_count": 4104326,
-                u"refresh_period_days": 14,
-                u"title": u"Index to Organism Names",
-                u"unique_names_count": 2511782,
-                u"updated_at": u"2010/05/14 22:47:59 +0000",
-                u"web_site_url": u"http://www.organismnames.com/",
+            "data_source": {
+                "created_at": "2009/08/14 18:56:01 +0000",
+                "data_hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                "data_url": "http://gnapartnership.org/gna_test/ion/data.xml",
+                "data_zip_compressed": None,
+                "description": "ION will ultimately contain all the organism names related data found within the Thomson Reuters life science literature databases.",
+                "id": 30,
+                "name_strings_count": 4104326,
+                "refresh_period_days": 14,
+                "title": "Index to Organism Names",
+                "unique_names_count": 2511782,
+                "updated_at": "2010/05/14 22:47:59 +0000",
+                "web_site_url": "http://www.organismnames.com/",
             },
-            u"name_index_id": 98448788,
-            u"records": [
+            "name_index_id": 98448788,
+            "records": [
                 {
-                    u"created_at": u"2009/09/27 10:27:31 +0000",
-                    u"global_id": None,
-                    u"id": 127858346,
-                    u"kingdom_id": None,
-                    u"local_id": u"2521957",
-                    u"name_index_id": 98448788,
-                    u"name_rank_id": 2,
-                    u"nomenclatural_code_id": None,
-                    u"original_name_string": None,
-                    u"record_hash": None,
-                    u"updated_at": u"2009/09/27 10:27:31 +0000",
-                    u"url": u"http://www.organismnames.com/details.htm?lsid=2521957",
+                    "created_at": "2009/09/27 10:27:31 +0000",
+                    "global_id": None,
+                    "id": 127858346,
+                    "kingdom_id": None,
+                    "local_id": "2521957",
+                    "name_index_id": 98448788,
+                    "name_rank_id": 2,
+                    "nomenclatural_code_id": None,
+                    "original_name_string": None,
+                    "record_hash": None,
+                    "updated_at": "2009/09/27 10:27:31 +0000",
+                    "url": "http://www.organismnames.com/details.htm?lsid=2521957",
                 }
             ],
-            u"records_number": 1,
+            "records_number": 1,
         }
     ],
-    u"name_string": {
-        u"canonical_form_id": 5703176,
-        u"created_at": u"2009/08/14 15:14:10 +0000",
-        u"has_words": True,
-        u"id": 17802847,
-        u"is_canonical_form": 1,
-        u"lsid": u"urn:lsid:globalnames.org:index:35fa270e-1a07-5e5d-914c-90230dc8680a",
-        u"name": u"Acallepitrix anila",
-        u"normalized": u"ACALLEPITRIX ANILA",
-        u"resource_uri": None,
-        u"updated_at": u"2009/08/14 15:14:10 +0000",
-        u"uuid_hex": u"35fa270e-1a07-5e5d-914c-90230dc8680a",
+    "name_string": {
+        "canonical_form_id": 5703176,
+        "created_at": "2009/08/14 15:14:10 +0000",
+        "has_words": True,
+        "id": 17802847,
+        "is_canonical_form": 1,
+        "lsid": "urn:lsid:globalnames.org:index:35fa270e-1a07-5e5d-914c-90230dc8680a",
+        "name": "Acallepitrix anila",
+        "normalized": "ACALLEPITRIX ANILA",
+        "resource_uri": None,
+        "updated_at": "2009/08/14 15:14:10 +0000",
+        "uuid_hex": "35fa270e-1a07-5e5d-914c-90230dc8680a",
     },
 }
 
 b = [
     {
-        u"scientificName": {
-            u"canonical": u"Cyanistes caeruleus",
-            u"details": [
+        "scientificName": {
+            "canonical": "Cyanistes caeruleus",
+            "details": [
                 {
-                    u"genus": {u"string": u"Cyanistes"},
-                    u"species": {u"string": u"caeruleus"},
+                    "genus": {"string": "Cyanistes"},
+                    "species": {"string": "caeruleus"},
                 }
             ],
-            u"hybrid": False,
-            u"normalized": u"Cyanistes caeruleus",
-            u"parsed": True,
-            u"parser_run": 1,
-            u"parser_version": u"3.1.4",
-            u"positions": {u"0": [u"genus", 9], u"10": [u"species", 19]},
-            u"verbatim": u"Cyanistes caeruleus",
+            "hybrid": False,
+            "normalized": "Cyanistes caeruleus",
+            "parsed": True,
+            "parser_run": 1,
+            "parser_version": "3.1.4",
+            "positions": {"0": ["genus", 9], "10": ["species", 19]},
+            "verbatim": "Cyanistes caeruleus",
         }
     },
     {
-        u"scientificName": {
-            u"canonical": u"Helianthus annuus",
-            u"details": [
+        "scientificName": {
+            "canonical": "Helianthus annuus",
+            "details": [
                 {
-                    u"genus": {u"string": u"Helianthus"},
-                    u"species": {u"string": u"annuus"},
+                    "genus": {"string": "Helianthus"},
+                    "species": {"string": "annuus"},
                 }
             ],
-            u"hybrid": False,
-            u"normalized": u"Helianthus annuus",
-            u"parsed": True,
-            u"parser_run": 1,
-            u"parser_version": u"3.1.4",
-            u"positions": {u"0": [u"genus", 10], u"11": [u"species", 17]},
-            u"verbatim": u"Helianthus annuus",
+            "hybrid": False,
+            "normalized": "Helianthus annuus",
+            "parsed": True,
+            "parser_run": 1,
+            "parser_version": "3.1.4",
+            "positions": {"0": ["genus", 10], "11": ["species", 17]},
+            "verbatim": "Helianthus annuus",
         }
     },
 ]
 
 c = {
-    u"per_page": 1,
-    u"name_strings": [
+    "per_page": 1,
+    "name_strings": [
         {
-            u"uuid_hex": u"efef32c0-8314-5c6e-b427-7d5b121898e8",
-            u"lsid": u"urn:lsid:globalnames.org:index:efef32c0-8314-5c6e-b427-7d5b121898e8",
-            u"id": 22067449,
-            u"name": u"? Anisolabidinae",
-            u"resource_uri": u"http://gni.globalnames.org/name_strings/22067449.xml",
+            "uuid_hex": "efef32c0-8314-5c6e-b427-7d5b121898e8",
+            "lsid": "urn:lsid:globalnames.org:index:efef32c0-8314-5c6e-b427-7d5b121898e8",
+            "id": 22067449,
+            "name": "? Anisolabidinae",
+            "resource_uri": "http://gni.globalnames.org/name_strings/22067449.xml",
         }
     ],
-    u"page_number": u"1",
-    u"name_strings_total": 27059,
+    "page_number": "1",
+    "name_strings_total": 27059,
 }
 
 

@@ -1,8 +1,5 @@
-import json
 import os
-from enum import Enum
 
-import requests
 from multipledispatch import dispatch
 
 from pytaxize.ids import Ids
@@ -74,7 +71,7 @@ def sci2comm(x):
     return dict(zip(x.name, res))
 
 
-class CommonNames(object):
+class CommonNames:
     """CommonNames"""
 
     def __init__(self, id, db):

@@ -1,12 +1,7 @@
-import json
-import sys
-
-import requests
-
 from pytaxize.refactor import Refactor
 
 
-class NoResultException(Exception):
+class NoResultError(Exception):
     pass
 
 
@@ -62,7 +57,7 @@ def details(id=17802847, all_records=1):
     try:
         return out
     except ValueError:
-        raise NoResultException("GNI didn't return a result (id: %s)" % id)
+        raise NoResultError(f"GNI didn't return a result (id: {id})")
 
 
 if __name__ == "__main__":

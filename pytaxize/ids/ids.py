@@ -1,11 +1,9 @@
 import itertools
-import sys
 import warnings
 
 from pytaxize.itis import terms
 from pytaxize.ncbi import ncbi
 
-from ..col import search
 from .eol_helpers import (
     eol_search_query_for_single_name,
     eol_taxa_query,
@@ -16,11 +14,11 @@ from .format_helpers import _make_id
 from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
 
 
-class NoResultException(Exception):
+class NoResultError(Exception):
     pass
 
 
-class Ids(object):
+class Ids:
     """
     ids: A class for taxonomic identifiers
 
@@ -75,9 +73,8 @@ class Ids(object):
         self.db_ids = None
 
     def __repr__(self):
-        x = """<%s>\n""" % type(self).__name__
-        y = """  names: %s""" % ",".join(self.name[:10])
-        # z = """  ids: %s""" % ",".join(self.extract_ids())
+        x = f"<{type(self).__name__}>\n"
+        y = f"  names: {','.join(self.name[:10])}"
         return x + y
 
     def ncbi(self):
@@ -138,8 +135,8 @@ class Ids(object):
     def eol(self):
         self.db_ids = "eol"
         response = zip(self.name, map(eol_search_query_for_single_name, self.name))
-        pageIds_per_species = list(map(process_eol_search_response, response))
-        taxa_dicts_per_species = map(eol_taxa_query, pageIds_per_species)
+        pageids_per_species = list(map(process_eol_search_response, response))
+        taxa_dicts_per_species = map(eol_taxa_query, pageids_per_species)
         taxa_dicts_per_species = list(
             map(lambda x: list(itertools.chain(*x)), taxa_dicts_per_species)
         )

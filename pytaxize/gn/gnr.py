@@ -1,14 +1,11 @@
-import json
 import os
 import sys
 import time
 
-import requests
-
 from pytaxize.refactor import Refactor
 
 
-class NoResultException(Exception):
+class NoResultError(Exception):
     pass
 
 
