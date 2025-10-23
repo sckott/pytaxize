@@ -1,14 +1,10 @@
 import sys
-import warnings
 from enum import Enum
+
+import polars as pl
 
 from pytaxize.refactor import Refactor
 
-try:
-    import pandas as pd
-except ImportError:
-    warnings.warn("Pandas library not installed, dataframes disabled")
-    pd = None
 itis_base = "http://www.itis.gov/ITISWebService/jsonservice/"
 
 
@@ -1181,7 +1177,7 @@ def _itisdf(a, b, matches, colnames, pastens="ax21"):
         # for some reason, the list of tsn's sometimes begins with a
         # spurious None
         output[-1] = output[-1][1:]
-    df = pd.DataFrame(list(zip(*output)), columns=colnames)[colnames[::-1]]
+    df = pl.DataFrame(list(zip(*output)), columns=colnames)[colnames[::-1]]
     return df
 
 
@@ -1209,9 +1205,9 @@ def _itisextract(a, b, matches, colnames, pastens="ax21"):
 
 def _array2df(obj, colnames):
     if all([len(x) == 2 for x in obj]):
-        df = pd.DataFrame(dict(zip(colnames, obj)))
+        df = pl.DataFrame(dict(zip(colnames, obj)))
     else:
-        df = pd.DataFrame([dict(zip(colnames, obj))])
+        df = pl.DataFrame([dict(zip(colnames, obj))])
     return df
 
 
@@ -1222,7 +1218,7 @@ def _itis_parse(a, b, d):
 
     vals = [xpathfunc(x, b, d) for x in a]
     return dict(zip(_tolower(a), vals))
-    # df = pd.DataFrame(dict(zip(_tolower(a), vals)))
+    # df = pl.DataFrame(dict(zip(_tolower(a), vals)))
     # return df
 
 
@@ -1253,7 +1249,7 @@ def _df(x, as_dataframe=False):
     if as_dataframe and pd:
         if isinstance(x, dict):
             x = [x]
-        df = pd.DataFrame.from_records(x)
+        df = pl.DataFrame.from_records(x)
         return df
     else:
         return x

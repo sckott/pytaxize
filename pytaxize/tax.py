@@ -1,18 +1,12 @@
 import csv
 import sys
-import warnings
+from importlib.resources import as_file, files
 
+import polars as pl
 import requests
-from pkg_resources import resource_filename
 
 from pytaxize.itis.itis import _df
 from pytaxize.refactor import Refactor
-
-try:
-    import pandas as pd
-except ImportError:
-    warnings.warn("Pandas library not installed, dataframes disabled")
-    pd = None
 
 
 class NoResultError(Exception):
@@ -30,13 +24,13 @@ def names_list(rank="genus", size=10, as_dataframe=False):
 
     Usage::
 
-        import pytaxize
-        pytaxize.names_list(size=10)
-        pytaxize.names_list('species', size=10)
-        pytaxize.names_list('family', size=10)
-        pytaxize.names_list('order', size=10)
-        pytaxize.names_list('order', 2)
-        pytaxize.names_list('order', 15)
+        from pytaxize import tax
+        tax.names_list(size=10)
+        tax.names_list('species', size=10)
+        tax.names_list('family', size=10)
+        tax.names_list('order', size=10)
+        tax.names_list('order', 2)
+        tax.names_list('order', 15)
     """
     if rank == "species":
         return names_list_helper(size, "data/plantNames.csv", as_dataframe)
@@ -51,18 +45,18 @@ def names_list(rank="genus", size=10, as_dataframe=False):
 
 
 def names_list_helper(size, path, as_dataframe=False):
-    pnpath = resource_filename(__name__, path)
-    if as_dataframe:
-        dat = pd.read_csv(pnpath)
-        return dat["names"][:size].tolist()
-    else:
-        with open(pnpath, newline="") as f:
-            reader = csv.reader(f)
-            next(reader)
-            dat = []
-            for row in reader:
-                dat.append(row)
-        return [w[0] for w in dat][:size]
+    with as_file(files(__name__).joinpath(path)) as pnpath:
+        if as_dataframe:
+            dat = pl.read_csv(pnpath)
+            return dat["names"][:size].tolist()
+        else:
+            with open(pnpath, newline="") as f:
+                reader = csv.reader(f)
+                next(reader)
+                dat = []
+                for row in reader:
+                    dat.append(row)
+            return [w[0] for w in dat][:size]
 
 
 def vascan_search(q, format="json", raw=False):
@@ -76,24 +70,24 @@ def vascan_search(q, format="json", raw=False):
 
     Usage::
 
-        import pytaxize
-        pytaxize.vascan_search(q = ["Helianthus annuus"])
-        pytaxize.vascan_search(q = ["Helianthus annuus"], raw=True)
-        pytaxize.vascan_search(q = ["Helianthus annuus", "Crataegus dodgei"],
+        from pytaxize import tax
+        tax.vascan_search(q = ["Helianthus annuus"])
+        tax.vascan_search(q = ["Helianthus annuus"], raw=True)
+        tax.vascan_search(q = ["Helianthus annuus", "Crataegus dodgei"],
         raw=True)
 
         # format type
         ## json
-        pytaxize.vascan_search(q = ["Helianthus annuus"], format="json",
+        tax.vascan_search(q = ["Helianthus annuus"], format="json",
         raw=True)
 
         ## xml
-        pytaxize.vascan_search(q = ["Helianthus annuus"], format="xml",
+        tax.vascan_search(q = ["Helianthus annuus"], format="xml",
         raw=True)
 
         # lots of names, in this case 50
-        splist = pytaxize.names_list(rank='species', size=50)
-        pytaxize.vascan_search(q = splist)
+        splist = tax.names_list(rank='species', size=50)
+        tax.vascan_search(q = splist)
     """
     if format == "json":
         url = "http://data.canadensys.net/vascan/api/0.1/search.json"
@@ -220,7 +214,7 @@ def scrapenames(
     #     while st == 303:
     #         datout = requests_refactor(token_url, content=True)
     #         st = datout["status"]
-    #     dd = pd.DataFrame(datout["names"])
+    #     dd = pl.DataFrame(datout["names"])
     #     datout.pop("names")
     #     meta = datout
     #     return {"meta": meta, "data": dd}

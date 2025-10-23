@@ -6,7 +6,7 @@ from pytaxize.refactor import Refactor
 from pytaxize.utils import assert_range_numeric
 
 # try:
-#     import pandas as pd
+#     import polars as pl
 # except ImportError:
 #     warnings.warn("Pandas library not installed, dataframes disabled")
 #     pd = None
@@ -156,20 +156,20 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
 #                 url = re.sub("year", checklist, year_url)
 
 #         rank_ref_path = pkg_resources.resource_filename("pytaxize", "data/rank_ref.csv")
-#         dat = pd.read_csv(rank_ref_path)
+#         dat = pl.read_csv(rank_ref_path)
 
 #         stuff = [x for x in dat.ranks]
 #         things = []
 #         for i in range(len(stuff)):
 #             ss = downto in stuff[i]
 #             things.append(ss)
-#         dat2 = dat.join(pd.DataFrame(things, columns=["match"]))
+#         dat2 = dat.join(pl.DataFrame(things, columns=["match"]))
 #         subset = dat2[dat2.loc[dat2.match == True].index[0] : dat2.shape[0]]
 #         torank = [x.split(",")[0] for x in subset.ranks]
 
 #         toget = name
 #         stop_ = "not"
-#         notout = pd.DataFrame(columns=["rankName"])
+#         notout = pl.DataFrame(columns=["rankName"])
 #         out = []
 #         iter = 0
 #         while stop_ == "not":
@@ -189,7 +189,7 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
 #                 for i in range(len(childtaxa)):
 #                     tt_ = childtaxa[i].getchildren()
 #                     outlist.append([x.text for x in tt_[:3]])
-#                 df = pd.DataFrame(outlist, columns=["id", "name", "rank"])
+#                 df = pl.DataFrame(outlist, columns=["id", "name", "rank"])
 #                 return df
 
 #             tt = searchcol(toget, url)
@@ -206,7 +206,7 @@ def children(name=None, id=None, format=None, start=None, checklist=None):
 #             else:
 #                 vals = list()
 #                 vals.append(downto)
-#                 notout = pd.DataFrame(vals, columns=["rank"])
+#                 notout = pl.DataFrame(vals, columns=["rank"])
 
 #             if all(notout["rank"] == downto):
 #                 stop_ = "fam"

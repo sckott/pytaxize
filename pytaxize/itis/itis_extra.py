@@ -17,7 +17,7 @@
 #     # getting species downstream from Ursus
 #     pytaxize.itis_downstream(tsn=180541, downto="Species")
 #     '''
-#     dat = pd.read_csv("rank_ref.csv", header=False)
+#     dat = pl.read_csv("rank_ref.csv", header=False)
 #     downto2 = dat[dat['ranks'].str.contains(downto)]['rankId']
 #     torank_ids = dat[dat[dat['ranks'].str.contains(downto)].index : dat.shape[0]]['rankId']
 
@@ -26,14 +26,14 @@
 #     # for i in range(len(stuff)):
 #     #     ss = downto in stuff[i]
 #     #     things.append(ss)
-#     # dat2 = dat.join(pd.DataFrame(things, columns=['match']))
+#     # dat2 = dat.join(pl.DataFrame(things, columns=['match']))
 #     # subset = dat2[dat2.loc[dat2.match == True].index[0]: dat2.shape[0]]
 #     # torank = [x.split(',')[0] for x in subset.ranks]
 
 #     tsn2 = convertsingle(tsn)
 
 #     stop_ = "not"
-#     notout = pd.DataFrame(columns=['rankName'])
+#     notout = pl.DataFrame(columns=['rankName'])
 #     out = []
 #     while(stop_ == "not"):
 #         temp = []
@@ -47,16 +47,16 @@
 #         for i in range(len(tt['tsn'])):
 #             d = pytaxize.gettaxonomicranknamefromtsn(tt['tsn'][i])
 #             names.append(d)
-#         names2 = pd.DataFrame(names)
+#         names2 = pl.DataFrame(names)
 #         tt = tt.merge(names2, on='tsn')
 #         if(tt[tt['rankId'].str.contains(downto2.to_string().split(' ')[-1])].shape[0] > 0):
 #             out.append(tt[tt['rankId'].str.contains(downto2.to_string().split(' ')[-1])])
 
 #         if(tt.drop(matched.index).shape[0] > 0):
 #             shit = list(set([str(x) for x in torank_ids.tolist()]) - set(tt['rankId'].tolist()))
-#             notout = pd.DataFrame([tt[tt['rankId'].str.contains(x)] for x in shit])
+#             notout = pl.DataFrame([tt[tt['rankId'].str.contains(x)] for x in shit])
 #         else:
-#             notout = pd.DataFrame([downto], columns=['rankName'])
+#             notout = pl.DataFrame([downto], columns=['rankName'])
 
 #         if(all(notout['rankName'] == downto)):
 #             stop_ = "fam"
