@@ -12,5 +12,4 @@ __license__ = "MIT"
 
 __all__ = [
     "tax",
-    "taxo",
 ]
