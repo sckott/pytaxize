@@ -1,12 +1,10 @@
 """Tests for ITIS module of pytaxize"""
-import os
-from nose.tools import *
-import unittest
 import vcr
+
 from pytaxize import itis
 
 
-class ITIS(unittest.TestCase):
+class TestITIS:
     @vcr.use_cassette("test/vcr_cassettes/itis_accepted_names.yml")
     def test_itis_accepted_names(self):
         "ITIS: accepted_names"

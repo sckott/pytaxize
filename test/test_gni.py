@@ -112,7 +112,7 @@ c = {
 }
 
 
-class Gni(unittest.TestCase):
+class TestGni:
     @vcr.use_cassette("test/vcr_cassettes/gn_parse.yml")
     def test_gni_parse(self):
         "gn.parse"

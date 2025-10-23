@@ -22,7 +22,7 @@ install:
 	uv pip install .
 
 test:
-	uv run pytest --verbose --disable-warnings --cov=pytaxize/ --ignore setup.py
+	uv run pytest --verbose --record-mode=once --disable-warnings --cov=pytaxize/ test/
 
 docs:
 	sphinx-build -b html docs/ docs/_build

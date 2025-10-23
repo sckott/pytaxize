@@ -202,9 +202,7 @@ def scrapenames(
         "all_data_sources": all_data_sources,
         "data_source_ids": data_source_ids,
     }
-    payload = {
-        key: value for key, value in payload.items() if value is not None
-    }
+    payload = {key: value for key, value in payload.items() if value is not None}
     out = requests.post(base, json=payload)
     out.raise_for_status()
     res = out.json()

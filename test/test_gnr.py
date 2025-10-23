@@ -1,8 +1,6 @@
 """Tests for GNR module of pytaxize"""
-import os
-from nose.tools import *
-import unittest
 import vcr
+
 from pytaxize import gn
 
 # expected results
@@ -28,7 +26,7 @@ exp1 = {
 }
 
 
-class Gnr(unittest.TestCase):
+class TestGnr:
     @vcr.use_cassette("test/vcr_cassettes/gn_resolve.yml")
     def test_gnr_resolve(self):
         "gn.resolve"
