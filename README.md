@@ -1,6 +1,9 @@
 # pytaxize
 
-![pypi](https://img.shields.io/pypi/v/pytaxize.svg) ![travis](https://travis-ci.org/sckott/pytaxize.svg?branch=main) ![coverage](https://codecov.io/gh/sckott/pytaxize/branch/main/graph/badge.svg) ![black](https://img.shields.io/badge/code%20style-black-000000.svg)
+![pypi](https://img.shields.io/pypi/v/pytaxize.svg)
+[![Python](https://github.com/sckott/pytaxize/actions/workflows/python.yml/badge.svg)](https://github.com/sckott/pytaxize/actions/workflows/python.yml)
+[![codecov](https://codecov.io/gh/sckott/pytaxize/graph/badge.svg?token=xRz65OZbjq)](https://codecov.io/gh/sckott/pytaxize)
+
 
 This is a port of the R package [taxize](https://github.com/ropensci/taxize). There is a lot going on in the R version of this library, so it will take a while to get all the same functionality over here.
 
