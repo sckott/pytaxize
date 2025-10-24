@@ -27,3 +27,11 @@ jobs:
 
       - name: Tests
         run: uv run pytest --record-mode=once test/
+
+      - name: Test coverage
+        if: matrix.python-version == '3.13'
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: |
+          uv run pytest --cov-report=xml --cov=pytaxize test/
+          uv run codecov
