@@ -9,22 +9,29 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term=Poa%2Bannua
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
-        UXTxdw6JDHBVSA1OTSxKzghKLS7NKVEICHXy8XRWUNLV1/fz8dXXdwlxUUgtBqtQMDIwMDMwM7LQ
-        13f1U1JQyigpKSi20tdPLS3JzCnWy0tOytTLy8nVy8vM0EvPL4OK66eUpOjDdUKN0gMKKtlxAQAA
-        AP//dJDBCoJAEIbvPYX3DmMIQTAMRFQIpaZ2ig5D7kFaNXQFe/t21wo1uizffv+wMzs46k24qdpS
-        0QKhB4yFOnJnxJuMSRTXilzrekY/O+SN0u/5Ga0811siaJqZ0waY1lw2kpXeSSIUjIXi250cx8FU
-        1IWODfcXiiqec1m2fFlL6QRciOaKYCNbtMuFzOibIfTCZpPPWLftHrLKBAUIHzQaBp0xjGgfh+cI
-        QZMNp7PiqRX1c6D/zPlThjBe+OwFAAD//wMADLBAvi4CAAA=
+      string: '<?xml version="1.0" encoding="UTF-8" ?>
+
+        <!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+
+        <eSearchResult><Count>1</Count><RetMax>1</RetMax><RetStart>0</RetStart><IdList>
+
+        <Id>93036</Id>
+
+        </IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>Poa+annua[All
+        Names]</Term>    <Field>All Names</Field>    <Count>1</Count>    <Explode>N</Explode>   </TermSet>   <OP>GROUP</OP>  </TranslationStack><QueryTranslation>Poa+annua[All
+        Names]</QueryTranslation></eSearchResult>
+
+        '
     headers:
       Access-Control-Allow-Origin:
       - '*'
+      Access-Control-Expose-Headers:
+      - X-RateLimit-Limit,X-RateLimit-Remaining
       Cache-Control:
       - private
       Connection:
@@ -34,18 +41,20 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Tue, 21 Jul 2020 20:59:29 GMT
+      - Fri, 24 Oct 2025 16:13:36 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - 322C39DEE17700E500003FEEA947FEA5.1.1.m_1
+      - 1D326940B048B5E5000036FB1F71CC2A.1.1.m_1
       NCBI-SID:
-      - A5C099A7485361B0_E06CSID
+      - 3A55D5183D066AC6_C55CSID
+      Referrer-Policy:
+      - origin-when-cross-origin
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=A5C099A7485361B0_E06CSID; domain=.nih.gov; path=/; expires=Wed, 21
-        Jul 2021 20:59:30 GMT
+      - ncbi_sid=3A55D5183D066AC6_C55CSID; domain=.nih.gov; path=/; expires=Sat, 24
+        Oct 2026 16:13:37 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:
@@ -73,23 +82,25 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?ID=93036&db=taxonomy
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
-        UXTxdw6JDHBVSA0uzc1NLKoMSi0uzSlRCAh18vF0VlDS1df38/HV13cJcVEAyoCVKJQZKhgZGJgY
-        GhhZ6uu7+ikpKGWUlBQUW+nrp5aWZOYU6+UlJ2Xq5eXk6uVlZuil55dBxfVTSlL04TphxumWGeoB
-        JZTsuAAAAAD//7JBdYQdFwAAAP//bJDBCsIwDIbP+hSjL+BgIAizIO7Si4jbC4QuShltx5YNfXtT
-        QQ81t/zh+wL56yZaXuntpja9PlRlta93PKVM6IsLeDyqloCWWRXda/ykiZ9UGiy5FRlnMBNuEIYc
-        n0e0DmeRb9zqUpG542OINpIstXwukLs7m3KuXiMUEMIConuOnm9Lnoh38DT9lzSB8IGT+tX1z58G
-        kJVSwN8AAAD//7JVck/NwwxeoAewexsSjhixgdOvwaVJxQVEedMXmHyBwZlYAowKl8QSeNiA2XbA
-        dGWqb2Cob2ipYGBgZQD3io0+LBEBAAAA///iAgAAAP//stFHT2AAAAAA//8DAFDx/OUoAwAA
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE eSummaryResult
+        PUBLIC \"-//NLM//DTD esummary v1 20041029//EN\" \"https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20041029/esummary-v1.dtd\">\n<eSummaryResult>\n<DocSum>\n\t<Id>93036</Id>\n\t<Item
+        Name=\"Status\" Type=\"String\">active</Item>\n\t<Item Name=\"Rank\" Type=\"String\">species</Item>\n\t<Item
+        Name=\"Division\" Type=\"String\">monocots</Item>\n\t<Item Name=\"ScientificName\"
+        Type=\"String\">Poa annua</Item>\n\t<Item Name=\"CommonName\" Type=\"String\"></Item>\n\t<Item
+        Name=\"TaxId\" Type=\"Integer\">93036</Item>\n\t<Item Name=\"AkaTaxId\" Type=\"Integer\">0</Item>\n\t<Item
+        Name=\"Genus\" Type=\"String\"></Item>\n\t<Item Name=\"Species\" Type=\"String\"></Item>\n\t<Item
+        Name=\"Subsp\" Type=\"String\"></Item>\n\t<Item Name=\"ModificationDate\"
+        Type=\"Date\">2005/01/19 00:00</Item>\n</DocSum>\n\n</eSummaryResult>\n"
     headers:
       Access-Control-Allow-Origin:
       - '*'
+      Access-Control-Expose-Headers:
+      - X-RateLimit-Limit,X-RateLimit-Remaining
       Cache-Control:
       - private
       Connection:
@@ -99,18 +110,20 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Tue, 21 Jul 2020 20:59:30 GMT
+      - Fri, 24 Oct 2025 16:13:37 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - 939B242C456D9D85000060FAA15B3F79.1.1.m_1
+      - 1D326940B048B5E5000051FB1FDA1C0F.1.1.m_1
       NCBI-SID:
-      - 18224076CEE05047_733ESID
+      - BEA73B3229152C5E_DCADSID
+      Referrer-Policy:
+      - origin-when-cross-origin
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=18224076CEE05047_733ESID; domain=.nih.gov; path=/; expires=Wed, 21
-        Jul 2021 20:59:31 GMT
+      - ncbi_sid=BEA73B3229152C5E_DCADSID; domain=.nih.gov; path=/; expires=Sat, 24
+        Oct 2026 16:13:37 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:

@@ -1,18 +1,11 @@
-import os
-import unittest
-
-import pytest
 import vcr
 
 from pytaxize import scicomm
 
 
 class TestSciComm:
-    @vcr.use_cassette("test/vcr_cassettes/sci2comm_str_ncbi.yml", filter_query_parameters=['api_key'])
-    @pytest.mark.skipif(
-        "TRAVIS" in os.environ and os.environ["TRAVIS"] == "true",
-        reason="Skipping this test on Travis CI.",
-    )
+    @vcr.use_cassette("test/vcr_cassettes/sci2comm_str_ncbi.yml",
+      filter_query_parameters=['api_key'])
     def test_sci2comm_str_ncbi(self):
         "sci2comm/str/ncbi"
         x = "Helianthus annuus"

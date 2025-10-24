@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: http://www.itis.gov/ITISWebService/jsonservice/getITISTermsFromScientificName?srchKey=Panthera+tigris&srchKey=Panthera+leo
   response:
@@ -33,55 +33,53 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://www.itis.gov/ITISWebService/jsonservice/getITISTermsFromScientificName?srchKey=Panthera+tigris&srchKey=Panthera+leo
   response:
     body:
       string: '{"class":"gov.usgs.itis.itis_service.data.SvcItisTermList","itisTerms":[{"author":"(Linnaeus,
-        1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Tiger"],"nameUsage":"valid","scientificName":"Panthera
+        1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Tiger","Tigre","Tigre"],"nameUsage":"valid","scientificName":"Panthera
         tigris","tsn":"183805"},{"author":"(Linnaeus, 1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Bengal
         tiger"],"nameUsage":"valid","scientificName":"Panthera tigris tigris","tsn":"183806"},{"author":"(Fitzinger,
         1868)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Siberian
         tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris longipilis","tsn":"183807"},{"author":"Temminck,
         1844","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Siberian
-        tiger","Amur tiger"],"nameUsage":"valid","scientificName":"Panthera tigris
+        tiger","Amur tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris
         altaica","tsn":"726472"},{"author":"(Hilzheimer, 1905)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["South
-        China tiger"],"nameUsage":"valid","scientificName":"Panthera tigris amoyensis","tsn":"726473"},{"author":"Schwarz,
+        China tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris amoyensis","tsn":"726473"},{"author":"Schwarz,
         1912","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Bali
-        tiger","Balinese tiger"],"nameUsage":"valid","scientificName":"Panthera tigris
-        balica","tsn":"726474"},{"author":"Mazak, 1968","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Indo-Chinese
-        tiger","Indochinese tiger","Corbett''s tiger"],"nameUsage":"valid","scientificName":"Panthera
+        tiger","Balinese tiger"],"nameUsage":"invalid","scientificName":"Panthera
+        tigris balica","tsn":"726474"},{"author":"Mazak, 1968","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Indo-Chinese
+        tiger","Indochinese tiger","Corbett''s tiger"],"nameUsage":"invalid","scientificName":"Panthera
         tigris corbetti","tsn":"726475"},{"author":"Temminck, 1844","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Javan
         tiger"],"nameUsage":"valid","scientificName":"Panthera tigris sondaica","tsn":"726476"},{"author":"Pocock,
         1929","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Sumatran
-        tiger"],"nameUsage":"valid","scientificName":"Panthera tigris sumatrae","tsn":"726477"},{"author":"(Illiger,
+        tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris sumatrae","tsn":"726477"},{"author":"(Illiger,
         1815)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Caspian
-        tiger"],"nameUsage":"valid","scientificName":"Panthera tigris virgata","tsn":"726478"}],"requestedName":"Panthera
-        tigris"}
+        tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris virgata","tsn":"726478"},{"author":"Luo
+        et al., 2004","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":[null],"nameUsage":"invalid","scientificName":"Panthera
+        tigris jacksoni","tsn":"1229919"}],"requestedName":"Panthera tigris"}
 
         '
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '2100'
+      - '2315'
       Content-Type:
       - text/json;charset=ISO-8859-1
       Date:
-      - Tue, 21 Jul 2020 20:58:20 GMT
+      - Fri, 24 Oct 2025 16:14:39 GMT
       Strict-Transport-Security:
       - max-age=63072000; includeSubdomains; preload
-      - max-age=63072000; includeSubdomains; preload
-      X-Application:
-      - itis_webservices
-      X-Node-Name:
-      - not shown
-      X-Upstream-Member:
-      - not shown
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Robots-Tag:
+      - index, follow
     status:
       code: 200
-      message: ''
+      message: OK
 - request:
     body: null
     headers:
@@ -92,7 +90,7 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: http://www.itis.gov/ITISWebService/jsonservice/getITISTermsFromScientificName?srchKey=Panthera+tigris&srchKey=Panthera+leo
   response:
@@ -116,53 +114,51 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://www.itis.gov/ITISWebService/jsonservice/getITISTermsFromScientificName?srchKey=Panthera+tigris&srchKey=Panthera+leo
   response:
     body:
       string: '{"class":"gov.usgs.itis.itis_service.data.SvcItisTermList","itisTerms":[{"author":"(Linnaeus,
-        1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Tiger"],"nameUsage":"valid","scientificName":"Panthera
+        1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Tiger","Tigre","Tigre"],"nameUsage":"valid","scientificName":"Panthera
         tigris","tsn":"183805"},{"author":"(Linnaeus, 1758)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Bengal
         tiger"],"nameUsage":"valid","scientificName":"Panthera tigris tigris","tsn":"183806"},{"author":"(Fitzinger,
         1868)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Siberian
         tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris longipilis","tsn":"183807"},{"author":"Temminck,
         1844","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Siberian
-        tiger","Amur tiger"],"nameUsage":"valid","scientificName":"Panthera tigris
+        tiger","Amur tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris
         altaica","tsn":"726472"},{"author":"(Hilzheimer, 1905)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["South
-        China tiger"],"nameUsage":"valid","scientificName":"Panthera tigris amoyensis","tsn":"726473"},{"author":"Schwarz,
+        China tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris amoyensis","tsn":"726473"},{"author":"Schwarz,
         1912","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Bali
-        tiger","Balinese tiger"],"nameUsage":"valid","scientificName":"Panthera tigris
-        balica","tsn":"726474"},{"author":"Mazak, 1968","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Indo-Chinese
-        tiger","Indochinese tiger","Corbett''s tiger"],"nameUsage":"valid","scientificName":"Panthera
+        tiger","Balinese tiger"],"nameUsage":"invalid","scientificName":"Panthera
+        tigris balica","tsn":"726474"},{"author":"Mazak, 1968","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Indo-Chinese
+        tiger","Indochinese tiger","Corbett''s tiger"],"nameUsage":"invalid","scientificName":"Panthera
         tigris corbetti","tsn":"726475"},{"author":"Temminck, 1844","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Javan
         tiger"],"nameUsage":"valid","scientificName":"Panthera tigris sondaica","tsn":"726476"},{"author":"Pocock,
         1929","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Sumatran
-        tiger"],"nameUsage":"valid","scientificName":"Panthera tigris sumatrae","tsn":"726477"},{"author":"(Illiger,
+        tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris sumatrae","tsn":"726477"},{"author":"(Illiger,
         1815)","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":["Caspian
-        tiger"],"nameUsage":"valid","scientificName":"Panthera tigris virgata","tsn":"726478"}],"requestedName":"Panthera
-        tigris"}
+        tiger"],"nameUsage":"invalid","scientificName":"Panthera tigris virgata","tsn":"726478"},{"author":"Luo
+        et al., 2004","class":"gov.usgs.itis.itis_service.data.SvcItisTerm","commonNames":[null],"nameUsage":"invalid","scientificName":"Panthera
+        tigris jacksoni","tsn":"1229919"}],"requestedName":"Panthera tigris"}
 
         '
     headers:
       Connection:
       - keep-alive
       Content-Length:
-      - '2100'
+      - '2315'
       Content-Type:
       - text/json;charset=ISO-8859-1
       Date:
-      - Tue, 21 Jul 2020 20:58:23 GMT
+      - Fri, 24 Oct 2025 16:14:51 GMT
       Strict-Transport-Security:
       - max-age=63072000; includeSubdomains; preload
-      - max-age=63072000; includeSubdomains; preload
-      X-Application:
-      - itis_webservices
-      X-Node-Name:
-      - not shown
-      X-Upstream-Member:
-      - not shown
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Robots-Tag:
+      - index, follow
     status:
       code: 200
-      message: ''
+      message: OK
 version: 1

@@ -9,244 +9,150 @@ interactions:
       Connection:
       - keep-alive
       user-agent:
-      - python-requests/2.24.0,pygbif/0.4.0
+      - python-requests/2.32.5,pygbif/0.6.5
     method: GET
     uri: https://api.gbif.org/v1/species?name=Panthera+tigris&rank=SPECIES&limit=100
   response:
     body:
-      string: "{\"offset\":0,\"limit\":100,\"endOfRecords\":true,\"results\":[{\"\
-        key\":5219416,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif:5219416\"\
-        ,\"sourceTaxonKey\":132081394,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\"\
-        ,\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"\
-        species\":\"Panthera tigris\",\"kingdomKey\":1,\"phylumKey\":44,\"classKey\"\
-        :359,\"orderKey\":732,\"familyKey\":9703,\"genusKey\":2435194,\"speciesKey\"\
-        :5219416,\"datasetKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\",\"constituentKey\"\
-        :\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"parentKey\":2435194,\"parent\"\
-        :\"Panthera\",\"basionymKey\":4969819,\"basionym\":\"Felis tigris (Linnaeus,\
-        \ 1758)\",\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\",\"canonicalName\"\
-        :\"Panthera tigris\",\"authorship\":\" (Linnaeus, 1758)\",\"nameType\":\"\
-        SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\"\
-        :\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"\",\"publishedIn\"\
-        :\"Syst. Nat., 10th ed. vol.1 p.41\",\"numDescendants\":10,\"lastCrawled\"\
-        :\"2019-09-06T05:41:48.812+0000\",\"lastInterpreted\":\"2019-09-06T05:02:41.604+0000\"\
-        ,\"issues\":[],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":100388673,\"\
-        nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"27913\",\"order\":\"Carnivora\"\
-        ,\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera tigris\"\
-        ,\"orderKey\":165211817,\"familyKey\":165212193,\"genusKey\":100388647,\"\
-        speciesKey\":100388673,\"datasetKey\":\"16c3f9cb-4b19-4553-ac8e-ebb90003aa02\"\
-        ,\"parentKey\":100388647,\"parent\":\"Panthera\",\"scientificName\":\"Panthera\
-        \ tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\"\
-        :\" (Linnaeus, 1758)\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"\
-        origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\"\
-        :[],\"numDescendants\":0,\"references\":\"http://de.wikipedia.org/wiki/Tiger\"\
-        ,\"lastCrawled\":\"2020-07-19T11:37:04.923+0000\",\"lastInterpreted\":\"2020-07-19T11:41:57.887+0000\"\
-        ,\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\",\"VERNACULAR_NAME_INVALID\"],\"\
-        synonym\":false},{\"key\":100690905,\"nubKey\":5219416,\"nameKey\":8114238,\"\
-        taxonID\":\"14000259\",\"kingdom\":\"Animalia\",\"order\":\"Carnivora\",\"\
-        family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera tigris\"\
-        ,\"kingdomKey\":135383253,\"classKey\":135383255,\"orderKey\":100688735,\"\
-        familyKey\":100691331,\"genusKey\":100690954,\"speciesKey\":100690905,\"datasetKey\"\
-        :\"672aca30-f1b5-43d3-8a2b-c1606125fa1b\",\"parentKey\":100690954,\"parent\"\
-        :\"Panthera\",\"scientificName\":\"Panthera tigris Linnaeus 1758\",\"canonicalName\"\
-        :\"Panthera tigris\",\"authorship\":\"Linnaeus, 1758\",\"nameType\":\"SCIENTIFIC\"\
-        ,\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\"\
-        ,\"nomenclaturalStatus\":[],\"remarks\":\"Synonyms allocated according to\
-        \ Maz\xE1k (1981). Revised by Pocock (1929) and Maz\xE1k (1979, 1981). Placed\
-        \ in Panthera by Pocock (1929), Weigel (1961), Hemmer (1978), Kratochv\xED\
-        l (1982c), and Groves (1982a).\",\"publishedIn\":\"Syst. Nat., 10th ed. vol.1\
-        \ p.41\",\"numDescendants\":0,\"lastCrawled\":\"2019-09-07T22:21:18.321+0000\"\
-        ,\"lastInterpreted\":\"2017-10-08T19:58:25.110+0000\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"\
-        ],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":101183479,\"nubKey\"\
-        :5219416,\"nameKey\":8116083,\"taxonID\":\"8385\",\"kingdom\":\"Animalia\"\
-        ,\"kingdomKey\":135274516,\"datasetKey\":\"1bd42c2b-b58a-4a01-816b-bec8c8977927\"\
-        ,\"parentKey\":135274516,\"parent\":\"Animalia\",\"scientificName\":\"Panthera\
-        \ tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\"\
-        :\" (Linnaeus, 1758)\",\"nameType\":\"SCIENTIFIC\",\"origin\":\"SOURCE\",\"\
-        taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :0,\"lastCrawled\":\"2019-09-07T22:22:46.229+0000\",\"lastInterpreted\":\"\
-        2017-10-08T14:06:48.370+0000\",\"issues\":[\"TAXONOMIC_STATUS_INVALID\"],\"\
-        synonym\":false},{\"key\":102116268,\"nubKey\":5219416,\"nameKey\":8116083,\"\
-        taxonID\":\"183805\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\"\
-        :\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"\
-        Panthera tigris\",\"kingdomKey\":101683523,\"phylumKey\":102017110,\"classKey\"\
-        :102114218,\"orderKey\":102114749,\"familyKey\":102115889,\"genusKey\":102116235,\"\
-        speciesKey\":102116268,\"datasetKey\":\"9ca92552-f23a-41a8-a140-01abaa31c931\"\
-        ,\"parentKey\":102116235,\"parent\":\"Panthera\",\"scientificName\":\"Panthera\
-        \ tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\"\
-        :\" (Linnaeus, 1758)\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"\
-        origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\"\
-        :[],\"numDescendants\":8,\"lastCrawled\":\"2019-11-22T14:11:45.544+0000\"\
-        ,\"lastInterpreted\":\"2019-11-22T14:43:08.985+0000\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"\
-        ],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":104061167,\"nameKey\"\
-        :8116077,\"taxonID\":\"9694\",\"kingdom\":\"Metazoa\",\"phylum\":\"Chordata\"\
-        ,\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"\
-        species\":\"Panthera tigris\",\"kingdomKey\":103832354,\"phylumKey\":103882489,\"\
-        classKey\":104045725,\"orderKey\":104059711,\"familyKey\":104060843,\"genusKey\"\
-        :104061129,\"speciesKey\":104061167,\"datasetKey\":\"fab88965-e69d-4491-a04d-e3198b626e52\"\
-        ,\"parentKey\":104061129,\"parent\":\"Panthera\",\"scientificName\":\"Panthera\
-        \ tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\"\
-        :\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\"\
-        :\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":7,\"lastCrawled\"\
-        :\"2019-10-31T16:05:59.510+0000\",\"lastInterpreted\":\"2019-10-31T22:31:40.684+0000\"\
-        ,\"issues\":[\"BACKBONE_MATCH_NONE\"],\"synonym\":false,\"class\":\"Mammalia\"\
-        },{\"key\":113393141,\"nameKey\":8116083,\"taxonID\":\"30075\",\"species\"\
-        :\"Panthera tigris\",\"speciesKey\":113393141,\"datasetKey\":\"cbb6498e-8927-405a-916b-576d00a6289b\"\
-        ,\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\",\"canonicalName\"\
-        :\"Panthera tigris\",\"authorship\":\" (Linnaeus, 1758)\",\"nameType\":\"\
-        SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\"\
-        :\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"Failed to retrieve\
-        \ taxonomy from {}\",\"numDescendants\":0,\"references\":\"http://en.wikipedia.org/wiki/Tiger\"\
-        ,\"lastCrawled\":\"2020-07-19T11:44:50.887+0000\",\"lastInterpreted\":\"2020-07-19T12:31:52.439+0000\"\
-        ,\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\",\"BACKBONE_MATCH_NONE\"],\"synonym\"\
-        :false},{\"key\":114454079,\"nubKey\":5219416,\"nameKey\":8114233,\"taxonID\"\
-        :\"4c539380-8d0a-4cbf-b612-1e6df5850295\",\"kingdom\":\"Animalia\",\"phylum\"\
-        :\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"\
-        Panthera\",\"kingdomKey\":135235274,\"phylumKey\":135237834,\"classKey\":135242402,\"\
-        orderKey\":135242996,\"familyKey\":135243059,\"genusKey\":135243071,\"datasetKey\"\
-        :\"3772da2f-daa1-4f07-a438-15a881a2142c\",\"parentKey\":135243071,\"parent\"\
-        :\"Panthera\",\"scientificName\":\"Panthera tigris (Linnaeus,1758)\",\"canonicalName\"\
-        :\"Panthera tigris\",\"authorship\":\" (Linnaeus, 1758)\",\"nameType\":\"\
-        SCIENTIFIC\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\"\
-        :[],\"numDescendants\":0,\"lastCrawled\":\"2019-09-07T21:58:06.997+0000\"\
-        ,\"lastInterpreted\":\"2017-10-08T10:03:46.579+0000\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"\
-        ],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":116808494,\"nubKey\"\
-        :5219416,\"nameKey\":8116083,\"taxonID\":\"http://services.snsb.info/DTNtaxonlists/rest/v0.1/names/DiversityTaxonNames_TaxaVaria/12475/\"\
-        ,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\"\
-        ,\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera tigris\"\
-        ,\"kingdomKey\":132774790,\"phylumKey\":116785007,\"classKey\":116807520,\"\
-        orderKey\":116808346,\"familyKey\":116808479,\"genusKey\":116808493,\"speciesKey\"\
-        :116808494,\"datasetKey\":\"88f4e35a-bdf8-4aa2-9a1b-56401d4eed15\",\"parentKey\"\
-        :116808493,\"parent\":\"Panthera\",\"scientificName\":\"Panthera tigris (Linnaeus,\
-        \ 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\" (Linnaeus,\
-        \ 1758)\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\"\
-        ,\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :0,\"references\":\"http://services.snsb.info/DTNtaxonlists/rest/v0.1/names/DiversityTaxonNames_TaxaVaria/12475/\"\
-        ,\"lastCrawled\":\"2019-09-07T21:43:12.660+0000\",\"lastInterpreted\":\"2019-05-10T07:06:49.142+0000\"\
-        ,\"issues\":[],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":116892573,\"\
-        nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"210c9c10-3e50-4674-9362-0916be34d05d\"\
-        ,\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"\
-        species\":\"Panthera tigris\",\"classKey\":116891946,\"orderKey\":116892052,\"\
-        familyKey\":116892501,\"genusKey\":116892565,\"speciesKey\":116892573,\"datasetKey\"\
-        :\"71667154-257d-4d8e-a2a5-711aaf9b2d74\",\"parentKey\":116892565,\"parent\"\
-        :\"Panthera\",\"scientificName\":\"Panthera tigris\",\"canonicalName\":\"\
-        Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\"\
-        :\"SPECIES\",\"origin\":\"SOURCE\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :0,\"lastCrawled\":\"2019-09-07T21:48:20.281+0000\",\"lastInterpreted\":\"\
-        2016-01-29T22:14:16.768+0000\",\"issues\":[],\"synonym\":false,\"class\":\"\
-        Mammalia\"},{\"key\":116907247,\"nubKey\":5219416,\"nameKey\":8114242,\"taxonID\"\
-        :\"70008003-23f1-48ae-85c0-94d37dfbab38\",\"order\":\"Carnivora\",\"family\"\
-        :\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera tigris\",\"classKey\"\
-        :116891947,\"orderKey\":116906073,\"familyKey\":116907101,\"genusKey\":116907242,\"\
-        speciesKey\":116907247,\"datasetKey\":\"71667154-257d-4d8e-a2a5-711aaf9b2d74\"\
-        ,\"parentKey\":116907242,\"parent\":\"Panthera\",\"scientificName\":\"Panthera\
-        \ tigris Linnaeus, 1758\",\"canonicalName\":\"Panthera tigris\",\"authorship\"\
-        :\"Linnaeus, 1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\"\
-        :\"SOURCE\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\"\
-        :\"2019-09-07T21:48:20.281+0000\",\"lastInterpreted\":\"2016-01-29T22:14:35.111+0000\"\
-        ,\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"synonym\":false,\"class\":\"\
-        Mammals UNKNOWN\"},{\"key\":119232120,\"nubKey\":5219416,\"nameKey\":8116083,\"\
-        taxonID\":\"1766b48f-a8bf-4a0d-ab3f-23a9733bade3\",\"phylum\":\"Chordata\"\
-        ,\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"\
-        species\":\"Panthera tigris\",\"phylumKey\":119231486,\"classKey\":119231491,\"\
-        orderKey\":119231578,\"familyKey\":119231588,\"genusKey\":119232062,\"speciesKey\"\
-        :119232120,\"datasetKey\":\"bb395a0a-72f0-4c50-b9b6-e1010b79d5c9\",\"parentKey\"\
-        :119232062,\"parent\":\"Panthera\",\"scientificName\":\"Panthera tigris (Linnaeus,\
-        \ 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\" (Linnaeus,\
-        \ 1758)\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\"\
-        ,\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :8,\"lastCrawled\":\"2020-03-16T10:10:53.610+0000\",\"lastInterpreted\":\"\
-        2020-03-16T11:02:56.383+0000\",\"issues\":[],\"synonym\":false,\"class\":\"\
-        Mammalia\"},{\"key\":132081394,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\"\
-        :\"35489848\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"\
-        Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera\
-        \ tigris\",\"kingdomKey\":156096681,\"phylumKey\":155729445,\"classKey\":156090410,\"\
-        orderKey\":156946678,\"familyKey\":156946690,\"genusKey\":155824345,\"speciesKey\"\
-        :132081394,\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"constituentKey\"\
-        :\"4bb4194d-15b4-4e14-ae3a-d2dcc1ba06d6\",\"parentKey\":155824345,\"parent\"\
-        :\"Panthera\",\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\",\"canonicalName\"\
-        :\"Panthera tigris\",\"authorship\":\" (Linnaeus, 1758)\",\"nameType\":\"\
-        SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\"\
-        :\"ACCEPTED\",\"nomenclaturalStatus\":[],\"accordingTo\":\"Wozencraft W.C.\"\
-        ,\"numDescendants\":8,\"references\":\"http://www.catalogueoflife.org/col/details/species/id/9c35aba4cb7f388bf29a05fba221135c\"\
-        ,\"lastCrawled\":\"2019-09-07T12:35:44.718+0000\",\"lastInterpreted\":\"2019-05-03T14:04:25.558+0000\"\
-        ,\"issues\":[],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":137373087,\"\
-        nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"90651\",\"phylum\":\"Chordata\"\
-        ,\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"\
-        species\":\"Felis tigris\",\"phylumKey\":121445866,\"classKey\":121453723,\"\
-        orderKey\":121507052,\"familyKey\":121507697,\"genusKey\":121508256,\"speciesKey\"\
-        :121508314,\"datasetKey\":\"c33ce2f2-c3cc-43a5-a380-fe4526d63650\",\"parentKey\"\
-        :121508256,\"parent\":\"Panthera\",\"acceptedKey\":121508314,\"accepted\"\
-        :\"Felis tigris (Linnaeus, 1758)\",\"basionymKey\":121508314,\"basionym\"\
-        :\"Felis tigris (Linnaeus, 1758)\",\"scientificName\":\"Panthera tigris (Linnaeus,\
-        \ 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\" (Linnaeus,\
-        \ 1758)\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\"\
-        ,\"taxonomicStatus\":\"SYNONYM\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :0,\"lastCrawled\":\"2019-09-07T22:26:19.521+0000\",\"lastInterpreted\":\"\
-        2018-05-17T11:24:35.874+0000\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"\
-        synonym\":true,\"class\":\"Mammalia\"},{\"key\":148736669,\"nubKey\":5219416,\"\
-        nameKey\":8116083,\"taxonID\":\"31456\",\"kingdom\":\"Animalia\",\"phylum\"\
-        :\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"species\":\"\
-        Panthera tigris\",\"kingdomKey\":162502399,\"phylumKey\":162502411,\"classKey\"\
-        :162502412,\"orderKey\":162502448,\"familyKey\":162502454,\"speciesKey\":148736669,\"\
-        datasetKey\":\"168568e7-eb5f-4ef6-8c59-f73ceaf57e91\",\"parentKey\":162502454,\"\
-        parent\":\"Felidae\",\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\"\
-        ,\"canonicalName\":\"Panthera tigris\",\"authorship\":\" (Linnaeus, 1758)\"\
-        ,\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"\
-        taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :0,\"lastCrawled\":\"2020-03-14T09:25:16.841+0000\",\"lastInterpreted\":\"\
-        2020-03-14T09:25:20.978+0000\",\"issues\":[],\"synonym\":false,\"class\":\"\
-        Mammalia\"},{\"key\":154499189,\"nubKey\":5219416,\"nameKey\":8114238,\"taxonID\"\
-        :\"03A0BE3B645BFFEEFF4FFCB6FA5D51FA.taxon\",\"kingdom\":\"Animalia\",\"phylum\"\
-        :\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"\
-        Panthera\",\"species\":\"Panthera tigris\",\"kingdomKey\":154529377,\"phylumKey\"\
-        :154529378,\"classKey\":154529379,\"orderKey\":154499156,\"familyKey\":154499186,\"\
-        genusKey\":154529433,\"speciesKey\":154499189,\"datasetKey\":\"58e0c7c5-75ec-4b1b-beb0-d01527f710f9\"\
-        ,\"parentKey\":154529433,\"parent\":\"Panthera\",\"scientificName\":\"Panthera\
-        \ tigris Linnaeus 1758\",\"canonicalName\":\"Panthera tigris\",\"authorship\"\
-        :\"Linnaeus, 1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\"\
-        :\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"\
-        numDescendants\":0,\"references\":\"http://treatment.plazi.org/id/03A0BE3B645BFFEEFF4FFCB6FA5D51FA\"\
-        ,\"lastCrawled\":\"2019-09-07T14:25:00.899+0000\",\"lastInterpreted\":\"2019-03-30T16:42:49.096+0000\"\
-        ,\"issues\":[],\"synonym\":false,\"class\":\"Mammalia\"},{\"key\":158191979,\"\
-        nubKey\":5219416,\"nameKey\":8114242,\"taxonID\":\"http://bins.boldsystems.org/index.php/Taxbrowser_Taxonpage?taxid=73508\"\
-        ,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\"\
-        ,\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera tigris\"\
-        ,\"kingdomKey\":157533281,\"phylumKey\":158135805,\"classKey\":158179187,\"\
-        orderKey\":158191775,\"familyKey\":158191954,\"genusKey\":158191974,\"speciesKey\"\
-        :158191979,\"datasetKey\":\"4cec8fef-f129-4966-89b7-4f8439aba058\",\"parentKey\"\
-        :158191974,\"parent\":\"Panthera\",\"scientificName\":\"Panthera tigris Linnaeus,\
-        \ 1758\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"Linnaeus,\
-        \ 1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\"\
-        ,\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\"\
-        :1,\"references\":\"http://bins.boldsystems.org/index.php/Taxbrowser_Taxonpage?taxid=73508\"\
-        ,\"lastCrawled\":\"2019-09-09T03:45:37.263+0000\",\"lastInterpreted\":\"2019-06-13T15:20:59.864+0000\"\
-        ,\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"synonym\":false,\"class\":\"\
-        Mammalia\"}]}"
+      string: "{\"offset\":0,\"limit\":100,\"endOfRecords\":true,\"results\":[{\"key\":5219416,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif:5219416\",\"sourceTaxonKey\":172721516,\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":1,\"phylumKey\":44,\"classKey\":359,\"orderKey\":732,\"familyKey\":9703,\"genusKey\":2435194,\"speciesKey\":5219416,\"datasetKey\":\"d7dddbf4-2cf0-4f39-9b2a-bb099caae36c\",\"constituentKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"parentKey\":2435194,\"parent\":\"Panthera\",\"basionymKey\":4969819,\"basionym\":\"Felis
+        tigris Linnaeus, 1758\",\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera
+        tigris\",\"vernacularName\":\"tiger\",\"authorship\":\"(Linnaeus, 1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"\",\"publishedIn\":\"Syst.
+        Nat., 10th ed. vol.1 p.41\",\"numDescendants\":10,\"lastCrawled\":\"2023-08-22T23:20:59.545+00:00\",\"lastInterpreted\":\"2023-08-22T22:19:08.579+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":100388673,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"27913\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"orderKey\":303396633,\"familyKey\":303396732,\"genusKey\":100388647,\"speciesKey\":100388673,\"datasetKey\":\"16c3f9cb-4b19-4553-ac8e-ebb90003aa02\",\"parentKey\":100388647,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"http://de.wikipedia.org/wiki/Tiger\",\"lastCrawled\":\"2023-08-24T14:01:22.656+00:00\",\"lastInterpreted\":\"2025-10-14T05:23:39.065+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\",\"VERNACULAR_NAME_INVALID\"]},{\"key\":100690905,\"nubKey\":5219416,\"nameKey\":8114242,\"taxonID\":\"14000259\",\"kingdom\":\"Animalia\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":304043121,\"classKey\":304043122,\"orderKey\":100688735,\"familyKey\":100691331,\"genusKey\":100690954,\"speciesKey\":100690905,\"datasetKey\":\"672aca30-f1b5-43d3-8a2b-c1606125fa1b\",\"parentKey\":100690954,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris Linnaeus, 1758\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"Linnaeus,
+        1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"Synonyms
+        allocated according to Maz\xE1k (1981). Revised by Pocock (1929) and Maz\xE1k
+        (1979, 1981). Placed in Panthera by Pocock (1929), Weigel (1961), Hemmer (1978),
+        Kratochv\xEDl (1982c), and Groves (1982a).\",\"publishedIn\":\"Syst. Nat.,
+        10th ed. vol.1 p.41\",\"numDescendants\":0,\"lastCrawled\":\"2025-10-21T07:17:52.071+00:00\",\"lastInterpreted\":\"2025-10-21T08:02:34.749+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammalia\"},{\"key\":101183479,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"8385\",\"kingdom\":\"Animalia\",\"kingdomKey\":303997395,\"datasetKey\":\"1bd42c2b-b58a-4a01-816b-bec8c8977927\",\"parentKey\":303997395,\"parent\":\"Animalia\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2025-10-21T04:54:41.398+00:00\",\"lastInterpreted\":\"2025-10-21T05:02:56.385+00:00\",\"issues\":[\"TAXONOMIC_STATUS_INVALID\"]},{\"key\":102116268,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"183805\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":101683523,\"phylumKey\":102017110,\"classKey\":102114218,\"orderKey\":102114749,\"familyKey\":102115889,\"genusKey\":102116235,\"speciesKey\":102116268,\"datasetKey\":\"9ca92552-f23a-41a8-a140-01abaa31c931\",\"parentKey\":102116235,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":2,\"lastCrawled\":\"2025-10-21T07:17:29.900+00:00\",\"lastInterpreted\":\"2025-10-21T08:03:35.048+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammalia\"},{\"key\":104061167,\"nameKey\":8116077,\"taxonID\":\"9694\",\"kingdom\":\"Metazoa\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":103832354,\"phylumKey\":103882489,\"classKey\":104045725,\"orderKey\":104059711,\"familyKey\":104060843,\"genusKey\":104061129,\"speciesKey\":104061167,\"datasetKey\":\"fab88965-e69d-4491-a04d-e3198b626e52\",\"parentKey\":104061129,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"code
+        compliant; specified\",\"numDescendants\":8,\"lastCrawled\":\"2025-07-27T21:44:49.210+00:00\",\"lastInterpreted\":\"2025-07-27T23:42:40.304+00:00\",\"issues\":[\"BACKBONE_MATCH_NONE\"],\"class\":\"Mammalia\"},{\"key\":113393141,\"nameKey\":8116083,\"taxonID\":\"30075\",\"species\":\"Panthera
+        tigris\",\"speciesKey\":113393141,\"datasetKey\":\"cbb6498e-8927-405a-916b-576d00a6289b\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"Failed
+        to retrieve taxonomy from {}\",\"numDescendants\":0,\"references\":\"http://en.wikipedia.org/wiki/Tiger\",\"lastCrawled\":\"2025-10-14T05:19:44.335+00:00\",\"lastInterpreted\":\"2025-10-14T05:55:36.310+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\",\"BACKBONE_MATCH_NONE\"]},{\"key\":114454079,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"4c539380-8d0a-4cbf-b612-1e6df5850295\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"kingdomKey\":183203277,\"phylumKey\":183205906,\"classKey\":183210351,\"orderKey\":183210775,\"familyKey\":183210858,\"genusKey\":183210871,\"datasetKey\":\"3772da2f-daa1-4f07-a438-15a881a2142c\",\"parentKey\":183210871,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-08-24T13:50:56.594+00:00\",\"lastInterpreted\":\"2021-06-29T17:11:15.938+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammalia\"},{\"key\":116808494,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"http://services.snsb.info/DTNtaxonlists/rest/v0.1/names/DiversityTaxonNames_TaxaVaria/12475/\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":132774790,\"phylumKey\":116785007,\"classKey\":116807520,\"orderKey\":116808346,\"familyKey\":116808479,\"genusKey\":116808493,\"speciesKey\":116808494,\"datasetKey\":\"88f4e35a-bdf8-4aa2-9a1b-56401d4eed15\",\"parentKey\":116808493,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"http://services.snsb.info/DTNtaxonlists/rest/v0.1/names/DiversityTaxonNames_TaxaVaria/12475/\",\"lastCrawled\":\"2025-10-21T02:20:59.660+00:00\",\"lastInterpreted\":\"2025-10-21T02:22:15.613+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":116892573,\"nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"210c9c10-3e50-4674-9362-0916be34d05d\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"classKey\":116891946,\"orderKey\":116892052,\"familyKey\":116892501,\"genusKey\":116892565,\"speciesKey\":116892573,\"datasetKey\":\"71667154-257d-4d8e-a2a5-711aaf9b2d74\",\"parentKey\":116892565,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2025-10-21T02:30:53.026+00:00\",\"lastInterpreted\":\"2025-10-21T02:35:02.277+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":116907247,\"nubKey\":5219416,\"nameKey\":8114242,\"taxonID\":\"70008003-23f1-48ae-85c0-94d37dfbab38\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"classKey\":116891947,\"orderKey\":116906073,\"familyKey\":116907101,\"genusKey\":116907242,\"speciesKey\":116907247,\"datasetKey\":\"71667154-257d-4d8e-a2a5-711aaf9b2d74\",\"parentKey\":116907242,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris Linnaeus, 1758\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"Linnaeus,
+        1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2025-10-21T02:30:53.026+00:00\",\"lastInterpreted\":\"2025-10-21T02:35:12.036+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammals\"},{\"key\":119232120,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"1766b48f-a8bf-4a0d-ab3f-23a9733bade3\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"phylumKey\":119231486,\"classKey\":119231491,\"orderKey\":119231578,\"familyKey\":119231588,\"genusKey\":119232062,\"speciesKey\":119232120,\"datasetKey\":\"bb395a0a-72f0-4c50-b9b6-e1010b79d5c9\",\"parentKey\":119232062,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":8,\"lastCrawled\":\"2025-10-21T02:30:53.047+00:00\",\"lastInterpreted\":\"2025-10-21T02:39:18.382+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":137373087,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"90651\",\"phylum\":\"Chordata\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Felis
+        tigris\",\"phylumKey\":121445866,\"familyKey\":121507697,\"genusKey\":121508256,\"speciesKey\":121508314,\"datasetKey\":\"c33ce2f2-c3cc-43a5-a380-fe4526d63650\",\"parentKey\":121508256,\"parent\":\"Panthera\",\"acceptedKey\":121508314,\"accepted\":\"Felis
+        tigris (Linnaeus, 1758)\",\"basionymKey\":121508314,\"basionym\":\"Felis tigris
+        (Linnaeus, 1758)\",\"scientificName\":\"Panthera tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera
+        tigris\",\"vernacularName\":\"tiger\",\"authorship\":\"(Linnaeus, 1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"SYNONYM\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-08-24T14:50:50.001+00:00\",\"lastInterpreted\":\"2022-09-15T07:47:05.924+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"]},{\"key\":148736669,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"31456\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":201360331,\"phylumKey\":201360485,\"classKey\":201360568,\"orderKey\":201360569,\"familyKey\":201360570,\"speciesKey\":148736669,\"datasetKey\":\"168568e7-eb5f-4ef6-8c59-f73ceaf57e91\",\"parentKey\":201360570,\"parent\":\"Felidae\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-08-24T11:27:46.094+00:00\",\"lastInterpreted\":\"2022-10-01T16:38:05.123+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":154499189,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"03A0BE3B645BFFEEFF4FFCB6FA5D51FA.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":303731645,\"phylumKey\":303731646,\"classKey\":303731647,\"orderKey\":180327614,\"familyKey\":303731706,\"genusKey\":154499185,\"speciesKey\":154499189,\"datasetKey\":\"58e0c7c5-75ec-4b1b-beb0-d01527f710f9\",\"parentKey\":154499185,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/03A0BE3B645BFFEEFF4FFCB6FA5D51FA\",\"lastCrawled\":\"2025-10-19T06:34:32.692+00:00\",\"lastInterpreted\":\"2025-10-19T06:36:58.714+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":168211532,\"nubKey\":5219416,\"nameKey\":34625777,\"taxonID\":\"42398\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":201325915,\"phylumKey\":201325917,\"classKey\":201325956,\"orderKey\":201325962,\"familyKey\":201325967,\"speciesKey\":168211532,\"datasetKey\":\"1df9467e-0c60-4e5a-a7b0-2b60bd6648ed\",\"parentKey\":201325967,\"parent\":\"Felidae\",\"scientificName\":\"Panthera
+        tigris (\u200ELinnaeus\u200E, \u200E1758\u200E)\",\"canonicalName\":\"Panthera
+        tigris\",\"authorship\":\"\",\"nameType\":\"DOUBTFUL\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-08-24T11:06:03.184+00:00\",\"lastInterpreted\":\"2022-10-01T15:31:20.446+00:00\",\"issues\":[\"PARTIALLY_PARSABLE\"],\"class\":\"Mammalia\"},{\"key\":176685216,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"15955\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":303999056,\"phylumKey\":303999149,\"classKey\":304007805,\"orderKey\":304008565,\"familyKey\":304008638,\"genusKey\":304008647,\"speciesKey\":176685216,\"datasetKey\":\"19491596-35ae-4a91-9a98-85cf505f1bd3\",\"parentKey\":304008647,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://www.iucnredlist.org/species/15955/214862019\",\"lastCrawled\":\"2025-10-21T06:58:12.511+00:00\",\"lastInterpreted\":\"2025-10-21T07:09:05.245+00:00\",\"issues\":[\"VERNACULAR_NAME_INVALID\"],\"class\":\"Mammalia\"},{\"key\":177672816,\"nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"9694\",\"kingdom\":\"Metazoa\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":177651702,\"phylumKey\":177654008,\"classKey\":177654674,\"orderKey\":177670859,\"familyKey\":177672533,\"genusKey\":177672804,\"speciesKey\":177672816,\"datasetKey\":\"6b6b2923-0a10-4708-b170-5b7c611aceef\",\"parentKey\":177672804,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":8,\"lastCrawled\":\"2025-10-18T21:33:31.737+00:00\",\"lastInterpreted\":\"2025-10-18T22:50:34.177+00:00\",\"issues\":[\"CLASSIFICATION_NOT_APPLIED\"],\"class\":\"Mammalia\"},{\"key\":189989075,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif.org/es/species/5219416\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":265850833,\"phylumKey\":265850863,\"classKey\":265850871,\"orderKey\":265850874,\"familyKey\":265850885,\"genusKey\":265850887,\"speciesKey\":189989075,\"datasetKey\":\"6c1d9dfb-fd55-4bf2-af61-4243f2e460f4\",\"parentKey\":265850887,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://dx.doi.org/10.2305/IUCN.UK.2015-2.RLTS.T15955A50659951.en.\",\"lastCrawled\":\"2025-07-12T04:54:33.562+00:00\",\"lastInterpreted\":\"2025-07-12T04:55:10.338+00:00\",\"issues\":[\"TAXONOMIC_STATUS_INVALID\",\"SCIENTIFIC_NAME_ASSEMBLED\",\"DISTRIBUTION_INVALID\"],\"class\":\"Mammalia\"},{\"key\":193330968,\"nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"FEHL_TL_Mammals_174\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":209571256,\"phylumKey\":209571257,\"classKey\":209571258,\"orderKey\":209571391,\"familyKey\":209571402,\"genusKey\":209571405,\"speciesKey\":193330968,\"datasetKey\":\"1e6f8b31-64dc-48a0-a10d-eeda3bb1a5d4\",\"parentKey\":209571405,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-08-24T09:40:23.731+00:00\",\"lastInterpreted\":\"2023-04-28T07:20:05.757+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":196367001,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"5923B2744662C807E7B5C1C1F83290A4.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":303591232,\"phylumKey\":303591233,\"classKey\":303591234,\"orderKey\":303591235,\"familyKey\":303591236,\"genusKey\":303591244,\"speciesKey\":196367001,\"datasetKey\":\"649319d4-ab3a-4291-ab8e-cae1442a76ec\",\"parentKey\":303591244,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/5923B2744662C807E7B5C1C1F83290A4\",\"lastCrawled\":\"2025-10-18T00:20:18.181+00:00\",\"lastInterpreted\":\"2025-10-18T00:20:42.998+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":197243896,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"d22e626c4c574a61a55cc0f440bf26e8\",\"kingdom\":\"Animalia\",\"family\":\"Felidae\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":212966734,\"familyKey\":212966892,\"speciesKey\":197243896,\"datasetKey\":\"3ee6fce9-9056-48f5-96fb-a2339bdb947e\",\"parentKey\":212966892,\"parent\":\"Felidae\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"http://sp2000.org.cn/species/show_species_details/d22e626c4c574a61a55cc0f440bf26e8\",\"lastCrawled\":\"2023-09-08T08:16:38.556+00:00\",\"lastInterpreted\":\"2023-09-08T08:33:42.042+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"]},{\"key\":205120724,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"03AB87D2FFFF5873B9AF5660FCAEE03A.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":303576276,\"phylumKey\":303576277,\"classKey\":303576278,\"orderKey\":303576279,\"familyKey\":303576331,\"genusKey\":205120718,\"speciesKey\":205120724,\"datasetKey\":\"1ce75501-9bd6-4f4f-b9de-34a393211f7b\",\"parentKey\":205120718,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"publishedIn\":\"Linnaeus
+        (1758): Panthera tigris. Syst. Nat., 10th ed. 1\",\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/03AB87D2FFFF5873B9AF5660FCAEE03A\",\"lastCrawled\":\"2025-10-17T17:53:26.712+00:00\",\"lastInterpreted\":\"2025-10-17T17:56:00.766+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":205134767,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"41263629C33A7468FEC6F525FCB7162E.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":303574622,\"phylumKey\":303574623,\"classKey\":303574624,\"orderKey\":303574625,\"familyKey\":303574650,\"genusKey\":303574658,\"speciesKey\":205134767,\"datasetKey\":\"f181e241-3970-4bd2-8a4d-dec4495e0adc\",\"parentKey\":303574658,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"publishedIn\":\"Linnaeus
+        (1758): Panthera tigris. Syst. Nat., 10th ed. 1\",\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/41263629C33A7468FEC6F525FCB7162E\",\"lastCrawled\":\"2025-10-17T17:53:22.632+00:00\",\"lastInterpreted\":\"2025-10-17T17:54:37.252+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":209806595,\"nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"4e969c18-6524-44f2-8425-40d34168dacc\",\"datasetKey\":\"71667154-257d-4d8e-a2a5-711aaf9b2d74\",\"parentKey\":209806592,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2025-10-21T02:30:53.026+00:00\",\"lastInterpreted\":\"2025-10-21T02:35:13.607+00:00\",\"issues\":[]},{\"key\":217143323,\"nubKey\":5219416,\"nameKey\":8114242,\"taxonID\":\"73508\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":157533281,\"phylumKey\":217093751,\"classKey\":217127277,\"orderKey\":217143083,\"familyKey\":217143302,\"genusKey\":217143317,\"speciesKey\":217143323,\"datasetKey\":\"4cec8fef-f129-4966-89b7-4f8439aba058\",\"parentKey\":217143317,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris Linnaeus, 1758\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"Linnaeus,
+        1758\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":6,\"references\":\"http://bins.boldsystems.org/index.php/Taxbrowser_Taxonpage?taxid=73508\",\"lastCrawled\":\"2024-07-14T19:03:06.615+00:00\",\"lastInterpreted\":\"2024-07-29T15:37:33.020+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammalia\"},{\"key\":217601301,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"5219416\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":217601086,\"phylumKey\":217601087,\"classKey\":217601258,\"orderKey\":217601287,\"familyKey\":217601299,\"genusKey\":217601300,\"speciesKey\":217601301,\"datasetKey\":\"2ba24a3b-c72b-4759-943e-43d95f61b09b\",\"parentKey\":217601300,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2023-11-15T09:20:56.603+00:00\",\"lastInterpreted\":\"2023-11-15T09:20:59.661+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":221350634,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"4d5d78d100c04d89ba674d0dc40ad904\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"kingdomKey\":221751017,\"phylumKey\":221752059,\"classKey\":221752061,\"orderKey\":221752504,\"familyKey\":221752516,\"genusKey\":221752528,\"datasetKey\":\"7e276a96-73ea-4efc-8ffb-e74ef573ef6c\",\"parentKey\":221752528,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2024-02-27T17:45:33.439+00:00\",\"lastInterpreted\":\"2024-02-27T18:02:24.103+00:00\",\"issues\":[\"SCIENTIFIC_NAME_ASSEMBLED\"],\"class\":\"Mammalia\"},{\"key\":231548231,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"76DA46F5A2A4B56204EFC3D4F60AD80C.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":304228405,\"phylumKey\":304228406,\"classKey\":304228407,\"orderKey\":304228408,\"familyKey\":304228487,\"genusKey\":304228494,\"speciesKey\":231548231,\"datasetKey\":\"3f0f641c-cd4b-4694-8e47-c47be23ac2a9\",\"parentKey\":304228494,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/76DA46F5A2A4B56204EFC3D4F60AD80C\",\"lastCrawled\":\"2025-10-23T23:21:42.984+00:00\",\"lastInterpreted\":\"2025-10-23T23:23:33.385+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":243543388,\"nubKey\":5219416,\"nameKey\":42820043,\"taxonID\":\"BF0B87EAAE44FFD29F69FBB1FB8800A7.taxon\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":304203322,\"phylumKey\":304203323,\"classKey\":304203324,\"orderKey\":304203524,\"familyKey\":304203525,\"genusKey\":304203531,\"speciesKey\":243543388,\"datasetKey\":\"0837bd43-fa3c-4a68-b257-81cb7c234e44\",\"parentKey\":304203531,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"references\":\"https://treatment.plazi.org/id/BF0B87EAAE44FFD29F69FBB1FB8800A7\",\"lastCrawled\":\"2025-10-23T20:48:50.441+00:00\",\"lastInterpreted\":\"2025-10-23T20:50:11.125+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":266900658,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"gbif.org/species/5219416\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":268230021,\"phylumKey\":268230556,\"classKey\":268230888,\"orderKey\":268230978,\"familyKey\":268230981,\"genusKey\":268230984,\"speciesKey\":266900658,\"datasetKey\":\"fe8a949e-ea81-4a58-8871-e50032e11415\",\"parentKey\":268230984,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"remarks\":\"Identificaci\xF3n
+        original: Panthera tigris.\",\"numDescendants\":0,\"lastCrawled\":\"2025-08-08T21:09:23.606+00:00\",\"lastInterpreted\":\"2025-08-08T21:09:31.166+00:00\",\"issues\":[\"TAXONOMIC_STATUS_INVALID\",\"SCIENTIFIC_NAME_ASSEMBLED\",\"DISTRIBUTION_INVALID\",\"SPECIES_PROFILE_INVALID\"],\"class\":\"Mammalia\"},{\"key\":268113567,\"nubKey\":5219416,\"nameKey\":8116077,\"taxonID\":\"ac30c077-4835-4184-9422-f4a3b2c94b64\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":268112629,\"phylumKey\":268112704,\"classKey\":268113348,\"orderKey\":268113519,\"familyKey\":268113560,\"genusKey\":268113566,\"speciesKey\":268113567,\"datasetKey\":\"5b9267ba-0ed4-4687-b0f4-e765805e0e81\",\"parentKey\":268113566,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris\",\"canonicalName\":\"Panthera tigris\",\"authorship\":\"\",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":0,\"lastCrawled\":\"2025-08-07T22:32:21.687+00:00\",\"lastInterpreted\":\"2025-08-07T22:32:26.458+00:00\",\"issues\":[],\"class\":\"Mammalia\"},{\"key\":273260517,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"4CGXS\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":270195436,\"phylumKey\":273083630,\"classKey\":300784252,\"orderKey\":300786028,\"familyKey\":273258640,\"genusKey\":273260489,\"speciesKey\":273260517,\"datasetKey\":\"e007cc4a-8704-449d-8829-bb209d26d6c8\",\"parentKey\":273260489,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Tiger\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":2,\"references\":\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=183805\",\"lastCrawled\":\"2025-10-11T14:23:22.671+00:00\",\"lastInterpreted\":\"2025-10-11T18:27:03.947+00:00\",\"issues\":[\"NOMENCLATURAL_STATUS_INVALID\"],\"class\":\"Mammalia\"},{\"key\":299463082,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"4CGXS\",\"kingdom\":\"Animalia\",\"phylum\":\"Chordata\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"kingdomKey\":296374190,\"phylumKey\":299312263,\"classKey\":302160612,\"orderKey\":302161013,\"familyKey\":299463007,\"genusKey\":299463038,\"speciesKey\":299463082,\"datasetKey\":\"7ddf754f-d193-4cc9-b351-99906754a03b\",\"parentKey\":299463038,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Bagh\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"publishedIn\":\"Syst.
+        Nat., 10th ed. vol.1 p.41\",\"numDescendants\":4,\"references\":\"https://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=183805\",\"lastCrawled\":\"2025-10-21T07:17:38.643+00:00\",\"lastInterpreted\":\"2025-10-21T14:00:22.805+00:00\",\"issues\":[\"ORIGINAL_NAME_USAGE_ID_INVALID\",\"NOMENCLATURAL_STATUS_INVALID\",\"VERNACULAR_NAME_INVALID\"],\"class\":\"Mammalia\"},{\"key\":302883660,\"nubKey\":5219416,\"nameKey\":8116083,\"taxonID\":\"240767\",\"order\":\"Carnivora\",\"family\":\"Felidae\",\"genus\":\"Panthera\",\"species\":\"Panthera
+        tigris\",\"classKey\":240182451,\"orderKey\":240174513,\"familyKey\":244865170,\"genusKey\":240180860,\"speciesKey\":302883660,\"datasetKey\":\"811d48a6-fd04-4a34-81f2-7605492e54b8\",\"parentKey\":240180860,\"parent\":\"Panthera\",\"scientificName\":\"Panthera
+        tigris (Linnaeus, 1758)\",\"canonicalName\":\"Panthera tigris\",\"vernacularName\":\"Bagh\",\"authorship\":\"(Linnaeus,
+        1758) \",\"nameType\":\"SCIENTIFIC\",\"rank\":\"SPECIES\",\"origin\":\"SOURCE\",\"taxonomicStatus\":\"ACCEPTED\",\"nomenclaturalStatus\":[],\"numDescendants\":2,\"lastCrawled\":\"2025-10-10T07:04:33.535+00:00\",\"lastInterpreted\":\"2025-10-10T07:13:20.474+00:00\",\"issues\":[\"CLASSIFICATION_NOT_APPLIED\",\"DISTRIBUTION_INVALID\"],\"class\":\"Mammalia\"}]}"
     headers:
       Accept-Ranges:
       - bytes
-      Access-Control-Allow-Methods:
-      - HEAD, GET, POST, DELETE, PUT, OPTIONS
-      Access-Control-Allow-Origin:
-      - '*'
       Age:
-      - '2'
+      - '0'
       Cache-Control:
       - public, max-age=3601
       Connection:
       - keep-alive
-      Content-Length:
-      - '14815'
       Content-Type:
       - application/json
       Date:
-      - Tue, 21 Jul 2020 20:58:15 GMT
-      Server:
-      - Jetty(9.3.z-SNAPSHOT)
+      - Fri, 24 Oct 2025 16:13:37 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Origin, Access-Control-Request-Method, Access-Control-Request-Headers
       Via:
-      - 1.1 varnish (Varnish/5.2)
+      - 1.1 varnish (Varnish/6.6)
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
       X-Varnish:
-      - 980093310 964367205
+      - '272172886'
+      X-XSS-Protection:
+      - 1; mode=block
     status:
       code: 200
       message: OK

@@ -9,22 +9,29 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=taxonomy&term=Apis
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
-        UXTxdw6JDHBVSA1OTSxKzghKLS7NKVEICHXy8XRWUNLV1/fz8dXXdwlxUUgtBqtQMDIwMDMwM7LQ
-        13f1U1JQyigpKSi20tdPLS3JzCnWy0tOytTLy8nVy8vM0EvPL4OK66eUpOjDdUKN0gMKKtlxAQAA
-        AP//ZJDLCsIwEEX3fkX/YBQUEYaBIioFbWtbV+Ii2CyK6YMkhfr3JqlKH5twcm7IPHBUm3Bft5Wm
-        FUIPmHB9YZ0VX7Im1UxqWjrXMwb5uVDa/BfktF1vdggGFvZ0HjPJKiWYNitJuYax0Oz5Is/zMOOy
-        NLHl/kJ+U6i7L4QXspKrB4KzLj8WXOT0zxB64bLJGM4dukbUOacQ4YdWw6AoRjGdkugWIxhy4bRN
-        vLZcvgd63uLsBcJ4y4sPAAAA//8DADW812EjAgAA
+      string: '<?xml version="1.0" encoding="UTF-8" ?>
+
+        <!DOCTYPE eSearchResult PUBLIC "-//NLM//DTD esearch 20060628//EN" "https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20060628/esearch.dtd">
+
+        <eSearchResult><Count>1</Count><RetMax>1</RetMax><RetStart>0</RetStart><IdList>
+
+        <Id>7459</Id>
+
+        </IdList><TranslationSet/><TranslationStack>   <TermSet>    <Term>Apis[All
+        Names]</Term>    <Field>All Names</Field>    <Count>1</Count>    <Explode>N</Explode>   </TermSet>   <OP>GROUP</OP>  </TranslationStack><QueryTranslation>Apis[All
+        Names]</QueryTranslation></eSearchResult>
+
+        '
     headers:
       Access-Control-Allow-Origin:
       - '*'
+      Access-Control-Expose-Headers:
+      - X-RateLimit-Limit,X-RateLimit-Remaining
       Cache-Control:
       - private
       Connection:
@@ -34,18 +41,20 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Fri, 10 Jul 2020 18:48:27 GMT
+      - Fri, 24 Oct 2025 16:12:27 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - D0BD71697844DFA5000054CF1FF1B6A1.1.1.m_1
+      - 1D3452BA865B4F150000240DA0A10BA6.1.1.m_1
       NCBI-SID:
-      - 51DEE6BC0FE2939F_FF7CSID
+      - E34A3424CBD724FB_826CSID
+      Referrer-Policy:
+      - origin-when-cross-origin
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=51DEE6BC0FE2939F_FF7CSID; domain=.nih.gov; path=/; expires=Sat, 10
-        Jul 2021 18:48:27 GMT
+      - ncbi_sid=E34A3424CBD724FB_826CSID; domain=.nih.gov; path=/; expires=Sat, 24
+        Oct 2026 16:12:27 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:
@@ -73,23 +82,25 @@ interactions:
       Connection:
       - keep-alive
       User-Agent:
-      - python-requests/2.24.0
+      - python-requests/2.32.5
     method: GET
     uri: https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?ID=7459&db=taxonomy
   response:
     body:
-      string: !!binary |
-        H4sIAAAAAAAAALKxr8jNUShLLSrOzM+zVTLUM1BSSM1Lzk/JzEu3VQoNcdO1UFKwt+MCAAAA//+y
-        UXTxdw6JDHBVSA0uzc1NLKoMSi0uzSlRCAh18vF0VlDS1df38/HV13cJcVEAyoCVKJQZKhgZGJgY
-        GhhZ6uu7+ikpKGWUlBQUW+nrp5aWZOYU6+UlJ2Xq5eXk6uVlZuil55dBxfVTSlL04TphxumWGeoB
-        JZTsuAAAAAD//7JBdYQdFwAAAP//bJBBCsIwEEXXeoqSC+hCESEGioWSjQvbC4zpWIaStLRp0dub
-        KN3E2c0f3lv8L4vehJfabqRu1OlwPMtdOGL0aLMbWLyIyoOfJ5HV7+GbxtBRKDCeFgx4ABPhDq5L
-        8RbdPLF0QQvFFVPjgcgLlSF0np5kYk61fCBeu/bW9o5TWLyGl25WUjuPLY5inegfzzvgjT2Ll3GO
-        H/sBAAD//yLgjuCCVKB/iVRbmlRcQJRKX2BKBQZgYgkw4F0SS+BBAmbbAZOQkb6Bqb6BhYKBgZUB
-        3As2+rD0AgAAAP//4gIAAAD//7LRR09LAAAAAP//AwB6oWmbEwMAAA==
+      string: "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE eSummaryResult
+        PUBLIC \"-//NLM//DTD esummary v1 20041029//EN\" \"https://eutils.ncbi.nlm.nih.gov/eutils/dtd/20041029/esummary-v1.dtd\">\n<eSummaryResult>\n<DocSum>\n\t<Id>7459</Id>\n\t<Item
+        Name=\"Status\" Type=\"String\">active</Item>\n\t<Item Name=\"Rank\" Type=\"String\">genus</Item>\n\t<Item
+        Name=\"Division\" Type=\"String\">bees</Item>\n\t<Item Name=\"ScientificName\"
+        Type=\"String\">Apis</Item>\n\t<Item Name=\"CommonName\" Type=\"String\"></Item>\n\t<Item
+        Name=\"TaxId\" Type=\"Integer\">7459</Item>\n\t<Item Name=\"AkaTaxId\" Type=\"Integer\">0</Item>\n\t<Item
+        Name=\"Genus\" Type=\"String\"></Item>\n\t<Item Name=\"Species\" Type=\"String\"></Item>\n\t<Item
+        Name=\"Subsp\" Type=\"String\"></Item>\n\t<Item Name=\"ModificationDate\"
+        Type=\"Date\">2002/05/08 00:00</Item>\n</DocSum>\n\n</eSummaryResult>\n"
     headers:
       Access-Control-Allow-Origin:
       - '*'
+      Access-Control-Expose-Headers:
+      - X-RateLimit-Limit,X-RateLimit-Remaining
       Cache-Control:
       - private
       Connection:
@@ -99,18 +110,20 @@ interactions:
       Content-Type:
       - text/xml; charset=UTF-8
       Date:
-      - Fri, 10 Jul 2020 18:48:27 GMT
+      - Fri, 24 Oct 2025 16:12:27 GMT
       Keep-Alive:
       - timeout=4, max=40
       NCBI-PHID:
-      - 939B5A8B493487E5000057D22619D83D.1.1.m_1
+      - 1D337893826EEC2500004A0973A3DED0.1.1.m_1
       NCBI-SID:
-      - 12805E2D968C1318_7008SID
+      - 0D7F16019A6D1A3E_49E2SID
+      Referrer-Policy:
+      - origin-when-cross-origin
       Server:
       - Finatra
       Set-Cookie:
-      - ncbi_sid=12805E2D968C1318_7008SID; domain=.nih.gov; path=/; expires=Sat, 10
-        Jul 2021 18:48:27 GMT
+      - ncbi_sid=0D7F16019A6D1A3E_49E2SID; domain=.nih.gov; path=/; expires=Sat, 24
+        Oct 2026 16:12:27 GMT
       Strict-Transport-Security:
       - max-age=31536000; includeSubDomains; preload
       Transfer-Encoding:

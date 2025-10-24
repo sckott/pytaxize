@@ -23,7 +23,8 @@ class Refactor:
             xmlparser = etree.XMLParser()
             tt = etree.fromstring(out.content, xmlparser)
             try:
-                # If entrez api 'X-RateLimit-Remaining' header is 1 or below, pause for a second to allow rate limit to reset
+                # If entrez api 'X-RateLimit-Remaining' header is 1 or below,
+                # pause for a second to allow rate limit to reset
                 if int(out.headers["X-RateLimit-Remaining"]) <= 1:
                     time.sleep(1)
             except:
