@@ -40,6 +40,7 @@ Documentation = "https://pytaxize.readthedocs.io"
 
 [dependency-groups]
 dev = [
+    "codecov>=2.1.13",
     "pytest>=7.0.0",
     "pytest-cov",
     "pytest-recording>=0.13.4",
