@@ -27,7 +27,7 @@ class Refactor:
                 # pause for a second to allow rate limit to reset
                 if int(out.headers["X-RateLimit-Remaining"]) <= 1:
                     time.sleep(1)
-            except:
+            except Exception:
                 pass
             return tt
         else:

@@ -16,7 +16,7 @@ def sci2comm(x, db="ncbi"):
         or an `Ids` object
     :param db: (str) Data source, default: "ncbi". NCBI only supported right
         now, other sources to come.
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     :return: dict, keys are supplied scientific names, and values
         are common names
@@ -75,7 +75,7 @@ class CommonNames:
     """CommonNames"""
 
     def __init__(self, id, db):
-        super(CommonNames, self).__init__()
+        super().__init__()
         self.id = id
         self.db = db
 

@@ -9,11 +9,11 @@ itis_base = "http://www.itis.gov/ITISWebService/jsonservice/"
 
 
 def accepted_names(tsn, **kwargs):
-    r"""
+    """
     Get accepted names from tsn
 
     :param tsn: taxonomic serial number (TSN) (character or numeric)
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -34,11 +34,11 @@ def accepted_names(tsn, **kwargs):
 
 
 def any_match_count(x, **kwargs):
-    r"""
+    """
     Get any match count.
 
     :param x: text or taxonomic serial number (TSN) (character or numeric)
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -53,12 +53,12 @@ def any_match_count(x, **kwargs):
 
 
 def comment_detail(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get comment detail from TSN
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -73,12 +73,12 @@ def comment_detail(tsn, as_dataframe=False, **kwargs):
 
 
 def common_names(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get common names from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -96,12 +96,12 @@ def common_names(tsn, as_dataframe=False, **kwargs):
 
 
 def core_metadata(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get core metadata from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -119,12 +119,12 @@ def core_metadata(tsn, as_dataframe=False, **kwargs):
 
 
 def coverage(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get coverge from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -144,12 +144,12 @@ def coverage(tsn, as_dataframe=False, **kwargs):
 
 
 def credibility_rating(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get credibility rating from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -165,10 +165,10 @@ def credibility_rating(tsn, as_dataframe=False, **kwargs):
 
 
 def credibility_ratings(**kwargs):
-    r"""
+    """
     Get possible credibility ratings
 
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
     :return: a dict
 
     Usage::
@@ -184,12 +184,12 @@ def credibility_ratings(**kwargs):
 
 
 def currency(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get currency from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -209,12 +209,12 @@ def currency(tsn, as_dataframe=False, **kwargs):
 
 
 def date_data(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get date data from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -229,12 +229,12 @@ def date_data(tsn, as_dataframe=False, **kwargs):
 
 
 def experts(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get expert information for the TSN.
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -249,12 +249,12 @@ def experts(tsn, as_dataframe=False, **kwargs):
 
 
 def rank_name(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Returns the kingdom and rank information for the TSN.
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -269,12 +269,12 @@ def rank_name(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_full(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get full hierarchy from ts
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -332,12 +332,12 @@ def _fullrecord(verb, args, **kwargs):
 
 
 def full_record(tsn=None, lsid=None, **kwargs):
-    r"""
+    """
     Returns the full ITIS record for a TSN or LSID
 
     :param tsn: (int) TSN for a taxonomic group
     :param lsid: lsid for a taxonomic group (character)
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -356,12 +356,12 @@ def full_record(tsn=None, lsid=None, **kwargs):
 
 
 def geographic_divisions(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get geographic divisions from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -377,10 +377,10 @@ def geographic_divisions(tsn, as_dataframe=False, **kwargs):
 
 
 def geographic_values(**kwargs):
-    r"""
+    """
     Get all possible geographic values
 
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -392,12 +392,12 @@ def geographic_values(**kwargs):
 
 
 def global_species_completeness(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get global species completeness from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -414,12 +414,12 @@ def global_species_completeness(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_down(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get hierarchy down from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -439,12 +439,12 @@ def hierarchy_down(tsn, as_dataframe=False, **kwargs):
 
 
 def hierarchy_up(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get hierarchy up from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -474,14 +474,14 @@ def _get_text_single(x):
 
 
 def terms(x, what="both", as_dataframe=False, **kwargs):
-    r"""
+    """
     Get itis terms
 
     :param x: query term
     :param what: One of both (search common and scientific names), common
         (search just common names), or scientific (search just scientific names)
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -547,12 +547,12 @@ def terms(x, what="both", as_dataframe=False, **kwargs):
 
 
 def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
-    r"""
+    """
     Get jurisdictional origin from tsn
 
     :param tsn: (int) TSN for a taxonomic group
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -572,11 +572,11 @@ def jurisdictional_origin(tsn, as_dataframe=False, **kwargs):
 
 
 def jurisdiction_origin_values(as_dataframe=False, **kwargs):
-    r"""
+    """
     Get jurisdiction origin values
 
     :param as_dataframe: (bool) specify return type, if pandas is available
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     Usage::
 
@@ -592,10 +592,10 @@ def jurisdiction_origin_values(as_dataframe=False, **kwargs):
 
 
 def jurisdiction_values(**kwargs):
-    r"""
+    """
     Get possible jurisdiction values
 
-    :param \*\*kwargs: Curl options passed on to `requests.get`
+    :param **kwargs: Curl options passed on to `requests.get`
 
     :return: list
 
