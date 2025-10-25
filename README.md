@@ -9,22 +9,26 @@ This is a port of the R package [taxize](https://github.com/ropensci/taxize). Th
 
 Why? A significant advantage of a Python version of `taxize` will be for those that are pythonistas at heart. Also, you could use `pytaxize` in a web app, whereas you could with `taxize` (e.g., in a Shiny app), but it wouldn't scale, be very fast, etc.
 
-## python 2/3
-
-pytaxize is only developed in and tested with Python 3
-
 ## Installation
 
 Stable from pypi
 
-```console
+```bash
 pip install pytaxize
 ```
 
 Development version
 
-```console
+```bash
 sudo pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize
+# or with uv
+uv pip install git+git://github.com/sckott/pytaxize.git#egg=pytaxize
+```
+
+Add to your project
+
+```bash
+uv add pytaxize
 ```
 
 ## Taxonomic Ids
@@ -53,21 +57,21 @@ pytaxize.vascan_search(q = ["Helianthus annuus"])
 ```
 
 ```python
-{u'apiVersion': u'0.1',
- u'results': [{u'matches': [{u'canonicalName': u'Helianthus annuus',
-     u'distribution': [{u'establishmentMeans': u'introduced',
-       u'locality': u'NS',
-       u'locationID': u'ISO 3166-2:CA-NS',
-       u'occurrenceStatus': u'introduced'},
-      {u'establishmentMeans': u'',
-       u'locality': u'PE',
-       u'locationID': u'ISO 3166-2:CA-PE',
-       u'occurrenceStatus': u'excluded'},
-      {u'establishmentMeans': u'',
-       u'locality': u'NT',
-       u'locationID': u'ISO 3166-2:CA-NT',
-       u'occurrenceStatus': u'doubtful'},
-      {u'establishmentMeans': u'introduced',
+{'apiVersion': '0.1',
+ 'results': [{'matches': [{'canonicalName': 'Helianthus annuus',
+     'distribution': [{'establishmentMeans': 'introduced',
+       'locality': 'NS',
+       'locationID': 'ISO 3166-2:CA-NS',
+       'occurrenceStatus': 'introduced'},
+      {'establishmentMeans': '',
+       'locality': 'PE',
+       'locationID': 'ISO 3166-2:CA-PE',
+       'occurrenceStatus': 'excluded'},
+      {'establishmentMeans': '',
+       'locality': 'NT',
+       'locationID': 'ISO 3166-2:CA-NT',
+       'occurrenceStatus': 'doubtful'},
+      {'establishmentMeans': 'introduced',
 ```
 
 ## Scrape taxonomic names
