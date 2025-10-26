@@ -1,9 +1,0 @@
-.. _gbif:
-
-Global Biodiversity Information Facility
-========================================
-
-.. py:module:: pytaxize
-  :noindex:
-
-.. automethod:: gbif.parse

@@ -56,4 +56,4 @@ Ipython Notebook
 
 Thumbs.db
 
-# cassettes to ignore
+site/
