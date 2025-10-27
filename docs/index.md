@@ -21,7 +21,6 @@ A taxonomic toolbelt for Python providing access to multiple taxonomic databases
 - **Global Names Index**
 - **Global Names Resolver**
 - **CANADENSYS Vascan API**
-- **Encyclopedia of Life**
 
 ## Installation
 
@@ -52,7 +51,7 @@ ids_obj = Ids(['Helianthus annuus', 'Pinus contorta'])
 ids_obj.itis()
 print(ids_obj.ids)
 
-# Get common names from scientific names  
+# Get common names from scientific names
 common = scicomm.sci2comm('Helianthus annuus')
 print(common)
 
@@ -105,6 +104,6 @@ MIT License. See the [LICENSE](https://github.com/sckott/pytaxize/blob/main/LICE
 If you use pytaxize in your research, please cite:
 
 ```
-Chamberlain, S. (2024). pytaxize: Taxonomic toolbelt for Python. 
+Chamberlain, S. (2024). pytaxize: Taxonomic toolbelt for Python.
 https://github.com/sckott/pytaxize
 ```
