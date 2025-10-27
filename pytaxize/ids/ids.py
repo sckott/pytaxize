@@ -1,15 +1,8 @@
-import itertools
 import warnings
 
 from pytaxize.itis import terms
 from pytaxize.ncbi import ncbi
 
-from .eol_helpers import (
-    eol_search_query_for_single_name,
-    eol_taxa_query,
-    process_eol_search_response,
-    process_list_of_taxa_details,
-)
 from .format_helpers import _make_id
 from .gbif_helpers import gbif_query_for_single_name, process_gbif_response
 
@@ -24,7 +17,7 @@ class Ids:
 
     Usage::
 
-        from pytaxize import Ids
+        from pytaxize.ids import Ids
 
         x = Ids('Poa annua')
         x
@@ -57,12 +50,6 @@ class Ids:
         x = Ids("Helianthus annuus")
         x.itis(type="scientific")
         x.extract_ids()
-
-        # EOL
-        z = Ids("Helianthus annuus")
-        z.eol()
-        z.extract_ids()
-        z.ids
     """
 
     def __init__(self, name):
@@ -129,21 +116,6 @@ class Ids:
         self.ids = dict(
             zip(
                 self.name, list(map(lambda x: process_gbif_response(x, rank), response))
-            )
-        )
-
-    def eol(self):
-        self.db_ids = "eol"
-        response = zip(self.name, map(eol_search_query_for_single_name, self.name))
-        pageids_per_species = list(map(process_eol_search_response, response))
-        taxa_dicts_per_species = map(eol_taxa_query, pageids_per_species)
-        taxa_dicts_per_species = list(
-            map(lambda x: list(itertools.chain(*x)), taxa_dicts_per_species)
-        )
-        self.ids = dict(
-            zip(
-                self.name,
-                list(map(process_list_of_taxa_details, taxa_dicts_per_species)),
             )
         )
 

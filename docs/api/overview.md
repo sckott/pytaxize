@@ -24,9 +24,8 @@ ids_obj = Ids(['Helianthus annuus', 'Pinus contorta'])
 
 # Get IDs from different databases
 ids_obj.itis()    # ITIS database
-ids_obj.ncbi()    # NCBI database  
+ids_obj.ncbi()    # NCBI database
 ids_obj.gbif()    # GBIF database
-ids_obj.eol()     # Encyclopedia of Life
 
 print(ids_obj.ids)  # Access the results
 ```
@@ -107,7 +106,7 @@ from pytaxize import gn
 gn.gni.search(search_term="Helianthus*")
 gn.gni.parse(names=['Cyanistes caeruleus'])
 
-# Global Names Resolver  
+# Global Names Resolver
 gn.gnr.resolve(names="Homo sapiens")
 gn.gnr.datasources()
 ```

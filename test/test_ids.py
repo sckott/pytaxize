@@ -24,15 +24,6 @@ class TestIds:
     def test_ids_gbif_list_of_names(self):
         self.individual_id_retrieval("gbif",["Panthera tigris","Panthera leo"])
 
-    # FIXME: EOL requests giving "Max retries exceeded"
-    # @vcr.use_cassette("test/vcr_cassettes/ids_eol_single_name.yml")
-    # def test_ids_eol_single_name(self):
-    #     self.individual_id_retrieval("eol","Panthera tigris")
-
-    # @vcr.use_cassette("test/vcr_cassettes/ids_eol_list_of_names.yml")
-    # def test_ids_eol_list_of_names(self):
-    #     self.individual_id_retrieval("eol",["Panthera tigris","Panthera leo"])
-
     @vcr.use_cassette("test/vcr_cassettes/ids_itis_single_name.yml")
     def test_ids_itis_single_name(self):
         self.individual_id_retrieval("itis","Panthera tigris")
@@ -59,8 +50,6 @@ class TestIds:
     def load_appropriate_ids(self,instance,db):
         if db == "gbif":
             instance.gbif()
-        if db == "eol":
-            instance.eol()
         if db == "itis":
             instance.itis()
         if db == "ncbi":

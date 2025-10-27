@@ -23,10 +23,6 @@ id_uris = {
         "species": "https://api.gbif.org/v1/species/suggest?q=%s&rank=%s",
         "other": "https://api.gbif.org/v1/species/suggest?q=%s&rank=%s",
     },
-    "eol": {
-        "species": "https://eol.org/pages/%s",
-        "other": "https://eol.org/pages/%s",
-    },
 }
 
 
@@ -39,9 +35,6 @@ def _make_id_uri(rank, which, x):
         app = x
         if which == "gbif":
             app = (x, rank)
-
-        if which == "eol":
-            app = ""
 
         return result % app
     else:

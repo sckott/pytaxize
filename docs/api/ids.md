@@ -11,7 +11,7 @@ The `Ids` class is designed to take taxonomic names and retrieve corresponding i
 ### Constructor
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 # Single name
 ids_obj = Ids('Helianthus annuus')
@@ -36,7 +36,7 @@ Get taxonomic IDs from ITIS (Integrated Taxonomic Information System).
 **Examples:**
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids(['Helianthus annuus', 'Pinus contorta'])
 ids_obj.itis()
@@ -55,7 +55,7 @@ Get taxonomic IDs from NCBI Taxonomy database.
 **Examples:**
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids('Homo sapiens')
 ids_obj.ncbi()
@@ -72,7 +72,7 @@ Get taxonomic IDs from GBIF (Global Biodiversity Information Facility).
 **Examples:**
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids('Quercus alba')
 ids_obj.gbif()
@@ -80,20 +80,6 @@ print(ids_obj.ids)
 
 # With specific rank
 ids_obj.gbif(rank='genus')
-```
-
-#### eol()
-
-Get taxonomic IDs from Encyclopedia of Life.
-
-**Examples:**
-
-```python
-from pytaxize import Ids
-
-ids_obj = Ids('Panthera leo')
-ids_obj.eol()
-print(ids_obj.ids)
 ```
 
 #### db()
@@ -107,7 +93,7 @@ Generic method to query any supported database.
 **Examples:**
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids('Canis lupus')
 ids_obj.db(db='itis')
@@ -138,7 +124,7 @@ Get the original input names.
 Get the database that was last queried.
 
 **Returns:**
-- String indicating the database ('itis', 'ncbi', 'gbif', 'eol')
+- String indicating the database ('itis', 'ncbi', 'gbif')
 
 ## Methods
 
@@ -152,7 +138,7 @@ Extract just the ID values from the results.
 **Examples:**
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids(['Homo sapiens', 'Quercus alba'])
 ids_obj.itis()
@@ -170,7 +156,7 @@ print(id_dict)
 ### Basic Usage
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 # Single species
 single_species = Ids('Helianthus annuus')
@@ -186,7 +172,7 @@ print(f"Multiple species results: {multi_species.ids}")
 ### Querying Multiple Databases
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 species = Ids('Homo sapiens')
 
@@ -211,7 +197,7 @@ print(f"GBIF ({gbif_db}): {gbif_results}")
 ### Working with Results
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 ids_obj = Ids(['Felis catus', 'Canis lupus'])
 ids_obj.itis()
@@ -232,7 +218,7 @@ for species_name, id_list in ids_obj.ids.items():
 ### Extracting Just IDs
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 
 # Get IDs and extract just the ID values
 species = Ids(['Homo sapiens', 'Quercus alba'])
@@ -255,26 +241,24 @@ print(f"\nHomo sapiens IDs: {homo_sapiens_ids}")
 ### Error Handling
 
 ```python
-from pytaxize import Ids
+from pytaxize.ids import Ids
 import warnings
 
 def safe_id_lookup(species_names, database='itis'):
     """Safely look up species IDs with error handling"""
-    
+
     try:
         ids_obj = Ids(species_names)
-        
+
         if database == 'itis':
             ids_obj.itis()
         elif database == 'ncbi':
             ids_obj.ncbi()
         elif database == 'gbif':
             ids_obj.gbif()
-        elif database == 'eol':
-            ids_obj.eol()
         else:
             raise ValueError(f"Unsupported database: {database}")
-        
+
         results = {}
         for name, id_list in ids_obj.ids.items():
             if id_list and id_list[0].get('id'):
@@ -290,9 +274,9 @@ def safe_id_lookup(species_names, database='itis'):
                     'message': f'No {database} IDs found',
                     'database': database
                 }
-        
+
         return results
-        
+
     except Exception as e:
         return {'error': f'Lookup failed: {str(e)}'}
 
@@ -313,7 +297,7 @@ for species, result in results.items():
 ### Integration with Other Functions
 
 ```python
-from pytaxize import Ids, scicomm
+from pytaxize.ids import Ids, scicomm
 
 # Get IDs first
 ids_obj = Ids(['Helianthus annuus', 'Quercus alba'])
@@ -338,7 +322,7 @@ The `ids` property returns a dictionary with the following structure:
     'Species name 1': [
         {
             'id': 'taxonomic_id',
-            'name': 'matched_name', 
+            'name': 'matched_name',
             'rank': 'taxonomic_rank',
             'uri': 'reference_uri'
         },
@@ -360,7 +344,7 @@ The `ids` property returns a dictionary with the following structure:
 
 ### NCBI Taxonomy
 - **Coverage**: All domains of life with genetic data
-- **ID Format**: Taxonomy ID (TaxID) 
+- **ID Format**: Taxonomy ID (TaxID)
 - **API**: NCBI E-utilities
 - **Requirements**: ENTREZ_KEY recommended
 
@@ -369,12 +353,6 @@ The `ids` property returns a dictionary with the following structure:
 - **ID Format**: GBIF species key
 - **API**: GBIF Species API
 - **Free**: Yes
-
-### Encyclopedia of Life (EOL)
-- **Coverage**: All known species
-- **ID Format**: Page ID
-- **API**: EOL API v1
-- **Status**: Legacy API, may be deprecated
 
 ## Configuration
 
